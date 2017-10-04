@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Module: SmartQuery &mdash; CXP SearchHub 0.9.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="CXP SearchHub 0.9.2 documentation" href="../index.html"/>
+        <link rel="prev" title="Basic Architecture" href="../architecture.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CXP SearchHub
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.9
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../architecture.html">Basic Architecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Module: SmartQuery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#direct-integration">Direct Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#maven-dependency">Maven Dependency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#library-usage">Library Usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CXP SearchHub</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Module: SmartQuery</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/smartquery.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-smartquery">
+<h1>Module: SmartQuery<a class="headerlink" href="#module-smartquery" title="Permalink to this headline">¶</a></h1>
+<p>SmartQuery is a SearchHub module that maps similar queries (e.g. “skate board”, “skate boarding”, “skateboards”, “skateboard”) to the best <a class="footnote-reference" href="#id2" id="id1">[1]</a> query - we call it the MasterQuery.
+It is connected to the SearchHub API where it get’s the required data and sends back statistics and performance information.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>There are also use cases, where we have ambiguos mappings that lead to several MasterQueries</td></tr>
+</tbody>
+</table>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Java with version &gt;=1.8</li>
+<li>around 200MB to 500MB additional Java Heapspace (depending on the amount of data it has to manage)</li>
+<li>a firewall configured to allow connections to the HTTP API Endpoints <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> and <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a></li>
+</ul>
+</div>
+<div class="section" id="direct-integration">
+<h2>Direct Integration<a class="headerlink" href="#direct-integration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="maven-dependency">
+<h3>Maven Dependency<a class="headerlink" href="#maven-dependency" title="Permalink to this headline">¶</a></h3>
+<p>The SmartQuery library can be polled as a maven dependency from the private repository <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhubexternal/">https://nexus.commerce-experts.com/content/repositories/searchhubexternal/</a>.
+Access credentials to the private repository are provided separately.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;dependency&gt;
+    &lt;groupId&gt;io.searchhub&lt;/groupId&gt;
+    &lt;artifactId&gt;smartquery&lt;/artifactId&gt;
+    &lt;version&gt;0.9.2&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;!-- ... --&gt;
+
+&lt;repository&gt;
+    &lt;id&gt;external-releases&lt;/id&gt;
+    &lt;url&gt;https://nexus.commerce-experts.com/content/repositories/searchhubexternal/&lt;/url&gt;
+&lt;/repository&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="library-usage">
+<h3>Library Usage<a class="headerlink" href="#library-usage" title="Permalink to this headline">¶</a></h3>
+<p>The central component provided by the SmartQuery library is the <cite>QueryMapper</cite>. It provides a the single and simple method <cite>mapQuery</cite> which accepts a String and optionally returns another one.
+It is basically similar to a <cite>HashMap.get</cite> method, that will return <cite>null</cite> if no mapping could be found. In such a case the original String should be used.</p>
+<p>The <cite>QueryMapper</cite> will be constructed by the <cite>QueryMapperManager</cite> which needs to be instantiated with the provided API Key.
+It is recommended to use a single <cite>QueryMapperManager</cite> object, since it will internally spawn and manage a <cite>ScheduledThreadPoolExecutor</cite> to update the QueryMapper instances asynchronously.</p>
+<p>Use the <cite>getQueryMapper</cite> method on your <cite>QueryMapperManager</cite> instance, to get the according QueryMapper.
+It requires the <cite>Tenant</cite> parameter, which represents the reference to the according data domain.
+An non existing tenant won’t cause an error but simply return a QueryMapper that always returns <cite>null</cite>.</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">private</span> <span class="n">QueryMapperManager</span> <span class="n">qmManager</span> <span class="o">=</span> <span class="n">new</span> <span class="n">QueryMapperManager</span><span class="p">(</span><span class="s2">&quot;YourApiKey&quot;</span><span class="p">);</span>
+
+<span class="n">public</span> <span class="n">String</span> <span class="n">getSearchQuery</span><span class="p">(</span><span class="n">String</span> <span class="n">userQuery</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Tenant</span> <span class="n">tenant</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Tenant</span><span class="p">(</span><span class="s2">&quot;customer&quot;</span><span class="p">,</span> <span class="s2">&quot;channel&quot;</span><span class="p">);</span>
+    <span class="n">QueryMapper</span> <span class="n">qm</span> <span class="o">=</span> <span class="n">qmManager</span><span class="o">.</span><span class="n">getQueryMapper</span><span class="p">(</span><span class="n">tenant</span><span class="p">);</span>
+
+    <span class="n">String</span> <span class="n">mappedQuery</span> <span class="o">=</span> <span class="n">qm</span><span class="o">.</span><span class="n">mapQuery</span><span class="p">(</span><span class="n">userQuery</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">mappedQuery</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="k">return</span> <span class="n">mappedQuery</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">return</span> <span class="n">userQuery</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <cite>getQueryMapper</cite> method will allways return the same instance of <cite>QueryMapper</cite> for the same given <cite>Tenant</cite>, so it’s not necessary to keep a reference of the <cite>QueryMapper</cite>. Keeping a reference of a <cite>QueryMapper</cite> isn’t a problem though, since each <cite>QueryMapper</cite> instance can be updated in the background.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../architecture.html" class="btn btn-neutral" title="Basic Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, CXP Commerce Experts GmbH.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.9.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

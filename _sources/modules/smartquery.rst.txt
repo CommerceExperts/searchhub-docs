@@ -1,0 +1,71 @@
+Module: SmartQuery
+==================
+
+SmartQuery is a SearchHub module that maps similar queries (e.g. "skate board", "skate boarding", "skateboards", "skateboard") to the best [1]_ query - we call it the MasterQuery.
+It is connected to the SearchHub API where it get's the required data and sends back statistics and performance information.
+
+.. [1] There are also use cases, where we have ambiguos mappings that lead to several MasterQueries
+
+
+Requirements
+------------
+
+- Java with version >=1.8
+- around 200MB to 500MB additional Java Heapspace (depending on the amount of data it has to manage)
+- a firewall configured to allow connections to the HTTP API Endpoints https://query.searchhub.io/ and https://import.searchhub.io/
+
+
+Direct Integration
+------------------
+
+
+Maven Dependency
+^^^^^^^^^^^^^^^^
+
+The SmartQuery library can be polled as a maven dependency from the private repository https://nexus.commerce-experts.com/content/repositories/searchhubexternal/.
+Access credentials to the private repository are provided separately.
+
+::
+
+    <dependency>
+        <groupId>io.searchhub</groupId>
+        <artifactId>smartquery</artifactId>
+        <version>0.9.2</version>
+    </dependency>
+    
+    <!-- ... -->
+    
+    <repository>
+        <id>external-releases</id>
+        <url>https://nexus.commerce-experts.com/content/repositories/searchhubexternal/</url>
+    </repository>
+
+
+Library Usage
+^^^^^^^^^^^^^
+
+The central component provided by the SmartQuery library is the `QueryMapper`. It provides a the single and simple method `mapQuery` which accepts a String and optionally returns another one. 
+It is basically similar to a `HashMap.get` method, that will return `null` if no mapping could be found. In such a case the original String should be used.
+
+The `QueryMapper` will be constructed by the `QueryMapperManager` which needs to be instantiated with the provided API Key. 
+It is recommended to use a single `QueryMapperManager` object, since it will internally spawn and manage a `ScheduledThreadPoolExecutor` to update the QueryMapper instances asynchronously.
+
+Use the `getQueryMapper` method on your `QueryMapperManager` instance, to get the according QueryMapper.
+It requires the `Tenant` parameter, which represents the reference to the according data domain.
+An non existing tenant won't cause an error but simply return a QueryMapper that always returns `null`.
+
+Example::
+
+    private QueryMapperManager qmManager = new QueryMapperManager("YourApiKey");
+
+    public String getSearchQuery(String userQuery)
+    {
+        Tenant tenant = new Tenant("customer", "channel");
+        QueryMapper qm = qmManager.getQueryMapper(tenant);
+        
+        String mappedQuery = qm.mapQuery(userQuery);
+        if (mappedQuery != null) return mappedQuery;
+        else return userQuery;
+    }
+
+The `getQueryMapper` method will allways return the same instance of `QueryMapper` for the same given `Tenant`, so it's not necessary to keep a reference of the `QueryMapper`. Keeping a reference of a `QueryMapper` isn't a problem though, since each `QueryMapper` instance can be updated in the background.
