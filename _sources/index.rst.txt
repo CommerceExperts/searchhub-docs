@@ -5,6 +5,6 @@ CXP SearchHub documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   architecture
+   overview
    modules/smartquery
 
