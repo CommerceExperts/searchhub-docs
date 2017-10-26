@@ -21,7 +21,7 @@ Direct Integration
 Maven Dependency
 ^^^^^^^^^^^^^^^^
 
-The SmartQuery library can be pulled as a maven dependency from the private repository https://nexus.commerce-experts.com/content/repositories/searchhubexternal/ [2]_.
+The SmartQuery library can be pulled as a maven dependency from the private repository https://nexus.commerce-experts.com/content/repositories/searchhub-external/ [2]_.
 
 .. [2] Access credentials to the private repository are provided separately.
 
@@ -30,14 +30,14 @@ The SmartQuery library can be pulled as a maven dependency from the private repo
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>smartquery</artifactId>
-        <version>0.9.3</version>
+        <version>0.9.6</version>
     </dependency>
     
     <!-- ... -->
     
     <repository>
         <id>external-releases</id>
-        <url>https://nexus.commerce-experts.com/content/repositories/searchhubexternal/</url>
+        <url>https://nexus.commerce-experts.com/content/repositories/searchhub-external/</url>
     </repository>
 
 
