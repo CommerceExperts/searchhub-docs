@@ -2,9 +2,9 @@ Module: SmartQuery
 ==================
 
 SmartQuery is a SearchHub module that maps similar queries (e.g. "skate board", "skate boarding", "skateboards", "skateboard") to the best [1]_ query - we call it the MasterQuery.
-It is connected to the SearchHub API where it get's the required data and sends back statistics and performance information.
+It is connected to the SearchHub API where it gets the required data and sends back statistics and performance information.
 
-.. [1] There are also use cases, where we have ambiguos mappings that lead to several MasterQueries. They will get a special handling in the future.
+.. [1] There are also use cases, where we have ambiguous mappings that lead to several MasterQueries. They will get a special handling in the future.
 
 
 Requirements
@@ -30,7 +30,7 @@ The SmartQuery library can be pulled as a maven dependency from the private repo
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>smartquery</artifactId>
-        <version>0.10.0</version>
+        <version>0.10.1</version>
     </dependency>
     
     <!-- ... -->
@@ -51,7 +51,7 @@ Tenant
   
   2) a "channel", which gives a second level of segment separation. That can be for example a separation by language (en, de, ..) or by sales channel (mobile, www, ..).
   
-  Both values need a common aggreament between the client implementation (you) and the service provider (us/CXP).
+  Both values need a common agreement between the client implementation (you) and the service provider (us/CXP).
   
 
 QueryMapper
@@ -66,7 +66,7 @@ QueryMapperManager
   
   :QueryMapper getQueryMapper(Tenant t):
   
-    The `getQueryMapper` method will allways return the same instance of `QueryMapper` for the same given `Tenant`, so it's not necessary to keep a reference of the `QueryMapper`. Keeping a reference of a `QueryMapper` isn't a problem though, since each `QueryMapper` instance will be updated directly in the background.
+    The `getQueryMapper` method will always return the same instance of `QueryMapper` for the same given `Tenant`, so it's not necessary to keep a reference of the `QueryMapper`. Keeping a reference of a `QueryMapper` isn't a problem though, since each `QueryMapper` instance will be updated directly in the background.
     
     A non existing tenant won't cause an error but simply return a QueryMapper that always returns `null`.
 

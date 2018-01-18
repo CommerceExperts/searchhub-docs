@@ -168,11 +168,11 @@
   <div class="section" id="module-smartquery">
 <h1>Module: SmartQuery<a class="headerlink" href="#module-smartquery" title="Permalink to this headline">¶</a></h1>
 <p>SmartQuery is a SearchHub module that maps similar queries (e.g. “skate board”, “skate boarding”, “skateboards”, “skateboard”) to the best <a class="footnote-reference" href="#id2" id="id1">[1]</a> query - we call it the MasterQuery.
-It is connected to the SearchHub API where it get’s the required data and sends back statistics and performance information.</p>
+It is connected to the SearchHub API where it gets the required data and sends back statistics and performance information.</p>
 <table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>There are also use cases, where we have ambiguos mappings that lead to several MasterQueries. They will get a special handling in the future.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>There are also use cases, where we have ambiguous mappings that lead to several MasterQueries. They will get a special handling in the future.</td></tr>
 </tbody>
 </table>
 <div class="section" id="requirements">
@@ -197,7 +197,7 @@ It is connected to the SearchHub API where it get’s the required data and send
 <div class="highlight-default"><div class="highlight"><pre><span></span>&lt;dependency&gt;
     &lt;groupId&gt;io.searchhub&lt;/groupId&gt;
     &lt;artifactId&gt;smartquery&lt;/artifactId&gt;
-    &lt;version&gt;0.10.0&lt;/version&gt;
+    &lt;version&gt;0.10.1&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- ... --&gt;
@@ -218,7 +218,7 @@ It is connected to the SearchHub API where it get’s the required data and send
 <li>the basic “name”, which normally would be the customer name</li>
 <li>a “channel”, which gives a second level of segment separation. That can be for example a separation by language (en, de, ..) or by sales channel (mobile, www, ..).</li>
 </ol>
-<p class="last">Both values need a common aggreament between the client implementation (you) and the service provider (us/CXP).</p>
+<p class="last">Both values need a common agreement between the client implementation (you) and the service provider (us/CXP).</p>
 </dd>
 <dt>QueryMapper</dt>
 <dd><p class="first">The central component provided by the SmartQuery library is the <cite>QueryMapper</cite>. It provides a the single and simple method <cite>mapQuery</cite>.</p>
@@ -239,7 +239,7 @@ It is connected to the SearchHub API where it get’s the required data and send
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">QueryMapper getQueryMapper(Tenant t):</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">The <cite>getQueryMapper</cite> method will allways return the same instance of <cite>QueryMapper</cite> for the same given <cite>Tenant</cite>, so it’s not necessary to keep a reference of the <cite>QueryMapper</cite>. Keeping a reference of a <cite>QueryMapper</cite> isn’t a problem though, since each <cite>QueryMapper</cite> instance will be updated directly in the background.</p>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">The <cite>getQueryMapper</cite> method will always return the same instance of <cite>QueryMapper</cite> for the same given <cite>Tenant</cite>, so it’s not necessary to keep a reference of the <cite>QueryMapper</cite>. Keeping a reference of a <cite>QueryMapper</cite> isn’t a problem though, since each <cite>QueryMapper</cite> instance will be updated directly in the background.</p>
 <p class="last">A non existing tenant won’t cause an error but simply return a QueryMapper that always returns <cite>null</cite>.</p>
 </td>
 </tr>
