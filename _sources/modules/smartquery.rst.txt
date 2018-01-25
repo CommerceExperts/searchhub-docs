@@ -1,10 +1,10 @@
-Module: SmartQuery
-==================
+SmartQuery
+==========
 
-SmartQuery is a SearchHub module that maps similar queries (e.g. "skate board", "skate boarding", "skateboards", "skateboard") to the best [1]_ query - we call it the MasterQuery.
-It is connected to the SearchHub API where it gets the required data and sends back statistics and performance information.
+SmartQuery is a search|hub module that maps similar queries (e.g. "skate board", "skate boarding", "skateboards", "skateboard") to the best [1]_ query - we call it the MasterQuery.
+It automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module itself and the mapping process.
 
-.. [1] There are also use cases, where we have ambiguous mappings that lead to several MasterQueries. They will get a special handling in the future.
+.. [1] There are also use cases, where we have ambiguous mappings that lead to several MasterQueries. They will get a special handling in the future. The best query means the best in terms of user interaction and economic outcome.
 
 
 Requirements
@@ -21,7 +21,7 @@ Direct Integration
 Maven Dependency
 ^^^^^^^^^^^^^^^^
 
-The SmartQuery library can be pulled as a maven dependency from the private repository https://nexus.commerce-experts.com/content/repositories/searchhub-external/ [2]_.
+The SmartQuery library can be pulled as a maven dependency from our private repository https://nexus.commerce-experts.com/content/repositories/searchhub-external/ [2]_.
 
 .. [2] Access credentials to the private repository are provided separately.
 
@@ -44,29 +44,26 @@ The SmartQuery library can be pulled as a maven dependency from the private repo
 Library Usage
 ^^^^^^^^^^^^^
 
+The library contains the following three central types:
+
 Tenant
-  A tenant represents the reference to the according customer domain. It consists of two values::
-  
-  1) the basic "name", which normally would be the customer name
-  
-  2) a "channel", which gives a second level of segment separation. That can be for example a separation by language (en, de, ..) or by sales channel (mobile, www, ..).
-  
-  Both values need a common agreement between the client implementation (you) and the service provider (us/CXP).
+  Simple POJO that represents a single data domain. See :ref:`What is the Tenant? <tenant>` at the `Ingestion`_ section
   
 
 QueryMapper
-  The central component provided by the SmartQuery library is the `QueryMapper`. It provides a the single and simple method `mapQuery`.
+  The central component provided by the SmartQuery library is the `QueryMapper`. It provides a single and simple method `mapQuery`.
 
   :String mapQuery(String input):
   
-    This method returns a mapped string, if a mapping could be found and `null` if no mapping could be found. In such a case the input String should be used.
+    This method returns a mapped string, if the mapping process was successful and `null` if not. In such case the input String should be used.
 
 QueryMapperManager
-  This class is responsible to initialize and manage the QueryMappers for the required Tenants. It needs be instantiated with the provided API key [3]_. It is recommended to use a single `QueryMapperManager` object, since it will internally spawn and manage several threads to update the `QueryMapper` instances asynchronously.
+  This class is responsible to initialize and manage the QueryMappers for the required Tenants. It needs to be instantiated with the provided API key [3]_. 
+  It's necessary to use a single `QueryMapperManager` object and keep the reference to it, since it will internally spawn and manage several threads to update the `QueryMapper` instances asynchronously.
   
   :QueryMapper getQueryMapper(Tenant t):
   
-    The `getQueryMapper` method will always return the same instance of `QueryMapper` for the same given `Tenant`, so it's not necessary to keep a reference of the `QueryMapper`. Keeping a reference of a `QueryMapper` isn't a problem though, since each `QueryMapper` instance will be updated directly in the background.
+    The `getQueryMapper` method will always return the same instance of `QueryMapper` for the same given `Tenant`, so it's not necessary to keep a reference of the `QueryMapper`. Keeping a reference of a `QueryMapper` instance isn't a problem though, since each `QueryMapper` will be updated in the background.
     
     A non existing tenant won't cause an error but simply return a QueryMapper that always returns `null`.
 
@@ -76,7 +73,7 @@ QueryMapperManager
 Usage Example
 ^^^^^^^^^^^^^
 
-::
+.. code-block:: java
 
     private QueryMapperManager qmManager = new QueryMapperManager("YourApiKey");
 
@@ -86,7 +83,9 @@ Usage Example
         QueryMapper qm = qmManager.getQueryMapper(tenant);
         
         String mappedQuery = qm.mapQuery(userQuery);
-        if (mappedQuery != null) return mappedQuery;
-        else return userQuery;
+        return mappedQuery != null ? mappedQuery : userQuery;
     }
 
+
+.. _Ingestion: ingestion.html
+.. _

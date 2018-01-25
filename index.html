@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CXP SearchHub documentation! &mdash; CXP SearchHub 0.9.2 documentation</title>
+  <title>CXP search|hub documentation &mdash; CXP SearchHub 0.9.2 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="CXP SearchHub 0.9.2 documentation" href="#"/>
-        <link rel="next" title="Overview" href="overview.html"/> 
+        <link rel="next" title="Ingestion" href="ingestion.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -90,9 +90,11 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/smartquery.html">Module: SmartQuery</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CXP search|hub documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="system-integration.html">System Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
 </ul>
 
             
@@ -137,7 +139,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>CXP SearchHub documentation!</li>
+      <li>CXP search|hub documentation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -156,22 +158,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cxp-searchhub-documentation">
-<h1>CXP SearchHub documentation!<a class="headerlink" href="#cxp-searchhub-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="cxp-search-hub-documentation">
+<h1>CXP search|hub documentation<a class="headerlink" href="#cxp-search-hub-documentation" title="Permalink to this headline">¶</a></h1>
+<p>search|hub automatically optimizes user generated search queries (user queries) before they hit the actual search engine as (search query).
+It therfore acts as a simple http proxy, that provides a simple plug-in system for query rewriting modules.</p>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>Before integrating search|hub or one of the modules into your system, we typically estimate the potential effect of search|hub. To generate such a report, we need access or an export of your web analytics system (e.g. Google-Analytics) of an representative time interval. Alternatively we also accept search logs that contain user queries and optimally some KPIs (e.g. raw tracking logs).
+Based on this data, we can pre-train search|hub and estimate the potential performance of search|hub.</p>
+<p>Please <a class="reference external" href="https://www.searchhub.io/contact-us.html">contact us</a> to request a potential report for your data. Also check the <a class="reference external" href="ingestion.html">Ingestion</a> section concerning the data format requirements.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="overview.html#modules">Modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="overview.html#system-integration">System Integration</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CXP search|hub documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ingestion.html#required-data">Required data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingestion.html#ways-to-ingest-data">Ways to ingest data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingestion.html#data-format-for-analytics-export">Data format for analytics export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingestion.html#what-is-the-tenant">What is the Tenant?</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules/smartquery.html">Module: SmartQuery</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="modules/smartquery.html#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/smartquery.html#direct-integration">Direct Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="system-integration.html">System Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/smartquery.html">SmartQuery</a></li>
 </ul>
 </li>
 </ul>
+</div>
 </div>
 </div>
 
@@ -185,7 +198,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ingestion.html" class="btn btn-neutral float-right" title="Ingestion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

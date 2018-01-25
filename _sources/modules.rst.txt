@@ -1,0 +1,17 @@
+Modules
+=======
+
+There are several approaches of "search query optimization". Each is realized as a module for search|hub, like the main module `SmartQuery`_.
+
+By default search|hub combines the installed modules in a meaningful combination to provide the wished behavior.
+
+It is also possible to integrate the single modules directly into a system using native Java Code, therefor read the according module documentation, especially the according integration section.
+
+.. toctree::
+   :maxdepth: 2
+   :glob:
+
+   modules/*
+
+
+.. _SmartQuery: modules/smartquery.html

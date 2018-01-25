@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ingestion &mdash; CXP SearchHub 0.9.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="CXP SearchHub 0.9.2 documentation" href="index.html"/>
+        <link rel="next" title="System Integration" href="system-integration.html"/>
+        <link rel="prev" title="CXP search|hub documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CXP SearchHub
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.9
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">CXP search|hub documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Ingestion</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#required-data">Required data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ways-to-ingest-data">Ways to ingest data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-format-for-analytics-export">Data format for analytics export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-the-tenant">What is the Tenant?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="system-integration.html">System Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CXP SearchHub</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Ingestion</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ingestion.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ingestion">
+<h1>Ingestion<a class="headerlink" href="#ingestion" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="required-data">
+<h2>Required data<a class="headerlink" href="#required-data" title="Permalink to this headline">¶</a></h2>
+<p>Most important for search|hub are user generated search queries (user queries) and their corresponding KPIs. We recommend to use at least some of the following KPIs:</p>
+<ul class="simple">
+<li>Search-Frequency</li>
+<li>Match-Count</li>
+<li>Click-Rate (CTR)</li>
+<li>Click-to-basket (CTB)</li>
+<li>Conversion-Rate (CR)</li>
+<li>Total-Revenue</li>
+<li>Exit-Rate</li>
+</ul>
+<p>Based on these KPIs, search|hub will be able to make better decisions. The chosen KPIs depend on the wished goal of your search. If the zero-match rate should be lowered, the match count should be delivered.</p>
+<p>If you have curated landing pages for certain queries or optimized search results, you can export the according queries and search|hub will prefer these queries and automaticlly increase the traffic to them.
+This can be a simple txt file with the name of the tenant, e.g. <code class="docutils literal"><span class="pre">whitelist.&lt;tenant&gt;.txt</span></code>.</p>
+</div>
+<div class="section" id="ways-to-ingest-data">
+<h2>Ways to ingest data<a class="headerlink" href="#ways-to-ingest-data" title="Permalink to this headline">¶</a></h2>
+<p>We provide the following possibilities to ingest the data:</p>
+<ul class="simple">
+<li>API access to your Web-Analytics tool, e.g. Google-Analytics</li>
+<li>Analytics exports that can be pulled by some URL. Alternatively we can provide an FTP account, where such export files can be uploaded.
+Please consider the data-format requirements below.</li>
+<li>If no analytics system is available, we can also ingest log files or other raw files and extract the necessary data from it.
+This option might be charged extra however. Please contact us, to discuss this or check other options.</li>
+</ul>
+</div>
+<div class="section" id="data-format-for-analytics-export">
+<h2>Data format for analytics export<a class="headerlink" href="#data-format-for-analytics-export" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul>
+<li><p class="first">An analytics export must clearly be assigned to a single tenant / shop / sales channel</p>
+</li>
+<li><p class="first">We recommend the export file(s) to be named in this format:
+<code class="docutils literal"><span class="pre">&lt;custom-prefix&gt;.&lt;tenant&gt;.&lt;date:YYYY-MM-DD&gt;[-&lt;date:YYYY-MM-DD&gt;].&lt;file-extension&gt;</span></code></p>
+<p>Some explanation to the listed parts:</p>
+<ul>
+<li><p class="first">A custom prefix or other custom strings can be part of the filename, e.g. “export…”</p>
+</li>
+<li><p class="first">The tenant must be part of the file name! See “<a class="reference internal" href="#what-is-the-tenant">What is the Tenant?</a>” for detailed information.</p>
+</li>
+<li><p class="first">Each export should be associated with a certain time-range, which could be a single day or a range of two days (both considered inclusive).</p>
+<p>If the export only belongs to a single day, the second date is not necessary.</p>
+<p>As an exception Google-Analytics BigQuery exports are accepted to contain the associated time range as an attribute at the file content.</p>
+</li>
+</ul>
+<p>The delimiters and the order of these parts are arranged, it’s important to gain these listed information from it.</p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="what-is-the-tenant">
+<span id="tenant"></span><h2>What is the Tenant?<a class="headerlink" href="#what-is-the-tenant" title="Permalink to this headline">¶</a></h2>
+<p>The tenant value is used as an ID and references to a single data domain, e.g. a customer domain. The tenant is composed of two values in the format <cite>&lt;name&gt;.&lt;channel&gt;</cite>.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>the basic “name”, which normally would be the customer name</li>
+<li>a “channel”, which gives a second level of segment separation. That can be for example a separation by language (en, de, ..) or by sales channel (mobile, www, ..).</li>
+</ol>
+</div></blockquote>
+<p>For both parts we recommend a lowercase name only containing alphanumeric characters and optionally dash (<cite>-</cite>) and underscore (<cite>_</cite>). You can use the shop domain, or the combination of your company name and a language code.</p>
+<p>In most cases the tenant is influenced by the provided data, but actually we just let you know about the available tenants, since we use them as an unique identifier in our whole data processing pipeline.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="system-integration.html" class="btn btn-neutral float-right" title="System Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="CXP search|hub documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, CXP Commerce Experts GmbH.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.9.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

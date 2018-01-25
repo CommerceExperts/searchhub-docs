@@ -1,10 +1,29 @@
-CXP SearchHub documentation!
+CXP search|hub documentation
 ============================
+
+search|hub automatically optimizes user generated search queries (user queries) before they hit the actual search engine as (search query). 
+It therfore acts as a simple http proxy, that provides a simple plug-in system for query rewriting modules.
+
+
+Getting Started
+---------------
+
+Before integrating search|hub or one of the modules into your system, we typically estimate the potential effect of search|hub. To generate such a report, we need access or an export of your web analytics system (e.g. Google-Analytics) of an representative time interval. Alternatively we also accept search logs that contain user queries and optimally some KPIs (e.g. raw tracking logs).
+Based on this data, we can pre-train search|hub and estimate the potential performance of search|hub.
+
+Please `contact us`_ to request a potential report for your data. Also check the `Ingestion`_ section concerning the data format requirements.
+
 
 .. toctree::
    :maxdepth: 2
+   :glob:
    :caption: Contents:
 
-   overview
-   modules/smartquery
+   self
+   ingestion
+   system-integration
+   modules
 
+
+.. _Ingestion: ingestion.html
+.. _contact us: https://www.searchhub.io/contact-us.html

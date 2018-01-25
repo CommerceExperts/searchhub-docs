@@ -1,0 +1,17 @@
+System Integration
+==================
+
+At the moment search|hub is only available as a service.
+
+Normally all components of a big web application system are connected by http. 
+A typical setup could be a load-balancer in front of a caching proxy in front of a shop system which uses a search engine over it's restful api.
+search|hub is designed to become an additional component in this "chain".
+
+In the best case it should be placed in front of the cache and only receive search traffic from the load-balancer. Such a setup provides the following advantages:
+
+1. search|hub will improve cache hit ratio when the `SmartQuery`_ module kicks in
+2. search|hub won't get unnecessary http traffic that would be passed trough anyway
+3. search|hub becomes a less critical component, when only partial traffic is routed trough it
+
+
+.. _SmartQuery: modules/smartquery.html
