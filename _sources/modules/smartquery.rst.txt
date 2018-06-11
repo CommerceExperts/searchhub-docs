@@ -30,7 +30,7 @@ The SmartQuery library can be pulled as a maven dependency from our private repo
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>smartquery</artifactId>
-        <version>0.10.4</version>
+        <version>0.10.5</version>
     </dependency>
     
     <!-- ... -->
