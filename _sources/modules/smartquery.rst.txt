@@ -87,5 +87,56 @@ Usage Example
     }
 
 
+REST Service Integration
+------------------------
+
+In case you can't use the Java library directly (most likely because your system doesn't run on the JVM), you can use the REST-service wrapper for smartquery. It's delivered as a docker image and has to run in your environment.
+
+Start the service
+^^^^^^^^^^^^^^^^^
+
+Docker Image
+  The docker image is hosted on AWS at the eu-central-1 region having the 
+
+  `399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.5`
+
+How to use that image
+  Since the image is hosted in AWS, you need an AWS account to get the image. With it you have to perform a `docker login`_ before pulling the image.
+
+  The container has to be started with your API key set at the environment variable `SQ_API_KEY`. 
+  It exposes port 8081 that can be mapped to any port. Please also consider, that the docker container needs access to the URLs mentioned above at the Requirements section.
+
+  .. code-block:: bash
+      bash -c "$(aws ecr get-login --registry-ids 399621189843 --region eu-central-1 --no-include-email)"
+      docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P 399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.5
+
+
+Use the service
+^^^^^^^^^^^^^^^
+
+The service offers a single endpoint with a single method. To get a mapping, please send request with the placeholders resolved.
+
+Service Endpoint
+  `http://<host>:<port>/smartquery/v1/<tenant-name>/<tenant-channel>?userQuery=<user-query>`
+
+Example  
+  .. code-block:: bash
+      curl localhost:10240/smartquery/v1/test/working?userQuery=bierzellt -o -
+      # returns 'bierzelt' on success
+
+The response is a simple string that either contains a mapped query or in case no mapping was found, it'll contain the input query.
+
+Keep in mind, that smartquery starts fetching the mapping data, after the first request for a specific tenant was received. So the first ~5 seconds all mappings will return the input query as response, because no mapping data was fetched. A few seconds later you should get changed queries (if data is available).
+
+Debugging
+  - If you forgot to specifiy the API key, the container won't start.
+  - In case you tried to access an unpermitted tenant/channel (mabye because you specified the wrong API key), you will see such a message in the logs of the service: `update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {"message":"Invalid authentication credentials"}`
+
+
+
 .. _Ingestion: ingestion.html
+.. _docker login: https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login.html
 .. _
+
+
+

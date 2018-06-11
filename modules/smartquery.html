@@ -104,6 +104,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#usage-example">Usage Example</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#rest-service-integration">REST Service Integration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#start-the-service">Start the service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#use-the-service">Use the service</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -272,6 +277,44 @@ It’s necessary to use a single <cite>QueryMapperManager</cite> object and keep
 <span class="o">}</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="section" id="rest-service-integration">
+<h2>REST Service Integration<a class="headerlink" href="#rest-service-integration" title="Permalink to this headline">¶</a></h2>
+<p>In case you can’t use the Java library directly (most likely because your system doesn’t run on the JVM), you can use the REST-service wrapper for smartquery. It’s delivered as a docker image and has to run in your environment.</p>
+<div class="section" id="start-the-service">
+<h3>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Docker Image</dt>
+<dd><p class="first">The docker image is hosted on AWS at the eu-central-1 region having the</p>
+<p class="last"><cite>399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.5</cite></p>
+</dd>
+<dt>How to use that image</dt>
+<dd><p class="first">Since the image is hosted in AWS, you need an AWS account to get the image. With it you have to perform a <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login.html">docker login</a> before pulling the image.</p>
+<p class="last">The container has to be started with your API key set at the environment variable <cite>SQ_API_KEY</cite>.
+It exposes port 8081 that can be mapped to any port. Please also consider, that the docker container needs access to the URLs mentioned above at the Requirements section.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="use-the-service">
+<h3>Use the service<a class="headerlink" href="#use-the-service" title="Permalink to this headline">¶</a></h3>
+<p>The service offers a single endpoint with a single method. To get a mapping, please send request with the placeholders resolved.</p>
+<dl class="docutils">
+<dt>Service Endpoint</dt>
+<dd><cite>http://&lt;host&gt;:&lt;port&gt;/smartquery/v1/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery=&lt;user-query&gt;</cite></dd>
+<dt>Example</dt>
+<dd></dd>
+</dl>
+<p>The response is a simple string that either contains a mapped query or in case no mapping was found, it’ll contain the input query.</p>
+<p>Keep in mind, that smartquery starts fetching the mapping data, after the first request for a specific tenant was received. So the first ~5 seconds all mappings will return the input query as response, because no mapping data was fetched. A few seconds later you should get changed queries (if data is available).</p>
+<dl class="docutils">
+<dt>Debugging</dt>
+<dd><ul class="first last simple">
+<li>If you forgot to specifiy the API key, the container won’t start.</li>
+<li>In case you tried to access an unpermitted tenant/channel (mabye because you specified the wrong API key), you will see such a message in the logs of the service: <cite>update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {“message”:”Invalid authentication credentials”}</cite></li>
+</ul>
+</dd>
+</dl>
 </div>
 </div>
 </div>
