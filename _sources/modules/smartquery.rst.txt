@@ -30,7 +30,7 @@ The SmartQuery library can be pulled as a maven dependency from our private repo
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>smartquery</artifactId>
-        <version>0.10.5</version>
+        <version>0.10.6</version>
     </dependency>
     
     <!-- ... -->
@@ -98,7 +98,7 @@ Start the service
 The docker image is hosted on AWS at the eu-central-1 region under the registry ID 399621189843.
 
 Docker Image
-  `399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.5`
+  `399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.6`
 
 Since the image is hosted at AWS, you need an AWS account to get the image. From an instance with `awscli installed`_ you have to perform a `docker login`_ before pulling the image.
 
@@ -113,7 +113,7 @@ It exposes port 8081 that can be mapped to any port. Please consider, that the d
 .. code-block:: bash
     
     # use the API key you'll receive from us
-    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P 399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.5
+    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P 399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.6
 
 
 Use the service
@@ -137,12 +137,12 @@ The response is a simple string that either contains a mapped query or in case n
 Keep in mind, that smartquery starts fetching the mapping data, after the first request for a specific tenant was received. So the first ~5 seconds all mappings will return the input query as response, because no mapping data was fetched. A few seconds later you should get changed queries (if data is available).
 
 
-Troubleshooting
-###############
+Trouble Shooting
+################
 
   - If you forgot to specifiy the API key, the container won't start.
-  - In case you tried to access an unpermitted tenant/channel (mabye because you specified the wrong API key), you will see such a message in the logs of the service: `update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {"message":"Invalid authentication credentials"}`
-
+  - In case you tried to access an unpermitted tenant/channel (maybe because you specified the wrong API key), you will see such a message in the logs of the service: `update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {"message":"Invalid authentication credentials"}`
+  - To get more information about the internal processes, enable debug log. Do that with the docker startup parameter `-e JAVA_OPTS="-Dlogging.level.io.searchhub=DEBUG"`
 
 
 .. _Ingestion: ingestion.html
