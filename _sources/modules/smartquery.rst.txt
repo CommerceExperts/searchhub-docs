@@ -30,7 +30,7 @@ The SmartQuery library can be pulled as a maven dependency from our private repo
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>smartquery</artifactId>
-        <version>0.10.6</version>
+        <version>0.10.8-SNAPSHOT</version>
     </dependency>
     
     <!-- ... -->
@@ -98,7 +98,7 @@ Start the service
 The docker image is hosted on AWS at the eu-central-1 region under the registry ID 399621189843.
 
 Docker Image
-  `399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.6`
+  `399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.8-SNAPSHOT`
 
 Since the image is hosted at AWS, you need an AWS account to get the image. From an instance with `awscli installed`_ you have to perform a `docker login`_ before pulling the image.
 
@@ -113,7 +113,7 @@ It exposes port 8081 that can be mapped to any port. Please consider, that the d
 .. code-block:: bash
     
     # use the API key you'll receive from us
-    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P 399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.6
+    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P 399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.8-SNAPSHOT
 
 
 Use the service
