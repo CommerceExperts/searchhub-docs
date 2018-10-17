@@ -1,0 +1,73 @@
+REST Service Integration
+========================
+
+In case you can't use the Java library directly (most likely because your system doesn't run on the JVM), you can use the REST-service wrapper for smartquery. It's delivered as a docker image and has to run in your environment.
+
+Requirements
+------------
+
+- a minimum of 250MB + more space depending on the amount of data it has to manage
+- the service needs to access the HTTPS Endpoints https://query.searchhub.io/ and https://import.searchhub.io/
+
+
+Get the container image
+-----------------------
+
+The docker image is hosted on AWS at the eu-central-1 region under the registry ID 399621189843.
+
+Docker Image
+  `399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.7`
+
+Since the image is hosted at AWS, you need an AWS account to get the image. From an instance with `awscli installed`_ you have to perform a `docker login`_ before pulling the image.
+
+.. code-block:: bash
+
+    # use exactly this registry ID
+    bash -c "$(aws ecr get-login --registry-ids 399621189843 --region eu-central-1 --no-include-email)"
+
+
+Start the service
+-----------------
+    
+The container has to be started with your API key set at the environment variable `SQ_API_KEY`. 
+It exposes port 8081 that can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above at the Requirements_ section.
+
+.. code-block:: bash
+    
+    # use the API key you'll receive from us
+    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P 399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.7
+
+    
+Use the service
+---------------
+
+The service offers a single endpoint with a single method. To get a mapping, please send the following request with the placeholders resolved.
+
+Service Endpoint
+  `http://<host>:<port>/smartquery/v1/<tenant-name>/<tenant-channel>?userQuery=<user-query>`
+
+For Example:
+
+.. code-block:: bash
+
+    curl localhost:10240/smartquery/v1/test/working?userQuery=bierzellt -o -
+    # returns 'bierzelt' on success
+    # returns 'bierzellt' if no mapping was found or no data is available
+
+The response is a simple string that either contains a mapped query or in case no mapping was found, it'll contain the input query.
+
+Keep in mind, that smartquery starts fetching the mapping data, after the first request for a specific tenant was received. So the first ~5 seconds all mappings will return the input query as response, because no mapping data was fetched. A few seconds later you should get changed queries (if data is available).
+
+
+Trouble Shooting
+----------------
+
+  - If you forgot to specifiy the API key, the container won't start.
+  - In case you tried to access an unpermitted tenant/channel (maybe because you specified the wrong API key), you will see such a message in the logs of the service: `update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {"message":"Invalid authentication credentials"}`
+  - To get more information about the internal processes, enable debug log. Do that with the docker startup parameter `-e JAVA_OPTS="-Dlogging.level.io.searchhub=DEBUG"`
+
+
+.. _docker login: https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login.html
+.. _awscli installed: https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-linux.html
+
+

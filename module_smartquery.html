@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Glossary &mdash; CXP SearchHub ${SEARCHHUB_VERSION} documentation</title>
+  <title>Module: SmartQuery &mdash; CXP SearchHub ${SEARCHHUB_VERSION} documentation</title>
   
 
   
@@ -36,7 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="CXP SearchHub ${SEARCHHUB_VERSION} documentation" href="index.html"/>
-        <link rel="prev" title="REST Service Integration" href="smartquery/rest-service.html"/> 
+        <link rel="next" title="Direct Integration" href="smartquery/direct-integration.html"/>
+        <link rel="prev" title="Ingestion" href="ingestion.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -93,12 +94,12 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: SmartQuery</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#query-mapping">Query Mapping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tenant">Tenant</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Module: SmartQuery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html">Direct Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html">REST Service Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -143,13 +144,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Glossary</li>
+      <li>Module: SmartQuery</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/glossary.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/module_smartquery.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -162,23 +163,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="glossary">
-<h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="query-mapping">
-<h2>Query Mapping<a class="headerlink" href="#query-mapping" title="Permalink to this headline">¶</a></h2>
-<p>A mapping takes place, if a user query is changed into a search query. The basic mapping data consists just of such simple mapping rules, that are indexed by SmartQuery to generate even more mappings using different fuzzy algorithms.</p>
-</div>
-<div class="section" id="tenant">
-<h2>Tenant<a class="headerlink" href="#tenant" title="Permalink to this headline">¶</a></h2>
-<p>The tenant value is used as an ID and references to a single data domain, e.g. a customer domain. The tenant is composed of two values in the format <cite>&lt;name&gt;.&lt;channel&gt;</cite>.</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>the basic “name”, which normally would be the customer name</li>
-<li>a “channel”, which gives a second level of segmentation. That can be for example a separation by language (en, de, ..) or by sales channel (mobile, www, ..).</li>
-</ol>
-</div></blockquote>
-<p>For both parts we recommend a lowercase name only containing alphanumeric characters and optionally dash (<cite>-</cite>) and underscore (<cite>_</cite>). You can use the shop domain, or the combination of your company name and a language code.</p>
-<p>In most cases the tenant is influenced by the provided data, but actually we just let you know about the available tenants, since we use them as an unique identifier in our whole data processing pipeline.</p>
+  <div class="section" id="module-smartquery">
+<h1>Module: SmartQuery<a class="headerlink" href="#module-smartquery" title="Permalink to this headline">¶</a></h1>
+<p>SmartQuery is a search|hub module that maps similar queries (e.g. “skate board”, “skate boarding”, “skateboards”, “skateboard”) to the best <a class="footnote-reference" href="#id2" id="id1">[1]</a> query - we call it the MasterQuery.
+It automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module itself and the mapping process.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>There are also use cases, where we have ambiguous mappings that lead to several MasterQueries. They will get a special handling in the future. The best query means the best in terms of user interaction and economic outcome.</td></tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="smartquery/direct-integration.html">Direct Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#maven-dependency">Maven Dependency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#essential-usage">Essential Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#usage-example">Usage Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartquery/rest-service.html">REST Service Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html#get-the-container-image">Get the container image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html#start-the-service">Start the service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html#use-the-service">Use the service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html#trouble-shooting">Trouble Shooting</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 
@@ -192,8 +204,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="smartquery/direct-integration.html" class="btn btn-neutral float-right" title="Direct Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="smartquery/rest-service.html" class="btn btn-neutral" title="REST Service Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="ingestion.html" class="btn btn-neutral" title="Ingestion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -1,0 +1,82 @@
+Direct Integration
+==================
+
+Requirements
+------------
+
+- Java with version >=1.8
+- around 200MB to 500MB additional Java Heapspace (depending on the amount of data it has to manage)
+- If a firewall is used, it needs to be configured to allow connections to the HTTPS Endpoints https://query.searchhub.io/ and https://import.searchhub.io/
+
+Maven Dependency
+----------------
+
+The SmartQuery library can be pulled as a maven dependency from our private repository https://nexus.commerce-experts.com/content/repositories/searchhub-external/ [2]_.
+
+.. [2] Access credentials to the private repository are provided separately.
+
+::
+
+    <dependency>
+        <groupId>io.searchhub</groupId>
+        <artifactId>smartquery</artifactId>
+        <version>0.10.7</version>
+    </dependency>
+    
+    <!-- ... -->
+    
+    <repository>
+        <id>external-releases</id>
+        <url>https://nexus.commerce-experts.com/content/repositories/searchhub-external/</url>
+    </repository>
+
+
+Essential Usage
+---------------
+
+The library contains the following three central types:
+
+Tenant
+  Simple POJO that represents a single data domain. See the `glossary`_ about what a `Tenant`_ is.
+  
+
+QueryMapper
+  The central component provided by the SmartQuery library is the `QueryMapper`. It provides a single and simple method `mapQuery`.
+
+  :String mapQuery(String input):
+  
+    This method returns a mapped string, if the mapping process was successful and `null` if not. In such case the input String should be used.
+
+QueryMapperManager
+  This class is responsible to initialize and manage the QueryMappers for the required Tenants. It needs to be instantiated with the provided API key [3]_. 
+  It's necessary to use a single `QueryMapperManager` object and keep the reference to it, since it will internally spawn and manage several threads to update the `QueryMapper` instances asynchronously.
+  
+  :QueryMapper getQueryMapper(Tenant t):
+  
+    The `getQueryMapper` method will always return the same instance of `QueryMapper` for the same given `Tenant`, so it's not necessary to keep a reference of the `QueryMapper`. Keeping a reference of a `QueryMapper` instance isn't a problem though, since each `QueryMapper` will be updated in the background.
+    
+    A non existing tenant won't cause an error but simply return a QueryMapper that always returns `null`.
+
+.. [3] You'll receive your personal API Key directly from us.
+
+
+Usage Example
+-------------
+
+.. code-block:: java
+
+    private QueryMapperManager qmManager = new QueryMapperManager("YourApiKey");
+
+    public String getSearchQuery(String userQuery)
+    {
+        Tenant tenant = new Tenant("example", "com");
+        QueryMapper qm = qmManager.getQueryMapper(tenant);
+        
+        String mappedQuery = qm.mapQuery(userQuery);
+        return mappedQuery != null ? mappedQuery : userQuery;
+    }
+    
+    
+.. _Ingestion: ingestion.html
+.. _glossary: ../glossary.html
+.. _tenant: ../glossary.html#tenant
