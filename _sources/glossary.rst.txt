@@ -1,0 +1,23 @@
+Glossary
+========
+
+Query Mapping
+-------------
+
+A mapping takes place, if a user query is changed into a search query. The basic mapping data consists just of such simple mapping rules, that are indexed by SmartQuery to generate even more mappings using different fuzzy algorithms.
+
+
+Tenant
+------
+
+The tenant value is used as an ID and references to a single data domain, e.g. a customer domain. The tenant is composed of two values in the format `<name>.<channel>`.
+  
+  1) the basic "name", which normally would be the customer name
+  
+  2) a "channel", which gives a second level of segmentation. That can be for example a separation by language (en, de, ..) or by sales channel (mobile, www, ..).
+
+
+For both parts we recommend a lowercase name only containing alphanumeric characters and optionally dash (`-`) and underscore (`_`). You can use the shop domain, or the combination of your company name and a language code.
+
+In most cases the tenant is influenced by the provided data, but actually we just let you know about the available tenants, since we use them as an unique identifier in our whole data processing pipeline.
+

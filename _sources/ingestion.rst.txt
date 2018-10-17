@@ -1,41 +1,41 @@
 Ingestion
 =========
 
-Required data
--------------
-
-Most important for search|hub are user generated search queries (user queries) and their corresponding KPIs. We recommend to use at least some of the following KPIs:
-
-- Search-Frequency
-- Match-Count
-- Click-Rate (CTR)
-- Click-to-basket (CTB)
-- Conversion-Rate (CR)
-- Total-Revenue
-- Exit-Rate
-
-Based on these KPIs, search|hub will be able to make better decisions. The chosen KPIs depend on the wished goal of your search. If the zero-match rate should be lowered, the match count should be delivered.
-
-If you have curated landing pages for certain queries or optimized search results, you can export the according queries and search|hub will prefer these queries and automaticlly increase the traffic to them.
-This can be a simple txt file with the name of the tenant, e.g. ``whitelist.<tenant>.txt``.
+This section describes the different data formats we use and how you can send them to us.
 
 
-Ways to ingest data
--------------------
+Transmission possibilities
+--------------------------
 
 We provide the following possibilities to ingest the data:
 
-- API access to your Web-Analytics tool, e.g. Google-Analytics
+- In case you're using Google-Analytics, we can use API access to fetch the necessary data
 
-- Analytics exports that can be pulled by some URL. Alternatively we can provide an FTP account, where such export files can be uploaded. 
-  Please consider the data-format requirements below.
+- Data exports can be pulled from some URL. Alternatively we can provide an secured FTP account, where such export files can be uploaded. 
   
 - If no analytics system is available, we can also ingest log files or other raw files and extract the necessary data from it.
-  This option might be charged extra however. Please contact us, to discuss this or check other options.
+  This option might be charged extra however. Please contact us, to discuss this option or talk about other options.
+
+  
+  
+Search Analytics Data
+---------------------
+
+Most important for search|hub are user generated search queries (user queries) and their corresponding KPIs. We recommend to use at least some of the following KPIs:
+
+- Search-Frequency (Required!)
+- Match-Count
+- Unique Clicks per Query or CTR
+- Clicks to Basket
+- Revenue per Search
+- Total-Revenue
+- Exit-Rate
+
+Based on such KPIs, search|hub will be able to make better decisions. The chosen KPIs depend on the wished goal of your search. If the zero-match rate should be lowered, the match count should be part of the analytics export.
 
 
 Data format for analytics export
---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   - An analytics export must clearly be assigned to a single tenant / shop / sales channel
   
@@ -46,7 +46,7 @@ Data format for analytics export
     
     - A custom prefix or other custom strings can be part of the filename, e.g. "export..."
     
-    - The tenant must be part of the file name! See "`What is the Tenant?`_" for detailed information.
+    - The tenant must be part of the file name! See the `glossary`_ about what a `tenant`_ is.
       
     - Each export should be associated with a certain time-range, which could be a single day or a range of two days (both considered inclusive).
     
@@ -56,19 +56,13 @@ Data format for analytics export
     
     The delimiters and the order of these parts are arranged, it's important to gain these listed information from it.
 
-.. _tenant:
 
-What is the Tenant?
+Whitelisted Queries
 -------------------
 
-The tenant value is used as an ID and references to a single data domain, e.g. a customer domain. The tenant is composed of two values in the format `<name>.<channel>`.
-  
-  1) the basic "name", which normally would be the customer name
-  
-  2) a "channel", which gives a second level of segment separation. That can be for example a separation by language (en, de, ..) or by sales channel (mobile, www, ..).
+If you have curated landing pages for certain queries or optimized search results, you can export the according queries and search|hub will prefer these queries and automaticlly increase the traffic to them.
+This can be a simple txt file with the name of the tenant, e.g. ``curated-queries.<tenant>.txt`` or any other format where that information can be extracted easily.
 
 
-For both parts we recommend a lowercase name only containing alphanumeric characters and optionally dash (`-`) and underscore (`_`). You can use the shop domain, or the combination of your company name and a language code.
-
-In most cases the tenant is influenced by the provided data, but actually we just let you know about the available tenants, since we use them as an unique identifier in our whole data processing pipeline.
-
+.. _glossary: glossary.html
+.. _tenant: ../glossary.html#tenant

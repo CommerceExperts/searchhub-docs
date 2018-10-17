@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>CXP search|hub documentation &mdash; CXP SearchHub 0.9.2 documentation</title>
+  <title>CXP search|hub documentation &mdash; CXP SearchHub ${SEARCHHUB_VERSION} documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="CXP SearchHub 0.9.2 documentation" href="#"/>
+    <link rel="top" title="CXP SearchHub ${SEARCHHUB_VERSION} documentation" href="#"/>
         <link rel="next" title="Ingestion" href="ingestion.html"/> 
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.9
+                ${SEARCHHUB_VERSION}
               </div>
             
           
@@ -91,10 +91,9 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">CXP search|hub documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="system-integration.html">System Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -160,31 +159,35 @@
             
   <div class="section" id="cxp-search-hub-documentation">
 <h1>CXP search|hub documentation<a class="headerlink" href="#cxp-search-hub-documentation" title="Permalink to this headline">¶</a></h1>
-<p>search|hub automatically optimizes user generated search queries (user queries) before they hit the actual search engine as (search query).
-It therfore acts as a simple http proxy, that provides a simple plug-in system for query rewriting modules.</p>
-<div class="section" id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<p>Before integrating search|hub or one of the modules into your system, we typically estimate the potential effect of search|hub. To generate such a report, we need access or an export of your web analytics system (e.g. Google-Analytics) of an representative time interval. Alternatively we also accept search logs that contain user queries and optimally some KPIs (e.g. raw tracking logs).
-Based on this data, we can pre-train search|hub and estimate the potential performance of search|hub.</p>
-<p>Please <a class="reference external" href="https://www.searchhub.io/contact-us.html">contact us</a> to request a potential report for your data. Also check the <a class="reference external" href="ingestion.html">Ingestion</a> section concerning the data format requirements.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">CXP search|hub documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ingestion.html#required-data">Required data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ingestion.html#ways-to-ingest-data">Ways to ingest data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ingestion.html#data-format-for-analytics-export">Data format for analytics export</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ingestion.html#what-is-the-tenant">What is the Tenant?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingestion.html#transmission-possibilities">Transmission possibilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingestion.html#search-analytics-data">Search Analytics Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ingestion.html#whitelisted-queries">Whitelisted Queries</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="system-integration.html">System Integration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="modules/smartquery.html">SmartQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html#query-mapping">Query Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html#tenant">Tenant</a></li>
 </ul>
 </li>
 </ul>
 </div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>Before integrating one of our modules into your system, we need some data:</p>
+<p>We need at least a search analytics report (e.g. an export from Google Analytics) from an representative time interval. Alternatively we also accept search logs that contain user queries and some user interaction logs (which product was clicked, put into basket etc.), which we use to generate the data on our own.</p>
+<p>Checkout the <a class="reference external" href="ingestion.html">Ingestion</a> section for more details about the supported data formats and data access possibilities.</p>
+<p>Based on this data, we will train search|hub and may also estimate the potential performance of search|hub. Then we will send you more information about which modules are best suitable and how they can be integrated into your system.</p>
+<p>Please <a class="reference external" href="https://www.searchhub.io/contact-us.html">contact us</a> to talk about your use-cases, ask us more detailed question or request a potential report.</p>
+</div>
+<div class="section" id="modules">
+<h2>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<p>There are several approaches of “search query optimization”. Each is realized as a module for search|hub and also documented separately. It’s possible to combine the modules to improve each aspect of query optimization.</p>
+<p>It is also possible to integrate the single modules directly into a system using native Java Code. Read the according module documentation for more details.</p>
 </div>
 </div>
 
@@ -208,7 +211,7 @@ Based on this data, we can pre-train search|hub and estimate the potential perfo
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, CXP Commerce Experts GmbH.
+        &copy; Copyright ${YEAR}, CXP Commerce Experts GmbH.
 
     </p>
   </div>
@@ -230,7 +233,7 @@ Based on this data, we can pre-train search|hub and estimate the potential perfo
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.9.2',
+            VERSION:'${SEARCHHUB_VERSION}',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

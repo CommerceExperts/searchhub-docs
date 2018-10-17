@@ -1,28 +1,38 @@
 CXP search|hub documentation
 ============================
 
-search|hub automatically optimizes user generated search queries (user queries) before they hit the actual search engine as (search query). 
-It therfore acts as a simple http proxy, that provides a simple plug-in system for query rewriting modules.
-
-
-Getting Started
----------------
-
-Before integrating search|hub or one of the modules into your system, we typically estimate the potential effect of search|hub. To generate such a report, we need access or an export of your web analytics system (e.g. Google-Analytics) of an representative time interval. Alternatively we also accept search logs that contain user queries and optimally some KPIs (e.g. raw tracking logs).
-Based on this data, we can pre-train search|hub and estimate the potential performance of search|hub.
-
-Please `contact us`_ to request a potential report for your data. Also check the `Ingestion`_ section concerning the data format requirements.
-
-
 .. toctree::
    :maxdepth: 2
    :glob:
    :caption: Contents:
 
-   self
+   Getting Started <self>
    ingestion
-   system-integration
-   modules
+   module_*
+   glossary
+
+   
+Getting Started
+---------------
+
+Before integrating one of our modules into your system, we need some data:
+
+We need at least a search analytics report (e.g. an export from Google Analytics) from an representative time interval. Alternatively we also accept search logs that contain user queries and some user interaction logs (which product was clicked, put into basket etc.), which we use to generate the data on our own.
+
+Checkout the `Ingestion`_ section for more details about the supported data formats and data access possibilities.
+
+Based on this data, we will train search|hub and may also estimate the potential performance of search|hub. Then we will send you more information about which modules are best suitable and how they can be integrated into your system.
+
+Please `contact us`_ to talk about your use-cases, ask us more detailed question or request a potential report.
+
+
+Modules
+-------
+
+There are several approaches of "search query optimization". Each is realized as a module for search|hub and also documented separately. It's possible to combine the modules to improve each aspect of query optimization.
+
+It is also possible to integrate the single modules directly into a system using native Java Code. Read the according module documentation for more details.
+
 
 
 .. _Ingestion: ingestion.html
