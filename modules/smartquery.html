@@ -210,7 +210,7 @@ It automatically connects to the search|hub API in order to get the required dat
 <div class="highlight-default"><div class="highlight"><pre><span></span>&lt;dependency&gt;
     &lt;groupId&gt;io.searchhub&lt;/groupId&gt;
     &lt;artifactId&gt;smartquery&lt;/artifactId&gt;
-    &lt;version&gt;0.10.8-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;0.10.7&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- ... --&gt;
@@ -287,7 +287,7 @@ It’s necessary to use a single <cite>QueryMapperManager</cite> object and keep
 <p>The docker image is hosted on AWS at the eu-central-1 region under the registry ID 399621189843.</p>
 <dl class="docutils">
 <dt>Docker Image</dt>
-<dd><cite>399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.8-SNAPSHOT</cite></dd>
+<dd><cite>399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.7</cite></dd>
 </dl>
 <p>Since the image is hosted at AWS, you need an AWS account to get the image. From an instance with <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-linux.html">awscli installed</a> you have to perform a <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login.html">docker login</a> before pulling the image.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># use exactly this registry ID</span>
@@ -297,7 +297,7 @@ bash -c <span class="s2">&quot;</span><span class="k">$(</span>aws ecr get-login
 <p>The container has to be started with your API key set at the environment variable <cite>SQ_API_KEY</cite>.
 It exposes port 8081 that can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above at the <a class="reference internal" href="#requirements">Requirements</a> section.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># use the API key you&#39;ll receive from us</span>
-docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P <span class="m">399621189843</span>.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.8-SNAPSHOT
+docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P <span class="m">399621189843</span>.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.7
 </pre></div>
 </div>
 </div>
