@@ -3,4 +3,4 @@
 
 It's quite possible the link you used is outdated because the documentation was changed. Please get back to the `startpage`_ and seek the desired information from there.
 
-.. _startpage: index.html
+.. _startpage: /searchhub-docs/index.html
