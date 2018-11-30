@@ -34,6 +34,18 @@ There are several approaches of "search query optimization". Each is realized as
 It is also possible to integrate the single modules directly into a system using native Java Code. Read the according module documentation for more details.
 
 
+Sample User Story
+-------------------
+
+When developing according to agile principles a product owner might find it helpful to have a sample user story. Feel free to copy and paste this to your backlog
+
+- Story: "As a searching user I want to see search results that are optimized using CXP Search|Hub (https://commerceexperts.github.io/searchhub-docs/index.html) and are frequently updated by recent kpi data."
+
+- Acceptance criteria:
+  - Search phrases are checked/optimized using Search|Hub's SmartQuery Module (https://commerceexperts.github.io/searchhub-docs/module_smartquery.html) before submitting them to the internal search engine
+  - internal systems can access https://query.searchhub.io/ to perform the search phrase check
+  - internal systems can access https://import.searchhub.io/ to send and receive data updates
+
 
 .. _Ingestion: ingestion.html
 .. _contact us: https://www.searchhub.io/contact-us.html
