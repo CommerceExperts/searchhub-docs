@@ -4,19 +4,11 @@ Module: SmartQuery
 SmartQuery is a search|hub module that maps similar queries (e.g. "skate board", "skate boarding", "skateboards", "skateboard") to the best [1]_ query - we call it the MasterQuery.
 It automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module itself and the mapping process.
 
-Sample User Story
--------------------
+We recommend following the `sample user story`_ to get started with the a SmartQuery integration into your system.
 
-When developing according to agile principles a product owner might find it helpful to have a sample user story. Feel free to copy and paste this to your backlog
-
-- Story: "As a customer I want to see search results that are optimized using CXP search|hub (https://commerceexperts.github.io/searchhub-docs/index.html) and are frequently updated by recent kpi data."
-
-- Acceptance criteria:
-  - Search phrases are checked/optimized using Search|Hub's SmartQuery Module (https://commerceexperts.github.io/searchhub-docs/module_smartquery.html) before submitting them to the internal search engine
-  - internal systems can access https://query.searchhub.io/ to perform the search phrase check
-  - internal systems can access https://import.searchhub.io/ to send and receive data updates
 
 .. [1] There are also use cases, where we have ambiguous mappings that lead to several MasterQueries. They will get a special handling in the future. The best query means the best in terms of user interaction and economic outcome.
+.. _sample user story: ./sample-user-story.html
 
 .. toctree::
    :maxdepth: 2
