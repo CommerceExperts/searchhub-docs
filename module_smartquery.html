@@ -90,8 +90,11 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Module: SmartQuery</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html">Direct Integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html">REST Service Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-user-story">Sample User Story</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="smartquery/direct-integration.html">Direct Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="smartquery/rest-service.html">REST Service Integration</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
@@ -162,6 +165,16 @@
 <h1>Module: SmartQuery<a class="headerlink" href="#module-smartquery" title="Permalink to this headline">¶</a></h1>
 <p>SmartQuery is a search|hub module that maps similar queries (e.g. “skate board”, “skate boarding”, “skateboards”, “skateboard”) to the best <a class="footnote-reference" href="#id2" id="id1">[1]</a> query - we call it the MasterQuery.
 It automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module itself and the mapping process.</p>
+<div class="section" id="sample-user-story">
+<h2>Sample User Story<a class="headerlink" href="#sample-user-story" title="Permalink to this headline">¶</a></h2>
+<p>When developing according to agile principles a product owner might find it helpful to have a sample user story. Feel free to copy and paste this to your backlog</p>
+<ul class="simple">
+<li>Story: “As a customer I want to see search results that are optimized using CXP search|hub (<a class="reference external" href="https://commerceexperts.github.io/searchhub-docs/index.html">https://commerceexperts.github.io/searchhub-docs/index.html</a>) and are frequently updated by recent kpi data.”</li>
+<li>Acceptance criteria:
+- Search phrases are checked/optimized using Search|Hub’s SmartQuery Module (<a class="reference external" href="https://commerceexperts.github.io/searchhub-docs/module_smartquery.html">https://commerceexperts.github.io/searchhub-docs/module_smartquery.html</a>) before submitting them to the internal search engine
+- internal systems can access <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> to perform the search phrase check
+- internal systems can access <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a> to send and receive data updates</li>
+</ul>
 <table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -188,6 +201,7 @@ It automatically connects to the search|hub API in order to get the required dat
 </ul>
 </div>
 </div>
+</div>
 
 
            </div>
@@ -211,7 +225,7 @@ It automatically connects to the search|hub API in order to get the required dat
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, CXP Commerce Experts GmbH.
+        &copy; Copyright 2019, CXP Commerce Experts GmbH.
 
     </p>
   </div>
