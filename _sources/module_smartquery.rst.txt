@@ -6,12 +6,11 @@ It automatically connects to the search|hub API in order to get the required dat
 
 We recommend following the `sample user story`_ to get started with the a SmartQuery integration into your system.
 
-
-.. [1] There are also use cases, where we have ambiguous mappings that lead to several MasterQueries. They will get a special handling in the future. The best query means the best in terms of user interaction and economic outcome.
-.. _sample user story: ./sample-user-story.html
-
 .. toctree::
    :maxdepth: 2
    :glob:
 
    smartquery/*
+
+.. [1] There are also use cases, where we have ambiguous mappings that lead to several MasterQueries. They will get a special handling in the future. The best query means the best in terms of user interaction and economic outcome.
+.. _sample user story: smartquery/sample-user-story.html
