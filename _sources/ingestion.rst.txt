@@ -1,22 +1,13 @@
 Ingestion
 =========
 
-This section describes the different data formats we use and how you can send them to us.
+search|hub primarily depends on search-analytics data but also uses other kinds of data to improve the outcome:
 
+- list of curated queries / whitelisted queries
+- product data
 
-Transmission possibilities
---------------------------
+See below what to consider when creating the according data feeds.
 
-We provide the following possibilities to ingest the data:
-
-- In case you're using Google-Analytics, we can use API access to fetch the necessary data
-
-- Data exports can be pulled from some URL. Alternatively we can provide an secured FTP account, where such export files can be uploaded. 
-  
-- If no analytics system is available, we can also ingest log files or other raw files and extract the necessary data from it.
-  This option might be charged extra however. Please contact us, to discuss this option or talk about other options.
-
-  
   
 Search Analytics Data
 ---------------------
@@ -31,30 +22,45 @@ Most important for search|hub are user generated search queries (user queries) a
 - Total-Revenue
 - Exit-Rate
 
-Based on such KPIs, search|hub will be able to make better decisions. The chosen KPIs depend on the wished goal of your search. If the zero-match rate should be lowered, the match count should be part of the analytics export.
+Based on such KPIs, search|hub will be able to make better decisions. The chosen KPIs depend on the wished goal of your search. If for example the zero-match rate should be lowered, the match count should be part of the analytics export.
 
 
-Data format for analytics export
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Transmission possibilities
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- An analytics export must clearly be assigned to a single tenant / shop / sales channel
+We provide the following possibilities to ingest analytics data:
+
+- In case you're using Google-Analytics, we can use API access to fetch the necessary data
+
+- Data exports can be pulled from some URL. Alternatively we can provide an secured FTP account, where such export files can be uploaded. 
+  
+- If no analytics system is available, we can also ingest log files or other raw files and extract the necessary data from it.
+  This option might be charged extra however. Please contact us, to discuss this option or talk about other options.
+
+
+Data format for custom analytics export
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In case you provide an filebased export from your analtics system, we prefer a CSV/TSV feed that meets following conditions:
+
+- The export must clearly be assigned to a single tenant / shop / sales channel
 
 - We recommend the export file(s) to be named in this format: 
   ``<custom-prefix>.<tenant>.<date:YYYY-MM-DD>[-<date:YYYY-MM-DD>].<file-extension>``
 
   Some explanation to the listed parts: 
 
-  - A custom prefix or other custom strings can be part of the filename, e.g. "export..."
+  - A custom prefix or other custom strings can be part of the filename, e.g. "export"
 
-  - The tenant must be part of the file name! See the `glossary`_ about what a `tenant`_ is.
+  - The tenant must be part of the file name! See the `glossary`_ about what a `tenant`_ is.m You can use your own designation, it just must be uniq.
     
-  - Each export should be associated with a certain time-range, which could be a single day or a range of two days (both considered inclusive).
+  - Each export should be associated with a certain date-range, which could be a single day or a range of two days (both considered inclusive).
 
     If the export only belongs to a single day, the second date is not necessary.
     
     As an exception Google-Analytics BigQuery exports are accepted to contain the associated time range as an attribute at the file content.
 
-  The delimiters and the order of these parts are arranged, it's important to gain these listed information from it.
+The delimiters and the order of these information, it's important to gain these listed information from it.
 
 
 Whitelisted Queries
@@ -62,6 +68,27 @@ Whitelisted Queries
 
 If you have curated landing pages for certain queries or optimized search results, you can export the according queries and search|hub will prefer these queries and automaticlly increase the traffic to them.
 This can be a simple txt file with the name of the tenant, e.g. ``curated-queries.<tenant>.txt`` or any other format where that information can be extracted easily.
+
+
+Product Data
+------------
+
+Product data should be provided as CSV / TSV file containing all kind of language data, like:
+
+- title
+- product type
+- descriptions
+- categories
+- brand
+
+optionally we can also use:
+
+- attributes
+- image urls
+- product url
+
+
+**Please talk to us, if you have other data formats / structures / feeds and no possibility to transformat them into the appropriate format.**
 
 
 .. _glossary: glossary.html
