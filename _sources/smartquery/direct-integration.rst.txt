@@ -20,7 +20,7 @@ The SmartQuery library can be pulled as a maven dependency from our private repo
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>smartquery</artifactId>
-        <version>0.10.7</version>
+        <version>0.11.0</version>
     </dependency>
     
     <!-- ... -->
@@ -65,7 +65,11 @@ Usage Example
 
 .. code-block:: java
 
-    private QueryMapperManager qmManager = new QueryMapperManager("YourApiKey");
+    private QueryMapperManager qmManager = QueryMapperManager.builder()
+                                             .apiToken("YourApiKey")
+                                             .updateRate(360)               // optional
+                                             .preloadTenants("example.com") // optional
+                                             .build();
 
     public String getSearchQuery(String userQuery)
     {
@@ -76,7 +80,71 @@ Usage Example
         return mappedQuery != null ? mappedQuery : userQuery;
     }
     
+    // It's recommended to bind the qmManager instance to your JVM's lifecycle
+    // and close the QueryMapperManager during shutdown.
+    // Internally a ScheduledExecutorService is used, that will be stopped then.
+    @PreDestroy
+    public void onJvmShutdown() {
+        qmManager.close();
+    }
+
+The javadoc of the :code:`QueryMapperManager.builder()` methods, tell you more about the possible settings.
+    
+
+Monitoring
+----------
+
+SmartQuery optionally exposes internal metrics using the `Micrometer`_ framework. If you'd like to get those metrics, add the wanted Micrometer connector to your dependencies and add the according MeterRegistry.
+
+.. code-block:: java
+
+    // ...
+    MeterRegistry meterRegistry = getYourMeterRegistryInstance();
+    
+    // example: to expose metrics over JMX create a JmxMeterRegistry 
+    meterRegistry = new JmxMeterRegistry(JmxConfig.DEFAULT, Clock.SYSTEM);
+    
+    // and add it to the QueryMapperManager.builder afterwards
+    queryMapperManagerBuilder.addMetricsRegistryAdapter(MeterRegistryAdapter.of(meterRegistry));
+    
+    // ...
+
+You will be able to track the following metrics:
+
+.. glossary::
+
+    smartquery.statsCollector.queue.size
+        Current number of items inside the transmission queue of the stats-collector.
+        Since the queue size is limited to 500 entries per default, a higher value should never appear. Hitting that limits is an indicator for a broken connection to the stats API.
+
+    smartquery.statsCollector.bulk.size.count
+    smartquery.statsCollector.bulk.size.sum
+    smartquery.statsCollector.bulk.size.max
+        The stats-collector's bulk size metrics describe, how big the bulks are that were sent to the search|hub stats API. 
+        With :literal:`sum/count` the average size can be calculated. Max is the biggest bulk since application start.
+
+    smartquery.statsCollector.fail.count.total
+        Total amount of failed transmissions, that were reported to the stats API.
+
+    smartquery.update.fail.count
+        Number of failed mapping update attempts for a certain tenant in a row. If an update succeeds, this value will be reset to "0".
+        If this value reaches "5", the according update process will be stopped and only started again, if mappings for the according tenant are requested again.
+        This metric is tagged with the according `tenant_name` and `tenant_channel`.
+        
+    smartquery.update.success.count.total
+        Total number of successful data updates per tenant.
+        This metric is tagged with the according `tenant_name` and `tenant_channel`.
+
+    smartquery.mappings.size
+        Current number of raw mapping pairs per tenant.
+        This metric is tagged with the according `tenant_name` and `tenant_channel`.
+        
+    smartquery.mappings.age.seconds
+        That is the passed time, since the last successful mapping update.
+        This metric is tagged with the according `tenant_name` and `tenant_channel`.
+
     
 .. _Ingestion: ingestion.html
 .. _glossary: ../glossary.html
 .. _tenant: ../glossary.html#tenant
+.. _Micrometer: https://micrometer.io/docs

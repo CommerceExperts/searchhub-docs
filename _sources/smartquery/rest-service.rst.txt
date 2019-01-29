@@ -10,24 +10,10 @@ Requirements
 - the service needs to access the HTTPS Endpoints https://query.searchhub.io/ and https://import.searchhub.io/
 
 
-Get the container image
------------------------
-
-The docker image is hosted on AWS at the eu-central-1 region under the registry ID 399621189843.
-
-Docker Image
-  `399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.7`
-
-Since the image is hosted at AWS, you need an AWS account to get the image. From an instance with `awscli installed`_ you have to perform a `docker login`_ before pulling the image.
-
-.. code-block:: bash
-
-    # use exactly this registry ID
-    bash -c "$(aws ecr get-login --registry-ids 399621189843 --region eu-central-1 --no-include-email)"
-
-
 Start the service
 -----------------
+
+The service is provided as docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:0.11.0`
     
 The container has to be started with your API key set at the environment variable `SQ_API_KEY`. 
 It exposes port 8081 that can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above at the Requirements_ section.
@@ -35,7 +21,7 @@ It exposes port 8081 that can be mapped to any port. Please consider, that the d
 .. code-block:: bash
     
     # use the API key you'll receive from us
-    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P 399621189843.dkr.ecr.eu-central-1.amazonaws.com/smartquery/smartquery-service:0.10.7
+    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:0.11.0
 
     
 Use the service
@@ -58,6 +44,51 @@ The response is a simple string that either contains a mapped query or in case n
 
 Keep in mind, that smartquery starts fetching the mapping data, after the first request for a specific tenant was received. So the first ~5 seconds all mappings will return the input query as response, because no mapping data was fetched. A few seconds later you should get changed queries (if data is available).
 
+It's possible to lower that startup latency by specifying the tenants using the preloadTenants parameter, that is described below.
+
+
+Configuration
+-------------
+
+Update Rate
+^^^^^^^^^^^
+
+Sets the rate (in seconds) at which the update should run. The value must be between 5 and 3600.
+This can be set as part of the JAVA_OPTS environment variable:
+
+.. code-block:: bash
+
+    JAVA_OPTS="-Dsmartquery.updateRateInSeconds=60"
+
+	
+Preload Tenants
+^^^^^^^^^^^^^^^
+
+Specify tenants that should be loaded immediately after initialization.
+Can be set either via environment variable as a comma separated list:
+
+.. code-block:: bash
+
+	SQ_INIT_TENANTS="example.num1,example.num2"
+
+or as part of the JAVA_OPTS environment variable with one parameter per tenant:
+
+.. code-block:: bash
+
+	JAVA_OPTS="-Dsmartquery.preloadTenants[0]=example.num1 -Dsmartquery.preloadTenants[1]=example.num2"
+
+
+Monitoring
+----------
+
+By default several metrics are exposed in the prometheus format trough the :code:`/prometheus` endpoint of the service. This endpoint exposes several basic metrics plus the metrics described in the `monitoring`_ section at the `direct integration`_ docs.
+
+To **disable** this endpoint, add the following parameter to the JAVA_OPTS environment variable:
+
+.. code-block:: bash
+
+	JAVA_OPTS="-Dendpoints.prometheus.enable=false"
+
 
 Trouble Shooting
 ----------------
@@ -67,7 +98,7 @@ Trouble Shooting
   - To get more information about the internal processes, enable debug log. Do that with the docker startup parameter `-e JAVA_OPTS="-Dlogging.level.io.searchhub=DEBUG"`
 
 
-.. _docker login: https://docs.aws.amazon.com/cli/latest/reference/ecr/get-login.html
-.. _awscli installed: https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-linux.html
-
+.. _direct integration: direct-integration.html
+.. _monitoring: direct-integration.html#monitoring
+.. _docker hub: https://hub.docker.com/r/commerceexperts/smartquery-service/tags
 
