@@ -12,6 +12,34 @@ See below what to consider when creating the according data feeds.
 Search Analytics Data
 ---------------------
 
+We provide the following possibilities to ingest analytics data:
+
+- In case you're using Google-Analytics, we prefer to use API access to fetch the necessary data
+
+- File exports are also acceptible. We can be pull them from some URL or provide an secured FTP account, where such export files can be uploaded.
+  
+- If no analytics system is available, we can also ingest log files or other raw files and extract the necessary data from it.
+  This option might be charged extra however. Please contact us, to discuss this option or talk about other options.
+
+
+Google Analytics API Access
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If possible, we prefere API access to your Google Analytics site-search analytics view. To do so, please grant access to the following two accounts::
+
+    searchhub@searchhub-analytics.iam.gserviceaccount.com
+    analytics@commerce-experts.com
+    
+Contact us afterwards and let us know about the granted access, so we can setup the according processes on our end.
+
+
+Analytics File Export
+^^^^^^^^^^^^^^^^^^^^^
+
+In case you can't give us API access to your analytics tool, a file export is also acceptible. For a long term usage, please make sure to provide these files regularly.
+
+Content
+"""""""
 Most important for search|hub are user generated search queries (user queries) and their corresponding KPIs. We recommend to use at least some of the following KPIs:
 
 - Search-Frequency (Required!)
@@ -24,24 +52,9 @@ Most important for search|hub are user generated search queries (user queries) a
 
 Based on such KPIs, search|hub will be able to make better decisions. The chosen KPIs depend on the wished goal of your search. If for example the zero-match rate should be lowered, the match count should be part of the analytics export.
 
-
-Transmission possibilities
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-We provide the following possibilities to ingest analytics data:
-
-- In case you're using Google-Analytics, we can use API access to fetch the necessary data
-
-- Data exports can be pulled from some URL. Alternatively we can provide an secured FTP account, where such export files can be uploaded. 
-  
-- If no analytics system is available, we can also ingest log files or other raw files and extract the necessary data from it.
-  This option might be charged extra however. Please contact us, to discuss this option or talk about other options.
-
-
-Data format for custom analytics export
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-In case you provide an filebased export from your analtics system, we prefer a CSV/TSV feed that meets following conditions:
+Data Format
+"""""""""""
+As a data format, we prefer a CSV/TSV feed that meets following conditions:
 
 - The export must clearly be assigned to a single tenant / shop / sales channel
 
@@ -60,7 +73,7 @@ In case you provide an filebased export from your analtics system, we prefer a C
     
     As an exception Google-Analytics BigQuery exports are accepted to contain the associated time range as an attribute at the file content.
 
-The delimiters and the order of these information, it's important to gain these listed information from it.
+The delimiters and the order of these information is not that important. It's just important to gain these listed information from the filename.
 
 
 Whitelisted Queries
