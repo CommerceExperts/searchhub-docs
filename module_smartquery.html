@@ -38,7 +38,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="CXP SearchHub  documentation" href="index.html"/>
-        <link rel="next" title="Direct Integration" href="smartquery/direct-integration.html"/>
+        <link rel="next" title="Common concepts and behavior" href="smartquery/common.html"/>
         <link rel="prev" title="Ingestion" href="ingestion.html"/> 
 
   
@@ -90,12 +90,10 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Module: SmartQuery</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#common-concepts-and-behavior">Common concepts and behavior</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="smartquery/direct-integration.html">Direct Integration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="smartquery/rest-service.html">REST Service Integration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="smartquery/sample-user-story.html">Sample User Story</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/common.html">Common concepts and behavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html">Direct Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html">REST Service Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/sample-user-story.html">Sample User Story</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
@@ -165,32 +163,17 @@
   <div class="section" id="module-smartquery">
 <h1>Module: SmartQuery<a class="headerlink" href="#module-smartquery" title="Permalink to this headline">¶</a></h1>
 <p>SmartQuery is a search|hub module that maps similar queries (e.g. “skate board”, “skate boarding”, “skateboards”, “skateboard”) to the best <a class="footnote-reference" href="#id2" id="id1">[1]</a> query - we call it the MasterQuery.
-It automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module itself and the mapping process.</p>
+The SmartQuery module automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module itself and the mapping process.</p>
 <p>We recommend following the <a class="reference external" href="smartquery/sample-user-story.html">sample user story</a> to get started with the a SmartQuery integration into your system.</p>
-<div class="section" id="common-concepts-and-behavior">
-<h2>Common concepts and behavior<a class="headerlink" href="#common-concepts-and-behavior" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>Query Naming</dt>
-<dd><p class="first">When talking about query mapping, we distinguish the following types of queries:</p>
-<ul class="last simple">
-<li>The query that is inserted into the searchbox by the user is called “user query”.</li>
-<li>The search phrase that SmartQuery maps to, is called “search query”, because that’s the actual text that the search engine has to parse.</li>
-<li>Last but not least we have the “technical query”, that’s the structured query that is sent to the according search engine.</li>
-</ul>
-</dd>
-<dt>Query Mapping</dt>
-<dd><p class="first">In case the user query can be mapped, a different search query will returned.</p>
-<p>If the user query is already known as a best query, we map it back to that identical query. This is tracked as a successful mapping.</p>
-<p class="last">If the user query can’t be mapped, the Direct Integration will return <code class="code docutils literal"><span class="pre">null</span></code>. In that case, the user query should be used. The REST Service will return the user query in that case already.</p>
-</dd>
-<dt>Bypassing Queries</dt>
-<dd><p class="first">If the inserted query is wrapped into double quotes (<code class="code docutils literal"><span class="pre">&quot;</span></code>) the query will be handled as an unknown query and not mapped at all (Direct Integration returns <code class="code docutils literal"><span class="pre">null</span></code>) even if it actually could be mapped.</p>
-<p class="last">This can be used to implement a feature that gives the customer the option to search for its initial input, e.g. <code class="docutils literal"><span class="pre">Results</span> <span class="pre">are</span> <span class="pre">shown</span> <span class="pre">for</span> <span class="pre">&lt;mapped</span> <span class="pre">query&gt;</span> <span class="pre">-</span> <span class="pre">instead</span> <span class="pre">search</span> <span class="pre">for</span> <span class="pre">&quot;&lt;original</span> <span class="pre">query&gt;&quot;</span></code>.
-Just make sure to pass the double quotes into SmartQuery as well.</p>
-</dd>
-</dl>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>There are also use cases, where we have ambiguous mappings that lead to several MasterQueries. They will get a special handling in the future. The best query means the best in terms of user interaction and economic outcome.</td></tr>
+</tbody>
+</table>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="smartquery/common.html">Common concepts and behavior</a></li>
 <li class="toctree-l1"><a class="reference internal" href="smartquery/direct-integration.html">Direct Integration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#maven-dependency">Maven Dependency</a></li>
@@ -211,13 +194,6 @@ Just make sure to pass the double quotes into SmartQuery as well.</p>
 <li class="toctree-l1"><a class="reference internal" href="smartquery/sample-user-story.html">Sample User Story</a></li>
 </ul>
 </div>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>There are also use cases, where we have ambiguous mappings that lead to several MasterQueries. They will get a special handling in the future. The best query means the best in terms of user interaction and economic outcome.</td></tr>
-</tbody>
-</table>
-</div>
 </div>
 
 
@@ -230,7 +206,7 @@ Just make sure to pass the double quotes into SmartQuery as well.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="smartquery/direct-integration.html" class="btn btn-neutral float-right" title="Direct Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="smartquery/common.html" class="btn btn-neutral float-right" title="Common concepts and behavior" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="ingestion.html" class="btn btn-neutral" title="Ingestion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

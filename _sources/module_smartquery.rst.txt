@@ -2,35 +2,14 @@ Module: SmartQuery
 ==================
 
 SmartQuery is a search|hub module that maps similar queries (e.g. "skate board", "skate boarding", "skateboards", "skateboard") to the best [1]_ query - we call it the MasterQuery.
-It automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module itself and the mapping process.
+The SmartQuery module automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module itself and the mapping process.
 
 We recommend following the `sample user story`_ to get started with the a SmartQuery integration into your system.
 
 
-Common concepts and behavior
-----------------------------
 
-Query Naming
-  When talking about query mapping, we distinguish the following types of queries:
-  
-  - The query that is inserted into the searchbox by the user is called "user query".
-  
-  - The search phrase that SmartQuery maps to, is called "search query", because that's the actual text that the search engine has to parse. 
-  
-  - Last but not least we have the "technical query", that's the structured query that is sent to the according search engine.
-
-Query Mapping
-  In case the user query can be mapped, a different search query will returned.
-  
-  If the user query is already known as a best query, we map it back to that identical query. This is tracked as a successful mapping.
-  
-  If the user query can't be mapped, the Direct Integration will return :code:`null`. In that case, the user query should be used. The REST Service will return the user query in that case already.
-
-Bypassing Queries
-  If the inserted query is wrapped into double quotes (:code:`"`) the query will be handled as an unknown query and not mapped at all (Direct Integration returns :code:`null`) even if it actually could be mapped.
-  
-  This can be used to implement a feature that gives the customer the option to search for its initial input, e.g. ``Results are shown for <mapped query> - instead search for "<original query>"``. 
-  Just make sure to pass the double quotes into SmartQuery as well.
+.. [1] There are also use cases, where we have ambiguous mappings that lead to several MasterQueries. They will get a special handling in the future. The best query means the best in terms of user interaction and economic outcome.
+.. _sample user story: smartquery/sample-user-story.html
 
 
 
@@ -39,6 +18,4 @@ Bypassing Queries
    :glob:
 
    smartquery/*
-
-.. [1] There are also use cases, where we have ambiguous mappings that lead to several MasterQueries. They will get a special handling in the future. The best query means the best in terms of user interaction and economic outcome.
-.. _sample user story: smartquery/sample-user-story.html
+   
