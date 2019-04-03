@@ -8,12 +8,12 @@ Query Naming
   
   - The search phrase that SmartQuery maps to, is called "search query", because that's the actual text that the search engine has to parse. 
   
-  - Last but not least we have the "technical query", that's the structured query that is sent to the according search engine.
+  - Last but not least we have the "technical query", that's the structured query that is sent to the search engine.
 
 Query Mapping
   In case the user query can be mapped, a different search query will returned.
   
-  If the user query is already known as a best query, we map it back to that identical query. This is tracked as a successful mapping.
+  If the user query is already known as the best query, we map it back to that identical query. This is tracked as a successful mapping.
   
   If the user query can't be mapped, the Direct Integration will return :code:`null`. In that case, the user query should be used. The REST Service will return the user query in that case already.
 
