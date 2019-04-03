@@ -65,7 +65,7 @@ As a data format, we prefer a CSV/TSV feed that meets the following conditions:
 
   - A custom prefix or other custom strings can be part of the filename, e.g. "export"
 
-  - The tenant must be part of the file name! See the `glossary`_ about what a `tenant`_ is.m You can use your own designation, it just must be unique.
+  - The tenant must be part of the file name! See the `glossary`_ about what a `tenant`_ is. You can use your own designation, it just must be unique.
     
   - Each export should be associated with a certain date-range, which could be a single day or a range of two days (both considered inclusive).
 

@@ -171,12 +171,12 @@
 <ul class="last simple">
 <li>The query that is inserted into the searchbox by the user is called “user query”.</li>
 <li>The search phrase that SmartQuery maps to, is called “search query”, because that’s the actual text that the search engine has to parse.</li>
-<li>Last but not least we have the “technical query”, that’s the structured query that is sent to the according search engine.</li>
+<li>Last but not least we have the “technical query”, that’s the structured query that is sent to the search engine.</li>
 </ul>
 </dd>
 <dt>Query Mapping</dt>
 <dd><p class="first">In case the user query can be mapped, a different search query will returned.</p>
-<p>If the user query is already known as a best query, we map it back to that identical query. This is tracked as a successful mapping.</p>
+<p>If the user query is already known as the best query, we map it back to that identical query. This is tracked as a successful mapping.</p>
 <p class="last">If the user query can’t be mapped, the Direct Integration will return <code class="code docutils literal"><span class="pre">null</span></code>. In that case, the user query should be used. The REST Service will return the user query in that case already.</p>
 </dd>
 <dt>Bypassing Queries</dt>

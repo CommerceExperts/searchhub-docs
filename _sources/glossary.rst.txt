@@ -19,5 +19,5 @@ The tenant value is used as an ID and references to a single data domain, e.g. a
 
 For both parts we recommend a lowercase name only containing alphanumeric characters and optionally dash (`-`) and underscore (`_`). You can use the shop domain or the combination of your company name and a language code.
 
-In most cases, the tenant is influenced by the provided data, but actually we just let you know about the available tenants since we use them as the unique identifier in our whole data processing pipeline.
+In most cases, the tenant is influenced by the provided data, but actually we just let you know about the available tenants, since we use them as an unique identifier in our whole data processing pipeline.
 

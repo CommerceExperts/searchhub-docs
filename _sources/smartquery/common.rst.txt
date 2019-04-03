@@ -22,3 +22,4 @@ Bypassing Queries
   
   This can be used to implement a feature that gives the customer the option to search for its initial input, e.g. ``Results are shown for <mapped query> - instead search for "<original query>"``. 
   Just make sure to pass the double quotes into SmartQuery as well.
+

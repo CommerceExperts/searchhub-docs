@@ -179,26 +179,25 @@
 <h2>Search Analytics Data<a class="headerlink" href="#search-analytics-data" title="Permalink to this headline">¶</a></h2>
 <p>We provide the following possibilities to ingest analytics data:</p>
 <ul class="simple">
-<li>In case you’re using Google-Analytics, we prefer to use API access to fetch the necessary data</li>
-<li>File exports are also acceptible. We can be pull them from some URL or provide an secured FTP account, where such export files can be uploaded.</li>
+<li>In case you’re using Google-Analytics, we prefer to use API access to fetch the necessary data.</li>
+<li>File exports are also acceptable. We can pull them from some URL or provide a secured FTP account, where such export files can be uploaded.</li>
 <li>If no analytics system is available, we can also ingest log files or other raw files and extract the necessary data from it.
-This option might be charged extra however. Please contact us, to discuss this option or talk about other options.</li>
+This option might be charged extra, however. Please contact us, to discuss this option or talk about other options.</li>
 </ul>
 <div class="section" id="google-analytics-api-access">
 <h3>Google Analytics API Access<a class="headerlink" href="#google-analytics-api-access" title="Permalink to this headline">¶</a></h3>
-<p>If possible, we prefere API access to your Google Analytics site-search analytics view. To do so, please grant access to the following two accounts:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">searchhub</span><span class="nd">@searchhub</span><span class="o">-</span><span class="n">analytics</span><span class="o">.</span><span class="n">iam</span><span class="o">.</span><span class="n">gserviceaccount</span><span class="o">.</span><span class="n">com</span>
-<span class="n">analytics</span><span class="nd">@commerce</span><span class="o">-</span><span class="n">experts</span><span class="o">.</span><span class="n">com</span>
-</pre></div>
-</div>
-<p>Contact us afterwards and let us know about the granted access, so we can setup the according processes on our end.</p>
+<p>If possible, we prefer API access to your Google Analytics site-search analytics view. To do so, please grant access to the following two accounts:</p>
+<blockquote>
+<div><a class="reference external" href="mailto:searchhub&#37;&#52;&#48;searchhub-analytics&#46;iam&#46;gserviceaccount&#46;com">searchhub<span>&#64;</span>searchhub-analytics<span>&#46;</span>iam<span>&#46;</span>gserviceaccount<span>&#46;</span>com</a>
+<a class="reference external" href="mailto:analytics&#37;&#52;&#48;commerce-experts&#46;com">analytics<span>&#64;</span>commerce-experts<span>&#46;</span>com</a></div></blockquote>
+<p>Contact us afterward and let us know about the granted access, so we can set up the according to processes on our end.</p>
 </div>
 <div class="section" id="analytics-file-export">
 <h3>Analytics File Export<a class="headerlink" href="#analytics-file-export" title="Permalink to this headline">¶</a></h3>
-<p>In case you can’t give us API access to your analytics tool, a file export is also acceptible. For a long term usage, please make sure to provide these files regularly.</p>
+<p>In case you can’t give us API access to your analytics system, a file export is also acceptable. For long term usage, please make sure to provide these files regularly.</p>
 <div class="section" id="content">
 <h4>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h4>
-<p>Most important for search|hub are user generated search queries (user queries) and their corresponding KPIs. We recommend to use at least some of the following KPIs:</p>
+<p>Most important for search|hub are user generated search queries (user queries) and their corresponding KPIs. We recommend using at least some of the following KPIs:</p>
 <ul class="simple">
 <li>Search-Frequency (Required!)</li>
 <li>Match-Count</li>
@@ -212,7 +211,7 @@ This option might be charged extra however. Please contact us, to discuss this o
 </div>
 <div class="section" id="data-format">
 <h4>Data Format<a class="headerlink" href="#data-format" title="Permalink to this headline">¶</a></h4>
-<p>As a data format, we prefer a CSV/TSV feed that meets following conditions:</p>
+<p>As a data format, we prefer a CSV/TSV feed that meets the following conditions:</p>
 <ul>
 <li><p class="first">The export must clearly be assigned to a single tenant / shop / sales channel</p>
 </li>
@@ -222,22 +221,22 @@ This option might be charged extra however. Please contact us, to discuss this o
 <ul>
 <li><p class="first">A custom prefix or other custom strings can be part of the filename, e.g. “export”</p>
 </li>
-<li><p class="first">The tenant must be part of the file name! See the <a class="reference external" href="glossary.html">glossary</a> about what a <a class="reference external" href="../glossary.html#tenant">tenant</a> is.m You can use your own designation, it just must be uniq.</p>
+<li><p class="first">The tenant must be part of the file name! See the <a class="reference external" href="glossary.html">glossary</a> about what a <a class="reference external" href="../glossary.html#tenant">tenant</a> is. You can use your own designation, it just must be unique.</p>
 </li>
 <li><p class="first">Each export should be associated with a certain date-range, which could be a single day or a range of two days (both considered inclusive).</p>
 <p>If the export only belongs to a single day, the second date is not necessary.</p>
-<p>As an exception Google-Analytics BigQuery exports are accepted to contain the associated time range as an attribute at the file content.</p>
+<p>As an exception, Google-Analytics BigQuery exports are accepted to contain the associated time range as an attribute at the file content.</p>
 </li>
 </ul>
 </li>
 </ul>
-<p>The delimiters and the order of these information is not that important. It’s just important to gain these listed information from the filename.</p>
+<p>The delimiters and the order of this information is not that important. It’s just important to gain this listed information from the filename.</p>
 </div>
 </div>
 </div>
 <div class="section" id="whitelisted-queries">
 <h2>Whitelisted Queries<a class="headerlink" href="#whitelisted-queries" title="Permalink to this headline">¶</a></h2>
-<p>If you have curated landing pages for certain queries or optimized search results, you can export the according queries and search|hub will prefer these queries and automaticlly increase the traffic to them.
+<p>If you have curated landing pages for certain queries or optimized search results, you can export the according to queries and search|hub will prefer these queries and automatically increase the traffic to them.
 This can be a simple txt file with the name of the tenant, e.g. <code class="docutils literal"><span class="pre">curated-queries.&lt;tenant&gt;.txt</span></code> or any other format where that information can be extracted easily.</p>
 </div>
 <div class="section" id="product-data">
@@ -256,7 +255,7 @@ This can be a simple txt file with the name of the tenant, e.g. <code class="doc
 <li>image urls</li>
 <li>product url</li>
 </ul>
-<p><strong>Please talk to us, if you have other data formats / structures / feeds and no possibility to transformat them into the appropriate format.</strong></p>
+<p><strong>Please talk to us, if you have other data formats / structures / feeds and no possibility to transform them into the appropriate format.</strong></p>
 </div>
 </div>
 

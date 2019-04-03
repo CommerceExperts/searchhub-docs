@@ -177,7 +177,7 @@
 <ul class="simple">
 <li>Java with version &gt;=1.8</li>
 <li>around 200MB to 500MB additional Java Heapspace (depending on the amount of data it has to manage)</li>
-<li>If a firewall is used, it needs to be configured to allow connections to the HTTPS Endpoints <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> and <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a></li>
+<li>If a firewall is used, it needs to be configured to allow connections to the following HTTPS Endpoints <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> and <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a></li>
 </ul>
 </div>
 <div class="section" id="maven-dependency">
@@ -217,7 +217,7 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">String mapQuery(String input):</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">This method returns a mapped string, if the mapping process was successful and <cite>null</cite> if not. In such case the input String should be used.</td>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">This method returns a mapped string, if the mapping process was successful and <cite>null</cite> if not. In such case, the input String should be used.</td>
 </tr>
 </tbody>
 </table>
@@ -231,7 +231,7 @@ It’s necessary to use a single <cite>QueryMapperManager</cite> object and keep
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">QueryMapper getQueryMapper(Tenant t):</th></tr>
 <tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">The <cite>getQueryMapper</cite> method will always return the same instance of <cite>QueryMapper</cite> for the same given <cite>Tenant</cite>, so it’s not necessary to keep a reference of the <cite>QueryMapper</cite>. Keeping a reference of a <cite>QueryMapper</cite> instance isn’t a problem though, since each <cite>QueryMapper</cite> will be updated in the background.</p>
-<p class="last">A non existing tenant won’t cause an error but simply return a QueryMapper that always returns <cite>null</cite>.</p>
+<p class="last">A non-existing tenant won’t cause an error but simply return a QueryMapper that always returns <cite>null</cite>.</p>
 </td>
 </tr>
 </tbody>
