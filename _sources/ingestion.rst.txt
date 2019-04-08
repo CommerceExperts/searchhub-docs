@@ -27,10 +27,12 @@ Google Analytics API Access
 
 If possible, we prefer API access to your Google Analytics site-search analytics view. To do so, please grant access to the following two accounts:
 
+:: 
+
     searchhub@searchhub-analytics.iam.gserviceaccount.com
     analytics@commerce-experts.com
     
-Contact us afterward and let us know about the granted access, so we can set up the according to processes on our end.
+Please contact us afterwards and let us know about the granted access, so we can set up an appropriate process on our end.
 
 
 Analytics File Export
