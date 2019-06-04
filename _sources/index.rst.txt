@@ -18,22 +18,21 @@ Getting Started
 Before integrating one of our modules into your system(s), we need some tracking data to warm-up our machine learning models:
 Keep in mind that search|hub is designed to be integrated into your existing search engine—not replace it.
 
-We need at least a search analytics report (e.g. an export from Google Analytics) from an representative time interval. Alternatively we also accept search logs that contain user queries and some user interaction logs (which product was clicked, put into basket etc.), which we use to generate the data on our own.
+We need at least a search analytics report (e.g. an export from Google Analytics) from a representative time interval. Alternatively, we also accept search logs that contain user queries and some user interaction logs (which product was clicked, put into basket, etc.), which we use to generate the data on our own.
 
-Checkout the `Ingestion`_ section for more details about the supported data formats and data access possibilities.
+Check out the `Ingestion`_ section for more details about the supported data formats and data access possibilities.
 
 Based on this data, we will train search|hub and may also estimate the potential performance of search|hub. Then we will send you more information about which modules are best suitable and how they can be integrated into your system.
 
-Please `contact us`_ to talk about your use-cases, ask us more detailed question or request a potential report.
+Please `contact us`_ to talk about your use-cases, ask us more detailed questions or request a potential report.
 
 
 Modules
 -------
 
-There are several approaches of "search query optimization". Each is realized as a module for search|hub and also documented separately. It's possible to combine the modules to improve each aspect of query optimization.
+There are several approaches to "search query optimization". Each is realized as a module for search|hub and also documented separately. It's possible to combine the modules to improve each aspect of query optimization.
 
 It is also possible to integrate the single modules directly into a system using native Java Code. Read the according module documentation for more details.
-
 
 
 .. _Ingestion: ingestion.html
