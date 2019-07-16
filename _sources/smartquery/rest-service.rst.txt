@@ -13,7 +13,7 @@ Requirements
 Start the service
 -----------------
 
-The service is provided as docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:0.11.1`
+The service is provided as docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:0.11.2`
     
 The container has to be started with your API key set at the environment variable `SQ_API_KEY`. 
 It exposes port 8081 that can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above at the Requirements_ section.
@@ -21,7 +21,7 @@ It exposes port 8081 that can be mapped to any port. Please consider, that the d
 .. code-block:: bash
     
     # use the API key you'll receive from us
-    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:0.11.1
+    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:0.11.2
 
     
 Use the service
@@ -76,6 +76,20 @@ or as part of the JAVA_OPTS environment variable with one parameter per tenant:
 .. code-block:: bash
 
 	JAVA_OPTS="-Dsmartquery.preloadTenants[0]=example.num1 -Dsmartquery.preloadTenants[1]=example.num2"
+
+
+Basic Authentication
+^^^^^^^^^^^^^^^^^^^^
+
+In case you want to enable basic auth, add the following properties to the `JAVA_OPTS` env variable.
+
+.. code-block:: bash
+
+    JAVA_OPTS="-Dserver.auth.enabled=true -Dsecurity.user.password=<desired-password>"
+
+The user that is linked to that password is `user`. To use a different username, add the property `-Dsecurity.user.name=<your-username>` to `JAVA_OPTS`.
+
+If the password property is omitted, a random password will be generated and printed to stdout.
 
 
 Monitoring

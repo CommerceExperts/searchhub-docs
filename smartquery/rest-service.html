@@ -100,6 +100,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#update-rate">Update Rate</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preload-tenants">Preload Tenants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#basic-authentication">Basic Authentication</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#monitoring">Monitoring</a></li>
@@ -187,11 +188,11 @@
 </div>
 <div class="section" id="start-the-service">
 <h2>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this headline">¶</a></h2>
-<p>The service is provided as docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal"><span class="pre">commerceexperts/smartquery-service:0.11.1</span></code></p>
+<p>The service is provided as docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal"><span class="pre">commerceexperts/smartquery-service:0.11.2</span></code></p>
 <p>The container has to be started with your API key set at the environment variable <cite>SQ_API_KEY</cite>.
 It exposes port 8081 that can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above at the <a class="reference internal" href="#requirements">Requirements</a> section.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># use the API key you&#39;ll receive from us</span>
-docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:0.11.1
+docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:0.11.2
 </pre></div>
 </div>
 </div>
@@ -233,6 +234,15 @@ Can be set either via environment variable as a comma separated list:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.preloadTenants[0]=example.num1 -Dsmartquery.preloadTenants[1]=example.num2&quot;</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="basic-authentication">
+<h3>Basic Authentication<a class="headerlink" href="#basic-authentication" title="Permalink to this headline">¶</a></h3>
+<p>In case you want to enable basic auth, add the following properties to the <cite>JAVA_OPTS</cite> env variable.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dserver.auth.enabled=true -Dsecurity.user.password=&lt;desired-password&gt;&quot;</span>
+</pre></div>
+</div>
+<p>The user that is linked to that password is <cite>user</cite>. To use a different username, add the property <cite>-Dsecurity.user.name=&lt;your-username&gt;</cite> to <cite>JAVA_OPTS</cite>.</p>
+<p>If the password property is omitted, a random password will be generated and printed to stdout.</p>
 </div>
 </div>
 <div class="section" id="monitoring">
