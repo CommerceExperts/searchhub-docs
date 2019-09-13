@@ -25,7 +25,7 @@ We provide the following possibilities to ingest analytics data:
 Google Analytics API Access
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If possible, we prefer API access to your Google Analytics site-search analytics view. To do so, please grant access to the following two accounts:
+If possible, we prefer API access to your Google Analytics site-search analytics view. To do so, please `grant access`_ to the following two accounts:
 
 :: 
 
@@ -108,3 +108,4 @@ optionally we can also use:
 
 .. _glossary: glossary.html
 .. _tenant: ../glossary.html#tenant
+.. _grant access: https://support.google.com/analytics/answer/1009702?hl=en
