@@ -8,14 +8,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Sample User Story &mdash; CXP SearchHub 0.11.0 documentation</title>
+  <title>Best Practices &mdash; CXP SearchHub 0.11.0 documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartquery/sample-user-story.html"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartquery/best-practices.html"/>
   
 
   
@@ -39,8 +39,8 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CXP SearchHub 0.11.0 documentation" href="../index.html"/>
         <link rel="up" title="Module: SmartQuery" href="../module_smartquery.html"/>
-        <link rel="next" title="Glossary" href="../glossary.html"/>
-        <link rel="prev" title="REST Service Integration" href="rest-service.html"/> 
+        <link rel="next" title="Common concepts and behavior" href="common.html"/>
+        <link rel="prev" title="Module: SmartQuery" href="../module_smartquery.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -91,10 +91,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-smartquery-implementation">Basic SmartQuery Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#query-correction-feedback">Query Correction Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#search-hub-redirects">Search|Hub Redirects</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="common.html">Common concepts and behavior</a></li>
 <li class="toctree-l2"><a class="reference internal" href="direct-integration.html">Direct Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rest-service.html">REST Service Integration</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Sample User Story</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
@@ -144,13 +149,13 @@
         
           <li><a href="../module_smartquery.html">Module: SmartQuery</a> &raquo;</li>
         
-      <li>Sample User Story</li>
+      <li>Best Practices</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/smartquery/sample-user-story.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/smartquery/best-practices.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -163,12 +168,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="sample-user-story">
-<h1>Sample User Story<a class="headerlink" href="#sample-user-story" title="Permalink to this headline">¶</a></h1>
-<p>When developing according to agile principles a product owner might find it helpful to have a sample user story. Feel free to copy and paste this to your backlog</p>
+  <div class="section" id="best-practices">
+<h1>Best Practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h1>
+<p>We expressed our recommended best practices as user stories, so when developing according to agile principles a product owner might find it helpful to have a sample user story. Feel free to copy and paste this to your backlog.</p>
+<div class="section" id="basic-smartquery-implementation">
+<h2>Basic SmartQuery Implementation<a class="headerlink" href="#basic-smartquery-implementation" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>Story</dt>
-<dd>As a customer I want to see search results that are optimized using CXP search|hub (<a class="reference external" href="https://commerceexperts.github.io/searchhub-docs/index.html">https://commerceexperts.github.io/searchhub-docs/index.html</a>) and are frequently updated by recent kpi data.”</dd>
+<dd>As a customer, I want to see search results that are optimized using CXP search|hub (<a class="reference external" href="https://commerceexperts.github.io/searchhub-docs/index.html">https://commerceexperts.github.io/searchhub-docs/index.html</a>) and are frequently updated by recent KPI data.</dd>
 <dt>Acceptance criteria</dt>
 <dd><ul class="first last simple">
 <li>Search phrases are checked/optimized using Search|Hub’s SmartQuery Module (<a class="reference external" href="https://commerceexperts.github.io/searchhub-docs/module_smartquery.html">https://commerceexperts.github.io/searchhub-docs/module_smartquery.html</a>) before submitting them to the internal search engine</li>
@@ -177,6 +184,38 @@
 </ul>
 </dd>
 </dl>
+</div>
+<div class="section" id="query-correction-feedback">
+<h2>Query Correction Feedback<a class="headerlink" href="#query-correction-feedback" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Story</dt>
+<dd>As a customer, I want to see the corrected query and have the opportunity to search for my inserted query instead.</dd>
+<dt>Acceptance criteria</dt>
+<dd><ul class="first last simple">
+<li>If a mapping took place, display a text about the corrected query</li>
+<li>Add a link that enables the user to search for the original query instead.</li>
+<li>When clicking that link, no mapping takes place.</li>
+</ul>
+</dd>
+<dt>Technical hint</dt>
+<dd><ul class="first last simple">
+<li>You can use the <a class="reference external" href="common.html">bypass</a> feature of SmartQuery by wrapping the query into quotes. Passing that query will not do any mapping but remove the quotes again.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="search-hub-redirects">
+<h2>Search|Hub Redirects<a class="headerlink" href="#search-hub-redirects" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Story</dt>
+<dd>As a search manager, I want users to be redirected to landing pages for certain queries according to my configuration in Search|Hub.</dd>
+<dt>Acceptance criteria</dt>
+<dd><ul class="first last simple">
+<li>The usage of queries, that are configured for a redirect, should lead to the configured landing page / URL.</li>
+</ul>
+</dd>
+</dl>
+</div>
 </div>
 
 
@@ -189,10 +228,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="common.html" class="btn btn-neutral float-right" title="Common concepts and behavior" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="rest-service.html" class="btn btn-neutral" title="REST Service Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../module_smartquery.html" class="btn btn-neutral" title="Module: SmartQuery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

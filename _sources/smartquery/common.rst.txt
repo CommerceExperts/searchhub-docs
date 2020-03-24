@@ -4,22 +4,22 @@ Common concepts and behavior
 Query Naming
   When talking about query mapping, we distinguish the following types of queries:
   
-  - The query that is inserted into the searchbox by the user is called "user query".
-  
-  - The search phrase that SmartQuery maps to, is called "search query", because that's the actual text that the search engine has to parse. 
-  
+  - The query that is inserted into the search box by the user is called "user query".
+  - The search phrase that SmartQuery maps to, is called "search query" because that's the actual text that the search engine has to parse. 
   - Last but not least we have the "technical query", that's the structured query that is sent to the search engine.
 
 Query Mapping
-  In case the user query can be mapped, a different search query will returned.
+  In case the user query can be mapped, a different search query will return.
   
   If the user query is already known as the best query, we map it back to that identical query. This is tracked as a successful mapping.
   
-  If the user query can't be mapped, the Direct Integration will return :code:`null`. In that case, the user query should be used. The REST Service will return the user query in that case already.
+  If the user query can't be mapped the user query should be used. The integration methods and endpoints return rich objects that contain all the required information.
 
 Bypassing Queries
   If the inserted query is wrapped into double quotes (:code:`"`) the query will be handled as an unknown query and not mapped at all (Direct Integration returns :code:`null`) even if it actually could be mapped.
   
-  This can be used to implement a feature that gives the customer the option to search for its initial input, e.g. ``Results are shown for <mapped query> - instead search for "<original query>"``. 
+  This can be used to implement the `query correction feedback`_ feature that gives the customer the option to search for its initial input, e.g. ``Results are shown for <mapped query> - search for "<original query>" instead``. 
   Just make sure to pass the double quotes into SmartQuery as well.
 
+
+.. _query correction feedback: best-practices.html#query-correction-feedback

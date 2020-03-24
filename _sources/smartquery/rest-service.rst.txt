@@ -13,7 +13,7 @@ Requirements
 Start the service
 -----------------
 
-The service is provided as docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:0.11.8`
+The service is provided as docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:1.0`
     
 The container has to be started with your API key set at the environment variable `SQ_API_KEY`. 
 It exposes port 8081 that can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above at the Requirements_ section.
@@ -21,30 +21,60 @@ It exposes port 8081 that can be mapped to any port. Please consider, that the d
 .. code-block:: bash
     
     # use the API key you'll receive from us
-    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:0.11.8
+    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:1.0
 
     
 Use the service
 ---------------
 
-The service offers a single endpoint with a single method. To get a mapping, please send the following request with the placeholders resolved.
+The service offers two endpoints to get a query mapping:
 
-Service Endpoint
-  `http://<host>:<port>/smartquery/v1/<tenant-name>/<tenant-channel>?userQuery=<user-query>`
+Service Endpoint V1
+^^^^^^^^^^^^^^^^^^^
 
-For Example:
+URL Scheme:
+  ``http://<host>:<port>/smartquery/v1/<tenant-name>/<tenant-channel>?userQuery=<user-query>``
 
-.. code-block:: bash
+Example:
+  .. code-block:: bash
 
-    curl localhost:10240/smartquery/v1/test/working?userQuery=bierzellt -o -
-    # returns 'bierzelt' on success
-    # returns 'bierzellt' if no mapping was found or no data is available
+     curl localhost:10240/smartquery/v1/test/working?userQuery=bierzellt -o -
+     # returns 'bierzelt' on success
+     # returns 'bierzellt' if no mapping was found or no data is available
 
-The response is a simple string that either contains a mapped query or in case no mapping was found, it'll contain the input query.
+The response is a simple string that either is the mapped query or in case no mapping was found, it's the original user query. Redirects are not supported for that endpoint and won't be returned, even if available.
 
-Keep in mind, that SmartQuery starts fetching the mapping data, after the first request for a specific tenant was received. So the first ~5 seconds all mappings will return the input query as response, because no mapping data was fetched. A few seconds later you should get mapped queries (if data is available).
+Keep in mind, that SmartQuery starts fetching the mapping data, after the first request for a specific tenant was received. So the first ~5 seconds all mappings will return the input query as a response because no mapping data was fetched. A few seconds later you should get mapped queries (if data is available).
 
-It's possible to lower that startup latency by specifying the tenants using the preloadTenants parameter, that is described below.
+It's possible to remove that startup latency by specifying the wanted tenants using the `preloadTenants` parameter described below. In that case the service will be ready as soon as the mappings are loaded.
+
+
+Service Endpoint V2
+^^^^^^^^^^^^^^^^^^^
+
+URL Scheme:
+  ``http://<host>:<port>/smartquery/v2/<tenant-name>/<tenant-channel>?userQuery=<user-query>``
+
+Example:
+  .. code-block:: bash
+
+     curl localhost:10240/smartquery/v2/test/working?userQuery=bierzellt -o -
+     # returns: 
+     {
+       "userQuery":"bierzellt",
+       "masterQuery":"bierzelt",
+       "searchQuery":"bierzelt",
+       "redirect":null,
+       "successful":true
+     }
+
+The response is an object that contains the following properties:
+
+  - **userQuery**: the entered user query
+  - **masterQuery**: if the query could be mapped, the master query is set, otherwise it's null.
+  - **searchQuery**: the final search query. That's the master or the user query.
+  - **redirect**: URL to a landing page or null if no redirect was configured.
+  - **successful**: `true` if the query could be handled by SmartQuery
 
 
 Configuration
@@ -60,22 +90,22 @@ This can be set as part of the JAVA_OPTS environment variable:
 
     JAVA_OPTS="-Dsmartquery.updateRateInSeconds=60"
 
-	
+    
 Preload Tenants
 ^^^^^^^^^^^^^^^
 
 Specify tenants that should be loaded immediately after initialization.
-Can be set either via environment variable as a comma separated list:
+Can be set either via environment variable as a comma-separated list:
 
 .. code-block:: bash
 
-	SQ_INIT_TENANTS="example.num1,example.num2"
+    SQ_INIT_TENANTS="example.num1,example.num2"
 
 or as part of the JAVA_OPTS environment variable with one parameter per tenant:
 
 .. code-block:: bash
 
-	JAVA_OPTS="-Dsmartquery.preloadTenants[0]=example.num1 -Dsmartquery.preloadTenants[1]=example.num2"
+    JAVA_OPTS="-Dsmartquery.preloadTenants[0]=example.num1 -Dsmartquery.preloadTenants[1]=example.num2"
 
 
 Basic Authentication
@@ -89,19 +119,19 @@ In case you want to enable basic auth, add the following properties to the `JAVA
 
 The user that is linked to that password is `user`. To use a different username, add the property `-Dsecurity.user.name=<your-username>` to `JAVA_OPTS`.
 
-If the password property is omitted, a random password will be generated and printed to stdout.
+If server auth is enabled but the password property is omitted, a random password will be generated and printed to stdout.
 
 
 Monitoring
 ----------
 
-By default several metrics are exposed in the prometheus format trough the :code:`/prometheus` endpoint of the service. This endpoint exposes several basic metrics plus the metrics described in the `monitoring`_ section at the `direct integration`_ docs.
+By default, several metrics are exposed in the prometheus format trough the :code:`/prometheus` endpoint of the service. This endpoint exposes several basic metrics plus the metrics described in the `monitoring`_ section at the `direct integration`_ docs.
 
 To **disable** this endpoint, add the following parameter to the JAVA_OPTS environment variable:
 
 .. code-block:: bash
 
-	JAVA_OPTS="-Dendpoints.prometheus.enable=false"
+    JAVA_OPTS="-Dendpoints.prometheus.enable=false"
 
 
 Trouble Shooting
@@ -109,7 +139,7 @@ Trouble Shooting
 
   - If you forgot to specify the API key, the container won't start.
   - In case you tried to access an unpermitted tenant/channel (maybe because you specified the wrong API key), you will see such a message in the logs of the service: `update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {"message":"Invalid authentication credentials"}`
-  - To get more information about the internal processes, enable debug log. Do that with the docker startup parameter `-e JAVA_OPTS="-Dlogging.level.io.searchhub=DEBUG"`
+  - To get more information about the internal processes, enable debug loggging. Do that with the docker startup parameter `-e JAVA_OPTS="-Dlogging.level.io.searchhub=DEBUG"`
 
 
 .. _direct integration: direct-integration.html

@@ -91,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="best-practices.html">Best Practices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="common.html">Common concepts and behavior</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Direct Integration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
@@ -101,7 +102,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="rest-service.html">REST Service Integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sample-user-story.html">Sample User Story</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
@@ -182,17 +182,11 @@
 </div>
 <div class="section" id="maven-dependency">
 <h2>Maven Dependency<a class="headerlink" href="#maven-dependency" title="Permalink to this headline">¶</a></h2>
-<p>The SmartQuery library can be pulled as a maven dependency from our private repository <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhub-external/">https://nexus.commerce-experts.com/content/repositories/searchhub-external/</a> <a class="footnote-reference" href="#id2" id="id1">[2]</a>.</p>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[2]</a></td><td>Access credentials to the private repository are provided separately.</td></tr>
-</tbody>
-</table>
+<p>The SmartQuery library can be pulled as a maven dependency from our private repository <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhub-external/">https://nexus.commerce-experts.com/content/repositories/searchhub-external/</a>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&lt;dependency&gt;
     &lt;groupId&gt;io.searchhub&lt;/groupId&gt;
     &lt;artifactId&gt;smartquery&lt;/artifactId&gt;
-    &lt;version&gt;0.11.8&lt;/version&gt;
+    &lt;version&gt;1.0&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- ... --&gt;
@@ -209,28 +203,29 @@
 <p>The library contains the following three central types:</p>
 <dl class="docutils">
 <dt>Tenant</dt>
-<dd>Simple POJO that represents a single data domain. See the <a class="reference external" href="../glossary.html">glossary</a> about what a <a class="reference external" href="../glossary.html#tenant">Tenant</a> is.</dd>
+<dd>Simple POJO that represents a single data domain. (See the <a class="reference external" href="../glossary.html">glossary</a> about what a <a class="reference external" href="../glossary.html#tenant">Tenant</a> is.)</dd>
 <dt>QueryMapper</dt>
-<dd><p class="first">The central component provided by the SmartQuery library is the <cite>QueryMapper</cite>. It provides a single and simple method <cite>mapQuery</cite>.</p>
+<dd><p class="first">The central component provided by the SmartQuery library is the <cite>QueryMapper</cite>. It provides query mappings with the method <cite>mapQuery</cite>.</p>
 <table class="last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name" colspan="2">String mapQuery(String input):</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">This method returns a mapped string, if the mapping process was successful and <cite>null</cite> if not. In such case, the input String should be used.</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">QueryMapping mapQuery(String input):</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">This method returns a query mapping, with the original user query, a mapped query and an optional redirect URL. A <cite>QueryMapping</cite> has some convenience methods to handle redirects and queries accordingly - refer to the Javadoc.</td>
 </tr>
 </tbody>
 </table>
 </dd>
 <dt>QueryMapperManager</dt>
-<dd><p class="first">This class is responsible to initialize and manage the QueryMappers for the required Tenants. It needs to be instantiated with the provided API key <a class="footnote-reference" href="#id4" id="id3">[3]</a>.
-It’s necessary to use a single <cite>QueryMapperManager</cite> object and keep the reference to it, since it will internally spawn and manage several threads to update the <cite>QueryMapper</cite> instances asynchronously.</p>
+<dd><p class="first">This class is responsible to initialize and manage the QueryMappers for the required Tenants. It needs to be instantiated with the provided API key <a class="footnote-reference" href="#id2" id="id1">[3]</a>.
+It’s <em>important</em> to use a single <cite>QueryMapperManager</cite> object and keep the reference to it since it will internally spawn and manage several threads to update the <cite>QueryMapper</cite> instances asynchronously.
+If not needed anymore, the <cite>close</cite> method should be called, to stop the internal update threads.</p>
 <table class="last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">QueryMapper getQueryMapper(Tenant t):</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">The <cite>getQueryMapper</cite> method will always return the same instance of <cite>QueryMapper</cite> for the same given <cite>Tenant</cite>, so it’s not necessary to keep a reference of the <cite>QueryMapper</cite>. Keeping a reference of a <cite>QueryMapper</cite> instance isn’t a problem though, since each <cite>QueryMapper</cite> will be updated in the background.</p>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">The <cite>getQueryMapper</cite> method will always return the same instance of <cite>QueryMapper</cite> for the same given <cite>Tenant</cite>, so it’s not necessary to keep a reference of the <cite>QueryMapper</cite>. Keeping a reference of a <cite>QueryMapper</cite> instance isn’t a problem though since each <cite>QueryMapper</cite> will be updated in the background.</p>
 <p class="last">A non-existing tenant won’t cause an error but simply return a QueryMapper that always returns <cite>null</cite>.</p>
 </td>
 </tr>
@@ -238,10 +233,10 @@ It’s necessary to use a single <cite>QueryMapperManager</cite> object and keep
 </table>
 </dd>
 </dl>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
+<table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>You’ll receive your personal API Key directly from us.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[3]</a></td><td>You’ll receive your personal API Key directly from us.</td></tr>
 </tbody>
 </table>
 </div>
@@ -253,13 +248,25 @@ It’s necessary to use a single <cite>QueryMapperManager</cite> object and keep
                                          <span class="o">.</span><span class="na">preloadTenants</span><span class="o">(</span><span class="s">&quot;example.com&quot;</span><span class="o">)</span> <span class="c1">// optional</span>
                                          <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
-<span class="kd">public</span> <span class="n">String</span> <span class="nf">getSearchQuery</span><span class="o">(</span><span class="n">String</span> <span class="n">userQuery</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">searchProcess</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span>
 <span class="o">{</span>
+    <span class="c1">// init search process...</span>
+
     <span class="n">Tenant</span> <span class="n">tenant</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tenant</span><span class="o">(</span><span class="s">&quot;example&quot;</span><span class="o">,</span> <span class="s">&quot;com&quot;</span><span class="o">);</span>
     <span class="n">QueryMapper</span> <span class="n">qm</span> <span class="o">=</span> <span class="n">qmManager</span><span class="o">.</span><span class="na">getQueryMapper</span><span class="o">(</span><span class="n">tenant</span><span class="o">);</span>
 
-    <span class="n">String</span> <span class="n">mappedQuery</span> <span class="o">=</span> <span class="n">qm</span><span class="o">.</span><span class="na">mapQuery</span><span class="o">(</span><span class="n">userQuery</span><span class="o">);</span>
-    <span class="k">return</span> <span class="n">mappedQuery</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">mappedQuery</span> <span class="o">:</span> <span class="n">userQuery</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">searchQuery</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&quot;q&quot;</span><span class="o">);</span>
+
+    <span class="n">QueryMapping</span> <span class="n">mapping</span> <span class="o">=</span> <span class="n">qm</span><span class="o">.</span><span class="na">mapQuery</span><span class="o">(</span><span class="n">searchQuery</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">mapping</span><span class="o">.</span><span class="na">hasRedirect</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">&quot;Location&quot;</span><span class="o">,</span> <span class="n">mapping</span><span class="o">.</span><span class="na">getRedirect</span><span class="o">());</span>
+        <span class="n">resp</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="mi">302</span><span class="o">);</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">searchQuery</span> <span class="o">=</span> <span class="n">mapping</span><span class="o">.</span><span class="na">getSearchQuery</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// continue with search process...</span>
 <span class="o">}</span>
 
 <span class="c1">// It&#39;s recommended to bind the qmManager instance to your JVM&#39;s lifecycle</span>
@@ -271,11 +278,11 @@ It’s necessary to use a single <cite>QueryMapperManager</cite> object and keep
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>The javadoc of the <code class="code docutils literal"><span class="pre">QueryMapperManager.builder()</span></code> methods, tell you more about the possible settings.</p>
+<p>The Javadoc of the <code class="code docutils literal"><span class="pre">QueryMapperManager.builder()</span></code> methods tell you more about the possible settings.</p>
 </div>
 <div class="section" id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
-<p>SmartQuery optionally exposes internal metrics using the <a class="reference external" href="https://micrometer.io/docs">Micrometer</a> framework. If you’d like to get those metrics, add the wanted Micrometer connector to your dependencies and add the according MeterRegistry.</p>
+<p>SmartQuery optionally exposes internal metrics using the <a class="reference external" href="https://micrometer.io/docs">Micrometer</a> framework. If you’d like to get those metrics, add the wanted Micrometer connector to your dependencies and add the wanted MeterRegistry implementation.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
 <span class="n">MeterRegistry</span> <span class="n">meterRegistry</span> <span class="o">=</span> <span class="n">getYourMeterRegistryInstance</span><span class="o">();</span>
 
@@ -291,22 +298,22 @@ It’s necessary to use a single <cite>QueryMapperManager</cite> object and keep
 <p>You will be able to track the following metrics:</p>
 <dl class="glossary docutils">
 <dt id="term-smartquery-statscollector-queue-size">smartquery.statsCollector.queue.size</dt>
-<dd>Current number of items inside the transmission queue of the stats-collector.
-Since the queue size is limited to 500 entries per default, a higher value should never appear. Hitting that limits is an indicator for a broken connection to the stats API.</dd>
+<dd>The current number of items inside the transmission queue of the stats-collector.
+Since the queue size is limited to 500 entries per default, a higher value should never appear. Hitting that limits is an indicator of a broken connection to the stats API.</dd>
 <dt id="term-smartquery-statscollector-bulk-size-count">smartquery.statsCollector.bulk.size.count<dt id="term-smartquery-statscollector-bulk-size-sum">smartquery.statsCollector.bulk.size.sum<dt id="term-smartquery-statscollector-bulk-size-max">smartquery.statsCollector.bulk.size.max</dt>
 <dd>The stats-collector’s bulk size metrics describe, how big the bulks are that were sent to the search|hub stats API.
 With <code class="docutils literal"><span class="pre">sum/count</span></code> the average size can be calculated. Max is the biggest bulk since application start.</dd>
 <dt id="term-smartquery-statscollector-fail-count-total">smartquery.statsCollector.fail.count.total</dt>
-<dd>Total amount of failed transmissions, that were reported to the stats API.</dd>
+<dd>The total amount of failed transmissions, that were reported to the stats API.</dd>
 <dt id="term-smartquery-update-fail-count">smartquery.update.fail.count</dt>
-<dd>Number of failed mapping update attempts for a certain tenant in a row. If an update succeeds, this value will be reset to “0”.
-If this value reaches “5”, the according update process will be stopped and only started again, if mappings for the according tenant are requested again.
+<dd>The number of failed mapping update attempts for a certain tenant in a row. If an update succeeds, this value will be reset to “0”.
+If this value reaches “5”, that update process will be stopped and only started again, if mappings for the according tenant are requested again.
 This metric is tagged with the according <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
 <dt id="term-smartquery-update-success-count-total">smartquery.update.success.count.total</dt>
-<dd>Total number of successful data updates per tenant.
+<dd>The total number of successful data updates per tenant.
 This metric is tagged with the according <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
 <dt id="term-smartquery-mappings-size">smartquery.mappings.size</dt>
-<dd>Current number of raw mapping pairs per tenant.
+<dd>The current number of raw mapping pairs per tenant.
 This metric is tagged with the according <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
 <dt id="term-smartquery-mappings-age-seconds">smartquery.mappings.age.seconds</dt>
 <dd>That is the passed time, since the last successful mapping update.

@@ -11,16 +11,14 @@ Requirements
 Maven Dependency
 ----------------
 
-The SmartQuery library can be pulled as a maven dependency from our private repository https://nexus.commerce-experts.com/content/repositories/searchhub-external/ [2]_.
-
-.. [2] Access credentials to the private repository are provided separately.
+The SmartQuery library can be pulled as a maven dependency from our private repository https://nexus.commerce-experts.com/content/repositories/searchhub-external/.
 
 ::
 
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>smartquery</artifactId>
-        <version>0.11.8</version>
+        <version>1.0</version>
     </dependency>
     
     <!-- ... -->
@@ -37,23 +35,24 @@ Essential Usage
 The library contains the following three central types:
 
 Tenant
-  Simple POJO that represents a single data domain. See the `glossary`_ about what a `Tenant`_ is.
+  Simple POJO that represents a single data domain. (See the `glossary`_ about what a `Tenant`_ is.)
   
 
 QueryMapper
-  The central component provided by the SmartQuery library is the `QueryMapper`. It provides a single and simple method `mapQuery`.
+  The central component provided by the SmartQuery library is the `QueryMapper`. It provides query mappings with the method `mapQuery`.
 
-  :String mapQuery(String input):
+  :QueryMapping mapQuery(String input):
   
-    This method returns a mapped string, if the mapping process was successful and `null` if not. In such case, the input String should be used.
+    This method returns a query mapping, with the original user query, a mapped query and an optional redirect URL. A `QueryMapping` has some convenience methods to handle redirects and queries accordingly - refer to the Javadoc.
 
 QueryMapperManager
   This class is responsible to initialize and manage the QueryMappers for the required Tenants. It needs to be instantiated with the provided API key [3]_. 
-  It's necessary to use a single `QueryMapperManager` object and keep the reference to it, since it will internally spawn and manage several threads to update the `QueryMapper` instances asynchronously.
+  It's *important* to use a single `QueryMapperManager` object and keep the reference to it since it will internally spawn and manage several threads to update the `QueryMapper` instances asynchronously. 
+  If not needed anymore, the `close` method should be called, to stop the internal update threads.
   
   :QueryMapper getQueryMapper(Tenant t):
   
-    The `getQueryMapper` method will always return the same instance of `QueryMapper` for the same given `Tenant`, so it's not necessary to keep a reference of the `QueryMapper`. Keeping a reference of a `QueryMapper` instance isn't a problem though, since each `QueryMapper` will be updated in the background.
+    The `getQueryMapper` method will always return the same instance of `QueryMapper` for the same given `Tenant`, so it's not necessary to keep a reference of the `QueryMapper`. Keeping a reference of a `QueryMapper` instance isn't a problem though since each `QueryMapper` will be updated in the background.
     
     A non-existing tenant won't cause an error but simply return a QueryMapper that always returns `null`.
 
@@ -71,13 +70,25 @@ Usage Example
                                              .preloadTenants("example.com") // optional
                                              .build();
 
-    public String getSearchQuery(String userQuery)
+    public void searchProcess(HttpServletRequest req, HttpServletResponse resp)
     {
+        // init search process...
+
         Tenant tenant = new Tenant("example", "com");
         QueryMapper qm = qmManager.getQueryMapper(tenant);
         
-        String mappedQuery = qm.mapQuery(userQuery);
-        return mappedQuery != null ? mappedQuery : userQuery;
+        String searchQuery = req.getParameter("q");
+
+        QueryMapping mapping = qm.mapQuery(searchQuery);
+        if (mapping.hasRedirect()) {
+            resp.setHeader("Location", mapping.getRedirect());
+            resp.setStatus(302);
+            return;
+        } else {
+            searchQuery = mapping.getSearchQuery();
+        }
+
+        // continue with search process...
     }
     
     // It's recommended to bind the qmManager instance to your JVM's lifecycle
@@ -88,13 +99,13 @@ Usage Example
         qmManager.close();
     }
 
-The javadoc of the :code:`QueryMapperManager.builder()` methods, tell you more about the possible settings.
+The Javadoc of the :code:`QueryMapperManager.builder()` methods tell you more about the possible settings.
     
 
 Monitoring
 ----------
 
-SmartQuery optionally exposes internal metrics using the `Micrometer`_ framework. If you'd like to get those metrics, add the wanted Micrometer connector to your dependencies and add the according MeterRegistry.
+SmartQuery optionally exposes internal metrics using the `Micrometer`_ framework. If you'd like to get those metrics, add the wanted Micrometer connector to your dependencies and add the wanted MeterRegistry implementation.
 
 .. code-block:: java
 
@@ -114,8 +125,8 @@ You will be able to track the following metrics:
 .. glossary::
 
     smartquery.statsCollector.queue.size
-        Current number of items inside the transmission queue of the stats-collector.
-        Since the queue size is limited to 500 entries per default, a higher value should never appear. Hitting that limits is an indicator for a broken connection to the stats API.
+        The current number of items inside the transmission queue of the stats-collector.
+        Since the queue size is limited to 500 entries per default, a higher value should never appear. Hitting that limits is an indicator of a broken connection to the stats API.
 
     smartquery.statsCollector.bulk.size.count
     smartquery.statsCollector.bulk.size.sum
@@ -124,19 +135,19 @@ You will be able to track the following metrics:
         With :literal:`sum/count` the average size can be calculated. Max is the biggest bulk since application start.
 
     smartquery.statsCollector.fail.count.total
-        Total amount of failed transmissions, that were reported to the stats API.
+        The total amount of failed transmissions, that were reported to the stats API.
 
     smartquery.update.fail.count
-        Number of failed mapping update attempts for a certain tenant in a row. If an update succeeds, this value will be reset to "0".
-        If this value reaches "5", the according update process will be stopped and only started again, if mappings for the according tenant are requested again.
+        The number of failed mapping update attempts for a certain tenant in a row. If an update succeeds, this value will be reset to "0".
+        If this value reaches "5", that update process will be stopped and only started again, if mappings for the according tenant are requested again.
         This metric is tagged with the according `tenant_name` and `tenant_channel`.
         
     smartquery.update.success.count.total
-        Total number of successful data updates per tenant.
+        The total number of successful data updates per tenant.
         This metric is tagged with the according `tenant_name` and `tenant_channel`.
 
     smartquery.mappings.size
-        Current number of raw mapping pairs per tenant.
+        The current number of raw mapping pairs per tenant.
         This metric is tagged with the according `tenant_name` and `tenant_channel`.
         
     smartquery.mappings.age.seconds

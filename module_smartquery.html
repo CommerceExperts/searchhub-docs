@@ -38,7 +38,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="CXP SearchHub 0.11.0 documentation" href="index.html"/>
-        <link rel="next" title="Common concepts and behavior" href="smartquery/common.html"/>
+        <link rel="next" title="Best Practices" href="smartquery/best-practices.html"/>
         <link rel="prev" title="Ingestion" href="ingestion.html"/> 
 
   
@@ -90,10 +90,10 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Module: SmartQuery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html">Best Practices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="smartquery/common.html">Common concepts and behavior</a></li>
 <li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html">Direct Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html">REST Service Integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/sample-user-story.html">Sample User Story</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
@@ -162,9 +162,9 @@
             
   <div class="section" id="module-smartquery">
 <h1>Module: SmartQuery<a class="headerlink" href="#module-smartquery" title="Permalink to this headline">¶</a></h1>
-<p>SmartQuery is a search|hub module that maps similar queries (e.g. “skate board”, “skate boarding”, “skateboards”, “skateboard”) to the best <a class="footnote-reference" href="#id2" id="id1">[1]</a> query - we call it the MasterQuery.
-The SmartQuery module automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module itself and the mapping process.</p>
-<p>We recommend following the <a class="reference external" href="smartquery/sample-user-story.html">sample user story</a> to get started with the a SmartQuery integration into your system.</p>
+<p>SmartQuery is a search|hub module that maps similar queries (e.g. “skate board”, “skate boarding”, “skateboards”, “skateboard”) to the best <a class="footnote-reference" href="#id2" id="id1">[1]</a> query - the so-called MasterQuery.
+The SmartQuery module automatically connects to the search|hub API to get the required data and to send back statistics and performance information about the module itself and the mapping process.</p>
+<p>We recommend following the <a class="reference external" href="smartquery/best-practices.html">best practices</a> to get started with the SmartQuery integration into your system.</p>
 <table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -173,6 +173,12 @@ The SmartQuery module automatically connects to the search|hub API in order to g
 </table>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="smartquery/best-practices.html">Best Practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#basic-smartquery-implementation">Basic SmartQuery Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#query-correction-feedback">Query Correction Feedback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#search-hub-redirects">Search|Hub Redirects</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="smartquery/common.html">Common concepts and behavior</a></li>
 <li class="toctree-l1"><a class="reference internal" href="smartquery/direct-integration.html">Direct Integration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#requirements">Requirements</a></li>
@@ -191,7 +197,6 @@ The SmartQuery module automatically connects to the search|hub API in order to g
 <li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html#trouble-shooting">Trouble Shooting</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="smartquery/sample-user-story.html">Sample User Story</a></li>
 </ul>
 </div>
 </div>
@@ -206,7 +211,7 @@ The SmartQuery module automatically connects to the search|hub API in order to g
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="smartquery/common.html" class="btn btn-neutral float-right" title="Common concepts and behavior" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="smartquery/best-practices.html" class="btn btn-neutral float-right" title="Best Practices" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="ingestion.html" class="btn btn-neutral" title="Ingestion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
