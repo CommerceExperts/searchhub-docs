@@ -28,6 +28,7 @@ Acceptance criteria
 
 Technical hint
   - You can use the `bypass`_ feature of SmartQuery by wrapping the query into quotes. Passing that query will not do any mapping but remove the quotes again.
+  - In case the `direct integration`_ is used, the util function `io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder` can be used to avoid displaying the query correction feedback due to the fact, that the query consists of the same words.
 
 
 Search|Hub Redirects
@@ -41,3 +42,4 @@ Acceptance criteria
 
 
 .. _bypass: common.html
+.. _direct integration: direct-integration.html
