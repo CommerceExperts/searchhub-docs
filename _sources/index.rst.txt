@@ -16,23 +16,35 @@ Getting Started
 ---------------
 
 Before integrating one of our modules into your system(s), we need tracking data to warm-up our machine learning models:
-Keep in mind that search|hub is designed to be integrated into your existing search engine—not replace it.
+Keep in mind that Search|Hub is designed to be integrated into your existing search engine, not replace it.
 
-We need at least a search analytics report (e.g. an export from Google Analytics) from a representative time interval. Alternatively, we also accept search logs that contain user queries and some user interaction logs (which product was clicked, put into basket, etc.), which we use to generate the data on our own.
+Minimum Requirements
+____________________
+
+At a minimum we require one of two data export methods:
+   - a search analytics report (e.g. an export from Google Analytics) from a representative time interval. 
+   - Alternatively, we accept search logs that contain user queries along with user interaction logs
+      - which product was clicked, added to the basket, etc.
+      This information is then used to generate the data on our side.
 
 Check out the `Ingestion`_ section for more details about the supported data formats and data access possibilities.
 
-Based on this data, we will train search|hub and may also estimate the potential performance of search|hub. Then we will send you more information about which modules are best suitable and how they can be integrated into your system.
+Based on this data, we will both train, as well as, estimate the potential performance of Search|Hub. Following this initial step we will provide you with further information regarding which modules are best suitable for and how they can be integrated into your system.
 
-Please `contact us`_ to talk about your use-cases, ask us more detailed questions or request a potential report.
+Please `contact us`_ to further define your use-cases, speak with us regarding your detailed questions or to request a potential search query optimization report.
 
 
 Modules
 -------
 
-There are several approaches to "search query optimization". Each is realized as a module for search|hub and also documented separately. It's possible to combine the modules to improve each aspect of query optimization.
+There are several approaches to "search query optimization". Search|Hub provides a modular solution for each with respective documentation. This approach allows for dedicated focus to specfic aspects of query optimization, while at the same time, offering full flexibility to combine modules.
 
-It is also possible to integrate the single modules directly into a system using native Java Code. Read the according module documentation for more details.
+In this way each added module supports the successive optimization of your data-driven approach to search query optimization.
+
+Good To Know
+____________
+
+We make it possible, using native Java Code, to integrate individual modules directly into a system. Read the respective module documentation for more details.
 
 
 .. _Ingestion: ingestion.html
