@@ -89,17 +89,17 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Ingestion</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#search-analytics-data">Search Analytics Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#search-analytics-data">1. Search Analytics Data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#google-analytics-api-access">Google Analytics API Access</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#analytics-file-export">Analytics File Export</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#content">Content</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#necessary-export-kpis">Necessary Export KPIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#data-format">Data Format</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#whitelisted-queries">Whitelisted Queries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#product-data">Product Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#curated-queries">2. Curated Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#product-data">3. Product Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: SmartQuery</a></li>
@@ -169,36 +169,40 @@
             
   <div class="section" id="ingestion">
 <h1>Ingestion<a class="headerlink" href="#ingestion" title="Permalink to this headline">¶</a></h1>
-<p>search|hub primarily depends on search-analytics data but also uses other kinds of data to improve the outcome:</p>
-<ul class="simple">
-<li>list of curated queries / whitelisted queries</li>
-<li>product data</li>
-</ul>
-<p>See below what to consider when creating the according data feeds.</p>
+<p>Search|Hub primarily relies on search-analytics data. However, the following types of data are used to further improve the outcome.</p>
+<ol class="arabic simple">
+<li>Search Analytics Data</li>
+<li>Curated Queries / whitelisted queries</li>
+<li>Product Data</li>
+</ol>
+<p>See below what to consider when creating the respective data feeds.</p>
 <div class="section" id="search-analytics-data">
-<h2>Search Analytics Data<a class="headerlink" href="#search-analytics-data" title="Permalink to this headline">¶</a></h2>
-<p>We provide the following possibilities to ingest analytics data:</p>
+<h2>1. Search Analytics Data<a class="headerlink" href="#search-analytics-data" title="Permalink to this headline">¶</a></h2>
+<p>We provide the following methods of ingesting analytics data:</p>
 <ul class="simple">
-<li>In case you’re using Google-Analytics, we prefer to use API access to fetch the necessary data.</li>
-<li>File exports are also acceptable. We can pull them from some URL or provide a secured FTP account, where such export files can be uploaded.</li>
-<li>If no analytics system is available, we can also ingest log files or other raw files and extract the necessary data from it.
-This option might be charged extra, however. Please contact us, to discuss this option or talk about other options.</li>
+<li><strong>Google-Analytics, API access.</strong></li>
+<li><strong>File exports:</strong><ul>
+<li>via pull from a URL</li>
+<li>or via secure FTP account access</li>
+<li>In the absence of an analytics system, we offer a log-, or raw-file ingestion service. This professional service extracts the necessary information directly from the respective data source. <strong>Please contact us, to speak about this option or to discuss other options in more detail.</strong></li>
+</ul>
+</li>
 </ul>
 <div class="section" id="google-analytics-api-access">
 <h3>Google Analytics API Access<a class="headerlink" href="#google-analytics-api-access" title="Permalink to this headline">¶</a></h3>
-<p>If possible, we prefer API access to your Google Analytics site-search analytics view. To do so, please <a class="reference external" href="https://support.google.com/analytics/answer/1009702?hl=en">grant access</a> to the following two accounts:</p>
+<p>API access to Google Analytics site-search analytics view is preferred. To do so, please <a class="reference external" href="https://support.google.com/analytics/answer/1009702?hl=en">grant access</a> to the following two accounts:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">searchhub</span><span class="nd">@searchhub</span><span class="o">-</span><span class="n">analytics</span><span class="o">.</span><span class="n">iam</span><span class="o">.</span><span class="n">gserviceaccount</span><span class="o">.</span><span class="n">com</span>
 <span class="n">analytics</span><span class="nd">@commerce</span><span class="o">-</span><span class="n">experts</span><span class="o">.</span><span class="n">com</span>
 </pre></div>
 </div>
-<p>Please contact us afterwards and let us know about the granted access, so we can set up an appropriate process on our end.</p>
+<p>Once done, please contact us so that we can set up the appropriate process on our end.</p>
 </div>
 <div class="section" id="analytics-file-export">
 <h3>Analytics File Export<a class="headerlink" href="#analytics-file-export" title="Permalink to this headline">¶</a></h3>
-<p>In case you can’t give us API access to your analytics system, a file export is also acceptable. For long term usage, please make sure to provide these files regularly.</p>
-<div class="section" id="content">
-<h4>Content<a class="headerlink" href="#content" title="Permalink to this headline">¶</a></h4>
-<p>Most important for search|hub are user generated search queries (user queries) and their corresponding KPIs. We recommend using at least some of the following KPIs:</p>
+<p>In the event you are unable to grant API access to your analytics system, a file export is also acceptable. Please make sure to provide these files regulary in order to ensure sustainability and system continuity.</p>
+<div class="section" id="necessary-export-kpis">
+<h4>Necessary Export KPIs<a class="headerlink" href="#necessary-export-kpis" title="Permalink to this headline">¶</a></h4>
+<p>Most important for Search|Hub are user generated search queries (user queries) and their corresponding KPIs. Below is a list of the most useful search KPIs:</p>
 <ul class="simple">
 <li>Search-Frequency (Required!)</li>
 <li>Match-Count</li>
@@ -208,41 +212,40 @@ This option might be charged extra, however. Please contact us, to discuss this 
 <li>Total-Revenue</li>
 <li>Exit-Rate</li>
 </ul>
-<p>Based on such KPIs, search|hub will be able to make better decisions. The chosen KPIs depend on the wished goal of your search. If for example the zero-match rate should be lowered, the match count should be part of the analytics export.</p>
+<p>These KPIs allow Search|Hub to make better decisions. Your selection depends upon your search query optimization goal. Ex.: you want to lover the zero-match rate - then “Match Count” must be included in your analytics export.</p>
 </div>
 <div class="section" id="data-format">
 <h4>Data Format<a class="headerlink" href="#data-format" title="Permalink to this headline">¶</a></h4>
-<p>As a data format, we prefer a CSV/TSV feed that meets the following conditions:</p>
+<p>As a data format, we prefer CSV/TSV feeds that meet the following conditions:</p>
 <ul>
-<li><p class="first">The export must clearly be assigned to a single tenant / shop / sales channel</p>
+<li><p class="first">The export is clearly assigned to a single tenant / shop / sales channel</p>
 </li>
-<li><p class="first">We recommend the export file(s) to be named in this format:
+<li><p class="first">Conforms to the following naming convention:
 <code class="docutils literal"><span class="pre">&lt;custom-prefix&gt;.&lt;tenant&gt;.&lt;date:YYYY-MM-DD&gt;[-&lt;date:YYYY-MM-DD&gt;].&lt;file-extension&gt;</span></code></p>
-<p>Some explanation to the listed parts:</p>
+<p>Explanation to naming convention:</p>
 <ul>
-<li><p class="first">A custom prefix or other custom strings can be part of the filename, e.g. “export”</p>
+<li><p class="first">A custom prefix or other custom strings are allowed to be added to the filename, e.g. “export”</p>
 </li>
-<li><p class="first">The tenant must be part of the file name! See the <a class="reference external" href="glossary.html">glossary</a> about what a <a class="reference external" href="../glossary.html#tenant">tenant</a> is. You can use your own designation, it just must be unique.</p>
+<li><p class="first">The tenant (shop, or sales channel) must be part of the file name! See the <a class="reference external" href="glossary.html">glossary</a> concerning what a <a class="reference external" href="../glossary.html#tenant">tenant</a> is. You can use your own designation, the only requirement is that it must be unique.</p>
 </li>
-<li><p class="first">Each export should be associated with a certain date-range, which could be a single day or a range of two days (both considered inclusive).</p>
-<p>If the export only belongs to a single day, the second date is not necessary.</p>
-<p>As an exception, Google-Analytics BigQuery exports are accepted to contain the associated time range as an attribute at the file content.</p>
-</li>
-</ul>
+<li><p class="first">Each export is associated with a certain date-range. This could be either, a single day or, a range of two days (both considered inclusive).</p>
+<p>If the export pertains to a single day, the second date is not necessary.</p>
 </li>
 </ul>
-<p>The delimiters and the order of this information is not that important. It’s just important to gain this listed information from the filename.</p>
+</li>
+</ul>
+<p>The delimiters and the order of the information is not important. The filename must simply contain the necessary information.</p>
 </div>
 </div>
 </div>
-<div class="section" id="whitelisted-queries">
-<h2>Whitelisted Queries<a class="headerlink" href="#whitelisted-queries" title="Permalink to this headline">¶</a></h2>
-<p>If you have curated landing pages for certain queries or optimized search results, you can export the according to queries and search|hub will prefer these queries and automatically increase the traffic to them.
-This can be a simple txt file with the name of the tenant, e.g. <code class="docutils literal"><span class="pre">curated-queries.&lt;tenant&gt;.txt</span></code> or any other format where that information can be extracted easily.</p>
+<div class="section" id="curated-queries">
+<h2>2. Curated Queries<a class="headerlink" href="#curated-queries" title="Permalink to this headline">¶</a></h2>
+<p>If you have curated landing pages for certain queries or optimized search results, you can export the corresponding queries and Search|Hub will prefer these and automatically increase the traffic to them.
+This can be a simple text file with the name of the tenant (shop or sales channel), e.g. <code class="docutils literal"><span class="pre">curated-queries.&lt;tenant&gt;.txt</span></code> or any other format from which such queries may be easily extracted.</p>
 </div>
 <div class="section" id="product-data">
-<h2>Product Data<a class="headerlink" href="#product-data" title="Permalink to this headline">¶</a></h2>
-<p>Product data should be provided as CSV / TSV file containing all kind of language data, like:</p>
+<h2>3. Product Data<a class="headerlink" href="#product-data" title="Permalink to this headline">¶</a></h2>
+<p>Product data should be provided as a Google Shopping Feed and contain all types of linguistic data, such as:</p>
 <ul class="simple">
 <li>title</li>
 <li>product type</li>
@@ -256,7 +259,7 @@ This can be a simple txt file with the name of the tenant, e.g. <code class="doc
 <li>image urls</li>
 <li>product url</li>
 </ul>
-<p><strong>Please talk to us, if you have other data formats / structures / feeds and no possibility to transform them into the appropriate format.</strong></p>
+<p><strong>Please contact us directly, if you have other data formats / structures / feeds and no possibility to transform them into the appropriate format.</strong></p>
 </div>
 </div>
 
