@@ -21,13 +21,12 @@ Keep in mind that Search|Hub is designed to be integrated into your existing sea
 Minimum Requirements
 ____________________
 
-At a minimum we require one of two data export methods:
-   - a search analytics report (e.g. an export from Google Analytics) from a representative time interval. 
-   - Alternatively, we accept search logs that contain user queries along with user interaction logs
-      - which product was clicked, added to the basket, etc.
-      This information is then used to generate the data on our side.
+At a minimum we require a search analytics report (e.g. an export from Google Analytics) from a representative time interval.
 
-Check out the `Ingestion`_ section for more details about the supported data formats and data access possibilities.
+*Check out the* `Ingestion`_ *section for more details about the supported data formats and data access possibilities.*
+
+Value Assessment
+________________
 
 Based on this data, we will both train, as well as, estimate the potential performance of Search|Hub. Following this initial step we will provide you with further information regarding which modules are best suitable for and how they can be integrated into your system.
 
