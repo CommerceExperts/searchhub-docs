@@ -8,14 +8,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Common concepts and behavior &mdash; CXP SearchHub 0.23.0 documentation</title>
+  <title>Sample User Story &mdash; CXP SearchHub 0.23.0 documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartquery/common.html"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartsuggest/sample-user-story.html"/>
   
 
   
@@ -38,9 +38,9 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CXP SearchHub 0.23.0 documentation" href="../index.html"/>
-        <link rel="up" title="Module: SmartQuery" href="../module_smartquery.html"/>
-        <link rel="next" title="Direct Integration" href="direct-integration.html"/>
-        <link rel="prev" title="Best Practices" href="best-practices.html"/> 
+        <link rel="up" title="Module: Smart-Suggest" href="../module_smartsuggest.html"/>
+        <link rel="next" title="Glossary" href="../glossary.html"/>
+        <link rel="prev" title="REST Service Integration" href="rest-service.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -90,14 +90,13 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="best-practices.html">Best Practices</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Common concepts and behavior</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: Smart-Suggest</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="direct-integration.html">Direct Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rest-service.html">REST Service Integration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sample User Story</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../module_smartsuggest.html">Module: Smart-Suggest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
 </ul>
 
@@ -143,15 +142,15 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../module_smartquery.html">Module: SmartQuery</a> &raquo;</li>
+          <li><a href="../module_smartsuggest.html">Module: Smart-Suggest</a> &raquo;</li>
         
-      <li>Common concepts and behavior</li>
+      <li>Sample User Story</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/smartquery/common.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/smartsuggest/sample-user-story.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -164,26 +163,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="common-concepts-and-behavior">
-<h1>Common concepts and behavior<a class="headerlink" href="#common-concepts-and-behavior" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="sample-user-story">
+<h1>Sample User Story<a class="headerlink" href="#sample-user-story" title="Permalink to this headline">¶</a></h1>
+<p>When developing according to agile principles a product owner might find it helpful to have a sample user story. Feel free to copy and paste this to your backlog</p>
 <dl class="docutils">
-<dt>Query Naming</dt>
-<dd><p class="first">When talking about query mapping, we distinguish the following types of queries:</p>
-<ul class="last simple">
-<li>The query that is inserted into the search box by the user is called “user query”.</li>
-<li>The search phrase that SmartQuery maps to, is called “search query” because that’s the actual text that the search engine has to parse.</li>
-<li>Last but not least we have the “technical query”, that’s the structured query that is sent to the search engine.</li>
+<dt>Story</dt>
+<dd>As a customer I want to see autocompletions / search suggestions in the searchbox that are optimized using CXP search|hub.</dd>
+<dt>Acceptance criteria</dt>
+<dd><ul class="first last simple">
+<li>When typing into the search box, search phrases are suggested based on every single typed user input using search|hub’s SmartSuggest Module (<a class="reference external" href="https://docs.searchhub.io/module_smartsuggest.html">https://docs.searchhub.io/module_smartsuggest.html</a>).</li>
+<li>Selecting one of those suggested queries, causes a search request to the shop</li>
+<li>(In case <a class="reference external" href="https://docs.searchhub.io/module_smartquery.html">SmartQuery</a> is used, these suggested terms should still be mapped by SmartQuery)</li>
+<li>internal systems can access <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> to fetch the necessary data</li>
+<li>internal systems can access <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a> to send usage information that are used to monitor and optimize the results</li>
 </ul>
-</dd>
-<dt>Query Mapping</dt>
-<dd><p class="first">In case the user query can be mapped, a different search query will return.</p>
-<p>If the user query is already known as the best query, we map it back to that identical query. This is tracked as a successful mapping.</p>
-<p class="last">If the user query can’t be mapped the user query should be used. The integration methods and endpoints return rich objects that contain all the required information.</p>
-</dd>
-<dt>Bypassing Queries</dt>
-<dd><p class="first">If the inserted query is wrapped into double quotes (<code class="code docutils literal"><span class="pre">&quot;</span></code>) the query will be handled as an unknown query and not mapped at all (Direct Integration returns <code class="code docutils literal"><span class="pre">null</span></code>) even if it actually could be mapped.</p>
-<p class="last">This can be used to implement the <a class="reference external" href="best-practices.html#query-correction-feedback">query correction feedback</a> feature that gives the customer the option to search for its initial input, e.g. <code class="docutils literal"><span class="pre">Results</span> <span class="pre">are</span> <span class="pre">shown</span> <span class="pre">for</span> <span class="pre">&lt;mapped</span> <span class="pre">query&gt;</span> <span class="pre">-</span> <span class="pre">search</span> <span class="pre">for</span> <span class="pre">&quot;&lt;original</span> <span class="pre">query&gt;&quot;</span> <span class="pre">instead</span></code>.
-Just make sure to pass the double quotes into SmartQuery as well.</p>
 </dd>
 </dl>
 </div>
@@ -198,10 +191,10 @@ Just make sure to pass the double quotes into SmartQuery as well.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="direct-integration.html" class="btn btn-neutral float-right" title="Direct Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="best-practices.html" class="btn btn-neutral" title="Best Practices" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="rest-service.html" class="btn btn-neutral" title="REST Service Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

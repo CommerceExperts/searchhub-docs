@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Direct Integration &mdash; CXP SearchHub 0.23.0 documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartsuggest/direct-integration.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="CXP SearchHub 0.23.0 documentation" href="../index.html"/>
+        <link rel="up" title="Module: Smart-Suggest" href="../module_smartsuggest.html"/>
+        <link rel="next" title="REST Service Integration" href="rest-service.html"/>
+        <link rel="prev" title="Module: Smart-Suggest" href="../module_smartsuggest.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CXP SearchHub
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: Smart-Suggest</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Direct Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#maven-dependency">Maven Dependency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#essential-usage">Essential Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring">Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="rest-service.html">REST Service Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample-user-story.html">Sample User Story</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CXP SearchHub</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../module_smartsuggest.html">Module: Smart-Suggest</a> &raquo;</li>
+        
+      <li>Direct Integration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/smartsuggest/direct-integration.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="direct-integration">
+<h1>Direct Integration<a class="headerlink" href="#direct-integration" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Java version &gt;=1.8</li>
+<li>around 100MB to 500MB additional Java Heapspace (depending on the amount of data to be managed by the service)</li>
+<li>If using a firewall, please adjust the configuration to allow connections to the following HTTPS Endpoints <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> and <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a></li>
+</ul>
+</div>
+<div class="section" id="maven-dependency">
+<h2>Maven Dependency<a class="headerlink" href="#maven-dependency" title="Permalink to this headline">¶</a></h2>
+<p>The basic SmartSuggest library is part of the Open-Commerce-Search stack. In order to load the search|hub data, our searchhub-suggest-data-provider must be added to the classpath.
+All related components can be pulled as a maven dependency from our repository <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhub-external/">https://nexus.commerce-experts.com/content/repositories/searchhub-external/</a></p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>de.cxp.ocs<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>smartsuggest-lib<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.1.1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>io.searchhub<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>searchhub-suggest-data-provider<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.7<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="c">&lt;!-- ... --&gt;</span>
+
+<span class="nt">&lt;repository&gt;</span>
+    <span class="nt">&lt;id&gt;</span>external-releases<span class="nt">&lt;/id&gt;</span>
+    <span class="nt">&lt;url&gt;</span>https://nexus.commerce-experts.com/content/repositories/searchhub-external/<span class="nt">&lt;/url&gt;</span>
+<span class="nt">&lt;/repository&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="essential-usage">
+<h2>Essential Usage<a class="headerlink" href="#essential-usage" title="Permalink to this headline">¶</a></h2>
+<p>The QuerySuggester is the central object of the smartsuggest library. It is used to fetch the matching suggestions based on the (partial) user input.
+To get access to a QuerySuggester object, a single QuerySuggestManager must be built and maintained as a central reference.
+This is important as the QuerySuggestManager instance takes care of updating the suggest data should the data change.
+It can also be used to shutdown any QuerySuggesters and therefore free related resources.</p>
+<p>A QuerySuggester isntance can be accessed from the QuerySuggestManager using an “index name” as a parameter.
+The index name is the full <a class="reference external" href="../glossary.html#tenant">tenant</a> name used at search|hub. For example: “myshop.com”.</p>
+<p>To load the correct data, the update process must get your search|hub API key, which you will receive during search|hub onboarding.
+This API key must be set either, as environment variable “SH_API_KEY” or, as system property “searchhub.apikey” within the Java environment.</p>
+</div>
+<div class="section" id="usage-example">
+<h2>Usage Example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">static</span> <span class="n">QuerySuggestManager</span> <span class="n">qsm</span><span class="o">;</span>
+<span class="kd">static</span> <span class="o">{</span>
+  <span class="k">try</span>
+    <span class="c1">// this should not be necessary, instead the API key should be set from</span>
+    <span class="c1">// the outside of the java process</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&quot;searchhub.apikey&quot;</span><span class="o">,</span> <span class="s">&quot;123abc&quot;</span><span class="o">);</span>
+
+    <span class="n">qsm</span> <span class="o">=</span> <span class="n">QuerySuggestManager</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+          <span class="c1">// required for lucene where it puts the index files</span>
+          <span class="o">.</span><span class="na">indexFolder</span><span class="o">(</span><span class="n">Files</span><span class="o">.</span><span class="na">createTempDirectory</span><span class="o">(</span><span class="s">&quot;smartsuggest&quot;</span><span class="o">))</span>
+          <span class="c1">// the builder also has other options</span>
+          <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+  <span class="o">}</span>
+  <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="n">UncheckedIOException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// It&#39;s recommended to bind the querySuggestManager instance to your JVM&#39;s lifecycle</span>
+<span class="c1">// and close the QueryMapperManager during shutdown.</span>
+<span class="c1">// Internally a ScheduledExecutorService is used, that will be stopped then.</span>
+<span class="nd">@PreDestroy</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onJvmShutdown</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">querySuggestManager</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">suggestQueries</span><span class="o">(</span><span class="n">String</span> <span class="n">userQuery</span><span class="o">,</span> <span class="kt">int</span> <span class="n">maxSuggestions</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+  <span class="c1">// Suggestions are grouped by their match-type per default</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;</span> <span class="n">groupedSuggestions</span> <span class="o">=</span> <span class="n">qsm</span><span class="o">.</span><span class="na">getQuerySuggester</span><span class="o">(</span><span class="s">&quot;example.com&quot;</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">suggest</span><span class="o">(</span><span class="n">userQuery</span><span class="o">,</span> <span class="n">maxSuggestions</span><span class="o">,</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptySet</span><span class="o">());</span>
+
+  <span class="k">if</span> <span class="o">(</span><span class="n">groupedSuggestions</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
+
+  <span class="c1">// this is how the grouped suggestions could be transformed into a simple string list</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">simpleSuggestions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="n">maxSuggestions</span><span class="o">);</span>
+
+  <span class="k">for</span> <span class="o">(</span><span class="n">Result</span> <span class="n">suggestGroup</span> <span class="o">:</span> <span class="n">groupedSuggestions</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">((</span><span class="n">simpleSuggestions</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">+</span> <span class="n">suggestGroup</span><span class="o">.</span><span class="na">getSuggestions</span><span class="o">().</span><span class="na">size</span><span class="o">())</span> <span class="o">&gt;</span> <span class="n">maxSuggestions</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">s</span> <span class="o">:</span> <span class="n">suggestGroup</span><span class="o">.</span><span class="na">getSuggestions</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">simpleSuggestions</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">simpleSuggestions</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">==</span> <span class="n">maxSuggestions</span><span class="o">)</span> <span class="k">break</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">else</span> <span class="o">{</span>
+      <span class="n">simpleSuggestions</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">suggestGroup</span><span class="o">.</span><span class="na">getSuggestions</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">simpleSuggestions</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">==</span> <span class="n">maxSuggestions</span><span class="o">)</span> <span class="k">break</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="k">return</span> <span class="n">simpleSuggestions</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The javadoc of the <code class="code docutils literal"><span class="pre">QuerySuggestManager.builder()</span></code> methods tell you more about the available settings.</p>
+</div>
+<div class="section" id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
+<p>SmartSuggest, optionally, provides internal metrics using the <a class="reference external" href="https://micrometer.io/docs">Micrometer</a> framework. If you’d like to tap into those metrics, simply add the necessary Micrometer connector to your dependencies followed by, your desired MeterRegistry.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span> <span class="c1">// ...</span>
+ <span class="n">MeterRegistry</span> <span class="n">meterRegistry</span> <span class="o">=</span> <span class="n">getYourMeterRegistryInstance</span><span class="o">();</span>
+
+ <span class="c1">// example: to reveal metrics over JMX create a JmxMeterRegistry</span>
+ <span class="n">meterRegistry</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JmxMeterRegistry</span><span class="o">(</span><span class="n">JmxConfig</span><span class="o">.</span><span class="na">DEFAULT</span><span class="o">,</span> <span class="n">Clock</span><span class="o">.</span><span class="na">SYSTEM</span><span class="o">);</span>
+
+ <span class="c1">// and add it to the QueryMapperManager.builder afterwards</span>
+<span class="n">QuerySuggestManager</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+   <span class="c1">// ...</span>
+   <span class="o">.</span><span class="na">addMetricsRegistryAdapter</span><span class="o">(</span><span class="n">MeterRegistryAdapter</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">meterRegistry</span><span class="o">));</span>
+   <span class="c1">// ...</span>
+</pre></div>
+</div>
+<p>You will be able to track the following metrics:</p>
+<dl class="glossary docutils">
+<dt id="term-smartsuggest-update-success-count-total">smartsuggest.update.success.count.total</dt>
+<dd>Total number of successful data updates per tenant.
+This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
+<dt id="term-smartsuggest-update-fail-count">smartsuggest.update.fail.count</dt>
+<dd>Number of successive failed update attempts for a certain tenant. If an update succeeds, this value will be reset to “0”.
+If this value reaches “5”, the respective update process will be stopped and only restarted, if suggestions for the related tenant are requested again.
+This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
+<dt id="term-smartsuggest-suggestions-size">smartsuggest.suggestions.size</dt>
+<dd>Current number of raw suggestion records per tenant.
+This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
+<dt id="term-smartsuggest-suggestions-age-seconds">smartsuggest.suggestions.age.seconds</dt>
+<dd>That is the amount of time passed, since the last successful update took place.
+This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rest-service.html" class="btn btn-neutral float-right" title="REST Service Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../module_smartsuggest.html" class="btn btn-neutral" title="Module: Smart-Suggest" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, CXP Commerce Experts GmbH.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.23.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

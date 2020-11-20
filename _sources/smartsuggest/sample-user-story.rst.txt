@@ -1,0 +1,16 @@
+Sample User Story
+=================
+
+When developing according to agile principles a product owner might find it helpful to have a sample user story. Feel free to copy and paste this to your backlog
+
+Story
+  As a customer I want to see autocompletions / search suggestions in the searchbox that are optimized using CXP search|hub.
+
+Acceptance criteria
+  - When typing into the search box, search phrases are suggested based on every single typed user input using search|hub's SmartSuggest Module (https://docs.searchhub.io/module_smartsuggest.html).
+  - Selecting one of those suggested queries, causes a search request to the shop
+  - (In case `SmartQuery`_ is used, these suggested terms should still be mapped by SmartQuery)
+  - internal systems can access https://query.searchhub.io/ to fetch the necessary data
+  - internal systems can access https://import.searchhub.io/ to send usage information that are used to monitor and optimize the results
+
+.. _SmartQuery: https://docs.searchhub.io/module_smartquery.html

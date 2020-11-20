@@ -1,0 +1,21 @@
+Module: Smart-Suggest
+=====================
+
+SmartSuggest uses the enriched and clustered search|hub data to build a sophisticated suggest functionality. 
+As a base technology Apache Lucene is used to provide fast and weighted query suggestions. The implementation is part of the "`Open Commerce Search Stack`_"
+
+The module automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module and its usage.
+
+We recommend following the `sample user story`_ to get started with the SmartSuggest integration into your system.
+
+
+.. _sample user story: smartsuggest/sample-user-story.html
+.. _Open Commerce Search Stack: https://github.com/CommerceExperts/open-commerce-search
+
+
+.. toctree::
+   :maxdepth: 2
+   :glob:
+
+   smartsuggest/*
+   

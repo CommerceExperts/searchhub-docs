@@ -8,14 +8,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Glossary &mdash; CXP SearchHub 0.23.0 documentation</title>
+  <title>Module: Smart-Suggest &mdash; CXP SearchHub 0.23.0 documentation</title>
   
 
   
   
   
   
-    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/glossary.html"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/module_smartsuggest.html"/>
   
 
   
@@ -38,7 +38,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="CXP SearchHub 0.23.0 documentation" href="index.html"/>
-        <link rel="prev" title="Sample User Story" href="smartsuggest/sample-user-story.html"/> 
+        <link rel="next" title="Direct Integration" href="smartsuggest/direct-integration.html"/>
+        <link rel="prev" title="REST Service Integration" href="smartquery/rest-service.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -89,12 +90,13 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: SmartQuery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: Smart-Suggest</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#query-mapping">Query Mapping</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tenant">Tenant</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Module: Smart-Suggest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/direct-integration.html">Direct Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/rest-service.html">REST Service Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/sample-user-story.html">Sample User Story</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -139,13 +141,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Glossary</li>
+      <li>Module: Smart-Suggest</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/glossary.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/module_smartsuggest.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -158,23 +160,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="glossary">
-<h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="query-mapping">
-<h2>Query Mapping<a class="headerlink" href="#query-mapping" title="Permalink to this headline">¶</a></h2>
-<p>A mapping takes place, if a user query is changed into a search query. The basic mapping data consists of simple mapping rules only. These are indexed by SmartQuery to generate even more mappings using diverse fuzzy algorithms.</p>
-</div>
-<div class="section" id="tenant">
-<h2>Tenant<a class="headerlink" href="#tenant" title="Permalink to this headline">¶</a></h2>
-<p>The tenant value is used as an ID and references a single data domain, e.g. a customer domain. The tenant is composed of two values in the format <cite>&lt;name&gt;.&lt;channel&gt;</cite>.</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>the basic “name”, which normally would be the customer name</li>
-<li>a “channel”, which provides a second level of segmentation. This can be a separation by language (en, de, ..), for example, or by sales channel (mobile, www, ..).</li>
-</ol>
-</div></blockquote>
-<p>We recommend a lowercase name only containing alphanumeric characters and optionally dash (<cite>-</cite>) and underscore (<cite>_</cite>) for both tenant values. You can use the shop domain or the combination of your company name and a language code.</p>
-<p>In most cases, the tenant is dictated by the provided data. In practice we inform you about the available tenants, as these are used elsewhere in the overarching data processing pipeline, as unique identifiers.</p>
+  <div class="section" id="module-smart-suggest">
+<h1>Module: Smart-Suggest<a class="headerlink" href="#module-smart-suggest" title="Permalink to this headline">¶</a></h1>
+<p>SmartSuggest uses the enriched and clustered search|hub data to build a sophisticated suggest functionality.
+As a base technology Apache Lucene is used to provide fast and weighted query suggestions. The implementation is part of the “<a class="reference external" href="https://github.com/CommerceExperts/open-commerce-search">Open Commerce Search Stack</a>”</p>
+<p>The module automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module and its usage.</p>
+<p>We recommend following the <a class="reference external" href="smartsuggest/sample-user-story.html">sample user story</a> to get started with the SmartSuggest integration into your system.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="smartsuggest/direct-integration.html">Direct Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/direct-integration.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/direct-integration.html#maven-dependency">Maven Dependency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/direct-integration.html#essential-usage">Essential Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/direct-integration.html#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/direct-integration.html#monitoring">Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartsuggest/rest-service.html">REST Service Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/rest-service.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/rest-service.html#start-the-service">Start the service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/rest-service.html#use-the-service">Use the service</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/rest-service.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/rest-service.html#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartsuggest/rest-service.html#trouble-shooting">Trouble Shooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smartsuggest/sample-user-story.html">Sample User Story</a></li>
+</ul>
 </div>
 </div>
 
@@ -188,8 +200,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="smartsuggest/direct-integration.html" class="btn btn-neutral float-right" title="Direct Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="smartsuggest/sample-user-story.html" class="btn btn-neutral" title="Sample User Story" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="smartquery/rest-service.html" class="btn btn-neutral" title="REST Service Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

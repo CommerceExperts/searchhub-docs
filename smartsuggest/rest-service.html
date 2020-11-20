@@ -1,0 +1,370 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>REST Service Integration &mdash; CXP SearchHub 0.23.0 documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartsuggest/rest-service.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="CXP SearchHub 0.23.0 documentation" href="../index.html"/>
+        <link rel="up" title="Module: Smart-Suggest" href="../module_smartsuggest.html"/>
+        <link rel="next" title="Sample User Story" href="sample-user-story.html"/>
+        <link rel="prev" title="Direct Integration" href="direct-integration.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CXP SearchHub
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: Smart-Suggest</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="direct-integration.html">Direct Integration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">REST Service Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#start-the-service">Start the service</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-the-service">Use the service</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#v1-request">V1 Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#v2-request">V2 Request</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api-key">API KEY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preload-tenants">Preload Tenants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#idle-unload">Idle Unload</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring">Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#trouble-shooting">Trouble Shooting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sample-user-story.html">Sample User Story</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CXP SearchHub</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../module_smartsuggest.html">Module: Smart-Suggest</a> &raquo;</li>
+        
+      <li>REST Service Integration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/smartsuggest/rest-service.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rest-service-integration">
+<h1>REST Service Integration<a class="headerlink" href="#rest-service-integration" title="Permalink to this headline">¶</a></h1>
+<p>In case you can’t use the Java library directly (most likely because your system doesn’t run on the JVM), you can use the REST-service wrapper for SmartSuggest. It’s delivered as a docker image and can run in your environment. (SaaS is also an option, please contact us for more details).</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>a minimum of 250MB + more space depending on the amount of data it has to manage</li>
+<li>the service needs to access the HTTPS Endpoints <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> and <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a></li>
+</ul>
+</div>
+<div class="section" id="start-the-service">
+<h2>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this headline">¶</a></h2>
+<p>The service is provided as docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags">docker hub</a> with the name <code class="code docutils literal"><span class="pre">commerceexperts/searchhub-smartsuggest-service:0.7</span></code></p>
+<p>The container has to be started with your API key set at the environment variable <cite>SH_API_KEY</cite>.
+It exposes port 8081 that can be mapped to any port.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># use the API key you&#39;ll receive from us</span>
+docker run -d --name<span class="o">=</span>smartsuggest-service -e <span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/searchhub-smartsuggest-service:1.0.13
+</pre></div>
+</div>
+</div>
+<div class="section" id="use-the-service">
+<h2>Use the service<a class="headerlink" href="#use-the-service" title="Permalink to this headline">¶</a></h2>
+<p>The service offers two possible endpoints. Both requests are mostly identical and just differ at the version part of the request path.
+The first endpoint (v1) will return a sophisticated blockwise response and the second (v2) will return a simple list of strings. We recommend using v2 because it already cares about picking the optimal set of queries.</p>
+<p>Keep in mind, that SmartSuggest starts fetching the necessary data, after the first request for a tenant was received. So the first few seconds all requests will return an empty result. A few seconds later you should get mapped queries (if data is available).
+It’s possible to lower that startup latency by specifying the tenants using the preloadTenants parameter (SQ_INIT_TENANTS), which is described below.</p>
+<div class="section" id="v1-request">
+<h3>V1 Request<a class="headerlink" href="#v1-request" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>http://&lt;host&gt;:&lt;port&gt;/smartsuggest/v1/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery<span class="o">=</span>&lt;user-query&gt;
+</pre></div>
+</div>
+<p><strong>Response</strong>:</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;best matches&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;suggestions&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;suggestion 1&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;suggestion 2&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;etc.&quot;</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>A block with the name “best matches” is the best case scenario. There are also 3 other kind of blocks, named “typo matches”, “fuzzy matches with 1 edit” and “fuzzy matches with 2 edits”. In case nothing is found, an empty array is returned.
+It is also possible (depending on settings and user input) that several blocks are delivered. In such a case it’s up to the implementor to decide which queries to use for the autosuggestion.
+If there is no need for some special logic, we recommend to use API v2.</p>
+</div>
+<div class="section" id="v2-request">
+<h3>V2 Request<a class="headerlink" href="#v2-request" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>http://&lt;host&gt;:&lt;port&gt;/smartsuggest/v2/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery<span class="o">=</span>&lt;user-query&gt;
+</pre></div>
+</div>
+<p><strong>Response</strong>:</p>
+<p>The response is a JSON array with simple strings that can be used as autocompletion result.</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="s2">&quot;suggestion 1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;suggestion 2&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;etc.&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Both kinds of requests support a “limit” parameter. Per default, the limit is set to 10. This parameter will limit the amount of returned suggestions.</p>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Multiple usages of <cite>JAVA_OPTS</cite> should be combined to a single declaration with all desired properties joined by space, for example</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>-e <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dapikey=&#39;your-api-key&#39; -Dsuggester_max_idle_minutes=90&quot;</span>
+</pre></div>
+</div>
+<div class="section" id="api-key">
+<h3>API KEY<a class="headerlink" href="#api-key" title="Permalink to this headline">¶</a></h3>
+<p>The SearchHub API key can either be set using an environment variable or system property.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">SH_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-secret-api-key&quot;</span>
+<span class="c1"># or</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s1">&#39;-Dapikey=&quot;your-secret-api-key&quot;&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="preload-tenants">
+<h3>Preload Tenants<a class="headerlink" href="#preload-tenants" title="Permalink to this headline">¶</a></h3>
+<p>Specify tenants that should be loaded immediately after initialization.
+Can be set via environment variable as a comma-separated list:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">SQ_INIT_TENANTS</span><span class="o">=</span><span class="s2">&quot;example.num1,example.num2&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="idle-unload">
+<h3>Idle Unload<a class="headerlink" href="#idle-unload" title="Permalink to this headline">¶</a></h3>
+<p>The service might unload a index when it is not used for a certain time (30 minutes by default). When a new request comes in for that tenant, the suggest index will be recreated again, but it needs some time.
+That idle timeout can be changed by passing the idle time in minutes using the following property:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsuggester_max_idle_minutes=90&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
+<p>There are several metrics that are exposed in the prometheus format through the <code class="code docutils literal"><span class="pre">/metrics</span></code> endpoint of the service. This endpoint exposes a “status_up 1.0” metrics plus the metrics described in the <a class="reference external" href="direct-integration.html#monitoring">monitoring</a> section at the <a class="reference external" href="direct-integration.html">direct integration</a> docs (in the prometheus format, which practically means underscores instead of dots).</p>
+</div>
+<div class="section" id="trouble-shooting">
+<h2>Trouble Shooting<a class="headerlink" href="#trouble-shooting" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>If you forgot to specify the API key, the container will stop with the log message
+<cite>“IllegalArgumentException: no SearchHub API key provided! Either specify ENV var ‘SH_API_KEY’ or system property ‘searchhub.apikey’”</cite></li>
+<li>In case you tried to access an unpermitted tenant/channel (maybe because you specified the wrong API key), you will see such a message in the logs of the service:
+<cite>Unauthorized while fetching data for tenant ‘foo.bar’: [401 Unauthorized]</cite></li>
+<li>To get more information about the internal processes, enable debug log. Do that with the docker startup parameter <code class="code docutils literal"><span class="pre">-e</span> <span class="pre">JAVA_OPTS=&quot;-Dlog.searchhub.level=DEBUG&quot;</span></code> or for more debug messages additionally <code class="code docutils literal"><span class="pre">-Dlog.root.level=DEBUG</span></code>.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sample-user-story.html" class="btn btn-neutral float-right" title="Sample User Story" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="direct-integration.html" class="btn btn-neutral" title="Direct Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, CXP Commerce Experts GmbH.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.23.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
