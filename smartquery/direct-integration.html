@@ -176,8 +176,8 @@
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Java with version &gt;=1.8</li>
-<li>around 200MB to 500MB additional Java Heapspace (depending on the amount of data it has to manage)</li>
+<li>Java version &gt;=1.8</li>
+<li>approximately, 200MB to 500MB additional Java Heapspace (depending on the amount of data to be managed)</li>
 <li>If a firewall is used, it needs to be configured to allow connections to the following HTTPS Endpoints <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> and <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a></li>
 </ul>
 </div>
@@ -187,7 +187,7 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span>&lt;dependency&gt;
     &lt;groupId&gt;io.searchhub&lt;/groupId&gt;
     &lt;artifactId&gt;smartquery&lt;/artifactId&gt;
-    &lt;version&gt;1.0.14&lt;/version&gt;
+    &lt;version&gt;1.1&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- ... --&gt;
@@ -206,28 +206,28 @@
 <dt>Tenant</dt>
 <dd>Simple POJO that represents a single data domain. (See the <a class="reference external" href="../glossary.html">glossary</a> about what a <a class="reference external" href="../glossary.html#tenant">Tenant</a> is.)</dd>
 <dt>QueryMapper</dt>
-<dd><p class="first">The central component provided by the SmartQuery library is the <cite>QueryMapper</cite>. It provides query mappings with the method <cite>mapQuery</cite>.</p>
+<dd><p class="first">The central component provided by the SmartQuery library is the <cite>QueryMapper</cite>. It provides query mappings with the <cite>mapQuery</cite> method.</p>
 <table class="last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">QueryMapping mapQuery(String input):</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body">This method returns a query mapping, with the original user query, a mapped query and an optional redirect URL. A <cite>QueryMapping</cite> has some convenience methods to handle redirects and queries accordingly - refer to the Javadoc.</td>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">This method returns a query mapping, with the original user query, a mapped query and an optional redirect URL. A <cite>QueryMapping</cite> has some convenient methods to handle redirects and queries accordingly - please refer to the Javadoc.</td>
 </tr>
 </tbody>
 </table>
 </dd>
 <dt>QueryMapperManager</dt>
-<dd><p class="first">This class is responsible to initialize and manage the QueryMappers for the required Tenants. It needs to be instantiated with the provided API key <a class="footnote-reference" href="#id2" id="id1">[3]</a>.
-It’s <em>important</em> to use a single <cite>QueryMapperManager</cite> object and keep the reference to it since it will internally spawn and manage several threads to update the <cite>QueryMapper</cite> instances asynchronously.
-If not needed anymore, the <cite>close</cite> method should be called, to stop the internal update threads.</p>
+<dd><p class="first">This class is responsible for initializing and managing the QueryMappers for the required Tenants. It needs to be instantiated with the provided API key <a class="footnote-reference" href="#id2" id="id1">[3]</a>.
+It’s <em>important</em> to use a single <cite>QueryMapperManager</cite> object, since it will internally spawn and manage several threads to update the <cite>QueryMapper</cite> instances asynchronously, and retain a reference to it.
+If no longer needed, the <cite>close</cite> method should be called, to stop the internal update threads.</p>
 <table class="last docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">QueryMapper getQueryMapper(Tenant t):</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">The <cite>getQueryMapper</cite> method will always return the same instance of <cite>QueryMapper</cite> for the same given <cite>Tenant</cite>, so it’s not necessary to keep a reference of the <cite>QueryMapper</cite>. Keeping a reference of a <cite>QueryMapper</cite> instance isn’t a problem though since each <cite>QueryMapper</cite> will be updated in the background.</p>
-<p class="last">A non-existing tenant won’t cause an error but simply return a QueryMapper that always returns <cite>null</cite>.</p>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">The <cite>getQueryMapper</cite> method will always return the same instance of <cite>QueryMapper</cite> for the same given <cite>Tenant</cite>. As a result, it’s not necessary to keep a reference of the <cite>QueryMapper</cite>. However, keeping a reference of a <cite>QueryMapper</cite> instance isn’t a problem, since each <cite>QueryMapper</cite> will be updated in the background.</p>
+<p class="last">A non-existing tenant won’t cause an error but simply return a QueryMapper which always returns <cite>null</cite>.</p>
 </td>
 </tr>
 </tbody>
@@ -237,7 +237,7 @@ If not needed anymore, the <cite>close</cite> method should be called, to stop t
 <table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[3]</a></td><td>You’ll receive your personal API Key directly from us.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[3]</a></td><td>We will provide you with a personal API Key.</td></tr>
 </tbody>
 </table>
 </div>
@@ -279,11 +279,11 @@ If not needed anymore, the <cite>close</cite> method should be called, to stop t
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>The Javadoc of the <code class="code docutils literal"><span class="pre">QueryMapperManager.builder()</span></code> methods tell you more about the possible settings.</p>
+<p>The Javadoc of the <code class="code docutils literal"><span class="pre">QueryMapperManager.builder()</span></code> methods tell you more about the available settings.</p>
 </div>
 <div class="section" id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
-<p>SmartQuery optionally exposes internal metrics using the <a class="reference external" href="https://micrometer.io/docs">Micrometer</a> framework. If you’d like to get those metrics, add the wanted Micrometer connector to your dependencies and add the wanted MeterRegistry implementation.</p>
+<p>SmartQuery optionally exposes internal metrics using the <a class="reference external" href="https://micrometer.io/docs">Micrometer</a> framework. If you’d like to receive these metrics, add the desired Micrometer connector to your dependencies, as well as, the MeterRegistry implementation.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
 <span class="n">MeterRegistry</span> <span class="n">meterRegistry</span> <span class="o">=</span> <span class="n">getYourMeterRegistryInstance</span><span class="o">();</span>
 
@@ -296,29 +296,29 @@ If not needed anymore, the <cite>close</cite> method should be called, to stop t
 <span class="c1">// ...</span>
 </pre></div>
 </div>
-<p>You will be able to track the following metrics:</p>
+<p>Subsequently, you will be able to track the following metrics:</p>
 <dl class="glossary docutils">
 <dt id="term-smartquery-statscollector-queue-size">smartquery.statsCollector.queue.size</dt>
 <dd>The current number of items inside the transmission queue of the stats-collector.
-Since the queue size is limited to 500 entries per default, a higher value should never appear. Hitting that limits is an indicator of a broken connection to the stats API.</dd>
+Since the queue size is limited to 500 entries per default, a higher value should never appear. Hitting this limit is an indicator of a broken connection to the stats API.</dd>
 <dt id="term-smartquery-statscollector-bulk-size-count">smartquery.statsCollector.bulk.size.count<dt id="term-smartquery-statscollector-bulk-size-sum">smartquery.statsCollector.bulk.size.sum<dt id="term-smartquery-statscollector-bulk-size-max">smartquery.statsCollector.bulk.size.max</dt>
-<dd>The stats-collector’s bulk size metrics describe, how big the bulks are that were sent to the search|hub stats API.
+<dd>The stats-collector’s bulk size metrics describe, how large the bulks are that were sent to the search|hub stats API.
 With <code class="docutils literal"><span class="pre">sum/count</span></code> the average size can be calculated. Max is the biggest bulk since application start.</dd>
 <dt id="term-smartquery-statscollector-fail-count-total">smartquery.statsCollector.fail.count.total</dt>
 <dd>The total amount of failed transmissions, that were reported to the stats API.</dd>
 <dt id="term-smartquery-update-fail-count">smartquery.update.fail.count</dt>
-<dd>The number of failed mapping update attempts for a certain tenant in a row. If an update succeeds, this value will be reset to “0”.
-If this value reaches “5”, that update process will be stopped and only started again, if mappings for the according tenant are requested again.
-This metric is tagged with the according <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
+<dd>The number of successive failed mapping update attempts for a certain tenant. If an update succeeds, this value will be reset to “0”.
+If this value reaches “5”, that update process will be stopped and only started again, if mappings for the respective tenant are requested again.
+This metric is tagged with the appropriate <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
 <dt id="term-smartquery-update-success-count-total">smartquery.update.success.count.total</dt>
 <dd>The total number of successful data updates per tenant.
-This metric is tagged with the according <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
+This metric is tagged with the respective <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
 <dt id="term-smartquery-mappings-size">smartquery.mappings.size</dt>
 <dd>The current number of raw mapping pairs per tenant.
-This metric is tagged with the according <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
+This metric is tagged with the respective <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
 <dt id="term-smartquery-mappings-age-seconds">smartquery.mappings.age.seconds</dt>
-<dd>That is the passed time, since the last successful mapping update.
-This metric is tagged with the according <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
+<dd>Time passed, since the last successful mapping update.
+This metric is tagged with the respective <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</dd>
 </dl>
 </div>
 </div>

@@ -171,15 +171,15 @@
             
   <div class="section" id="best-practices">
 <h1>Best Practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h1>
-<p>We expressed our recommended best practices as user stories, so when developing according to agile principles a product owner might find it helpful to have a sample user story. Feel free to copy and paste this to your backlog.</p>
+<p>In order to aid Product Owners in developing according to agile principles, we have expressed our recommended best practices as user stories. Feel free to copy and paste this to your backlog.</p>
 <div class="section" id="basic-smartquery-implementation">
 <h2>Basic SmartQuery Implementation<a class="headerlink" href="#basic-smartquery-implementation" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>Story</dt>
-<dd>As a customer, I want to see search results that are optimized using CXP search|hub (<a class="reference external" href="https://commerceexperts.github.io/searchhub-docs/index.html">https://commerceexperts.github.io/searchhub-docs/index.html</a>) and are frequently updated by recent KPI data.</dd>
+<dd>As a customer, I want to see search results that are optimized using CXP search|hub (<a class="reference external" href="https://commerceexperts.github.io/searchhub-docs/index.html">https://commerceexperts.github.io/searchhub-docs/index.html</a>) and which are frequently updated using recent KPI data.</dd>
 <dt>Acceptance criteria</dt>
 <dd><ul class="first last simple">
-<li>Search phrases are checked/optimized using Search|Hub’s SmartQuery Module (<a class="reference external" href="https://commerceexperts.github.io/searchhub-docs/module_smartquery.html">https://commerceexperts.github.io/searchhub-docs/module_smartquery.html</a>) before submitting them to the internal search engine</li>
+<li>Search phrases are checked/optimized using search|hub’s SmartQuery Module (<a class="reference external" href="https://commerceexperts.github.io/searchhub-docs/module_smartquery.html">https://commerceexperts.github.io/searchhub-docs/module_smartquery.html</a>) before submitting them to the internal search engine</li>
 <li>internal systems can access <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> to perform the search phrase check</li>
 <li>internal systems can access <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a> to send and receive data updates</li>
 </ul>
@@ -190,18 +190,18 @@
 <h2>Query Correction Feedback<a class="headerlink" href="#query-correction-feedback" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>Story</dt>
-<dd>As a customer, I want to see the corrected query and have the opportunity to search for my inserted query instead.</dd>
+<dd>As a customer, I want to see the corrected query and retain have the opportunity to search for my inserted query instead.</dd>
 <dt>Acceptance criteria</dt>
 <dd><ul class="first last simple">
 <li>If a mapping took place, display a text about the corrected query</li>
-<li>Add a link that enables the user to search for the original query instead.</li>
-<li>When clicking that link, no mapping takes place.</li>
+<li>Additionally, I want the system to add a link that enables the user to search for the original query instead.</li>
+<li>When clicking the above mentioned link, no mapping should take place.</li>
 </ul>
 </dd>
 <dt>Technical hint</dt>
 <dd><ul class="first last simple">
-<li>You can use the <a class="reference external" href="common.html">bypass</a> feature of SmartQuery by wrapping the query into quotes. Passing that query will not do any mapping but remove the quotes again.</li>
-<li>In case the <a class="reference external" href="direct-integration.html">direct integration</a> is used, the util function <cite>io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder</cite> can be used to avoid displaying the query correction feedback due to the fact, that the query consists of the same words.</li>
+<li>You can use the <a class="reference external" href="common.html">bypass</a> feature of SmartQuery by wrapping the query into quotes. Passing that query will not do any mapping but, rather, remove the quotes again.</li>
+<li>In the event the <a class="reference external" href="direct-integration.html">direct integration</a> is implemented, the util function <cite>io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder</cite> can be used to avoid displaying the query correction feedback resulting from the query consisting of the same words.</li>
 </ul>
 </dd>
 </dl>
@@ -210,7 +210,7 @@
 <h2>Search|Hub Redirects<a class="headerlink" href="#search-hub-redirects" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>Story</dt>
-<dd>As a search manager, I want users to be redirected to landing pages for certain queries according to my configuration in Search|Hub.</dd>
+<dd>As a search manager, I want users to be redirected to landing pages for certain queries according to the configuration within search|hub.</dd>
 <dt>Acceptance criteria</dt>
 <dd><ul class="first last simple">
 <li>The usage of queries, that are configured for a redirect, should lead to the configured landing page / URL.</li>

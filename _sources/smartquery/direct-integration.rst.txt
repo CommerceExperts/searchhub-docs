@@ -4,8 +4,8 @@ Direct Integration
 Requirements
 ------------
 
-- Java with version >=1.8
-- around 200MB to 500MB additional Java Heapspace (depending on the amount of data it has to manage)
+- Java version >=1.8
+- approximately, 200MB to 500MB additional Java Heapspace (depending on the amount of data to be managed)
 - If a firewall is used, it needs to be configured to allow connections to the following HTTPS Endpoints https://query.searchhub.io/ and https://import.searchhub.io/
 
 Maven Dependency
@@ -18,7 +18,7 @@ The SmartQuery library can be pulled as a maven dependency from our private repo
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>smartquery</artifactId>
-        <version>1.0.14</version>
+        <version>1.1</version>
     </dependency>
     
     <!-- ... -->
@@ -39,24 +39,24 @@ Tenant
   
 
 QueryMapper
-  The central component provided by the SmartQuery library is the `QueryMapper`. It provides query mappings with the method `mapQuery`.
+  The central component provided by the SmartQuery library is the `QueryMapper`. It provides query mappings with the `mapQuery` method.
 
   :QueryMapping mapQuery(String input):
   
-    This method returns a query mapping, with the original user query, a mapped query and an optional redirect URL. A `QueryMapping` has some convenience methods to handle redirects and queries accordingly - refer to the Javadoc.
+    This method returns a query mapping, with the original user query, a mapped query and an optional redirect URL. A `QueryMapping` has some convenient methods to handle redirects and queries accordingly - please refer to the Javadoc.
 
 QueryMapperManager
-  This class is responsible to initialize and manage the QueryMappers for the required Tenants. It needs to be instantiated with the provided API key [3]_. 
-  It's *important* to use a single `QueryMapperManager` object and keep the reference to it since it will internally spawn and manage several threads to update the `QueryMapper` instances asynchronously. 
-  If not needed anymore, the `close` method should be called, to stop the internal update threads.
+  This class is responsible for initializing and managing the QueryMappers for the required Tenants. It needs to be instantiated with the provided API key [3]_. 
+  It's *important* to use a single `QueryMapperManager` object, since it will internally spawn and manage several threads to update the `QueryMapper` instances asynchronously, and retain a reference to it. 
+  If no longer needed, the `close` method should be called, to stop the internal update threads.
   
   :QueryMapper getQueryMapper(Tenant t):
   
-    The `getQueryMapper` method will always return the same instance of `QueryMapper` for the same given `Tenant`, so it's not necessary to keep a reference of the `QueryMapper`. Keeping a reference of a `QueryMapper` instance isn't a problem though since each `QueryMapper` will be updated in the background.
+    The `getQueryMapper` method will always return the same instance of `QueryMapper` for the same given `Tenant`. As a result, it's not necessary to keep a reference of the `QueryMapper`. However, keeping a reference of a `QueryMapper` instance isn't a problem, since each `QueryMapper` will be updated in the background.
     
-    A non-existing tenant won't cause an error but simply return a QueryMapper that always returns `null`.
+    A non-existing tenant won't cause an error but simply return a QueryMapper which always returns `null`.
 
-.. [3] You'll receive your personal API Key directly from us.
+.. [3] We will provide you with a personal API Key.
 
 
 Usage Example
@@ -99,13 +99,13 @@ Usage Example
         qmManager.close();
     }
 
-The Javadoc of the :code:`QueryMapperManager.builder()` methods tell you more about the possible settings.
+The Javadoc of the :code:`QueryMapperManager.builder()` methods tell you more about the available settings.
     
 
 Monitoring
 ----------
 
-SmartQuery optionally exposes internal metrics using the `Micrometer`_ framework. If you'd like to get those metrics, add the wanted Micrometer connector to your dependencies and add the wanted MeterRegistry implementation.
+SmartQuery optionally exposes internal metrics using the `Micrometer`_ framework. If you'd like to receive these metrics, add the desired Micrometer connector to your dependencies, as well as, the MeterRegistry implementation.
 
 .. code-block:: java
 
@@ -120,39 +120,39 @@ SmartQuery optionally exposes internal metrics using the `Micrometer`_ framework
     
     // ...
 
-You will be able to track the following metrics:
+Subsequently, you will be able to track the following metrics:
 
 .. glossary::
 
     smartquery.statsCollector.queue.size
         The current number of items inside the transmission queue of the stats-collector.
-        Since the queue size is limited to 500 entries per default, a higher value should never appear. Hitting that limits is an indicator of a broken connection to the stats API.
+        Since the queue size is limited to 500 entries per default, a higher value should never appear. Hitting this limit is an indicator of a broken connection to the stats API.
 
     smartquery.statsCollector.bulk.size.count
     smartquery.statsCollector.bulk.size.sum
     smartquery.statsCollector.bulk.size.max
-        The stats-collector's bulk size metrics describe, how big the bulks are that were sent to the search|hub stats API. 
+        The stats-collector's bulk size metrics describe, how large the bulks are that were sent to the search|hub stats API. 
         With :literal:`sum/count` the average size can be calculated. Max is the biggest bulk since application start.
 
     smartquery.statsCollector.fail.count.total
         The total amount of failed transmissions, that were reported to the stats API.
 
     smartquery.update.fail.count
-        The number of failed mapping update attempts for a certain tenant in a row. If an update succeeds, this value will be reset to "0".
-        If this value reaches "5", that update process will be stopped and only started again, if mappings for the according tenant are requested again.
-        This metric is tagged with the according `tenant_name` and `tenant_channel`.
+        The number of successive failed mapping update attempts for a certain tenant. If an update succeeds, this value will be reset to "0".
+        If this value reaches "5", that update process will be stopped and only started again, if mappings for the respective tenant are requested again.
+        This metric is tagged with the appropriate `tenant_name` and `tenant_channel`.
         
     smartquery.update.success.count.total
         The total number of successful data updates per tenant.
-        This metric is tagged with the according `tenant_name` and `tenant_channel`.
+        This metric is tagged with the respective `tenant_name` and `tenant_channel`.
 
     smartquery.mappings.size
         The current number of raw mapping pairs per tenant.
-        This metric is tagged with the according `tenant_name` and `tenant_channel`.
+        This metric is tagged with the respective `tenant_name` and `tenant_channel`.
         
     smartquery.mappings.age.seconds
-        That is the passed time, since the last successful mapping update.
-        This metric is tagged with the according `tenant_name` and `tenant_channel`.
+        Time passed, since the last successful mapping update.
+        This metric is tagged with the respective `tenant_name` and `tenant_channel`.
 
     
 .. _Ingestion: ingestion.html

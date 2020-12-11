@@ -21,7 +21,7 @@ It exposes port 8081 that can be mapped to any port.
 .. code-block:: bash
     
     # use the API key you'll receive from us
-    docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:1.0.14
+    docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:1.1
 
     
 Use the service

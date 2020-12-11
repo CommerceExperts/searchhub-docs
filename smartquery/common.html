@@ -168,21 +168,21 @@
 <h1>Common concepts and behavior<a class="headerlink" href="#common-concepts-and-behavior" title="Permalink to this headline">¶</a></h1>
 <dl class="docutils">
 <dt>Query Naming</dt>
-<dd><p class="first">When talking about query mapping, we distinguish the following types of queries:</p>
+<dd><p class="first">When talking about query mapping, we distinguish between the following types of queries:</p>
 <ul class="last simple">
-<li>The query that is inserted into the search box by the user is called “user query”.</li>
-<li>The search phrase that SmartQuery maps to, is called “search query” because that’s the actual text that the search engine has to parse.</li>
-<li>Last but not least we have the “technical query”, that’s the structured query that is sent to the search engine.</li>
+<li>The query inserted into the search box by the user is called “user query”.</li>
+<li>The search phrase, which SmartQuery maps to, is called “search query” because that’s the actual text that the search engine parses.</li>
+<li>Finally, we have the “technical query”. This is the structured query that is sent to the search engine.</li>
 </ul>
 </dd>
 <dt>Query Mapping</dt>
-<dd><p class="first">In case the user query can be mapped, a different search query will return.</p>
+<dd><p class="first">In then event the user query is able to be mapped, a different search query will return.</p>
 <p>If the user query is already known as the best query, we map it back to that identical query. This is tracked as a successful mapping.</p>
-<p class="last">If the user query can’t be mapped the user query should be used. The integration methods and endpoints return rich objects that contain all the required information.</p>
+<p class="last">If the user query can’t be mapped then it should be sent to the search engine. The integration methods and endpoints return rich objects, which contain all the required information.</p>
 </dd>
 <dt>Bypassing Queries</dt>
-<dd><p class="first">If the inserted query is wrapped into double quotes (<code class="code docutils literal"><span class="pre">&quot;</span></code>) the query will be handled as an unknown query and not mapped at all (Direct Integration returns <code class="code docutils literal"><span class="pre">null</span></code>) even if it actually could be mapped.</p>
-<p class="last">This can be used to implement the <a class="reference external" href="best-practices.html#query-correction-feedback">query correction feedback</a> feature that gives the customer the option to search for its initial input, e.g. <code class="docutils literal"><span class="pre">Results</span> <span class="pre">are</span> <span class="pre">shown</span> <span class="pre">for</span> <span class="pre">&lt;mapped</span> <span class="pre">query&gt;</span> <span class="pre">-</span> <span class="pre">search</span> <span class="pre">for</span> <span class="pre">&quot;&lt;original</span> <span class="pre">query&gt;&quot;</span> <span class="pre">instead</span></code>.
+<dd><p class="first">If the inserted query is wrapped in double quotes (<code class="code docutils literal"><span class="pre">&quot;example&quot;</span></code>) the query will be handled as an unknown query and will not be mapped (Direct Integration returns <code class="code docutils literal"><span class="pre">null</span></code>) even if it in fact could be mapped.</p>
+<p class="last">This can be used to implement the <a class="reference external" href="best-practices.html#query-correction-feedback">query correction feedback</a> feature that gives the customer the option to search for this initial input, e.g. <code class="docutils literal"><span class="pre">Results</span> <span class="pre">are</span> <span class="pre">shown</span> <span class="pre">for</span> <span class="pre">&lt;mapped</span> <span class="pre">query&gt;</span> <span class="pre">-</span> <span class="pre">search</span> <span class="pre">instead</span> <span class="pre">for</span> <span class="pre">&quot;&lt;original</span> <span class="pre">query&gt;&quot;</span></code>.
 Just make sure to pass the double quotes into SmartQuery as well.</p>
 </dd>
 </dl>

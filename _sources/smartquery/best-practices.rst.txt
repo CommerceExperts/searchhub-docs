@@ -1,16 +1,16 @@
 Best Practices
 ==============
 
-We expressed our recommended best practices as user stories, so when developing according to agile principles a product owner might find it helpful to have a sample user story. Feel free to copy and paste this to your backlog.
+In order to aid Product Owners in developing according to agile principles, we have expressed our recommended best practices as user stories. Feel free to copy and paste this to your backlog.
 
 Basic SmartQuery Implementation
 -------------------------------
 
 Story
-  As a customer, I want to see search results that are optimized using CXP search|hub (https://commerceexperts.github.io/searchhub-docs/index.html) and are frequently updated by recent KPI data.
+  As a customer, I want to see search results that are optimized using CXP search|hub (https://commerceexperts.github.io/searchhub-docs/index.html) and which are frequently updated using recent KPI data.
 
 Acceptance criteria
-  - Search phrases are checked/optimized using Search|Hub's SmartQuery Module (https://commerceexperts.github.io/searchhub-docs/module_smartquery.html) before submitting them to the internal search engine
+  - Search phrases are checked/optimized using search|hub's SmartQuery Module (https://commerceexperts.github.io/searchhub-docs/module_smartquery.html) before submitting them to the internal search engine
   - internal systems can access https://query.searchhub.io/ to perform the search phrase check
   - internal systems can access https://import.searchhub.io/ to send and receive data updates
 
@@ -19,23 +19,23 @@ Query Correction Feedback
 -------------------------
 
 Story
-  As a customer, I want to see the corrected query and have the opportunity to search for my inserted query instead.
+  As a customer, I want to see the corrected query and retain have the opportunity to search for my inserted query instead.
 
 Acceptance criteria
   - If a mapping took place, display a text about the corrected query
-  - Add a link that enables the user to search for the original query instead. 
-  - When clicking that link, no mapping takes place.
+  - Additionally, I want the system to add a link that enables the user to search for the original query instead. 
+  - When clicking the above mentioned link, no mapping should take place.
 
 Technical hint
-  - You can use the `bypass`_ feature of SmartQuery by wrapping the query into quotes. Passing that query will not do any mapping but remove the quotes again.
-  - In case the `direct integration`_ is used, the util function `io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder` can be used to avoid displaying the query correction feedback due to the fact, that the query consists of the same words.
+  - You can use the `bypass`_ feature of SmartQuery by wrapping the query into quotes. Passing that query will not do any mapping but, rather, remove the quotes again.
+  - In the event the `direct integration`_ is implemented, the util function `io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder` can be used to avoid displaying the query correction feedback resulting from the query consisting of the same words.
 
 
 Search|Hub Redirects
 --------------------
 
 Story
-  As a search manager, I want users to be redirected to landing pages for certain queries according to my configuration in Search|Hub.
+  As a search manager, I want users to be redirected to landing pages for certain queries according to the configuration within search|hub.
 
 Acceptance criteria
   - The usage of queries, that are configured for a redirect, should lead to the configured landing page / URL.

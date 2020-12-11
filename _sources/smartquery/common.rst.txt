@@ -2,23 +2,23 @@ Common concepts and behavior
 ----------------------------
 
 Query Naming
-  When talking about query mapping, we distinguish the following types of queries:
+  When talking about query mapping, we distinguish between the following types of queries:
   
-  - The query that is inserted into the search box by the user is called "user query".
-  - The search phrase that SmartQuery maps to, is called "search query" because that's the actual text that the search engine has to parse. 
-  - Last but not least we have the "technical query", that's the structured query that is sent to the search engine.
+  - The query inserted into the search box by the user is called "user query".
+  - The search phrase, which SmartQuery maps to, is called "search query" because that's the actual text that the search engine parses. 
+  - Finally, we have the "technical query". This is the structured query that is sent to the search engine.
 
 Query Mapping
-  In case the user query can be mapped, a different search query will return.
+  In then event the user query is able to be mapped, a different search query will return.
   
   If the user query is already known as the best query, we map it back to that identical query. This is tracked as a successful mapping.
   
-  If the user query can't be mapped the user query should be used. The integration methods and endpoints return rich objects that contain all the required information.
+  If the user query can't be mapped then it should be sent to the search engine. The integration methods and endpoints return rich objects, which contain all the required information.
 
 Bypassing Queries
-  If the inserted query is wrapped into double quotes (:code:`"`) the query will be handled as an unknown query and not mapped at all (Direct Integration returns :code:`null`) even if it actually could be mapped.
+  If the inserted query is wrapped in double quotes (:code:`"example"`) the query will be handled as an unknown query and will not be mapped (Direct Integration returns :code:`null`) even if it in fact could be mapped.
   
-  This can be used to implement the `query correction feedback`_ feature that gives the customer the option to search for its initial input, e.g. ``Results are shown for <mapped query> - search for "<original query>" instead``. 
+  This can be used to implement the `query correction feedback`_ feature that gives the customer the option to search for this initial input, e.g. ``Results are shown for <mapped query> - search instead for "<original query>"``. 
   Just make sure to pass the double quotes into SmartQuery as well.
 
 

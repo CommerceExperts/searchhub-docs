@@ -97,7 +97,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">REST Service Integration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#start-the-service">Start the service</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#use-the-service">Use the service</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-service">Using the service</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#service-endpoint-v1">Service Endpoint V1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#service-endpoint-v2">Service Endpoint V2</a></li>
 </ul>
@@ -183,26 +183,26 @@
             
   <div class="section" id="rest-service-integration">
 <h1>REST Service Integration<a class="headerlink" href="#rest-service-integration" title="Permalink to this headline">¶</a></h1>
-<p>In case you can’t use the Java library directly (most likely because your system doesn’t run on the JVM), you can use the REST-service wrapper for smartquery. It’s delivered as a docker image and has to run in your environment.</p>
+<p>In case you are unable to use the Java library directly (most likely due to your system not running on the JVM), you can use the REST-service wrapper for smartquery. It’s delivered as a docker image and must run in your environment.</p>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>a minimum of 250MB + more space depending on the amount of data it has to manage</li>
-<li>the service needs to access the HTTPS Endpoints <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> and <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a></li>
+<li>a minimum of 250MB + more space depending on the amount of data to manage</li>
+<li>the service needs access to the following HTTPS Endpoints <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> and <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a></li>
 </ul>
 </div>
 <div class="section" id="start-the-service">
 <h2>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this headline">¶</a></h2>
-<p>The service is provided as docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal"><span class="pre">commerceexperts/smartquery-service:1.0.14</span></code></p>
-<p>The container has to be started with your API key set at the environment variable <cite>SQ_API_KEY</cite>.
-It exposes port 8081 that can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above at the <a class="reference internal" href="#requirements">Requirements</a> section.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># use the API key you&#39;ll receive from us</span>
-docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:1.0.14
+<p>The service is provided as a docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal"><span class="pre">commerceexperts/smartquery-service:1.1</span></code></p>
+<p>The container must be initiated with your API key set to the environment variable <cite>SQ_API_KEY</cite>.
+The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the <a class="reference internal" href="#requirements">Requirements</a> section.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># use the API key we provide</span>
+docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:1.1
 </pre></div>
 </div>
 </div>
-<div class="section" id="use-the-service">
-<h2>Use the service<a class="headerlink" href="#use-the-service" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-the-service">
+<h2>Using the service<a class="headerlink" href="#using-the-service" title="Permalink to this headline">¶</a></h2>
 <p>The service offers two endpoints to get a query mapping:</p>
 <div class="section" id="service-endpoint-v1">
 <h3>Service Endpoint V1<a class="headerlink" href="#service-endpoint-v1" title="Permalink to this headline">¶</a></h3>
@@ -217,9 +217,9 @@ docker run -d --name<span class="o">=</span>smartquery-service -e <span class="n
 </div>
 </dd>
 </dl>
-<p>The response is a simple string that either is the mapped query or in case no mapping was found, it’s the original user query. Redirects are not supported for that endpoint and won’t be returned, even if available.</p>
-<p>Keep in mind, that SmartQuery starts fetching the mapping data, after the first request for a specific tenant was received. So the first ~5 seconds all mappings will return the input query as a response because no mapping data was fetched. A few seconds later you should get mapped queries (if data is available).</p>
-<p>It’s possible to remove that startup latency by specifying the wanted tenants using the <cite>preloadTenants</cite> parameter described below. In that case the service will be ready as soon as the mappings are loaded.</p>
+<p>The response is a simple string which is either the mapped query, or in the event no mapping is found, the original user query. Redirects are not supported for this endpoint and won’t be returned, even if available.</p>
+<p>Keep in mind, SmartQuery starts fetching mapping data, after the initial request for a specific tenant is received. As a result, for the first ~5 seconds all mappings will return the input query, due to mapping data having not yet been fetched. You should begin receiving mapped queries within a few seconds - provided data is available.</p>
+<p>Alternatively, it’s possible to remove the aforementioned startup latency by specifying the desired tenants by envoking the <cite>preloadTenants</cite> parameter outlined below. This variation will make the service available as soon as the mappings have been loaded.</p>
 </div>
 <div class="section" id="service-endpoint-v2">
 <h3>Service Endpoint V2<a class="headerlink" href="#service-endpoint-v2" title="Permalink to this headline">¶</a></h3>
@@ -245,8 +245,8 @@ docker run -d --name<span class="o">=</span>smartquery-service -e <span class="n
 <div><ul class="simple">
 <li><strong>userQuery</strong>: the entered user query</li>
 <li><strong>masterQuery</strong>: if the query could be mapped, the master query is set, otherwise it’s null.</li>
-<li><strong>searchQuery</strong>: the final search query. That’s the master or the user query.</li>
-<li><strong>redirect</strong>: URL to a landing page or null if no redirect was configured.</li>
+<li><strong>searchQuery</strong>: the final search query. This is the master or the user query.</li>
+<li><strong>redirect</strong>: URL to a landing page or null if no redirect is configured.</li>
 <li><strong>successful</strong>: <cite>true</cite> if the query could be handled by SmartQuery</li>
 </ul>
 </div></blockquote>
@@ -264,8 +264,8 @@ This can be set as part of the JAVA_OPTS environment variable:</p>
 </div>
 <div class="section" id="preload-tenants">
 <h3>Preload Tenants<a class="headerlink" href="#preload-tenants" title="Permalink to this headline">¶</a></h3>
-<p>Specify tenants that should be loaded immediately after initialization.
-Can be set either via environment variable as a comma-separated list:</p>
+<p>Specify tenants that should be loaded immediately following initialization.
+Can be set either as a comma-separated list, via the environment variable:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">SQ_INIT_TENANTS</span><span class="o">=</span><span class="s2">&quot;example.num1,example.num2&quot;</span>
 </pre></div>
 </div>
@@ -286,7 +286,7 @@ Can be set either via environment variable as a comma-separated list:</p>
 </div>
 <div class="section" id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
-<p>By default, several metrics are exposed in the prometheus format trough the <code class="code docutils literal"><span class="pre">/prometheus</span></code> endpoint of the service. This endpoint exposes several basic metrics plus the metrics described in the <a class="reference external" href="direct-integration.html#monitoring">monitoring</a> section at the <a class="reference external" href="direct-integration.html">direct integration</a> docs.</p>
+<p>By default, several metrics are exposed in the prometheus format through the <code class="code docutils literal"><span class="pre">/prometheus</span></code> endpoint of the service. This endpoint exposes several basic metrics, in addition to the metrics described in the <a class="reference external" href="direct-integration.html#monitoring">monitoring</a> section of the <a class="reference external" href="direct-integration.html">direct integration</a> docs.</p>
 <p>To <strong>disable</strong> this endpoint, add the following parameter to the JAVA_OPTS environment variable:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dendpoints.prometheus.enable=false&quot;</span>
 </pre></div>
@@ -296,9 +296,9 @@ Can be set either via environment variable as a comma-separated list:</p>
 <h2>Trouble Shooting<a class="headerlink" href="#trouble-shooting" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li>If you forgot to specify the API key, the container won’t start.</li>
-<li>In case you tried to access an unpermitted tenant/channel (maybe because you specified the wrong API key), you will see such a message in the logs of the service: <cite>update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {“message”:”Invalid authentication credentials”}</cite></li>
-<li>To get more information about the internal processes, enable debug loggging. Do that with the docker startup parameter <cite>-e JAVA_OPTS=”-Dlogging.level.io.searchhub=DEBUG”</cite></li>
+<li>The container won’t start, if you forget to specify the API key.</li>
+<li>Should you attempt to access an non-permitted tenant/channel (due to an incorrect API key, for example), you will see an error message similar to: <cite>update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {“message”:”Invalid authentication credentials”}</cite></li>
+<li>Enable debug loggging, in order to obtain more information concerning internal activities. Activtate this using the following docker startup parameter <cite>-e JAVA_OPTS=”-Dlogging.level.io.searchhub=DEBUG”</cite></li>
 </ul>
 </div></blockquote>
 </div>
