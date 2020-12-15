@@ -38,7 +38,7 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="CXP SearchHub 0.24.1 documentation" href="../index.html"/>
-        <link rel="up" title="Module: Smart-Suggest" href="../module_smartsuggest.html"/>
+        <link rel="up" title="Module: SmartSuggest" href="../module_smartsuggest.html"/>
         <link rel="next" title="Sample User Story" href="sample-user-story.html"/>
         <link rel="prev" title="Direct Integration" href="direct-integration.html"/> 
 
@@ -91,7 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: Smart-Suggest</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: SmartSuggest</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="direct-integration.html">Direct Integration</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">REST Service Integration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
@@ -159,7 +159,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../module_smartsuggest.html">Module: Smart-Suggest</a> &raquo;</li>
+          <li><a href="../module_smartsuggest.html">Module: SmartSuggest</a> &raquo;</li>
         
       <li>REST Service Integration</li>
     
@@ -205,7 +205,7 @@ docker run -d --name<span class="o">=</span>smartsuggest-service -e <span class=
 <p>The service offers two possible endpoints. Both requests are mostly identical and just differ at the version part of the request path.
 The first endpoint (v1) will return a sophisticated blockwise response and the second (v2) will return a simple list of strings. We recommend using v2 because it already cares about picking the optimal set of queries.</p>
 <p>Keep in mind, that SmartSuggest starts fetching the necessary data, after the first request for a tenant was received. So the first few seconds all requests will return an empty result. A few seconds later you should get mapped queries (if data is available).
-It’s possible to lower that startup latency by specifying the tenants using the preloadTenants parameter (SQ_INIT_TENANTS), which is described below.</p>
+It’s possible to lower that startup latency by specifying the tenants using the preloadTenants parameter (SH_INIT_TENANTS), which is described below.</p>
 <div class="section" id="v1-request">
 <h3>V1 Request<a class="headerlink" href="#v1-request" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>http://&lt;host&gt;:&lt;port&gt;/smartsuggest/v1/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery<span class="o">=</span>&lt;user-query&gt;
@@ -259,14 +259,16 @@ If there is no need for some special logic, we recommend to use API v2.</p>
 <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s1">&#39;-Dapikey=&quot;your-secret-api-key&quot;&#39;</span>
 </pre></div>
 </div>
+<p>For legacy support (to use the same naming as SmartQuery) the environment variable ‘SQ_API_KEY’ works as well.</p>
 </div>
 <div class="section" id="preload-tenants">
 <h3>Preload Tenants<a class="headerlink" href="#preload-tenants" title="Permalink to this headline">¶</a></h3>
 <p>Specify tenants that should be loaded immediately after initialization.
 Can be set via environment variable as a comma-separated list:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">SQ_INIT_TENANTS</span><span class="o">=</span><span class="s2">&quot;example.num1,example.num2&quot;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">SH_INIT_TENANTS</span><span class="o">=</span><span class="s2">&quot;example.num1,example.num2&quot;</span>
 </pre></div>
 </div>
+<p>For legacy support or to get a better and more explicit naming, this variable can also be named ‘SUGGEST_INIT_TENANTS’ or ‘SQ_INIT_TENANTS’. All those names work in the same way.</p>
 </div>
 <div class="section" id="idle-unload">
 <h3>Idle Unload<a class="headerlink" href="#idle-unload" title="Permalink to this headline">¶</a></h3>
@@ -279,7 +281,7 @@ That idle timeout can be changed by passing the idle time in minutes using the f
 </div>
 <div class="section" id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
-<p>There are several metrics that are exposed in the prometheus format through the <code class="code docutils literal"><span class="pre">/metrics</span></code> endpoint of the service. This endpoint exposes a “status_up 1.0” metrics plus the metrics described in the <a class="reference external" href="direct-integration.html#monitoring">monitoring</a> section at the <a class="reference external" href="direct-integration.html">direct integration</a> docs (in the prometheus format, which practically means underscores instead of dots).</p>
+<p>There are several metrics that are exposed in the prometheus format through the <code class="code docutils literal"><span class="pre">/prometheus</span></code> endpoint of the service. This endpoint exposes a “status_up 1.0” metrics plus the metrics described in the <a class="reference external" href="direct-integration.html#monitoring">monitoring</a> section at the <a class="reference external" href="direct-integration.html">direct integration</a> docs (in the prometheus format, which practically means underscores instead of dots).</p>
 </div>
 <div class="section" id="trouble-shooting">
 <h2>Trouble Shooting<a class="headerlink" href="#trouble-shooting" title="Permalink to this headline">¶</a></h2>

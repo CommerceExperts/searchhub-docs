@@ -36,7 +36,7 @@ All related components can be pulled as a maven dependency from our repository h
 
 
 Essential Usage
---------------
+---------------
 
 The QuerySuggester is the central object of the smartsuggest library. It is used to fetch the matching suggestions based on the (partial) user input.
 To get access to a QuerySuggester object, a single QuerySuggestManager must be built and maintained as a central reference. 
