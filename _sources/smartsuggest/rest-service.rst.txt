@@ -13,7 +13,7 @@ Requirements
 Start the service
 -----------------
 
-The service is provided as docker image on `docker hub`_ with the name :code:`commerceexperts/searchhub-smartsuggest-service:0.7.1`
+The service is provided as docker image on `docker hub`_ with the name :code:`commerceexperts/searchhub-smartsuggest-service:0.7.2`
     
 The container has to be started with your API key set at the environment variable `SH_API_KEY`. 
 It exposes port 8081 that can be mapped to any port.
