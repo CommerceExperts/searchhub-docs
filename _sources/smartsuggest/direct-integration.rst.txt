@@ -19,12 +19,12 @@ All related components can be pulled as a maven dependency from our repository h
     <dependency>
         <groupId>de.cxp.ocs</groupId>
         <artifactId>smartsuggest-lib</artifactId>
-        <version>0.1.1</version>
+        <version>0.2.0</version>
     </dependency>
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>searchhub-suggest-data-provider</artifactId>
-        <version>0.7.2</version>
+        <version>0.8.0</version>
     </dependency>
     
     <!-- ... -->
@@ -43,8 +43,11 @@ To get access to a QuerySuggester object, a single QuerySuggestManager must be b
 This is important as the QuerySuggestManager instance takes care of updating the suggest data should the data change. 
 It can also be used to shutdown any QuerySuggesters and therefore free related resources.
 
-A QuerySuggester isntance can be accessed from the QuerySuggestManager using an "index name" as a parameter.
+A QuerySuggester instance can be accessed from the QuerySuggestManager using an "index name" as a parameter.
 The index name is the full `tenant`_ name used at search|hub. For example: "myshop.com".
+
+Alternatively you can specify index name to tenant mappings via ENV variable "SH_TENANT_MAPPINGS" or system property "searchhub.tenant_mappings". 
+Their value should be a comma separated list of key value pairs. Example: SH_TENANT_MAPPINGS="indexname=tenant.name,myshop=myshop.com"
 
 To load the correct data, the update process must get your search|hub API key, which you will receive during search|hub onboarding.
 This API key must be set either, as environment variable "SH_API_KEY" or, as system property "searchhub.apikey" within the Java environment.
@@ -61,7 +64,8 @@ Usage Example
         // this should not be necessary, instead the API key should be set from
         // the outside of the java process
         System.setProperty("searchhub.apikey", "123abc");
-
+        System.setProperty("searchhub.tenant_mappings", "example=example.com");
+        
         qsm = QuerySuggestManager.builder()
               // required for lucene where it puts the index files
               .indexFolder(Files.createTempDirectory("smartsuggest"))
@@ -80,37 +84,22 @@ Usage Example
     public void onJvmShutdown() {
         querySuggestManager.close();
     }
-
+    
     private List<String> suggestQueries(String userQuery, int maxSuggestions) throws IOException {
-      // Suggestions are grouped by their match-type per default
-      List<Result> groupedSuggestions = qsm.getQuerySuggester("example.com")
-          .suggest(userQuery, maxSuggestions, Collections.emptySet());
+      return querySuggestManager.getQuerySuggester("example")
+        .suggest(userQuery, maxSuggestions, Collections.emptySet())
+        .stream()
+        .map(suggestion -> suggestion.getLabel())
+        .collect(Collectors.toList());
+	  }
 
-      if (groupedSuggestions.isEmpty()) return Collections.emptyList();
-
-      // this is how the grouped suggestions could be transformed into a simple string list
-      List<String> simpleSuggestions = new ArrayList<>(maxSuggestions);
-
-      for (Result suggestGroup : groupedSuggestions) {
-        if ((simpleSuggestions.size() + suggestGroup.getSuggestions().size()) > maxSuggestions) {
-          for (String s : suggestGroup.getSuggestions()) {
-            simpleSuggestions.add(s);
-            if (simpleSuggestions.size() == maxSuggestions) break;
-          }
-        }
-        else {
-          simpleSuggestions.addAll(suggestGroup.getSuggestions());
-        }
-
-        if (simpleSuggestions.size() == maxSuggestions) break;
-      }
-
-      return simpleSuggestions;
-    } 
 
 
 The javadoc of the :code:`QuerySuggestManager.builder()` methods tell you more about the available settings.
-    
+
+The last parameter of type 'Set' (where at this example simply 'Collections.emptySet()' is passed) is there for filtering suggestions according to their tags. 
+However the data from SearchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.
+
 
 Monitoring
 ----------

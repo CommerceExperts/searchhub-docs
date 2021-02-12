@@ -187,12 +187,12 @@ All related components can be pulled as a maven dependency from our repository <
 <div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>de.cxp.ocs<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>smartsuggest-lib<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>0.1.1<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.2.0<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 <span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>io.searchhub<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>searchhub-suggest-data-provider<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>0.7.2<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.8.0<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 
 <span class="c">&lt;!-- ... --&gt;</span>
@@ -210,8 +210,10 @@ All related components can be pulled as a maven dependency from our repository <
 To get access to a QuerySuggester object, a single QuerySuggestManager must be built and maintained as a central reference.
 This is important as the QuerySuggestManager instance takes care of updating the suggest data should the data change.
 It can also be used to shutdown any QuerySuggesters and therefore free related resources.</p>
-<p>A QuerySuggester isntance can be accessed from the QuerySuggestManager using an “index name” as a parameter.
+<p>A QuerySuggester instance can be accessed from the QuerySuggestManager using an “index name” as a parameter.
 The index name is the full <a class="reference external" href="../glossary.html#tenant">tenant</a> name used at search|hub. For example: “myshop.com”.</p>
+<p>Alternatively you can specify index name to tenant mappings via ENV variable “SH_TENANT_MAPPINGS” or system property “searchhub.tenant_mappings”.
+Their value should be a comma separated list of key value pairs. Example: SH_TENANT_MAPPINGS=”indexname=tenant.name,myshop=myshop.com”</p>
 <p>To load the correct data, the update process must get your search|hub API key, which you will receive during search|hub onboarding.
 This API key must be set either, as environment variable “SH_API_KEY” or, as system property “searchhub.apikey” within the Java environment.</p>
 </div>
@@ -223,6 +225,7 @@ This API key must be set either, as environment variable “SH_API_KEY” or, as
     <span class="c1">// this should not be necessary, instead the API key should be set from</span>
     <span class="c1">// the outside of the java process</span>
     <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&quot;searchhub.apikey&quot;</span><span class="o">,</span> <span class="s">&quot;123abc&quot;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">&quot;searchhub.tenant_mappings&quot;</span><span class="o">,</span> <span class="s">&quot;example=example.com&quot;</span><span class="o">);</span>
 
     <span class="n">qsm</span> <span class="o">=</span> <span class="n">QuerySuggestManager</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
           <span class="c1">// required for lucene where it puts the index files</span>
@@ -244,34 +247,17 @@ This API key must be set either, as environment variable “SH_API_KEY” or, as
 <span class="o">}</span>
 
 <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">suggestQueries</span><span class="o">(</span><span class="n">String</span> <span class="n">userQuery</span><span class="o">,</span> <span class="kt">int</span> <span class="n">maxSuggestions</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-  <span class="c1">// Suggestions are grouped by their match-type per default</span>
-  <span class="n">List</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;</span> <span class="n">groupedSuggestions</span> <span class="o">=</span> <span class="n">qsm</span><span class="o">.</span><span class="na">getQuerySuggester</span><span class="o">(</span><span class="s">&quot;example.com&quot;</span><span class="o">)</span>
-      <span class="o">.</span><span class="na">suggest</span><span class="o">(</span><span class="n">userQuery</span><span class="o">,</span> <span class="n">maxSuggestions</span><span class="o">,</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptySet</span><span class="o">());</span>
-
-  <span class="k">if</span> <span class="o">(</span><span class="n">groupedSuggestions</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="k">return</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
-
-  <span class="c1">// this is how the grouped suggestions could be transformed into a simple string list</span>
-  <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">simpleSuggestions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;(</span><span class="n">maxSuggestions</span><span class="o">);</span>
-
-  <span class="k">for</span> <span class="o">(</span><span class="n">Result</span> <span class="n">suggestGroup</span> <span class="o">:</span> <span class="n">groupedSuggestions</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">((</span><span class="n">simpleSuggestions</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">+</span> <span class="n">suggestGroup</span><span class="o">.</span><span class="na">getSuggestions</span><span class="o">().</span><span class="na">size</span><span class="o">())</span> <span class="o">&gt;</span> <span class="n">maxSuggestions</span><span class="o">)</span> <span class="o">{</span>
-      <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">s</span> <span class="o">:</span> <span class="n">suggestGroup</span><span class="o">.</span><span class="na">getSuggestions</span><span class="o">())</span> <span class="o">{</span>
-        <span class="n">simpleSuggestions</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">simpleSuggestions</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">==</span> <span class="n">maxSuggestions</span><span class="o">)</span> <span class="k">break</span><span class="o">;</span>
+  <span class="k">return</span> <span class="n">querySuggestManager</span><span class="o">.</span><span class="na">getQuerySuggester</span><span class="o">(</span><span class="s">&quot;example&quot;</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">suggest</span><span class="o">(</span><span class="n">userQuery</span><span class="o">,</span> <span class="n">maxSuggestions</span><span class="o">,</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptySet</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">suggestion</span> <span class="o">-&gt;</span> <span class="n">suggestion</span><span class="o">.</span><span class="na">getLabel</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
       <span class="o">}</span>
-    <span class="o">}</span>
-    <span class="k">else</span> <span class="o">{</span>
-      <span class="n">simpleSuggestions</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">suggestGroup</span><span class="o">.</span><span class="na">getSuggestions</span><span class="o">());</span>
-    <span class="o">}</span>
-
-    <span class="k">if</span> <span class="o">(</span><span class="n">simpleSuggestions</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">==</span> <span class="n">maxSuggestions</span><span class="o">)</span> <span class="k">break</span><span class="o">;</span>
-  <span class="o">}</span>
-
-  <span class="k">return</span> <span class="n">simpleSuggestions</span><span class="o">;</span>
-<span class="o">}</span>
 </pre></div>
 </div>
 <p>The javadoc of the <code class="code docutils literal"><span class="pre">QuerySuggestManager.builder()</span></code> methods tell you more about the available settings.</p>
+<p>The last parameter of type ‘Set’ (where at this example simply ‘Collections.emptySet()’ is passed) is there for filtering suggestions according to their tags.
+However the data from SearchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.</p>
 </div>
 <div class="section" id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>

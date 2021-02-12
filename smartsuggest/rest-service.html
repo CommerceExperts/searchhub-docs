@@ -192,9 +192,9 @@
 </div>
 <div class="section" id="start-the-service">
 <h2>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this headline">¶</a></h2>
-<p>The service is provided as docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags">docker hub</a> with the name <code class="code docutils literal"><span class="pre">commerceexperts/searchhub-smartsuggest-service:0.7.2</span></code></p>
-<p>The container has to be started with your API key set at the environment variable <cite>SH_API_KEY</cite>.
-It exposes port 8081 that can be mapped to any port.</p>
+<p>The service is provided as docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags">docker hub</a> with the name <code class="code docutils literal"><span class="pre">commerceexperts/searchhub-smartsuggest-service:0.8.0</span></code></p>
+<p>The container has to be started with your API key set at the environment variable <cite>SH_API_KEY</cite>.</p>
+<p>It exposes port 8081 that can be mapped to any port.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># use the API key you&#39;ll receive from us</span>
 docker run -d --name<span class="o">=</span>smartsuggest-service -e <span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/searchhub-smartsuggest-service:1.1
 </pre></div>
@@ -208,6 +208,7 @@ The first endpoint (v1) will return a sophisticated blockwise response and the s
 It’s possible to lower that startup latency by specifying the tenants using the preloadTenants parameter (SH_INIT_TENANTS), which is described below.</p>
 <div class="section" id="v1-request">
 <h3>V1 Request<a class="headerlink" href="#v1-request" title="Permalink to this headline">¶</a></h3>
+<p><em>Deprecated</em>!</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>http://&lt;host&gt;:&lt;port&gt;/smartsuggest/v1/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery<span class="o">=</span>&lt;user-query&gt;
 </pre></div>
 </div>
