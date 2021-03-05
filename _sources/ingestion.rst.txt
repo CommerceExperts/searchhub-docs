@@ -11,7 +11,7 @@ See below what to consider when creating the respective data feeds.
 
   
 1. Search Analytics Data
----------------------
+------------------------
 
 We provide the following methods of ingesting analytics data:
 
@@ -45,7 +45,7 @@ Analytics File Export
 In the event you are unable to grant API access to your analytics system, a file export is also acceptable. Please make sure to provide these files regulary in order to ensure sustainability and system continuity.
 
 Necessary Export KPIs
-"""""""
+"""""""""""""""""""""
 Most important for Search|Hub are user generated search queries (user queries) and their corresponding KPIs. Below is a list of the most useful search KPIs:
 
 - Search-Frequency (Required!)
@@ -81,14 +81,14 @@ The delimiters and the order of the information is not important. The filename m
 
 
 2. Curated Queries
--------------------
+------------------
 
 If you have curated landing pages for certain queries or optimized search results, you can export the corresponding queries and Search|Hub will prefer these and automatically increase the traffic to them.
 This can be a simple text file with the name of the tenant (shop or sales channel), e.g. ``curated-queries.<tenant>.txt`` or any other format from which such queries may be easily extracted.
 
 
 3. Product Data
-------------
+---------------
 
 Product data should be provided as a Google Shopping Feed and contain all types of linguistic data, such as:
 
