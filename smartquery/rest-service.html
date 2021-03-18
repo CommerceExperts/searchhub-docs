@@ -106,6 +106,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#update-rate">Update Rate</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preload-tenants">Preload Tenants</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#basic-authentication">Basic Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#disable-mapping-stats-reporting">Disable Mapping-Stats reporting</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#monitoring">Monitoring</a></li>
@@ -193,11 +194,11 @@
 </div>
 <div class="section" id="start-the-service">
 <h2>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this headline">¶</a></h2>
-<p>The service is provided as a docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal"><span class="pre">commerceexperts/smartquery-service:1.1</span></code></p>
+<p>The service is provided as a docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal"><span class="pre">commerceexperts/smartquery-service:1.1.1</span></code></p>
 <p>The container must be initiated with your API key set to the environment variable <cite>SQ_API_KEY</cite>.
 The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the <a class="reference internal" href="#requirements">Requirements</a> section.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># use the API key we provide</span>
-docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:1.1
+docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:1.1.1
 </pre></div>
 </div>
 </div>
@@ -282,6 +283,14 @@ Can be set either as a comma-separated list, via the environment variable:</p>
 </div>
 <p>The user that is linked to that password is <cite>user</cite>. To use a different username, add the property <cite>-Dsecurity.user.name=&lt;your-username&gt;</cite> to <cite>JAVA_OPTS</cite>.</p>
 <p>If server auth is enabled but the password property is omitted, a random password will be generated and printed to stdout.</p>
+</div>
+<div class="section" id="disable-mapping-stats-reporting">
+<h3>Disable Mapping-Stats reporting<a class="headerlink" href="#disable-mapping-stats-reporting" title="Permalink to this headline">¶</a></h3>
+<p>In case you want to disable report mapping statistics, you can set the <cite>REPORT_MAPPING_STATS</cite> env variable to <cite>false</cite>.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">REPORT_MAPPING_STATS</span><span class="o">=</span><span class="s2">&quot;false&quot;</span>
+</pre></div>
+</div>
+<p>This can be useful if you have a Test or QA environment.</p>
 </div>
 </div>
 <div class="section" id="monitoring">
