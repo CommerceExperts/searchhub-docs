@@ -60,7 +60,7 @@ V1 Request
 
 A block with the name "best matches" is the best case scenario. There are also 3 other kind of blocks, named "typo matches", "fuzzy matches with 1 edit" and "fuzzy matches with 2 edits". In case nothing is found, an empty array is returned.
 It is also possible (depending on settings and user input) that several blocks are delivered. In such a case it's up to the implementor to decide which queries to use for the autosuggestion.
-If there is no need for some special logic, we recommend to use API v2.
+If there is no need for some special logic, we recommend to use API v2/v3.
 
 
 V2 Request
@@ -83,7 +83,46 @@ The response is a JSON array with simple strings that can be used as autocomplet
   ]
 
 
-Both kinds of requests support a "limit" parameter. Per default, the limit is set to 10. This parameter will limit the amount of returned suggestions.
+V3 Request
+^^^^^^^^^^
+
+.. code-block:: bash
+
+  http://<host>:<port>/smartsuggest/v3/<tenant-name>/<tenant-channel>?userQuery=<user-query>
+
+**Response**:
+
+The response is a JSON array consisting of a complex object that contains an additional payload for every autosuggestion query.
+The payload might contain the following keys:
+
+meta.matchGroupName
+  Corresponds to the name of the v1 response.
+type
+  Currently, the only supported value is *keyword*. However, SmartSuggest can index different data types, e.g. products or categories.
+redirect
+  The redirect URL, configured for the query over the SearchHub-UI. **Optional** omitted if no redirect exists.
+
+.. code-block:: json
+
+  [
+    {
+      "payload": {
+        "meta.matchGroupName": "best matches",
+        "type": "keyword"
+      },
+      "suggestion": "suggestion1"
+    },
+    {
+      "payload": {
+        "meta.matchGroupName": "best matches",
+        "type": "keyword",
+        "redirect": "https://some-redirect-url.com",
+      },
+      "suggestion": "suggestion2"
+    }
+  ]  
+
+All kinds of requests support a "limit" parameter. By default, the limit is set to 10. This parameter will limit the amount of returned suggestions.
 
 
 Configuration

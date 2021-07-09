@@ -99,6 +99,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#use-the-service">Use the service</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#v1-request">V1 Request</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#v2-request">V2 Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#v3-request">V3 Request</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a><ul>
@@ -227,7 +228,7 @@ It’s possible to lower that startup latency by specifying the tenants using th
 </div>
 <p>A block with the name “best matches” is the best case scenario. There are also 3 other kind of blocks, named “typo matches”, “fuzzy matches with 1 edit” and “fuzzy matches with 2 edits”. In case nothing is found, an empty array is returned.
 It is also possible (depending on settings and user input) that several blocks are delivered. In such a case it’s up to the implementor to decide which queries to use for the autosuggestion.
-If there is no need for some special logic, we recommend to use API v2.</p>
+If there is no need for some special logic, we recommend to use API v2/v3.</p>
 </div>
 <div class="section" id="v2-request">
 <h3>V2 Request<a class="headerlink" href="#v2-request" title="Permalink to this headline">¶</a></h3>
@@ -243,7 +244,43 @@ If there is no need for some special logic, we recommend to use API v2.</p>
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>Both kinds of requests support a “limit” parameter. Per default, the limit is set to 10. This parameter will limit the amount of returned suggestions.</p>
+</div>
+<div class="section" id="v3-request">
+<h3>V3 Request<a class="headerlink" href="#v3-request" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>http://&lt;host&gt;:&lt;port&gt;/smartsuggest/v3/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery<span class="o">=</span>&lt;user-query&gt;
+</pre></div>
+</div>
+<p><strong>Response</strong>:</p>
+<p>The response is a JSON array consisting of a complex object that contains an additional payload for every autosuggestion query.
+The payload might contain the following keys:</p>
+<dl class="docutils">
+<dt>meta.matchGroupName</dt>
+<dd>Corresponds to the name of the v1 response.</dd>
+<dt>type</dt>
+<dd>Currently, the only supported value is <em>keyword</em>. However, SmartSuggest can index different data types, e.g. products or categories.</dd>
+<dt>redirect</dt>
+<dd>The redirect URL, configured for the query over the SearchHub-UI. <strong>Optional</strong> omitted if no redirect exists.</dd>
+</dl>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;payload&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;meta.matchGroupName&quot;</span><span class="p">:</span> <span class="s2">&quot;best matches&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;keyword&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;suggestion&quot;</span><span class="p">:</span> <span class="s2">&quot;suggestion1&quot;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;payload&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;meta.matchGroupName&quot;</span><span class="p">:</span> <span class="s2">&quot;best matches&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;keyword&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;redirect&quot;</span><span class="p">:</span> <span class="s2">&quot;https://some-redirect-url.com&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;suggestion&quot;</span><span class="p">:</span> <span class="s2">&quot;suggestion2&quot;</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>All kinds of requests support a “limit” parameter. By default, the limit is set to 10. This parameter will limit the amount of returned suggestions.</p>
 </div>
 </div>
 <div class="section" id="configuration">
