@@ -4,7 +4,7 @@ Sample User Story
 When developing according to agile principles a product owner might find it helpful to have a sample user story. Feel free to copy and paste this to your backlog
 
 Story
-  As a customer I want to see autocompletions / search suggestions in the searchbox that are optimized using CXP search|hub.
+  As a customer I want to see autocompletions / search suggestions in the searchbar that are optimized using CXP search|hub.
 
 Acceptance criteria
   - When typing into the search box, search phrases are suggested based on every single typed user input using search|hub's SmartSuggest Module (https://docs.searchhub.io/module_smartsuggest.html).

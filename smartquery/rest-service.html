@@ -219,7 +219,7 @@ docker run -d --name<span class="o">=</span>smartquery-service -e <span class="n
 </dl>
 <p>The response is a simple string which is either the mapped query, or in the event no mapping is found, the original user query. Redirects are not supported for this endpoint and won’t be returned, even if available.</p>
 <p>Keep in mind, SmartQuery starts fetching mapping data, after the initial request for a specific tenant is received. As a result, for the first ~5 seconds all mappings will return the input query, due to mapping data having not yet been fetched. You should begin receiving mapped queries within a few seconds - provided data is available.</p>
-<p>Alternatively, it’s possible to remove the aforementioned startup latency by specifying the desired tenants by envoking the <cite>preloadTenants</cite> parameter outlined below. This variation will make the service available as soon as the mappings have been loaded.</p>
+<p>Alternatively, it’s possible to remove the aforementioned startup latency by specifying the desired tenants by invoking the <cite>preloadTenants</cite> parameter outlined below. This variation will make the service available as soon as the mappings have been loaded.</p>
 </div>
 <div class="section" id="service-endpoint-v2">
 <h3>Service Endpoint V2<a class="headerlink" href="#service-endpoint-v2" title="Permalink to this headline">¶</a></h3>
@@ -298,7 +298,7 @@ Can be set either as a comma-separated list, via the environment variable:</p>
 <div><ul class="simple">
 <li>The container won’t start, if you forget to specify the API key.</li>
 <li>Should you attempt to access an non-permitted tenant/channel (due to an incorrect API key, for example), you will see an error message similar to: <cite>update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {“message”:”Invalid authentication credentials”}</cite></li>
-<li>Enable debug loggging, in order to obtain more information concerning internal activities. Activtate this using the following docker startup parameter <cite>-e JAVA_OPTS=”-Dlogging.level.io.searchhub=DEBUG”</cite></li>
+<li>Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter <cite>-e JAVA_OPTS=”-Dlogging.level.io.searchhub=DEBUG”</cite></li>
 </ul>
 </div></blockquote>
 </div>

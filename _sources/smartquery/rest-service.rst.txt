@@ -46,7 +46,7 @@ The response is a simple string which is either the mapped query, or in the even
 
 Keep in mind, SmartQuery starts fetching mapping data, after the initial request for a specific tenant is received. As a result, for the first ~5 seconds all mappings will return the input query, due to mapping data having not yet been fetched. You should begin receiving mapped queries within a few seconds - provided data is available.
 
-Alternatively, it's possible to remove the aforementioned startup latency by specifying the desired tenants by envoking the `preloadTenants` parameter outlined below. This variation will make the service available as soon as the mappings have been loaded.
+Alternatively, it's possible to remove the aforementioned startup latency by specifying the desired tenants by invoking the `preloadTenants` parameter outlined below. This variation will make the service available as soon as the mappings have been loaded.
 
 
 Service Endpoint V2
@@ -139,7 +139,7 @@ Troubleshooting
 
   - The container won't start, if you forget to specify the API key.
   - Should you attempt to access an non-permitted tenant/channel (due to an incorrect API key, for example), you will see an error message similar to: `update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {"message":"Invalid authentication credentials"}`
-  - Enable debug loggging, in order to obtain more information concerning internal activities. Activtate this using the following docker startup parameter `-e JAVA_OPTS="-Dlogging.level.io.searchhub=DEBUG"`
+  - Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter `-e JAVA_OPTS="-Dlogging.level.io.searchhub=DEBUG"`
 
 
 .. _direct integration: direct-integration.html
