@@ -193,11 +193,11 @@
 </div>
 <div class="section" id="start-the-service">
 <h2>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this headline">¶</a></h2>
-<p>The service is provided as a docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal"><span class="pre">commerceexperts/smartquery-service:1.2.2</span></code></p>
+<p>The service is provided as a docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal"><span class="pre">commerceexperts/smartquery-service:1.2.3</span></code></p>
 <p>The container must be initiated with your API key set to the environment variable <cite>SQ_API_KEY</cite>.
 The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the <a class="reference internal" href="#requirements">Requirements</a> section.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># use the API key we provide</span>
-docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:1.2.2
+docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:1.2.3
 </pre></div>
 </div>
 </div>
