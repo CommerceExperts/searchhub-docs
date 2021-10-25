@@ -134,7 +134,7 @@ To **disable** this endpoint, add the following parameter to the JAVA_OPTS envir
     JAVA_OPTS="-Dendpoints.prometheus.enable=false"
 
 
-Trouble Shooting
+Troubleshooting
 ----------------
 
   - The container won't start, if you forget to specify the API key.

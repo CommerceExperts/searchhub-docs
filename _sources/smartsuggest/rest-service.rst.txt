@@ -179,7 +179,7 @@ Monitoring
 There are several metrics that are exposed in the prometheus format through the :code:`/prometheus` endpoint of the service. This endpoint exposes a "status_up 1.0" metrics plus the metrics described in the `monitoring`_ section at the `direct integration`_ docs (in the prometheus format, which practically means underscores instead of dots).
 
 
-Trouble Shooting
+Troubleshooting
 ----------------
 
   - If you forgot to specify the API key, the container will stop with the log message
