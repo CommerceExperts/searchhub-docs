@@ -7,10 +7,10 @@ Basic SmartQuery Implementation
 -------------------------------
 
 Story
-  As a customer, I want to see search results that are optimized using CXP search|hub (https://commerceexperts.github.io/searchhub-docs/index.html) and which are frequently updated using recent KPI data.
+  As a customer, I want to see search results that are optimized using CXP search|hub (https://docs.searchhub.io/) and which are frequently updated using recent KPI data.
 
 Acceptance criteria
-  - Search phrases are checked/optimized using search|hub's SmartQuery Module (https://commerceexperts.github.io/searchhub-docs/module_smartquery.html) before submitting them to the internal search engine
+  - Search phrases are checked/optimized using search|hub's SmartQuery Module (https://docs.searchhub.io/module_smartquery.html) before submitting them to the internal search engine
   - internal systems can access https://query.searchhub.io/ to perform the search phrase check
   - internal systems can access https://import.searchhub.io/ to send and receive data updates
 
