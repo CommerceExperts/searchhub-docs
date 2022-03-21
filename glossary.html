@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search Collector &mdash; CXP SearchHub 0.41.7 documentation</title>
+  <title>Glossary &mdash; CXP SearchHub 0.41.8 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="CXP SearchHub 0.41.7 documentation" href="index.html"/>
+    <link rel="top" title="CXP SearchHub 0.41.8 documentation" href="index.html"/>
         <link rel="prev" title="Sample User Story" href="smartsuggest/sample-user-story.html"/> 
 
   
@@ -90,7 +90,11 @@
 <li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: SmartQuery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: SmartSuggest</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Search Collector</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#query-mapping">Query Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tenant">Tenant</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -135,7 +139,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Search Collector</li>
+      <li>Glossary</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -154,10 +158,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="search-collector">
-<h1>Search Collector<a class="headerlink" href="#search-collector" title="Permalink to this headline">¶</a></h1>
-<p>dsvfasdf
-Searchbox</p>
+  <div class="section" id="glossary">
+<h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="query-mapping">
+<h2>Query Mapping<a class="headerlink" href="#query-mapping" title="Permalink to this headline">¶</a></h2>
+<p>A mapping takes place, if a user query is changed into a search query. The basic mapping data consists of simple mapping rules only. These are indexed by SmartQuery to generate even more mappings using diverse fuzzy algorithms.</p>
+</div>
+<div class="section" id="tenant">
+<h2>Tenant<a class="headerlink" href="#tenant" title="Permalink to this headline">¶</a></h2>
+<p>The tenant value is used as an ID and references a single data domain, e.g. a customer domain. The tenant is composed of two values in the format <cite>&lt;name&gt;.&lt;channel&gt;</cite>.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>the basic “name”, which normally would be the customer name</li>
+<li>a “channel”, which provides a second level of segmentation. This can be a separation by language (en, de, ..), for example, or by sales channel (mobile, www, ..).</li>
+</ol>
+</div></blockquote>
+<p>We recommend a lowercase name only containing alphanumeric characters and optionally dash (<cite>-</cite>) and underscore (<cite>_</cite>) for both tenant values. You can use the shop domain or the combination of your company name and a language code.</p>
+<p>In most cases, the tenant is dictated by the provided data. In practice we inform you about the available tenants, as these are used elsewhere in the overarching data processing pipeline, as unique identifiers.</p>
+</div>
 </div>
 
 
@@ -202,7 +220,7 @@ Searchbox</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.41.7',
+            VERSION:'0.41.8',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
