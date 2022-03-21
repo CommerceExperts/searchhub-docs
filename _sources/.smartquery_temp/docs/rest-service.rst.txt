@@ -1,0 +1,148 @@
+REST Service Integration
+========================
+
+In case you are unable to use the Java library directly (most likely due to your system not running on the JVM), you can use the REST-service wrapper for smartquery. It's delivered as a docker image and must run in your environment.
+
+Requirements
+------------
+
+- a minimum of 250MB + more space depending on the amount of data to manage
+- the service needs access to the following HTTPS Endpoints https://query.searchhub.io/ and https://import.searchhub.io/
+
+
+Start the service
+-----------------
+
+The service is provided as a docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:`
+    
+The container must be initiated with your API key set to the environment variable `SQ_API_KEY`. 
+The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the Requirements_ section.
+
+.. code-block:: bash
+    
+    # use the API key we provide
+    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:
+
+    
+Using the service
+---------------
+
+The service offers two endpoints to get a query mapping:
+
+Service Endpoint V1
+^^^^^^^^^^^^^^^^^^^
+
+URL Scheme:
+  ``http://<host>:<port>/smartquery/v1/<tenant-name>/<tenant-channel>?userQuery=<user-query>``
+
+Example:
+  .. code-block:: bash
+
+     curl localhost:10240/smartquery/v1/test/working?userQuery=bierzellt -o -
+     # returns 'bierzelt' on success
+     # returns 'bierzellt' if no mapping was found or no data is available
+
+The response is a simple string which is either the mapped query, or in the event no mapping is found, the original user query. Redirects are not supported for this endpoint and won't be returned, even if available.
+
+Keep in mind, SmartQuery starts fetching mapping data, after the initial request for a specific tenant is received. As a result, for the first ~5 seconds all mappings will return the input query, due to mapping data having not yet been fetched. You should begin receiving mapped queries within a few seconds - provided data is available.
+
+Alternatively, it's possible to remove the aforementioned startup latency by specifying the desired tenants by invoking the `preloadTenants` parameter outlined below. This variation will make the service available as soon as the mappings have been loaded.
+
+
+Service Endpoint V2
+^^^^^^^^^^^^^^^^^^^
+
+URL Scheme:
+  ``http://<host>:<port>/smartquery/v2/<tenant-name>/<tenant-channel>?userQuery=<user-query>``
+
+Example:
+  .. code-block:: bash
+
+     curl localhost:10240/smartquery/v2/test/working?userQuery=bierzellt -o -
+     # returns: 
+     {
+       "userQuery":"bierzellt",
+       "masterQuery":"bierzelt",
+       "searchQuery":"bierzelt",
+       "redirect":null,
+       "successful":true
+     }
+
+The response is an object that contains the following properties:
+
+  - **userQuery**: the entered user query
+  - **masterQuery**: if the query could be mapped, the master query is set, otherwise it's null.
+  - **searchQuery**: the final search query. This is the master or the user query.
+  - **redirect**: URL to a landing page or null if no redirect is configured.
+  - **successful**: `true` if the query could be handled by SmartQuery
+
+
+Configuration
+-------------
+
+Update Rate
+^^^^^^^^^^^
+
+Sets the rate (in seconds) at which the update should run. The value must be between 5 and 3600.
+This can be set as part of the JAVA_OPTS environment variable:
+
+.. code-block:: bash
+
+    JAVA_OPTS="-Dsmartquery.updateRateInSeconds=60"
+
+    
+Preload Tenants
+^^^^^^^^^^^^^^^
+
+Specify tenants that should be loaded immediately following initialization.
+Can be set either as a comma-separated list, via the environment variable:
+
+.. code-block:: bash
+
+    SQ_INIT_TENANTS="example.num1,example.num2"
+
+or as part of the JAVA_OPTS environment variable with one parameter per tenant:
+
+.. code-block:: bash
+
+    JAVA_OPTS="-Dsmartquery.preloadTenants[0]=example.num1 -Dsmartquery.preloadTenants[1]=example.num2"
+
+
+Basic Authentication
+^^^^^^^^^^^^^^^^^^^^
+
+In case you want to enable basic auth, add the following properties to the `JAVA_OPTS` env variable.
+
+.. code-block:: bash
+
+    JAVA_OPTS="-Dserver.auth.enabled=true -Dsecurity.user.password=<desired-password>"
+
+The user that is linked to that password is `user`. To use a different username, add the property `-Dsecurity.user.name=<your-username>` to `JAVA_OPTS`.
+
+If server auth is enabled but the password property is omitted, a random password will be generated and printed to stdout.
+
+
+Monitoring
+----------
+
+By default, several metrics are exposed in the prometheus format through the :code:`/prometheus` endpoint of the service. This endpoint exposes several basic metrics, in addition to the metrics described in the `monitoring`_ section of the `direct integration`_ docs.
+
+To **disable** this endpoint, add the following parameter to the JAVA_OPTS environment variable:
+
+.. code-block:: bash
+
+    JAVA_OPTS="-Dendpoints.prometheus.enable=false"
+
+
+Troubleshooting
+----------------
+
+  - The container won't start, if you forget to specify the API key.
+  - Should you attempt to access an non-permitted tenant/channel (due to an incorrect API key, for example), you will see an error message similar to: `update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {"message":"Invalid authentication credentials"}`
+  - Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter `-e JAVA_OPTS="-Dlogging.level.io.searchhub=DEBUG"`
+
+
+.. _direct integration: direct-integration.html
+.. _monitoring: direct-integration.html#monitoring
+.. _docker hub: https://hub.docker.com/r/commerceexperts/smartquery-service/tags
+

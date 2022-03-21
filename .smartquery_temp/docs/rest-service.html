@@ -1,0 +1,342 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>REST Service Integration &mdash; CXP SearchHub 0.41.7 documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/.smartquery_temp/docs/rest-service.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="CXP SearchHub 0.41.7 documentation" href="../../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> CXP SearchHub
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_smartquery.html">Module: SmartQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_smartsuggest.html">Module: SmartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">CXP SearchHub</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>REST Service Integration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/.smartquery_temp/docs/rest-service.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rest-service-integration">
+<h1>REST Service Integration<a class="headerlink" href="#rest-service-integration" title="Permalink to this headline">¶</a></h1>
+<p>In case you are unable to use the Java library directly (most likely due to your system not running on the JVM), you can use the REST-service wrapper for smartquery. It’s delivered as a docker image and must run in your environment.</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>a minimum of 250MB + more space depending on the amount of data to manage</li>
+<li>the service needs access to the following HTTPS Endpoints <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> and <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a></li>
+</ul>
+</div>
+<div class="section" id="start-the-service">
+<h2>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this headline">¶</a></h2>
+<p>The service is provided as a docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal"><span class="pre">commerceexperts/smartquery-service:</span></code></p>
+<p>The container must be initiated with your API key set to the environment variable <cite>SQ_API_KEY</cite>.
+The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the <a class="reference internal" href="#requirements">Requirements</a> section.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># use the API key we provide</span>
+docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-the-service">
+<h2>Using the service<a class="headerlink" href="#using-the-service" title="Permalink to this headline">¶</a></h2>
+<p>The service offers two endpoints to get a query mapping:</p>
+<div class="section" id="service-endpoint-v1">
+<h3>Service Endpoint V1<a class="headerlink" href="#service-endpoint-v1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>URL Scheme:</dt>
+<dd><code class="docutils literal"><span class="pre">http://&lt;host&gt;:&lt;port&gt;/smartquery/v1/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery=&lt;user-query&gt;</span></code></dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-bash"><div class="highlight"><pre><span></span>curl localhost:10240/smartquery/v1/test/working?userQuery<span class="o">=</span>bierzellt -o -
+<span class="c1"># returns &#39;bierzelt&#39; on success</span>
+<span class="c1"># returns &#39;bierzellt&#39; if no mapping was found or no data is available</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>The response is a simple string which is either the mapped query, or in the event no mapping is found, the original user query. Redirects are not supported for this endpoint and won’t be returned, even if available.</p>
+<p>Keep in mind, SmartQuery starts fetching mapping data, after the initial request for a specific tenant is received. As a result, for the first ~5 seconds all mappings will return the input query, due to mapping data having not yet been fetched. You should begin receiving mapped queries within a few seconds - provided data is available.</p>
+<p>Alternatively, it’s possible to remove the aforementioned startup latency by specifying the desired tenants by invoking the <cite>preloadTenants</cite> parameter outlined below. This variation will make the service available as soon as the mappings have been loaded.</p>
+</div>
+<div class="section" id="service-endpoint-v2">
+<h3>Service Endpoint V2<a class="headerlink" href="#service-endpoint-v2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>URL Scheme:</dt>
+<dd><code class="docutils literal"><span class="pre">http://&lt;host&gt;:&lt;port&gt;/smartquery/v2/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery=&lt;user-query&gt;</span></code></dd>
+<dt>Example:</dt>
+<dd><div class="first last highlight-bash"><div class="highlight"><pre><span></span>curl localhost:10240/smartquery/v2/test/working?userQuery<span class="o">=</span>bierzellt -o -
+<span class="c1"># returns:</span>
+<span class="o">{</span>
+  <span class="s2">&quot;userQuery&quot;</span>:<span class="s2">&quot;bierzellt&quot;</span>,
+  <span class="s2">&quot;masterQuery&quot;</span>:<span class="s2">&quot;bierzelt&quot;</span>,
+  <span class="s2">&quot;searchQuery&quot;</span>:<span class="s2">&quot;bierzelt&quot;</span>,
+  <span class="s2">&quot;redirect&quot;</span>:null,
+  <span class="s2">&quot;successful&quot;</span>:true
+<span class="o">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>The response is an object that contains the following properties:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>userQuery</strong>: the entered user query</li>
+<li><strong>masterQuery</strong>: if the query could be mapped, the master query is set, otherwise it’s null.</li>
+<li><strong>searchQuery</strong>: the final search query. This is the master or the user query.</li>
+<li><strong>redirect</strong>: URL to a landing page or null if no redirect is configured.</li>
+<li><strong>successful</strong>: <cite>true</cite> if the query could be handled by SmartQuery</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="update-rate">
+<h3>Update Rate<a class="headerlink" href="#update-rate" title="Permalink to this headline">¶</a></h3>
+<p>Sets the rate (in seconds) at which the update should run. The value must be between 5 and 3600.
+This can be set as part of the JAVA_OPTS environment variable:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.updateRateInSeconds=60&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="preload-tenants">
+<h3>Preload Tenants<a class="headerlink" href="#preload-tenants" title="Permalink to this headline">¶</a></h3>
+<p>Specify tenants that should be loaded immediately following initialization.
+Can be set either as a comma-separated list, via the environment variable:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">SQ_INIT_TENANTS</span><span class="o">=</span><span class="s2">&quot;example.num1,example.num2&quot;</span>
+</pre></div>
+</div>
+<p>or as part of the JAVA_OPTS environment variable with one parameter per tenant:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.preloadTenants[0]=example.num1 -Dsmartquery.preloadTenants[1]=example.num2&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-authentication">
+<h3>Basic Authentication<a class="headerlink" href="#basic-authentication" title="Permalink to this headline">¶</a></h3>
+<p>In case you want to enable basic auth, add the following properties to the <cite>JAVA_OPTS</cite> env variable.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dserver.auth.enabled=true -Dsecurity.user.password=&lt;desired-password&gt;&quot;</span>
+</pre></div>
+</div>
+<p>The user that is linked to that password is <cite>user</cite>. To use a different username, add the property <cite>-Dsecurity.user.name=&lt;your-username&gt;</cite> to <cite>JAVA_OPTS</cite>.</p>
+<p>If server auth is enabled but the password property is omitted, a random password will be generated and printed to stdout.</p>
+</div>
+</div>
+<div class="section" id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
+<p>By default, several metrics are exposed in the prometheus format through the <code class="code docutils literal"><span class="pre">/prometheus</span></code> endpoint of the service. This endpoint exposes several basic metrics, in addition to the metrics described in the <a class="reference external" href="direct-integration.html#monitoring">monitoring</a> section of the <a class="reference external" href="direct-integration.html">direct integration</a> docs.</p>
+<p>To <strong>disable</strong> this endpoint, add the following parameter to the JAVA_OPTS environment variable:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dendpoints.prometheus.enable=false&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>The container won’t start, if you forget to specify the API key.</li>
+<li>Should you attempt to access an non-permitted tenant/channel (due to an incorrect API key, for example), you will see an error message similar to: <cite>update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {“message”:”Invalid authentication credentials”}</cite></li>
+<li>Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter <cite>-e JAVA_OPTS=”-Dlogging.level.io.searchhub=DEBUG”</cite></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, CXP Commerce Experts GmbH.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.41.7',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
