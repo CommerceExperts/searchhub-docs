@@ -1,6 +1,6 @@
 Search Collector
 ----------------
-dsvfasdf
+
 Searchbox
 
 .. list-table:: Attributes
