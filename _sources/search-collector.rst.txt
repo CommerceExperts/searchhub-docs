@@ -1,0 +1,206 @@
+.. |searchbox| image:: img/searchbox.png
+  :alt: Searchbox Tracking
+
+.. |searchbutton| image:: img/searchbutton.png
+  :alt: Searchbutton Tracking
+
+.. |resultCount| image:: img/resultCount.png
+  :alt: Result Count Tracking
+
+.. |basketPDP| image:: img/basketPDP.png
+  :alt: Add to basket PDP Tracking
+
+.. |checkout| image:: img/checkout.png
+  :alt: Checkout Tracking
+
+.. |product| image:: img/product.png
+  :alt: Product Tracking
+
+.. _search-collector: https://github.com/searchhub/search-collector
+
+
+
+Search Collector
+================
+Introduction
+############
+To gather the required tracking data the open-source search-collector search-collector_ tracking library is used.
+The search-collector library scans the HTML DOM to gather search-related data and user events.
+
+To integrate the tracking, only a couple of HTML attributes have to be attached to your page. The remaining search-collector implementation is done by searchhub.
+
+..
+   TODO mention the sr is the foundation
+
+Rule of Thumb
+#############
+*If you are not sure which HTML element exactly to put the data-attribute on, using the elements you use for specific user events is a good rule of thumb.*
+
+*E.g. if your click listener for the search button is attached to an HTML button element, you should add the corresponding collector HTML attribute to that button element.*
+
+
+Integration
+########
+
+Search box
+---------
+The ``searchbox`` is used to perform text-based queries. In most cases, the ``searchbox`` is an HTML input element.
+
+|searchbox|
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id
+     - searchBox
+
+**Example**
+
+.. code-block:: html
+
+    <input data-track-id="searchBox" />
+
+
+Search button
+------------
+The ``searchbutton`` is used to trigger a search.
+
+|searchbutton|
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id
+     - searchButton
+
+**Example**
+
+.. code-block:: html
+
+    <button type="..." data-track-id="searchButton" />
+
+Result Count
+------------
+The result count is the number of products found for the current search (**not** the number of products displayed on the current page). This is usually a somewhat higher number like hundreds or even thousands.
+
+|resultCount|
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id
+     - resultCountContainer
+
+**Example**
+
+.. code-block:: html
+
+    <div>
+        Your search for jeans produced
+        <span data-track-id="resultCountContainer">9</span> results
+    </div>
+
+
+Product
+-------
+A product representation for the current search result. The attributes here include a ``priceContainer`` in addition, the tracking script will automatically strip the non-numeric characters.
+The value for the ``data-product-id`` attribute has to be an ID that uniquely identifies the product.
+In B2B exist more edge cases. E.g. a certain SKU of the product family is used to represent the product group or family.
+In such cases, it is important that the same IDs are used on the product listing page (PDP) and on the product detail page (PLP).
+
+|product|
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id
+     - product
+   * - data-product-id
+     - {sku}
+   * - data-track-id
+     - priceContainer
+
+**Example**
+
+.. code-block:: html
+
+    <a href="..." data-track-id="product" data-product-id="abc" />
+        ...
+        <div data-track-id="priceContainer">39,99 € per unit</div>
+        ...
+    </a>
+
+
+Add to cart (PDP)
+-------
+On the product detail page the ``Add to cart`` button has to be attributed with the ``data-track-id`` and ``data-product-id`` attributes.
+An additional element containing the amount put into the basket can be annotated with the ``data-track-id`` attribute, in most cases this is a common div, select or input element.
+
+|basketPDP|
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id
+     - addToCartPDP
+   * - data-product-id
+     - {sku}
+   * - data-track-id
+     - addToBasketQuantity
+
+**Example**
+
+.. code-block:: html
+
+    <select data-track-id="addToBasketQuantity">...</select>
+    <button data-track-id="addToCartPDP" data-product-id="abc"></button>
+
+
+Checkout
+-------
+Checkout tracking is implemented on the very last summary page in your checkout process.
+All products have to be attributed similar to the product listing page in addition to the ``"Commit and Buy"`` button which will finalize the order.
+
+|checkout|
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id
+     - checkoutProduct
+   * - data-product-id
+     - {sku}
+   * - data-track-id
+     - priceContainer
+   * - data-track-id
+     - checkoutQuantity
+
+**Example**
+
+.. code-block:: html
+
+    <div class="row sCard mb-2" data-track-id="checkoutProduct" data-product-id="1234">
+        ...
+        <div data-track-id="checkoutQuantity">2</div>
+        ...
+        <div data-track-id="priceContainer">19.99 €</div>
+        ...
+    </div>

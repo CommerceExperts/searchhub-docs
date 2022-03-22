@@ -8,6 +8,7 @@ CXP search|hub documentation
 
    Getting Started <self>
    ingestion
+   search-collector
    module_*
    glossary
 

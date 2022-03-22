@@ -1,0 +1,458 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Search Collector &mdash; CXP SearchHub 0.42.0 documentation</title>
+  
+
+  
+  
+  
+  
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/search-collector.html"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="CXP SearchHub 0.42.0 documentation" href="index.html"/>
+        <link rel="next" title="Module: SmartQuery" href="module_smartquery.html"/>
+        <link rel="prev" title="Ingestion" href="ingestion.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CXP SearchHub
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Search Collector</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rule-of-thumb">Rule of Thumb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integration">Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#search-box">Search box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#search-button">Search button</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#result-count">Result Count</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#product">Product</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-to-cart-pdp">Add to cart (PDP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#checkout">Checkout</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: SmartQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: SmartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CXP SearchHub</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Search Collector</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/search-collector.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Search Collector<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>To gather the required tracking data the open-source search-collector <a class="reference external" href="https://github.com/searchhub/search-collector">search-collector</a> tracking library is used.
+The search-collector library scans the HTML DOM to gather search-related data and user events.</p>
+<p>To integrate the tracking, only a couple of HTML attributes have to be attached to your page. The remaining search-collector implementation is done by searchhub.</p>
+</div>
+<div class="section" id="rule-of-thumb">
+<h2>Rule of Thumb<a class="headerlink" href="#rule-of-thumb" title="Permalink to this headline">¶</a></h2>
+<p><em>If you are not sure which HTML element exactly to put the data-attribute on, using the elements you use for specific user events is a good rule of thumb.</em></p>
+<p><em>E.g. if your click listener for the search button is attached to an HTML button element, you should add the corresponding collector HTML attribute to that button element.</em></p>
+</div>
+<div class="section" id="integration">
+<h2>Integration<a class="headerlink" href="#integration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="search-box">
+<h3>Search box<a class="headerlink" href="#search-box" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">searchbox</span></code> is used to perform text-based queries. In most cases, the <code class="docutils literal"><span class="pre">searchbox</span></code> is an HTML input element.</p>
+<p><img alt="Searchbox Tracking" src="_images/searchbox.png" /></p>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data-track-id</td>
+<td>searchBox</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;searchBox&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="search-button">
+<h3>Search button<a class="headerlink" href="#search-button" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">searchbutton</span></code> is used to trigger a search.</p>
+<p><img alt="Searchbutton Tracking" src="_images/searchbutton.png" /></p>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data-track-id</td>
+<td>searchButton</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;...&quot;</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;searchButton&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="result-count">
+<h3>Result Count<a class="headerlink" href="#result-count" title="Permalink to this headline">¶</a></h3>
+<p>The result count is the number of products found for the current search (<strong>not</strong> the number of products displayed on the current page). This is usually a somewhat higher number like hundreds or even thousands.</p>
+<p><img alt="Result Count Tracking" src="_images/resultCount.png" /></p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data-track-id</td>
+<td>resultCountContainer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    Your search for jeans produced
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;resultCountContainer&quot;</span><span class="p">&gt;</span>9<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> results
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="product">
+<h3>Product<a class="headerlink" href="#product" title="Permalink to this headline">¶</a></h3>
+<p>A product representation for the current search result. The attributes here include a <code class="docutils literal"><span class="pre">priceContainer</span></code> in addition, the tracking script will automatically strip the non-numeric characters.
+The value for the <code class="docutils literal"><span class="pre">data-product-id</span></code> attribute has to be an ID that uniquely identifies the product.
+In B2B exist more edge cases. E.g. a certain SKU of the product family is used to represent the product group or family.
+In such cases, it is important that the same IDs are used on the product listing page (PDP) and on the product detail page (PLP).</p>
+<p><img alt="Product Tracking" src="_images/product.png" /></p>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data-track-id</td>
+<td>product</td>
+</tr>
+<tr class="row-odd"><td>data-product-id</td>
+<td>{sku}</td>
+</tr>
+<tr class="row-even"><td>data-track-id</td>
+<td>priceContainer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;...&quot;</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;product&quot;</span> <span class="na">data-product-id</span><span class="o">=</span><span class="s">&quot;abc&quot;</span> <span class="p">/&gt;</span>
+    ...
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;priceContainer&quot;</span><span class="p">&gt;</span>39,99 € per unit<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    ...
+<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-to-cart-pdp">
+<h3>Add to cart (PDP)<a class="headerlink" href="#add-to-cart-pdp" title="Permalink to this headline">¶</a></h3>
+<p>On the product detail page the <code class="docutils literal"><span class="pre">Add</span> <span class="pre">to</span> <span class="pre">cart</span></code> button has to be attributed with the <code class="docutils literal"><span class="pre">data-track-id</span></code> and <code class="docutils literal"><span class="pre">data-product-id</span></code> attributes.
+An additional element containing the amount put into the basket can be annotated with the <code class="docutils literal"><span class="pre">data-track-id</span></code> attribute, in most cases this is a common div, select or input element.</p>
+<p><img alt="Add to basket PDP Tracking" src="_images/basketPDP.png" /></p>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data-track-id</td>
+<td>addToCartPDP</td>
+</tr>
+<tr class="row-odd"><td>data-product-id</td>
+<td>{sku}</td>
+</tr>
+<tr class="row-even"><td>data-track-id</td>
+<td>addToBasketQuantity</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;addToBasketQuantity&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;addToCartPDP&quot;</span> <span class="na">data-product-id</span><span class="o">=</span><span class="s">&quot;abc&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="checkout">
+<h3>Checkout<a class="headerlink" href="#checkout" title="Permalink to this headline">¶</a></h3>
+<p>Checkout tracking is implemented on the very last summary page in your checkout process.
+All products have to be attributed similar to the product listing page in addition to the <code class="docutils literal"><span class="pre">&quot;Commit</span> <span class="pre">and</span> <span class="pre">Buy&quot;</span></code> button which will finalize the order.</p>
+<p><img alt="Checkout Tracking" src="_images/checkout.png" /></p>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data-track-id</td>
+<td>checkoutProduct</td>
+</tr>
+<tr class="row-odd"><td>data-product-id</td>
+<td>{sku}</td>
+</tr>
+<tr class="row-even"><td>data-track-id</td>
+<td>priceContainer</td>
+</tr>
+<tr class="row-odd"><td>data-track-id</td>
+<td>checkoutQuantity</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row sCard mb-2&quot;</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;checkoutProduct&quot;</span> <span class="na">data-product-id</span><span class="o">=</span><span class="s">&quot;1234&quot;</span><span class="p">&gt;</span>
+    ...
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;checkoutQuantity&quot;</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    ...
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;priceContainer&quot;</span><span class="p">&gt;</span>19.99 €<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    ...
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="module_smartquery.html" class="btn btn-neutral float-right" title="Module: SmartQuery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ingestion.html" class="btn btn-neutral" title="Ingestion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, CXP Commerce Experts GmbH.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.42.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
