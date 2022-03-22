@@ -16,6 +16,9 @@
 .. |product| image:: img/product.png
   :alt: Product Tracking
 
+.. |suggest| image:: img/suggest.png
+  :alt: Suggest Tracking
+
 .. _search-collector: https://github.com/searchhub/search-collector
 
 
@@ -93,6 +96,31 @@ The ``searchbutton`` is used to trigger a search.
 .. code-block:: html
 
     <button type="..." data-track-id="searchButton" />
+
+
+Suggest (search terms)
+-------
+If search terms are proposed to the shop user while typing, each element containing keywords should be annotated with the ``data-track-id="suggestSearchTerm"`` attribute.
+
+|suggest|
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id
+     - suggestSearchTerm
+
+**Example**
+
+.. code-block:: html
+
+    ...
+    <div data-track-id="suggestSearchTerm">Jeans</div>
+    <div data-track-id="suggestSearchTerm">Jeans Jackets</div>
+    ...
 
 Result Count
 ------------
@@ -213,3 +241,5 @@ All products have to be attributed similar to the product listing page in additi
         <div data-track-id="priceContainer">19.99 €</div>
         ...
     </div>
+
+

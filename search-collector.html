@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search Collector &mdash; CXP SearchHub 0.42.1 documentation</title>
+  <title>Search Collector &mdash; CXP SearchHub 0.42.2 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="CXP SearchHub 0.42.1 documentation" href="index.html"/>
+    <link rel="top" title="CXP SearchHub 0.42.2 documentation" href="index.html"/>
         <link rel="next" title="Module: SmartQuery" href="module_smartquery.html"/>
         <link rel="prev" title="Ingestion" href="ingestion.html"/> 
 
@@ -96,6 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#integration">Integration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#search-box">Search box</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#search-button">Search button</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#suggest-search-terms">Suggest (search terms)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#result-count">Result Count</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#product">Product</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#add-to-cart-pdp">Add to cart (PDP)</a></li>
@@ -245,12 +246,41 @@ The search-collector library scans the HTML DOM to gather search-related data an
 </pre></div>
 </div>
 </div>
+<div class="section" id="suggest-search-terms">
+<h3>Suggest (search terms)<a class="headerlink" href="#suggest-search-terms" title="Permalink to this headline">¶</a></h3>
+<p>If search terms are proposed to the shop user while typing, each element containing keywords should be annotated with the <code class="docutils literal"><span class="pre">data-track-id=&quot;suggestSearchTerm&quot;</span></code> attribute.</p>
+<p><img alt="Suggest Tracking" src="_images/suggest.png" /></p>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data-track-id</td>
+<td>suggestSearchTerm</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-html"><div class="highlight"><pre><span></span>...
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;suggestSearchTerm&quot;</span><span class="p">&gt;</span>Jeans<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;suggestSearchTerm&quot;</span><span class="p">&gt;</span>Jeans Jackets<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+...
+</pre></div>
+</div>
+</div>
 <div class="section" id="result-count">
 <h3>Result Count<a class="headerlink" href="#result-count" title="Permalink to this headline">¶</a></h3>
 <p>The result count is the number of products found for the current search (<strong>not</strong> the number of products displayed on the current page). This is usually a somewhat higher number like hundreds or even thousands.</p>
 <p><img alt="Result Count Tracking" src="_images/resultCount.png" /></p>
-<table border="1" class="colwidths-given docutils" id="id4">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id5">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="50%" />
 <col width="50%" />
@@ -281,8 +311,8 @@ The value for the <code class="docutils literal"><span class="pre">data-product-
 In B2B exist more edge cases. E.g. a certain SKU of the product family is used to represent the product group or family.
 In such cases, it is important that the same IDs are used on the product listing page (PDP) and on the product detail page (PLP).</p>
 <p><img alt="Product Tracking" src="_images/product.png" /></p>
-<table border="1" class="colwidths-given docutils" id="id5">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id6">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="50%" />
 <col width="50%" />
@@ -318,8 +348,8 @@ In such cases, it is important that the same IDs are used on the product listing
 <p>On the product detail page the <code class="docutils literal"><span class="pre">Add</span> <span class="pre">to</span> <span class="pre">cart</span></code> button has to be attributed with the <code class="docutils literal"><span class="pre">data-track-id</span></code> and <code class="docutils literal"><span class="pre">data-product-id</span></code> attributes.
 An additional element containing the amount put into the basket can be annotated with the <code class="docutils literal"><span class="pre">data-track-id</span></code> attribute, in most cases this is a common div, select or input element.</p>
 <p><img alt="Add to basket PDP Tracking" src="_images/basketPDP.png" /></p>
-<table border="1" class="colwidths-given docutils" id="id6">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="50%" />
 <col width="50%" />
@@ -352,8 +382,8 @@ An additional element containing the amount put into the basket can be annotated
 <p>Checkout tracking is implemented on the very last summary page in your checkout process.
 All products have to be attributed similar to the product listing page in addition to the <code class="docutils literal"><span class="pre">&quot;Commit</span> <span class="pre">and</span> <span class="pre">Buy&quot;</span></code> button which will finalize the order.</p>
 <p><img alt="Checkout Tracking" src="_images/checkout.png" /></p>
-<table border="1" class="colwidths-given docutils" id="id7">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id8">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="50%" />
 <col width="50%" />
@@ -436,7 +466,7 @@ All products have to be attributed similar to the product listing page in additi
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.42.1',
+            VERSION:'0.42.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
