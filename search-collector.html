@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search Collector &mdash; CXP SearchHub 0.42.0 documentation</title>
+  <title>Search Collector &mdash; CXP SearchHub 0.42.1 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="CXP SearchHub 0.42.0 documentation" href="index.html"/>
+    <link rel="top" title="CXP SearchHub 0.42.1 documentation" href="index.html"/>
         <link rel="next" title="Module: SmartQuery" href="module_smartquery.html"/>
         <link rel="prev" title="Ingestion" href="ingestion.html"/> 
 
@@ -92,6 +92,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Search Collector</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#rule-of-thumb">Rule of Thumb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#script">Script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#integration">Integration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#search-box">Search box</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#search-button">Search button</a></li>
@@ -181,6 +182,14 @@ The search-collector library scans the HTML DOM to gather search-related data an
 <h2>Rule of Thumb<a class="headerlink" href="#rule-of-thumb" title="Permalink to this headline">¶</a></h2>
 <p><em>If you are not sure which HTML element exactly to put the data-attribute on, using the elements you use for specific user events is a good rule of thumb.</em></p>
 <p><em>E.g. if your click listener for the search button is attached to an HTML button element, you should add the corresponding collector HTML attribute to that button element.</em></p>
+</div>
+<div class="section" id="script">
+<h2>Script<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h2>
+<p>Include your searchhub tracking snippet on every page in your shop like:</p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">defer</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://c.searchhub.io/{YOUR_ID}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<p>Replace the <code class="docutils literal"><span class="pre">{YOUR_ID}</span></code> with the ID searchhub provided for you. The script will automatically load and execute.</p>
 </div>
 <div class="section" id="integration">
 <h2>Integration<a class="headerlink" href="#integration" title="Permalink to this headline">¶</a></h2>
@@ -427,7 +436,7 @@ All products have to be attributed similar to the product listing page in additi
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.42.0',
+            VERSION:'0.42.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

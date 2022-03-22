@@ -38,6 +38,15 @@ Rule of Thumb
 
 *E.g. if your click listener for the search button is attached to an HTML button element, you should add the corresponding collector HTML attribute to that button element.*
 
+Script
+######
+Include your searchhub tracking snippet on every page in your shop like:
+
+.. code-block:: html
+
+    <script defer src="https://c.searchhub.io/{YOUR_ID}"></script>
+
+Replace the ``{YOUR_ID}`` with the ID searchhub provided for you. The script will automatically load and execute.
 
 Integration
 ########
