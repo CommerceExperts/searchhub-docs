@@ -19,6 +19,9 @@
 .. |suggest| image:: img/suggest.png
   :alt: Suggest Tracking
 
+.. |associatedProduct| image:: img/associatedProduct.png
+  :alt: Associated Product Tracking
+
 .. _search-collector: https://github.com/searchhub/search-collector
 
 
@@ -207,6 +210,37 @@ An additional element containing the amount put into the basket can be annotated
     <select data-track-id="addToBasketQuantity">...</select>
     <button data-track-id="addToCartPDP" data-product-id="abc"></button>
 
+
+Associated Product
+-------
+If on product detail page some associated products (recommendations, similar products and so on) are proposed to the shop
+user, these products should be annotated almost the same way as products are annotated on the product listing page.
+The only difference is the ``associatedProduct`` value of the ``data-track-id`` attribute.
+
+|associatedProduct|
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id
+     - associatedProduct
+   * - data-product-id
+     - {sku}
+   * - data-track-id
+     - priceContainer
+
+**Example**
+
+.. code-block:: html
+
+    <a href="..." data-track-id="associatedProduct" data-product-id="abc" />
+        ...
+        <div data-track-id="priceContainer">39,99 € per unit</div>
+        ...
+    </a>
 
 Checkout
 -------

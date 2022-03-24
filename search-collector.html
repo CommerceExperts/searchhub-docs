@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search Collector &mdash; CXP SearchHub 0.42.2 documentation</title>
+  <title>Search Collector &mdash; CXP SearchHub 0.42.3 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="CXP SearchHub 0.42.2 documentation" href="index.html"/>
+    <link rel="top" title="CXP SearchHub 0.42.3 documentation" href="index.html"/>
         <link rel="next" title="Module: SmartQuery" href="module_smartquery.html"/>
         <link rel="prev" title="Ingestion" href="ingestion.html"/> 
 
@@ -100,6 +100,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#result-count">Result Count</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#product">Product</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#add-to-cart-pdp">Add to cart (PDP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#associated-product">Associated Product</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#checkout">Checkout</a></li>
 </ul>
 </li>
@@ -377,13 +378,51 @@ An additional element containing the amount put into the basket can be annotated
 </pre></div>
 </div>
 </div>
+<div class="section" id="associated-product">
+<h3>Associated Product<a class="headerlink" href="#associated-product" title="Permalink to this headline">¶</a></h3>
+<p>If on product detail page some associated products (recommendations, similar products and so on) are proposed to the shop
+user, these products should be annotated almost the same way as products are annotated on the product listing page.
+The only difference is the <code class="docutils literal"><span class="pre">associatedProduct</span></code> value of the <code class="docutils literal"><span class="pre">data-track-id</span></code> attribute.</p>
+<p><img alt="Associated Product Tracking" src="_images/associatedProduct.png" /></p>
+<table border="1" class="colwidths-given docutils" id="id8">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data-track-id</td>
+<td>associatedProduct</td>
+</tr>
+<tr class="row-odd"><td>data-product-id</td>
+<td>{sku}</td>
+</tr>
+<tr class="row-even"><td>data-track-id</td>
+<td>priceContainer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;...&quot;</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;associatedProduct&quot;</span> <span class="na">data-product-id</span><span class="o">=</span><span class="s">&quot;abc&quot;</span> <span class="p">/&gt;</span>
+    ...
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;priceContainer&quot;</span><span class="p">&gt;</span>39,99 € per unit<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    ...
+<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="checkout">
 <h3>Checkout<a class="headerlink" href="#checkout" title="Permalink to this headline">¶</a></h3>
 <p>Checkout tracking is implemented on the very last summary page in your checkout process.
 All products have to be attributed similar to the product listing page in addition to the <code class="docutils literal"><span class="pre">&quot;Commit</span> <span class="pre">and</span> <span class="pre">Buy&quot;</span></code> button which will finalize the order.</p>
 <p><img alt="Checkout Tracking" src="_images/checkout.png" /></p>
-<table border="1" class="colwidths-given docutils" id="id8">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id9">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="50%" />
 <col width="50%" />
@@ -466,7 +505,7 @@ All products have to be attributed similar to the product listing page in additi
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.42.2',
+            VERSION:'0.42.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
