@@ -29,14 +29,14 @@ We provide the following methods of ingesting analytics data:
 Google Analytics API Access
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-API access to Google Analytics site-search analytics view is preferred. To do so, please `grant access`_ to the following two accounts:
+API access to Google Analytics site-search analytics view is preferred. To do so, please `grant access`_ with at least the 'Viewer' role to the following two accounts:
 
 :: 
 
     searchhub@searchhub-analytics.iam.gserviceaccount.com
     analytics@commerce-experts.com
     
-Once done, please contact us so that we can set up the appropriate process on our end.
+Once done, please contact us so that we can set up the data-ingestion process on our end.
 
 
 Analytics File Export
