@@ -183,6 +183,28 @@ In such cases, it is important that the same IDs are used on the product listing
     </a>
 
 
+Zero Results Container
+------------
+The zero results container is the container that contains the text that is displayed when no products are found for the current search.
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id
+     - zeroResultsContainer
+
+**Example**
+
+.. code-block:: html
+
+    <div data-track-id="zeroResultsContainer">
+        Sorry, no products could be found for your search "search phrase".
+    </div>
+
+
 Add to cart (PDP)
 -------
 On the product detail page the ``Add to cart`` button has to be attributed with the ``data-track-id`` and ``data-product-id`` attributes.

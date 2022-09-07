@@ -99,6 +99,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#suggest-search-terms">Suggest (search terms)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#result-count">Result Count</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#product">Product</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zero-results-container">Zero Results Container</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#add-to-cart-pdp">Add to cart (PDP)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#associated-product">Associated Product</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#checkout">Checkout</a></li>
@@ -344,13 +345,40 @@ In such cases, it is important that the same IDs are used on the product listing
 </pre></div>
 </div>
 </div>
+<div class="section" id="zero-results-container">
+<h3>Zero Results Container<a class="headerlink" href="#zero-results-container" title="Permalink to this headline">¶</a></h3>
+<p>The zero results container is the container that contains the text that is displayed when no products are found for the current search.</p>
+<table border="1" class="colwidths-given docutils" id="id7">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>data-track-id</td>
+<td>zeroResultsContainer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-html"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;zeroResultsContainer&quot;</span><span class="p">&gt;</span>
+    Sorry, no products could be found for your search &quot;search phrase&quot;.
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="add-to-cart-pdp">
 <h3>Add to cart (PDP)<a class="headerlink" href="#add-to-cart-pdp" title="Permalink to this headline">¶</a></h3>
 <p>On the product detail page the <code class="docutils literal"><span class="pre">Add</span> <span class="pre">to</span> <span class="pre">cart</span></code> button has to be attributed with the <code class="docutils literal"><span class="pre">data-track-id</span></code> and <code class="docutils literal"><span class="pre">data-product-id</span></code> attributes.
 An additional element containing the amount put into the basket can be annotated with the <code class="docutils literal"><span class="pre">data-track-id</span></code> attribute, in most cases this is a common div, select or input element.</p>
 <p><img alt="Add to basket PDP Tracking" src="_images/basketPDP.png" /></p>
-<table border="1" class="colwidths-given docutils" id="id7">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id8">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="50%" />
 <col width="50%" />
@@ -384,8 +412,8 @@ An additional element containing the amount put into the basket can be annotated
 user, these products should be annotated almost the same way as products are annotated on the product listing page.
 The only difference is the <code class="docutils literal"><span class="pre">associatedProduct</span></code> value of the <code class="docutils literal"><span class="pre">data-track-id</span></code> attribute.</p>
 <p><img alt="Associated Product Tracking" src="_images/associatedProduct.png" /></p>
-<table border="1" class="colwidths-given docutils" id="id8">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id9">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="50%" />
 <col width="50%" />
@@ -421,8 +449,8 @@ The only difference is the <code class="docutils literal"><span class="pre">asso
 <p>Checkout tracking is implemented on the very last summary page in your checkout process.
 All products have to be attributed similar to the product listing page in addition to the <code class="docutils literal"><span class="pre">&quot;Commit</span> <span class="pre">and</span> <span class="pre">Buy&quot;</span></code> button which will finalize the order.</p>
 <p><img alt="Checkout Tracking" src="_images/checkout.png" /></p>
-<table border="1" class="colwidths-given docutils" id="id9">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id10">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="50%" />
 <col width="50%" />
