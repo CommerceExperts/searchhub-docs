@@ -35,6 +35,10 @@ The search-collector library scans the HTML DOM to gather search-related data an
 
 To integrate the tracking, only a couple of HTML attributes have to be attached to your page. The remaining search-collector implementation is done by searchhub.
 
+.. note::
+   Our tracking script is capable of reading javascript objects to obtain the necessary data.
+   To find out more about tracking customizations, just contact us directly or look for a hint in the documentation.
+
 ..
    TODO mention the sr is the foundation
 
@@ -43,6 +47,7 @@ Rule of Thumb
 *If you are not sure which HTML element exactly to put the data-attribute on, using the elements you use for specific user events is a good rule of thumb.*
 
 *E.g. if your click listener for the search button is attached to an HTML button element, you should add the corresponding collector HTML attribute to that button element.*
+
 
 Script
 ######
@@ -55,10 +60,10 @@ Include your searchhub tracking snippet on every page in your shop like:
 Replace the ``{YOUR_ID}`` with the ID searchhub provided for you. The script will automatically load and execute.
 
 Integration
-########
+################
 
 Search box
----------
+------------------------------
 The ``searchbox`` is used to perform text-based queries. In most cases, the ``searchbox`` is an HTML input element.
 
 |searchbox|
@@ -80,7 +85,7 @@ The ``searchbox`` is used to perform text-based queries. In most cases, the ``se
 
 
 Search button
-------------
+---------------------------------
 The ``searchbutton`` is used to trigger a search.
 
 |searchbutton|
@@ -102,7 +107,7 @@ The ``searchbutton`` is used to trigger a search.
 
 
 Suggest (search terms)
--------
+----------------------------
 If search terms are proposed to the shop user while typing, each element containing keywords should be annotated with the ``data-track-id="suggestSearchTerm"`` attribute.
 
 |suggest|
@@ -126,7 +131,7 @@ If search terms are proposed to the shop user while typing, each element contain
     ...
 
 Result Count
-------------
+---------------------------------
 The result count is the number of products found for the current search (**not** the number of products displayed on the current page). This is usually a somewhat higher number like hundreds or even thousands.
 
 |resultCount|
@@ -151,7 +156,7 @@ The result count is the number of products found for the current search (**not**
 
 
 Product
--------
+----------------------------
 A product representation for the current search result. The attributes here include a ``priceContainer`` in addition, the tracking script will automatically strip the non-numeric characters.
 The value for the ``data-product-id`` attribute has to be an ID that uniquely identifies the product.
 In B2B exist more edge cases. E.g. a certain SKU of the product family is used to represent the product group or family.
@@ -165,12 +170,16 @@ In such cases, it is important that the same IDs are used on the product listing
 
    * - Name
      - Value
-   * - data-track-id
+   * - data-track-id (required)
      - product
    * - data-product-id
-     - {sku}
+     - {mainSKU}
    * - data-track-id
      - priceContainer
+
+.. note::
+   You can omit the `data-product-id` and `data-track-id="priceContainer"` attributes if you have a javascript object that contains the required information.
+   E.g. the `dataLayer` object. Please contact us if you want to rely on js data.
 
 **Example**
 
@@ -184,7 +193,7 @@ In such cases, it is important that the same IDs are used on the product listing
 
 
 Zero Results Container
-------------
+---------------------------------
 The zero results container is the container that contains the text that is displayed when no products are found for the current search.
 
 .. list-table:: data-attributes
@@ -206,7 +215,7 @@ The zero results container is the container that contains the text that is displ
 
 
 Add to cart (PDP)
--------
+----------------------------
 On the product detail page the ``Add to cart`` button has to be attributed with the ``data-track-id`` and ``data-product-id`` attributes.
 An additional element containing the amount put into the basket can be annotated with the ``data-track-id`` attribute, in most cases this is a common div, select or input element.
 
@@ -218,12 +227,16 @@ An additional element containing the amount put into the basket can be annotated
 
    * - Name
      - Value
-   * - data-track-id
+   * - data-track-id (required)
      - addToCartPDP
    * - data-product-id
-     - {sku}
+     - {mainSKU}
    * - data-track-id
      - addToBasketQuantity
+
+.. note::
+   You can omit the `data-product-id` and `data-track-id="addToBasketQuantity"` attributes if you have a javascript object that contains the required information.
+   E.g. the `dataLayer` object. Please contact us if you want to rely on js data.
 
 **Example**
 
@@ -234,7 +247,7 @@ An additional element containing the amount put into the basket can be annotated
 
 
 Associated Product
--------
+----------------------------
 If on product detail page some associated products (recommendations, similar products and so on) are proposed to the shop
 user, these products should be annotated almost the same way as products are annotated on the product listing page.
 The only difference is the ``associatedProduct`` value of the ``data-track-id`` attribute.
@@ -247,12 +260,16 @@ The only difference is the ``associatedProduct`` value of the ``data-track-id`` 
 
    * - Name
      - Value
-   * - data-track-id
+   * - data-track-id (required)
      - associatedProduct
    * - data-product-id
-     - {sku}
+     - {mainSKU}
    * - data-track-id
      - priceContainer
+
+.. note::
+   You can omit the `data-product-id` and `data-track-id="priceContainer"` attributes if you have a javascript object that contains the required information.
+   E.g. the `dataLayer` object. Please contact us if you want to rely on js data.
 
 **Example**
 
@@ -265,7 +282,7 @@ The only difference is the ``associatedProduct`` value of the ``data-track-id`` 
     </a>
 
 Checkout
--------
+----------------------------
 Checkout tracking is implemented on the very last summary page in your checkout process.
 All products have to be attributed similar to the product listing page in addition to the ``"Commit and Buy"`` button which will finalize the order.
 
@@ -277,14 +294,18 @@ All products have to be attributed similar to the product listing page in additi
 
    * - Name
      - Value
-   * - data-track-id
+   * - data-track-id (required)
      - checkoutProduct
    * - data-product-id
-     - {sku}
+     - {mainSKU}
    * - data-track-id
      - priceContainer
    * - data-track-id
      - checkoutQuantity
+
+.. note::
+   You can omit the `data-product-id`, `data-track-id="priceContainer"` and `data-track-id="checkoutQuantity"` attributes if you have a javascript object that contains the required information.
+   E.g. the `dataLayer` object. Please contact us if you want to rely on js data.
 
 **Example**
 
