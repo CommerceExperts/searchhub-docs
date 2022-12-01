@@ -1,0 +1,9 @@
+.wy-nav-side {
+  background-color: #2B2D42;
+}
+.wy-menu-vertical header, .wy-menu-vertical p.caption, .wy-nav-content a, .wy-nav-content a:hover, .wy-nav-content a:visited {
+  color: #E02E37;
+}
+span.pre {
+  color: #2B2D42;
+}
