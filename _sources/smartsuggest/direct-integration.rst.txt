@@ -4,7 +4,7 @@ Direct Integration
 Requirements
 ------------
 
-- Java version >=1.8
+- Java version >= 1.11
 - around 100MB to 500MB additional Java Heapspace (depending on the amount of data to be managed by the service)
 - If using a firewall, please adjust the configuration to allow connections to the following HTTPS Endpoints https://query.searchhub.io/ and https://import.searchhub.io/
 
@@ -19,12 +19,12 @@ All related components can be pulled as a maven dependency from our repository h
     <dependency>
         <groupId>de.cxp.ocs</groupId>
         <artifactId>smartsuggest-lib</artifactId>
-        <version>0.10.2</version>
+        <version>0.11.2</version>
     </dependency>
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>searchhub-suggest-data-provider</artifactId>
-        <version>0.13.6</version>
+        <version>0.14.0</version>
     </dependency>
     
     <!-- ... -->

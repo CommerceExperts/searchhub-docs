@@ -95,7 +95,7 @@
 <section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Java version &gt;=1.8</p></li>
+<li><p>Java version &gt;= 1.11</p></li>
 <li><p>around 100MB to 500MB additional Java Heapspace (depending on the amount of data to be managed by the service)</p></li>
 <li><p>If using a firewall, please adjust the configuration to allow connections to the following HTTPS Endpoints <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> and <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a></p></li>
 </ul>
@@ -107,12 +107,12 @@ All related components can be pulled as a maven dependency from our repository <
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>de.cxp.ocs<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>smartsuggest-lib<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>0.10.2<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.11.2<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 <span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>io.searchhub<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>searchhub-suggest-data-provider<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>0.13.6<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.14.0<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 
 <span class="cm">&lt;!-- ... --&gt;</span>
@@ -139,15 +139,15 @@ This API key must be set either, as environment variable “SH_API_KEY” or, as
 </section>
 <section id="usage-example">
 <h2>Usage Example<a class="headerlink" href="#usage-example" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">static</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="w"> </span><span class="n">querySuggestManager</span><span class="p">;</span><span class="w"></span>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">static</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="w"> </span><span class="n">qsm</span><span class="p">;</span><span class="w"></span>
 <span class="kd">static</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">try {</span><span class="w"></span>
+<span class="w">  </span><span class="k">try</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// this should not be necessary, instead the API key should be set from</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// the outside of the java process</span><span class="w"></span>
 <span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;searchhub.apikey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;123abc&quot;</span><span class="p">);</span><span class="w"></span>
 <span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;searchhub.tenant_mappings&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;example=example.com&quot;</span><span class="p">);</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">querySuggestManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">qsm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w"></span>
 <span class="w">          </span><span class="c1">// required for lucene where it puts the index files</span><span class="w"></span>
 <span class="w">          </span><span class="p">.</span><span class="na">indexFolder</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">createTempDirectory</span><span class="p">(</span><span class="s">&quot;smartsuggest&quot;</span><span class="p">))</span><span class="w"></span>
 <span class="w">          </span><span class="c1">// the builder also has other options</span><span class="w"></span>
