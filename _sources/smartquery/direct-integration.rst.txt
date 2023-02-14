@@ -18,7 +18,7 @@ The SmartQuery library can be pulled as a maven dependency from our private repo
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>smartquery</artifactId>
-        <version>1.2.7</version>
+        <version>1.2.10</version>
     </dependency>
     
     <!-- ... -->
@@ -62,7 +62,7 @@ QueryMapperManager
 Usage Example
 -------------
 
-.. code-block:: java
+  .. code-block:: java
 
     private QueryMapperManager qmManager = QueryMapperManager.builder()
                                              .apiToken("YourApiKey")
@@ -107,7 +107,7 @@ Monitoring
 
 SmartQuery optionally exposes internal metrics using the `Micrometer`_ framework. If you'd like to receive these metrics, add the desired Micrometer connector to your dependencies, as well as, the MeterRegistry implementation.
 
-.. code-block:: java
+  .. code-block:: java
 
     // ...
     MeterRegistry meterRegistry = getYourMeterRegistryInstance();

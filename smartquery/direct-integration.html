@@ -107,7 +107,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;dependency&gt;
     &lt;groupId&gt;io.searchhub&lt;/groupId&gt;
     &lt;artifactId&gt;smartquery&lt;/artifactId&gt;
-    &lt;version&gt;1.2.7&lt;/version&gt;
+    &lt;version&gt;1.2.10&lt;/version&gt;
 &lt;/dependency&gt;
 
 &lt;!-- ... --&gt;
@@ -151,7 +151,8 @@ If no longer needed, the <cite>close</cite> method should be called, to stop the
 </section>
 <section id="usage-example">
 <h2>Usage Example<a class="headerlink" href="#usage-example" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="w"> </span><span class="n">qmManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w"></span>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="w"> </span><span class="n">qmManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w"></span>
 <span class="w">                                         </span><span class="p">.</span><span class="na">apiToken</span><span class="p">(</span><span class="s">&quot;YourApiKey&quot;</span><span class="p">)</span><span class="w"></span>
 <span class="w">                                         </span><span class="p">.</span><span class="na">updateRate</span><span class="p">(</span><span class="mi">360</span><span class="p">)</span><span class="w">               </span><span class="c1">// optional</span><span class="w"></span>
 <span class="w">                                         </span><span class="p">.</span><span class="na">preloadTenants</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// optional</span><span class="w"></span>
@@ -187,12 +188,14 @@ If no longer needed, the <cite>close</cite> method should be called, to stop the
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
+</div></blockquote>
 <p>The Javadoc of the <code class="code docutils literal notranslate"><span class="pre">QueryMapperManager.builder()</span></code> methods tell you more about the available settings.</p>
 </section>
 <section id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this heading">¶</a></h2>
 <p>SmartQuery optionally exposes internal metrics using the <a class="reference external" href="https://micrometer.io/docs">Micrometer</a> framework. If you’d like to receive these metrics, add the desired Micrometer connector to your dependencies, as well as, the MeterRegistry implementation.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// ...</span><span class="w"></span>
+<blockquote>
+<div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// ...</span><span class="w"></span>
 <span class="n">MeterRegistry</span><span class="w"> </span><span class="n">meterRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getYourMeterRegistryInstance</span><span class="p">();</span><span class="w"></span>
 
 <span class="c1">// example: to expose metrics over JMX create a JmxMeterRegistry</span><span class="w"></span>
@@ -204,6 +207,7 @@ If no longer needed, the <cite>close</cite> method should be called, to stop the
 <span class="c1">// ...</span><span class="w"></span>
 </pre></div>
 </div>
+</div></blockquote>
 <p>Subsequently, you will be able to track the following metrics:</p>
 <dl class="glossary simple">
 <dt id="term-smartquery.statsCollector.queue.size">smartquery.statsCollector.queue.size<a class="headerlink" href="#term-smartquery.statsCollector.queue.size" title="Permalink to this term">¶</a></dt><dd><p>The current number of items inside the transmission queue of the stats-collector.
