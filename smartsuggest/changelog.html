@@ -4,12 +4,12 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sample User Story &mdash; CXP SearchHub 0.63.3 documentation</title>
+  <title>Changelog &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.jpg"/>
-    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartsuggest/sample-user-story.html" />
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartsuggest/changelog.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Glossary" href="../glossary.html" />
-    <link rel="prev" title="REST Service Integration" href="rest-service.html" /> 
+    <link rel="next" title="Direct Integration" href="direct-integration.html" />
+    <link rel="prev" title="Module: SmartSuggest" href="../module_smartsuggest.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,10 +50,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: SmartSuggest</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Changelog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="direct-integration.html">Direct Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rest-service.html">REST Service Integration</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Sample User Story</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample-user-story.html">Sample User Story</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
@@ -74,9 +74,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="../module_smartsuggest.html">Module: SmartSuggest</a></li>
-      <li class="breadcrumb-item active">Sample User Story</li>
+      <li class="breadcrumb-item active">Changelog</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/smartsuggest/sample-user-story.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/smartsuggest/changelog.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -84,29 +84,68 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="sample-user-story">
-<h1>Sample User Story<a class="headerlink" href="#sample-user-story" title="Permalink to this heading">¶</a></h1>
-<p>When developing according to agile principles a product owner might find it helpful to have a sample user story. Feel free to copy and paste this to your backlog</p>
-<dl class="simple">
-<dt>Story</dt><dd><p>As a customer I want to see autocompletions / search suggestions in the searchbar that are optimized using CXP search|hub.</p>
-</dd>
-<dt>Acceptance criteria</dt><dd><ul class="simple">
-<li><p>When typing into the search box, search phrases are suggested based on every single typed user input using search|hub’s SmartSuggest Module (<a class="reference external" href="https://docs.searchhub.io/module_smartsuggest.html">https://docs.searchhub.io/module_smartsuggest.html</a>).</p></li>
-<li><p>Selecting one of those suggested queries, causes a search request to the shop</p></li>
-<li><p>(In case <a class="reference external" href="https://docs.searchhub.io/module_smartquery.html">SmartQuery</a> is used, these suggested terms should still be mapped by SmartQuery)</p></li>
-<li><p>internal systems can access <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> to fetch the necessary data</p></li>
-<li><p>internal systems can access <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a> to send usage information that are used to monitor and optimize the results</p></li>
+  <section id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">¶</a></h1>
+<p>## Version 0.15.0</p>
+<ul class="simple">
+<li><p>Add support for relaxed &amp; sharpened queries</p></li>
+<li><p>Update feign api client to 12.1</p></li>
 </ul>
-</dd>
-</dl>
+<p>## Version 0.14.0</p>
+<ul class="simple">
+<li><p>Update to Java 11</p></li>
+<li><p>Fix missing label for some suggestions</p></li>
+<li><p>Fix corrupt payload hashmaps because of current modification</p></li>
+<li><p>Extend suggest deserialize error-log</p></li>
+</ul>
+<p>## Version 0.13.6</p>
+<ul class="simple">
+<li><p>Security Update of jackson library</p></li>
+</ul>
+<p>## Version 0.13.5</p>
+<ul class="simple">
+<li><p>Fix startup log message</p></li>
+</ul>
+<p>## Version 0.13.4</p>
+<ul class="simple">
+<li><p>Fix optional S3SuggestDataProvider not failing in case of missing s3 connection</p></li>
+</ul>
+<p>## Version 0.13.3</p>
+<ul class="simple">
+<li><p>Security Update of jackson library</p></li>
+<li><p>Fix missing data, if no SDP is temporary not available</p></li>
+<li><p>Consider 5xx errors as temporary error</p></li>
+</ul>
+<p>## Version 0.13.2</p>
+<ul class="simple">
+<li><p>Change default lookup URL of S3SuggestDataProvider</p></li>
+</ul>
+<p>## Version 0.13.1</p>
+<ul class="simple">
+<li><p>Extend format for S3SuggestDataProvider</p></li>
+<li><p>Ensure even distributed weight for data from S3SuggestDataProvider</p></li>
+</ul>
+<p>## Version 0.13.0</p>
+<ul class="simple">
+<li><p>Introduce S3SuggestDataProvider</p></li>
+</ul>
+<p>## Version 0.12.1</p>
+<ul class="simple">
+<li><p>Security Update of jackson library to mitigate  [CVE-2020-36518]</p></li>
+</ul>
+<p>## Version 0.12.0</p>
+<ul class="simple">
+<li><p>Update to lucene 8.11.1</p></li>
+<li><p>micrometer dependency not optional anymore</p></li>
+</ul>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="rest-service.html" class="btn btn-neutral float-left" title="REST Service Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../module_smartsuggest.html" class="btn btn-neutral float-left" title="Module: SmartSuggest" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="direct-integration.html" class="btn btn-neutral float-right" title="Direct Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
