@@ -139,6 +139,42 @@ This API key must be set either, as environment variable “SH_API_KEY” or, as
 </section>
 <section id="usage-example">
 <h2>Usage Example<a class="headerlink" href="#usage-example" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">static</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="w"> </span><span class="n">qsm</span><span class="p">;</span><span class="w"></span>
+<span class="kd">static</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">try</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// this should not be necessary, instead the API key should be set from</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// the outside of the java process</span><span class="w"></span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;searchhub.apikey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;123abc&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;searchhub.tenant_mappings&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;example=example.com&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">qsm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w"></span>
+<span class="w">          </span><span class="c1">// required for lucene where it puts the index files</span><span class="w"></span>
+<span class="w">          </span><span class="p">.</span><span class="na">indexFolder</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">createTempDirectory</span><span class="p">(</span><span class="s">&quot;smartsuggest&quot;</span><span class="p">))</span><span class="w"></span>
+<span class="w">          </span><span class="c1">// the builder also has other options</span><span class="w"></span>
+<span class="w">          </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">UncheckedIOException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// It&#39;s recommended to bind the querySuggestManager instance to your JVM&#39;s lifecycle</span><span class="w"></span>
+<span class="c1">// and close the QueryMapperManager during shutdown.</span><span class="w"></span>
+<span class="c1">// Internally a ScheduledExecutorService is used, that will be stopped then.</span><span class="w"></span>
+<span class="nd">@PreDestroy</span><span class="w"></span>
+<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onJvmShutdown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">querySuggestManager</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">suggestQueries</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">querySuggestManager</span><span class="p">.</span><span class="na">getQuerySuggester</span><span class="p">(</span><span class="s">&quot;example&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="na">suggest</span><span class="p">(</span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">,</span><span class="w"> </span><span class="n">Collections</span><span class="p">.</span><span class="na">emptySet</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="na">stream</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">suggestion</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">suggestion</span><span class="p">.</span><span class="na">getLabel</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">toList</span><span class="p">());</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
 <p>The javadoc of the <code class="code docutils literal notranslate"><span class="pre">QuerySuggestManager.builder()</span></code> methods tell you more about the available settings.</p>
 <p>The last parameter of type ‘Set’ (where at this example simply ‘Collections.emptySet()’ is passed) is there for filtering suggestions according to their tags.
 However the data from SearchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.</p>

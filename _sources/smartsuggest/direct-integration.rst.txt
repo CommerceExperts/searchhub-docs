@@ -57,40 +57,41 @@ Usage Example
 -------------
 
 .. code-block:: java
+
     static QuerySuggestManager qsm;
     static {
-        try {
-            // this should not be necessary, instead the API key should be set from
-            // the outside of the java process
-            System.setProperty("searchhub.apikey", "123abc");
-            System.setProperty("searchhub.tenant_mappings", "example=example.com");
-
-            qsm = QuerySuggestManager.builder()
-                    // required for lucene where it puts the index files
-                    .indexFolder(Files.createTempDirectory("smartsuggest"))
-                    // the builder also has other options
-                    .build();
-        }
-        catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+      try 
+        // this should not be necessary, instead the API key should be set from
+        // the outside of the java process
+        System.setProperty("searchhub.apikey", "123abc");
+        System.setProperty("searchhub.tenant_mappings", "example=example.com");
+        
+        qsm = QuerySuggestManager.builder()
+              // required for lucene where it puts the index files
+              .indexFolder(Files.createTempDirectory("smartsuggest"))
+              // the builder also has other options
+              .build();
+      }
+      catch (IOException e) {
+        throw new UncheckedIOException(e);
+      }
     }
-
+    
     // It's recommended to bind the querySuggestManager instance to your JVM's lifecycle
     // and close the QueryMapperManager during shutdown.
     // Internally a ScheduledExecutorService is used, that will be stopped then.
     @PreDestroy
     public void onJvmShutdown() {
-        qsm.close();
+        querySuggestManager.close();
     }
-
+    
     private List<String> suggestQueries(String userQuery, int maxSuggestions) throws IOException {
-        return qsm.getQuerySuggester("example")
-                .suggest(userQuery, maxSuggestions, Collections.emptySet())
-                .stream()
-                .map(suggestion -> suggestion.getLabel())
-                .collect(Collectors.toList());
-    }
+      return querySuggestManager.getQuerySuggester("example")
+        .suggest(userQuery, maxSuggestions, Collections.emptySet())
+        .stream()
+        .map(suggestion -> suggestion.getLabel())
+        .collect(Collectors.toList());
+	  }
 
 
 
