@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>REST Service Integration &mdash; CXP SearchHub 0.63.4 documentation</title>
+  <title>REST Service Integration &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -64,6 +64,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#update-rate">Update Rate</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#preload-tenants">Preload Tenants</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#basic-authentication">Basic Authentication</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#port-and-other">Port and other</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#monitoring">Monitoring</a></li>
@@ -103,7 +104,7 @@
              
   <section id="rest-service-integration">
 <h1>REST Service Integration<a class="headerlink" href="#rest-service-integration" title="Permalink to this heading">¶</a></h1>
-<p>In case you are unable to use the Java library directly (most likely due to your system not running on the JVM), you can use the REST-service wrapper for smartquery. It’s delivered as a docker image and must run in your environment.</p>
+<p>In case you are unable to use the Java library directly (most likely due to your system not running on the JVM), you can use the REST-service wrapper for smartQuery. It’s delivered as a docker image and must run in your environment.</p>
 <section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
@@ -113,12 +114,12 @@
 </section>
 <section id="start-the-service">
 <h2>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this heading">¶</a></h2>
-<p>The service is provided as a docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal notranslate"><span class="pre">commerceexperts/smartquery-service:1.2.10</span></code></p>
+<p>The service is provided as a docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal notranslate"><span class="pre">commerceexperts/smartquery-service:1.2.12</span></code></p>
 <p>The container must be initiated with your API key set to the environment variable <cite>SQ_API_KEY</cite>.
 The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the <a class="reference internal" href="#requirements">Requirements</a> section.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># use the API key we provide</span>
-docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:1.2.10
+docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:1.2.12
 </pre></div>
 </div>
 </div></blockquote>
@@ -139,7 +140,7 @@ docker run -d --name<span class="o">=</span>smartquery-service -e <span class="n
 </dd>
 </dl>
 <p>The response is a simple string which is either the mapped query, or in the event no mapping is found, the original user query. Redirects are not supported for this endpoint and won’t be returned, even if available.</p>
-<p>Keep in mind, SmartQuery starts fetching mapping data, after the initial request for a specific tenant is received. As a result, for the first ~5 seconds all mappings will return the input query, due to mapping data having not yet been fetched. You should begin receiving mapped queries within a few seconds - provided data is available.</p>
+<p>Keep in mind, smartQuery starts fetching mapping data, after the initial request for a specific tenant is received. As a result, for the first ~5 seconds all mappings will return the input query, due to mapping data having not yet been fetched. You should begin receiving mapped queries within a few seconds - provided data is available.</p>
 <p>Alternatively, it’s possible to remove the aforementioned startup latency by specifying the desired tenants by invoking the <cite>preloadTenants</cite> parameter outlined below. This variation will make the service available as soon as the mappings have been loaded.</p>
 </section>
 <section id="service-endpoint-v2">
@@ -167,7 +168,7 @@ docker run -d --name<span class="o">=</span>smartquery-service -e <span class="n
 <li><p><strong>masterQuery</strong>: if the query could be mapped, the master query is set, otherwise it’s null.</p></li>
 <li><p><strong>searchQuery</strong>: the final search query. This is the master or the user query.</p></li>
 <li><p><strong>redirect</strong>: URL to a landing page or null if no redirect is configured.</p></li>
-<li><p><strong>successful</strong>: <cite>true</cite> if the query could be handled by SmartQuery</p></li>
+<li><p><strong>successful</strong>: <cite>true</cite> if the query could be handled by smartQuery</p></li>
 </ul>
 </div></blockquote>
 </section>
@@ -196,12 +197,12 @@ Can be set either as a comma-separated list, via the environment variable:</p>
 </section>
 <section id="basic-authentication">
 <h3>Basic Authentication<a class="headerlink" href="#basic-authentication" title="Permalink to this heading">¶</a></h3>
-<p>In case you want to enable basic auth, add the following properties to the <cite>JAVA_OPTS</cite> env variable.</p>
+<p>In case you want to enable basic authentication, add the following properties to the <cite>JAVA_OPTS</cite> environment variable.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dspring.server.auth.enabled=true -Dspring.security.user.password=&lt;desired-password&gt;&quot;</span>
 </pre></div>
 </div>
 <p>The user that is linked to that password is <cite>user</cite>. To use a different username, add the property <cite>-Dspring.security.user.name=&lt;your-username&gt;</cite> to <cite>JAVA_OPTS</cite>.</p>
-<p>If server auth is enabled but the password property is omitted, a random password will be generated and printed to stdout.</p>
+<p>If server authentication is enabled but the password property is omitted, a random password will be generated and printed to the logs / standard out.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Due to an update of Spring Boot to Version 2 with smartquery 1.3.0, the security properties changed.
@@ -209,14 +210,30 @@ For smartquery service version &lt;= 1.2.9 the properties are without the ‘spr
 <p><cite>JAVA_OPTS=”-Dserver.auth.enabled=true -Dsecurity.user.password=&lt;desired-password&gt; -Dsecurity.user.name=&lt;your-username&gt;”</cite></p>
 </div>
 </section>
+<section id="port-and-other">
+<h3>Port and other<a class="headerlink" href="#port-and-other" title="Permalink to this heading">¶</a></h3>
+<p>Since the service is built with Spring Boot 2, please have a look at the according <a class="reference external" href="https://docs.spring.io/spring-boot/docs/2.1.17.RELEASE/reference/html/howto-embedded-web-servers.html#howto-change-the-http-port">Spring Boot 2 web server configuration</a>.</p>
+<p>For a quick reference here are a few options that might be interesting for your operational goal:</p>
+<ul class="simple">
+<li><p>Use <cite>server.port=8080</cite> to change to desired web application port (defaults to 8081)</p></li>
+<li><p>Use <cite>management.server.port=8081</cite> to change to another port than the main port which is default.</p></li>
+<li><p>Use <cite>server.compression.enabled=false</cite> to disable compression, which is enabled by default.</p></li>
+</ul>
+<p>Internally the Jetty Server is used, so to enable access logging for example, use the according jetty properties:</p>
+<ul class="simple">
+<li><p><cite>server.jetty.accesslog.enabled=true</cite> (Without a specified file, these logs are routed to <cite>System.Err</cite>)</p></li>
+<li><p><cite>server.jetty.accesslog.filename=/var/log/jetty-access.log</cite> (Make sure to get those files out of the running container to avoid disk pressure problems)</p></li>
+</ul>
+<p>Set all those properties via the <cite>JAVA_OPTS</cite> environment variable prefixed with <cite>-D</cite>.</p>
+</section>
 </section>
 <section id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this heading">¶</a></h2>
-<p>By default, several metrics are exposed in the prometheus format through the <code class="code docutils literal notranslate"><span class="pre">/prometheus</span></code> endpoint of the service. This endpoint exposes several basic metrics, in addition to the metrics described in the <a class="reference external" href="direct-integration.html#monitoring">monitoring</a> section of the <a class="reference external" href="direct-integration.html">direct integration</a> docs.</p>
-<p>To <strong>disable</strong> this endpoint, add the following parameter to the JAVA_OPTS environment variable:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dendpoints.prometheus.enable=false&quot;</span>
-</pre></div>
-</div>
+<p>A health status can be retrieved at the endpoint <code class="code docutils literal notranslate"><span class="pre">/health</span></code>.</p>
+<p>Application metrics are exposed at the management port in the prometheus format through the <code class="code docutils literal notranslate"><span class="pre">/prometheus</span></code> endpoint of the service. In addition to the metrics described in the <a class="reference external" href="direct-integration.html#monitoring">monitoring</a> section of the <a class="reference external" href="direct-integration.html">direct integration</a> docs, this endpoint also exposes several HTTP and Java metrics.</p>
+<p>Due to backwards compatibility these endpoints are exposed at the same port as the service itself. It is recommended to change this with the startup property <cite>JAVA_OPTS=”-Dmanagement.server.port=8082</cite> setting it to your desired port.</p>
+<p>To <strong>disable</strong> this endpoint completely use the startup property <cite>JAVA_OPTS=”-Dmanagement.endpoint.prometheus.enable=false”</cite></p>
+<p>For more options see the <a class="reference external" href="https://docs.spring.io/spring-boot/docs/2.1.17.RELEASE/reference/html/production-ready-monitoring.html">Spring Boot 2 Monitoring Reference</a>.</p>
 </section>
 <section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this heading">¶</a></h2>

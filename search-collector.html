@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Search Collector &mdash; CXP SearchHub 0.63.4 documentation</title>
+  <title>Search Collector &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -100,7 +100,7 @@
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
 <p>To gather the required tracking data the open-source search-collector <a class="reference external" href="https://github.com/searchhub/search-collector">search-collector</a> tracking library is used.
 The search-collector library scans the HTML DOM to gather search-related data and user events.</p>
-<p>To integrate the tracking, only a couple of HTML attributes have to be attached to your page. The remaining search-collector implementation is done by searchhub.</p>
+<p>To integrate the tracking, only a couple of HTML attributes have to be attached to your page. The remaining search-collector implementation is done by searchHub.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Our tracking script is capable of reading javascript objects to obtain the necessary data.
@@ -114,11 +114,11 @@ To find out more about tracking customizations, just contact us directly or look
 </section>
 <section id="script">
 <h2>Script<a class="headerlink" href="#script" title="Permalink to this heading">¶</a></h2>
-<p>Include your searchhub tracking snippet on every page in your shop like:</p>
-<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">defer</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://c.searchhub.io/{YOUR_ID}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<p>Include your searchHub tracking snippet on every page in your shop like:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">defer</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://c.searchhub.io/{SCRIPT_ID}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-<p>Replace the <code class="docutils literal notranslate"><span class="pre">{YOUR_ID}</span></code> with the ID searchhub provided for you. The script will automatically load and execute.</p>
+<p>Replace the <code class="docutils literal notranslate"><span class="pre">{SCRIPT_ID}</span></code> with the unique script id searchHub provided for you. The script will automatically load and execute. Please do not confuse the <code class="docutils literal notranslate"><span class="pre">SCRIPT_ID</span></code> with the searchHub api key. If you do not have the <code class="docutils literal notranslate"><span class="pre">SCRIPT_ID</span></code> please contact your searchHub representative.</p>
 </section>
 <section id="integration">
 <h2>Integration<a class="headerlink" href="#integration" title="Permalink to this heading">¶</a></h2>

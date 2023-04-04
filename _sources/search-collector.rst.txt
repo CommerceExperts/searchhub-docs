@@ -33,7 +33,7 @@ Introduction
 To gather the required tracking data the open-source search-collector search-collector_ tracking library is used.
 The search-collector library scans the HTML DOM to gather search-related data and user events.
 
-To integrate the tracking, only a couple of HTML attributes have to be attached to your page. The remaining search-collector implementation is done by searchhub.
+To integrate the tracking, only a couple of HTML attributes have to be attached to your page. The remaining search-collector implementation is done by searchHub.
 
 .. note::
    Our tracking script is capable of reading javascript objects to obtain the necessary data.
@@ -51,13 +51,13 @@ Rule of Thumb
 
 Script
 ######
-Include your searchhub tracking snippet on every page in your shop like:
+Include your searchHub tracking snippet on every page in your shop like:
 
 .. code-block:: html
 
-    <script defer src="https://c.searchhub.io/{YOUR_ID}"></script>
+    <script defer src="https://c.searchhub.io/{SCRIPT_ID}"></script>
 
-Replace the ``{YOUR_ID}`` with the ID searchhub provided for you. The script will automatically load and execute.
+Replace the ``{SCRIPT_ID}`` with the unique script id searchHub provided for you. The script will automatically load and execute. Please do not confuse the ``SCRIPT_ID`` with the searchHub api key. If you do not have the ``SCRIPT_ID`` please contact your searchHub representative.
 
 Integration
 ################

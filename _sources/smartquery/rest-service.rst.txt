@@ -1,7 +1,7 @@
 REST Service Integration
 ========================
 
-In case you are unable to use the Java library directly (most likely due to your system not running on the JVM), you can use the REST-service wrapper for smartquery. It's delivered as a docker image and must run in your environment.
+In case you are unable to use the Java library directly (most likely due to your system not running on the JVM), you can use the REST-service wrapper for smartQuery. It's delivered as a docker image and must run in your environment.
 
 Requirements
 ------------
@@ -13,7 +13,7 @@ Requirements
 Start the service
 -----------------
 
-The service is provided as a docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:1.2.10`
+The service is provided as a docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:1.2.12`
     
 The container must be initiated with your API key set to the environment variable `SQ_API_KEY`. 
 The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the Requirements_ section.
@@ -21,7 +21,7 @@ The container exposes port 8081 which can be mapped to any port. Please consider
   .. code-block:: bash
 
     # use the API key we provide
-    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:1.2.10
+    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:1.2.12
 
     
 Using the service
@@ -44,7 +44,7 @@ Example:
 
 The response is a simple string which is either the mapped query, or in the event no mapping is found, the original user query. Redirects are not supported for this endpoint and won't be returned, even if available.
 
-Keep in mind, SmartQuery starts fetching mapping data, after the initial request for a specific tenant is received. As a result, for the first ~5 seconds all mappings will return the input query, due to mapping data having not yet been fetched. You should begin receiving mapped queries within a few seconds - provided data is available.
+Keep in mind, smartQuery starts fetching mapping data, after the initial request for a specific tenant is received. As a result, for the first ~5 seconds all mappings will return the input query, due to mapping data having not yet been fetched. You should begin receiving mapped queries within a few seconds - provided data is available.
 
 Alternatively, it's possible to remove the aforementioned startup latency by specifying the desired tenants by invoking the `preloadTenants` parameter outlined below. This variation will make the service available as soon as the mappings have been loaded.
 
@@ -74,7 +74,7 @@ The response is an object that contains the following properties:
   - **masterQuery**: if the query could be mapped, the master query is set, otherwise it's null.
   - **searchQuery**: the final search query. This is the master or the user query.
   - **redirect**: URL to a landing page or null if no redirect is configured.
-  - **successful**: `true` if the query could be handled by SmartQuery
+  - **successful**: `true` if the query could be handled by smartQuery
 
 
 Configuration
@@ -111,7 +111,7 @@ or as part of the JAVA_OPTS environment variable with one parameter per tenant:
 Basic Authentication
 ^^^^^^^^^^^^^^^^^^^^
 
-In case you want to enable basic auth, add the following properties to the `JAVA_OPTS` env variable.
+In case you want to enable basic authentication, add the following properties to the `JAVA_OPTS` environment variable.
 
 .. code-block:: bash
 
@@ -119,7 +119,7 @@ In case you want to enable basic auth, add the following properties to the `JAVA
 
 The user that is linked to that password is `user`. To use a different username, add the property `-Dspring.security.user.name=<your-username>` to `JAVA_OPTS`.
 
-If server auth is enabled but the password property is omitted, a random password will be generated and printed to stdout.
+If server authentication is enabled but the password property is omitted, a random password will be generated and printed to the logs / standard out.
 
 .. note::
     Due to an update of Spring Boot to Version 2 with smartquery 1.3.0, the security properties changed.
@@ -127,17 +127,37 @@ If server auth is enabled but the password property is omitted, a random passwor
 
     `JAVA_OPTS="-Dserver.auth.enabled=true -Dsecurity.user.password=<desired-password> -Dsecurity.user.name=<your-username>"`
 
+Port and other 
+^^^^^^^^^^^^^^
+
+Since the service is built with Spring Boot 2, please have a look at the according `Spring Boot 2 web server configuration`_.
+
+For a quick reference here are a few options that might be interesting for your operational goal:
+
+- Use `server.port=8080` to change to desired web application port (defaults to 8081)
+- Use `management.server.port=8081` to change to another port than the main port which is default.
+- Use `server.compression.enabled=false` to disable compression, which is enabled by default.
+
+Internally the Jetty Server is used, so to enable access logging for example, use the according jetty properties:
+
+- `server.jetty.accesslog.enabled=true` (Without a specified file, these logs are routed to `System.Err`)
+- `server.jetty.accesslog.filename=/var/log/jetty-access.log` (Make sure to get those files out of the running container to avoid disk pressure problems)
+
+Set all those properties via the `JAVA_OPTS` environment variable prefixed with `-D`.
+
 
 Monitoring
 ----------
 
-By default, several metrics are exposed in the prometheus format through the :code:`/prometheus` endpoint of the service. This endpoint exposes several basic metrics, in addition to the metrics described in the `monitoring`_ section of the `direct integration`_ docs.
+A health status can be retrieved at the endpoint :code:`/health`.
 
-To **disable** this endpoint, add the following parameter to the JAVA_OPTS environment variable:
+Application metrics are exposed at the management port in the prometheus format through the :code:`/prometheus` endpoint of the service. In addition to the metrics described in the `monitoring`_ section of the `direct integration`_ docs, this endpoint also exposes several HTTP and Java metrics.
 
-.. code-block:: bash
+Due to backwards compatibility these endpoints are exposed at the same port as the service itself. It is recommended to change this with the startup property `JAVA_OPTS="-Dmanagement.server.port=8082` setting it to your desired port.
 
-    JAVA_OPTS="-Dendpoints.prometheus.enable=false"
+To **disable** this endpoint completely use the startup property `JAVA_OPTS="-Dmanagement.endpoint.prometheus.enable=false"`
+
+For more options see the `Spring Boot 2 Monitoring Reference`_.
 
 
 Troubleshooting
@@ -151,4 +171,5 @@ Troubleshooting
 .. _direct integration: direct-integration.html
 .. _monitoring: direct-integration.html#monitoring
 .. _docker hub: https://hub.docker.com/r/commerceexperts/smartquery-service/tags
-
+.. _Spring Boot 2 Monitoring Reference: https://docs.spring.io/spring-boot/docs/2.1.17.RELEASE/reference/html/production-ready-monitoring.html
+.. _Spring Boot 2 web server configuration: https://docs.spring.io/spring-boot/docs/2.1.17.RELEASE/reference/html/howto-embedded-web-servers.html#howto-change-the-http-port
