@@ -6,10 +6,10 @@ As a base technology Apache Lucene is used to provide fast and weighted query su
 
 The module automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module and its usage.
 
-We recommend following the `sample user story`_ to get started with the SmartSuggest integration into your system.
+We recommend following the `best practices`_ to get started with the SmartSuggest integration into your system.
 
 
-.. _sample user story: smartsuggest/sample-user-story.html
+.. _best practices: smartsuggest/best-practices.html
 .. _Open Commerce Search Stack: https://github.com/CommerceExperts/open-commerce-search
 
 

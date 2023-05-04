@@ -4,12 +4,12 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sample User Story &mdash; CXP SearchHub 0.63.3 documentation</title>
+  <title>Best Practices &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.jpg"/>
-    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartsuggest/sample-user-story.html" />
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartsuggest/best-practices.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Glossary" href="../glossary.html" />
-    <link rel="prev" title="REST Service Integration" href="rest-service.html" /> 
+    <link rel="next" title="Direct Integration" href="direct-integration.html" />
+    <link rel="prev" title="Module: SmartSuggest" href="../module_smartsuggest.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,9 +50,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: SmartSuggest</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-smartsuggest-implementation">Basic SmartSuggest Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#search-hub-ai-suggestions">Search|Hub AI-Suggestions</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="direct-integration.html">Direct Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="rest-service.html">REST Service Integration</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Sample User Story</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
@@ -73,9 +77,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="../module_smartsuggest.html">Module: SmartSuggest</a></li>
-      <li class="breadcrumb-item active">Sample User Story</li>
+      <li class="breadcrumb-item active">Best Practices</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/smartsuggest/sample-user-story.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/smartsuggest/best-practices.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -83,11 +87,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="sample-user-story">
-<h1>Sample User Story<a class="headerlink" href="#sample-user-story" title="Permalink to this heading">¶</a></h1>
-<p>When developing according to agile principles a product owner might find it helpful to have a sample user story. Feel free to copy and paste this to your backlog</p>
+  <section id="best-practices">
+<h1>Best Practices<a class="headerlink" href="#best-practices" title="Permalink to this heading">¶</a></h1>
+<p>In order to aid Product Owners in developing according to agile principles, we have expressed our recommended best practices as user stories. Feel free to copy and paste this to your backlog.</p>
+<section id="basic-smartsuggest-implementation">
+<h2>Basic SmartSuggest Implementation<a class="headerlink" href="#basic-smartsuggest-implementation" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
-<dt>Story</dt><dd><p>As a customer I want to see autocompletions / search suggestions in the searchbar that are optimized using CXP search|hub.</p>
+<dt>Story</dt><dd><p>As a customer I want to see autocompletion / search suggestions in the searchbar that are optimized using CXP search|hub.</p>
 </dd>
 <dt>Acceptance criteria</dt><dd><ul class="simple">
 <li><p>When typing into the search box, search phrases are suggested based on every single typed user input using search|hub’s SmartSuggest Module (<a class="reference external" href="https://docs.searchhub.io/module_smartsuggest.html">https://docs.searchhub.io/module_smartsuggest.html</a>).</p></li>
@@ -99,13 +105,36 @@
 </dd>
 </dl>
 </section>
+<section id="search-hub-ai-suggestions">
+<h2>Search|Hub AI-Suggestions<a class="headerlink" href="#search-hub-ai-suggestions" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Story</dt><dd><p>As a user, I want to see auto-completion/search suggestions displayed when I click on the search box, even if I haven’t started typing anything yet.</p>
+</dd>
+<dt>Acceptance criteria</dt><dd><ul class="simple">
+<li><p>AI-Suggestions from search|hub are displayed when the search box is clicked on and its value is empty</p></li>
+<li><p>The AI-Suggestions displayed are the most relevant for our use case, which may be a combination of different types</p></li>
+<li><p>The AI-Suggestions can be displayed as a single list or in blocks, depending on the specific use case. (optimize for demand, for trends, for findability, for sellability, or a combination of all)</p></li>
+</ul>
+</dd>
+<dt>Technical hint</dt><dd><p>To request the AI-Suggestions from SmartSuggest you’ll have to provide one of the following 5 different exposed <strong>special queries</strong> to the API:</p>
+<ul class="simple">
+<li><p>MOST_INSPIRING</p></li>
+<li><p>MOST_POPULAR</p></li>
+<li><p>HIGHEST_POPULARITY_UPLIFT</p></li>
+<li><p>HIGHEST_FINDABILITY_UPLIFT</p></li>
+<li><p>HIGHEST_SELLABILITY_UPLIFT</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="rest-service.html" class="btn btn-neutral float-left" title="REST Service Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../module_smartsuggest.html" class="btn btn-neutral float-left" title="Module: SmartSuggest" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="direct-integration.html" class="btn btn-neutral float-right" title="Direct Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
