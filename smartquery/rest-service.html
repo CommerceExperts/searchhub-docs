@@ -198,7 +198,7 @@ Can be set either as a comma-separated list, via the environment variable:</p>
 <section id="basic-authentication">
 <h3>Basic Authentication<a class="headerlink" href="#basic-authentication" title="Permalink to this heading">¶</a></h3>
 <p>In case you want to enable basic authentication, add the following properties to the <cite>JAVA_OPTS</cite> environment variable.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dspring.server.auth.enabled=true -Dspring.security.user.password=&lt;desired-password&gt;&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dserver.auth.enabled=true -Dspring.security.user.password=&lt;desired-password&gt;&quot;</span>
 </pre></div>
 </div>
 <p>The user that is linked to that password is <cite>user</cite>. To use a different username, add the property <cite>-Dspring.security.user.name=&lt;your-username&gt;</cite> to <cite>JAVA_OPTS</cite>.</p>

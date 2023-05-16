@@ -115,7 +115,7 @@ In case you want to enable basic authentication, add the following properties to
 
 .. code-block:: bash
 
-    JAVA_OPTS="-Dspring.server.auth.enabled=true -Dspring.security.user.password=<desired-password>"
+    JAVA_OPTS="-Dserver.auth.enabled=true -Dspring.security.user.password=<desired-password>"
 
 The user that is linked to that password is `user`. To use a different username, add the property `-Dspring.security.user.name=<your-username>` to `JAVA_OPTS`.
 
