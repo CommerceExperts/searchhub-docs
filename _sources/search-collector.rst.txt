@@ -74,7 +74,7 @@ The ``searchbox`` is used to perform text-based queries. In most cases, the ``se
 
    * - Name
      - Value
-   * - data-track-id
+   * - data-track-id (required)
      - searchBox
 
 **Example**
@@ -96,7 +96,7 @@ The ``searchbutton`` is used to trigger a search.
 
    * - Name
      - Value
-   * - data-track-id
+   * - data-track-id (required)
      - searchButton
 
 **Example**
@@ -118,7 +118,7 @@ If search terms are proposed to the shop user while typing, each element contain
 
    * - Name
      - Value
-   * - data-track-id
+   * - data-track-id (required)
      - suggestSearchTerm
 
 **Example**
@@ -142,7 +142,7 @@ The result count is the number of products found for the current search (**not**
 
    * - Name
      - Value
-   * - data-track-id
+   * - data-track-id (required)
      - resultCountContainer
 
 **Example**
@@ -202,7 +202,7 @@ The zero results container is the container that contains the text that is displ
 
    * - Name
      - Value
-   * - data-track-id
+   * - data-track-id (required)
      - zeroResultsContainer
 
 **Example**
@@ -296,6 +296,8 @@ All products have to be attributed similar to the product listing page in additi
      - Value
    * - data-track-id (required)
      - checkoutProduct
+   * - data-track-id (required)
+     - checkoutButton
    * - data-product-id
      - {mainSKU}
    * - data-track-id
