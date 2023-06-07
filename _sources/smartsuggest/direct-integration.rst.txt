@@ -19,12 +19,12 @@ All related components can be pulled as a maven dependency from our repository h
     <dependency>
         <groupId>de.cxp.ocs</groupId>
         <artifactId>smartsuggest-lib</artifactId>
-        <version>0.11.2</version>
+        <version>0.16.0</version>
     </dependency>
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>searchhub-suggest-data-provider</artifactId>
-        <version>0.15.1</version>
+        <version>0.16.0</version>
     </dependency>
     
     <!-- ... -->
