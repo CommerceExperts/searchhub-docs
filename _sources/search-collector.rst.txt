@@ -132,7 +132,7 @@ If search terms are proposed to the shop user while typing, each element contain
 
 Result Count
 ---------------------------------
-The result count is the number of products found for the current search (**not** the number of products displayed on the current page). This is usually a somewhat higher number like hundreds or even thousands.
+The writeResult count is the number of products found for the current search (**not** the number of products displayed on the current page). This is usually a somewhat higher number like hundreds or even thousands.
 
 |resultCount|
 
@@ -157,7 +157,7 @@ The result count is the number of products found for the current search (**not**
 
 Product
 ----------------------------
-A product representation for the current search result. The attributes here include a ``priceContainer`` in addition, the tracking script will automatically strip the non-numeric characters.
+A product representation for the current search writeResult. The attributes here include a ``priceContainer`` in addition, the tracking script will automatically strip the non-numeric characters.
 The value for the ``data-product-id`` attribute has to be an ID that uniquely identifies the product.
 In B2B exist more edge cases. E.g. a certain SKU of the product family is used to represent the product group or family.
 In such cases, it is important that the same IDs are used on the product listing page (PDP) and on the product detail page (PLP).
