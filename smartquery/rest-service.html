@@ -114,12 +114,12 @@
 </section>
 <section id="start-the-service">
 <h2>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this heading">¶</a></h2>
-<p>The service is provided as a docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal notranslate"><span class="pre">commerceexperts/smartquery-service:1.3.1</span></code></p>
-<p>The container must be initiated with your API key set to the environment variable <cite>SQ_API_KEY</cite>.
+<p>The service is provided as a docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal notranslate"><span class="pre">commerceexperts/smartquery-service:2.0.0</span></code></p>
+<p>The container must be initiated with your API key set to the environment variable <cite>SH_API_KEY</cite> (for legacy support <cite>SQ_API_KEY</cite> is also accepted).
 The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the <a class="reference internal" href="#requirements">Requirements</a> section.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># use the API key we provide</span>
-docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SQ_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:1.3.1
+docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:2.0.0
 </pre></div>
 </div>
 </div></blockquote>
@@ -187,10 +187,11 @@ This can be set as part of the JAVA_OPTS environment variable:</p>
 <h3>Preload Tenants<a class="headerlink" href="#preload-tenants" title="Permalink to this heading">¶</a></h3>
 <p>Specify tenants that should be loaded immediately following initialization.
 Can be set either as a comma-separated list, via the environment variable:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SQ_INIT_TENANTS</span><span class="o">=</span><span class="s2">&quot;example.num1,example.num2&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SH_INIT_TENANTS</span><span class="o">=</span><span class="s2">&quot;example.num1,example.num2&quot;</span>
 </pre></div>
 </div>
-<p>or as part of the JAVA_OPTS environment variable with one parameter per tenant:</p>
+<p>(for legacy support <cite>SQ_INIT_TENANTS</cite> is also accepted)
+or as part of the JAVA_OPTS environment variable with one parameter per tenant:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.preloadTenants[0]=example.num1 -Dsmartquery.preloadTenants[1]=example.num2&quot;</span>
 </pre></div>
 </div>

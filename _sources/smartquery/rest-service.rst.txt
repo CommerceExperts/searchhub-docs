@@ -13,15 +13,15 @@ Requirements
 Start the service
 -----------------
 
-The service is provided as a docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:1.3.1`
+The service is provided as a docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:2.0.0`
     
-The container must be initiated with your API key set to the environment variable `SQ_API_KEY`. 
+The container must be initiated with your API key set to the environment variable `SH_API_KEY` (for legacy support `SQ_API_KEY` is also accepted).
 The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the Requirements_ section.
 
   .. code-block:: bash
 
     # use the API key we provide
-    docker run -d --name=smartquery-service -e SQ_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:1.3.1
+    docker run -d --name=smartquery-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:2.0.0
 
     
 Using the service
@@ -99,8 +99,9 @@ Can be set either as a comma-separated list, via the environment variable:
 
 .. code-block:: bash
 
-    SQ_INIT_TENANTS="example.num1,example.num2"
+    SH_INIT_TENANTS="example.num1,example.num2"
 
+(for legacy support `SQ_INIT_TENANTS` is also accepted)
 or as part of the JAVA_OPTS environment variable with one parameter per tenant:
 
 .. code-block:: bash
