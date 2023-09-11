@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.jpg"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartquery/changelog.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Common concepts and behavior" href="common.html" />
+    <link rel="prev" title="Best Practices" href="best-practices.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+            <a href="../index.html">
+            <img src="../_static/logo-searchhub.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="best-practices.html">Best Practices</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#version-2">Version 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-1">Version 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-0">Version 0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="common.html">Common concepts and behavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="direct-integration.html">Direct Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest-service.html">REST Service Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartsuggest.html">Module: SmartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../module_smartquery.html">Module: SmartQuery</a></li>
+      <li class="breadcrumb-item active">Changelog</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/smartquery/changelog.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="changelog">
+<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this heading">¶</a></h1>
+<section id="version-2">
+<h2>Version 2<a class="headerlink" href="#version-2" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Version 2.0.x</dt><dd><ul class="simple">
+<li><p>Update internal API to version 2 (new data exchange format)</p></li>
+<li><p>Use Minimal-Perfect-Hash Map implementation to reduce memory-footprint</p></li>
+<li><p>Add fuzzy lookup of queries that can’t be mapped directly</p></li>
+<li><p>Add potentialCorrections in response in case of ambiguous corrections (usable for “did you mean” feedback)</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="version-1">
+<h2>Version 1<a class="headerlink" href="#version-1" title="Permalink to this heading">¶</a></h2>
+<dl>
+<dt>Version 1.3.1</dt><dd><p>Fix NPE for invalid queries</p>
+</dd>
+<dt>Version 1.3.0</dt><dd><ul class="simple">
+<li><p>Add <cite>isSameIntend</cite> to QueryMapper</p></li>
+<li><p>Improve java-doc for <cite>mapQuery</cite></p></li>
+<li><p>Fix potential NPE</p></li>
+<li><p>ocs-smartquery-plugin: Add support for redirect response</p></li>
+</ul>
+</dd>
+<dt>Version 1.2.12</dt><dd><ul class="simple">
+<li><p>spring-boot update</p></li>
+<li><p>Improve documentation around the changes of spring-boot</p></li>
+</ul>
+</dd>
+<dt>Version 1.2.11</dt><dd><ul class="simple">
+<li><p>Improve precision around ‘FingerprintQueryMapper’ (a minimal fuzzy mapper)</p></li>
+<li><p>Fix error in unicode handling</p></li>
+</ul>
+</dd>
+<dt>Version 1.2.10</dt><dd><ul class="simple">
+<li><p>Update to spring-boot 2</p></li>
+<li><p>Build docker image for smartQuery service with custom base-image</p></li>
+<li><p>Track smartQuery app type (part of mapping stats)</p></li>
+</ul>
+</dd>
+<dt>Version 1.2.9</dt><dd><p>Internal DevOps fixes</p>
+</dd>
+<dt>Version 1.2.8</dt><dd><ul class="simple">
+<li><p>Update dependencies</p></li>
+<li><p>Improve documentation</p></li>
+</ul>
+</dd>
+<dt>Version 1.2.7</dt><dd><p>Update stats-collector to 1.3</p>
+</dd>
+<dt>Version 1.2.6</dt><dd><p>Fix dependency problem with stats-collector</p>
+</dd>
+<dt>Version 1.2.5</dt><dd><p>Update internal API to 1.6</p>
+</dd>
+<dt>Version 1.2.4</dt><dd><p>Update internal API to 1.5</p>
+</dd>
+<dt>Version 1.2.3</dt><dd><p>Updated internal API to 1.4</p>
+</dd>
+<dt>Version 1.2.2</dt><dd><p>Fix: QueryMapper keeps data even if no updates are possible anymore
+(Since version 1.1 it could happen, that if data update failed, smartQuery stopped doing the mappings)</p>
+</dd>
+<dt>Version 1.2.1</dt><dd><ul class="simple">
+<li><p>Update to latest SearchHub API with extended data models</p></li>
+</ul>
+</dd>
+<dt>Version 1.2</dt><dd><ul class="simple">
+<li><p>Add OCS SmartQuery Plugin</p></li>
+<li><p>Update to stats-collector 1.2 (update to latest SearchHub API version) fixing dependency divergence</p></li>
+</ul>
+</dd>
+<dt>Version 1.1</dt><dd><ul class="simple">
+<li><p>Add data modification time to tracked mappings</p></li>
+<li><p>Add update reschedule limiter, that decreases update rate for failing updates</p></li>
+<li><p>Add validation of data modification time, fixing potential update failures that cause old data not being replaced</p></li>
+<li><p>Improve concurrency safety</p></li>
+<li><p>Improve logging (also for all kind of uncaught critical errors)</p></li>
+<li><p>Improve documentation</p></li>
+</ul>
+</dd>
+<dt>Version 1.0.14</dt><dd><p>Improve mapping by doing minimal normalization on user input step by step</p>
+<blockquote>
+<div><p>The impact is a higher mapping rate: User-Input with multiple spaces or other useless characters were not mapped before, even if there practically was a mapping for it</p>
+</div></blockquote>
+</dd>
+<dt>Version 1.0.13</dt><dd><p>Optimized dependencies of smartQuery-service, to reduce deployment size</p>
+</dd>
+<dt>Version 1.0.12</dt><dd><ul class="simple">
+<li><p>Update to stats-collector 1.1.1:</p></li>
+<li><p>Use OKHttp to make proxy communication possible through feign</p></li>
+<li><p>Fix usage of optional micrometer dependency</p></li>
+</ul>
+</dd>
+<dt>Version 1.0.11</dt><dd><p>Fix IndexOutOfBoundsException at bypass-query handling</p>
+</dd>
+<dt>Version 1.0.10</dt><dd><p>Add QueryMapping.getMasterQuery() method in case old logic should stay the same</p>
+</dd>
+<dt>Version 1.0.9</dt><dd><p>Fix scheme parsing at configured http proxy</p>
+</dd>
+<dt>Version 1.0.8</dt><dd><p>Add logging for activated http proxy</p>
+</dd>
+<dt>Version 1.0.7</dt><dd><p>Fix port-parsing of http proxy variable</p>
+</dd>
+<dt>Version 1.0.6</dt><dd><p>Add option for http proxy for SearchHub API Access</p>
+<blockquote>
+<div><p>SmartQuery can be used in a secured network to go trough the http-proxy when fetching SearchHub data.</p>
+</div></blockquote>
+</dd>
+<dt>Version 1.0.5</dt><dd><p>Update stats collector</p>
+</dd>
+<dt>Version 1.0.4</dt><dd><ul>
+<li><p>Log critical errors (java.lang.Error) that were hidden by background update thread</p>
+<p>Customer admins can know see in the logs, if smartQuery runs into memory issues during data update.</p>
+</li>
+<li><p>Improve rescheduling of broken update task</p></li>
+<li><p>Add timeout to update task</p></li>
+</ul>
+</dd>
+<dt>Version 1.0.3</dt><dd><p>Add documentation for QueryAssessment.isOnlyWordReorder:</p>
+<blockquote>
+<div><p>This method tells the implementor, if the query was essentially changed or not. It can be used to decide when to show the ‘query correction feedback’</p>
+</div></blockquote>
+</dd>
+<dt>Version 1.0.2</dt><dd><dl class="simple">
+<dt><strong>Security Updates</strong></dt><dd><ul class="simple">
+<li><p>Update OpenFeign from 9.5.0 to 10.8</p></li>
+<li><p>Update SLF4j from 1.7.26 to 1.7.30</p></li>
+<li><p>Update Lombok from 1.18.6 to 1.18.12</p></li>
+<li><p>Update Micrometer from 1.1.4 to 1.3.5</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>Version 1.0.1</dt><dd><p>Update to fixed stats-collector (wrong data serialization)</p>
+</dd>
+<dt>Version 1.0</dt><dd><ul class="simple">
+<li><p>Add support for redirect feature</p></li>
+<li><p>Fingerprint mapper picks best master if more than one is matching</p></li>
+<li><p>Track SmartQuery version and Java version as user-agent with stats-collector</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="version-0">
+<h2>Version 0<a class="headerlink" href="#version-0" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Version 0.11.8</dt><dd><p>Fix missing tracking of bypassed queries: We get the information about when smartQuery was bypassed, e.g. when a query-correction was reverted</p>
+</dd>
+<dt>Version 0.11.7</dt><dd><p>Add Utility method QueryAssessment.isOnlyWordReorder that can be used to avoid displaying ‘search your query instead’ message</p>
+</dd>
+<dt>Version 0.11.6</dt><dd><p>Fix potential mapping update flooding due to broken updater</p>
+</dd>
+<dt>Version 0.11.5</dt><dd><p>Fix prometheus endpoint must not be secured</p>
+</dd>
+<dt>Version 0.11.4</dt><dd><p>Add CORS support, allow all origins</p>
+</dd>
+<dt>Version 0.11.3</dt><dd><ul class="simple">
+<li><p>Stop smartQuery service if still running from previous job</p></li>
+<li><p>Add potential NPE in MappingUpdater metrics</p></li>
+<li><p>Always log if there are new mapping data</p></li>
+</ul>
+</dd>
+<dt>Version 0.11.2</dt><dd><ul class="simple">
+<li><p>Optional basic auth security to smartQuery service</p></li>
+<li><p>Fix missing artifacts to build docker image</p></li>
+</ul>
+</dd>
+<dt>Version 0.11.1</dt><dd><ul class="simple">
+<li><p>Reworked Fingerprints to be more precise and avoid conflicts</p></li>
+<li><p>In case of Fingerprint conflict, according mappings are dropped</p></li>
+<li><p>queries are normalized before searching for mappings</p></li>
+</ul>
+</dd>
+<dt>Version 0.11.0</dt><dd><ul class="simple">
+<li><p>Added optional monitoring SPI</p></li>
+<li><p>bypass-query: User queries that are quoted (start and end with a quote char <cite>“</cite>), won’t be mapped</p></li>
+<li><p>Improved QueryMapperManagerBuilder to support preloading tenants</p></li>
+<li><p>Added prometheus endpoint to smartQuery-service that uses the monitoring SPI</p></li>
+<li><p>Added configuration support to smartQuery-service. All options that are available at the QueryMapperManagerBuilder can be configured using application.properties and/or startup parameters</p></li>
+</ul>
+</dd>
+<dt>Version 0.10.7</dt><dd><ul class="simple">
+<li><p>Deprecated: Instead using QueryMapperManager setters, use the QueryMapperManagerBuilder to construct a QueryMapperManager instance</p></li>
+<li><p>smartQuery-service uses SQ_INIT_TENANTS env-var to init tenant data on startup</p></li>
+<li><p>QueryMapperManagerBuilder for better QueryMapperManager instance construction</p></li>
+<li><p>Add mappingThreshold and mappingThresholdPerTenant options</p></li>
+<li><p>Stop updates in case of more then 5 consecutive failures. Restart update task, if further used</p></li>
+<li><p>Improve error handling at background update task</p></li>
+</ul>
+</dd>
+<dt>Version 0.10.6</dt><dd><ul class="simple">
+<li><p>Add default settings for smartQuery-service</p></li>
+<li><p>Renamed “service” into “smartQuery-service”</p></li>
+</ul>
+</dd>
+<dt>Version 0.10.5</dt><dd><p>smartQuery as http service, packaged as docker container</p>
+</dd>
+<dt>Version 0.10.4</dt><dd><ul class="simple">
+<li><p>Use tenant specific locale for internal mapper operations</p></li>
+<li><p>Use UTF as API response encoding, instead system default encoding</p></li>
+</ul>
+</dd>
+<dt>Version 0.10.3</dt><dd><p>Remove dependency to guava and commons-lang libraries. Implement required functionality directly</p>
+</dd>
+<dt>Version 0.10.2</dt><dd><p>“noop” channel: It’s possible to create a QueryMapper for a tenant with the channel “noop”, that however will never be updated. Stat logs will be collected however.</p>
+</dd>
+<dt>Version 0.10.0</dt><dd><ul class="simple">
+<li><p>Deprecated: Usage of disableResponseValidation flag is discouraged, since this was only introduced to work around an encoding bug</p></li>
+<li><p>Experimental class QueryMapperManagerFactory to add support for environments without lifecycle management</p></li>
+<li><p>Add stats-collector that sends information about applied mappings to import.searchhub.io</p></li>
+<li><p>Use a ThreadFactory that creates daemon threads for the ScheduledExecutorService. This way a shutdown is not prevented by these threads in case the QueryMapperManager isn’t closed by the application.</p></li>
+</ul>
+</dd>
+<dt>Version 0.9.7</dt><dd><p>Use UTF8 instead system encoding to verify response at ResponseValidator</p>
+</dd>
+<dt>Version 0.9.6</dt><dd><ul class="simple">
+<li><p>Add disableResponseValidation flag in case response validation fails for unknown reason (Workaround)</p></li>
+<li><p>Add more java-doc</p></li>
+<li><p>Updater stops in case request is returned as unauthenticated</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="best-practices.html" class="btn btn-neutral float-left" title="Best Practices" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="common.html" class="btn btn-neutral float-right" title="Common concepts and behavior" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
