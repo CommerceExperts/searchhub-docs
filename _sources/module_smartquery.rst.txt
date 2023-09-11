@@ -17,5 +17,9 @@ We recommend following the `best practices`_ to get started with the SmartQuery 
    :maxdepth: 2
    :glob:
 
-   smartquery/*
+   smartquery/common
+   smartquery/direct-integration
+   smartquery/rest-service
+   smartquery/best-practices
+   smartquery/changelog
    
