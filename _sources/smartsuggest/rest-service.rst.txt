@@ -170,13 +170,12 @@ searchhub.apikey
 API KEY
 ^^^^^^^
 
-The searchHub API key can either be set using an environment variable or system property.
+The API Key is required to start the service. You will get the searchHub API Key from your contact person.
+It is recommended to inject the API Key via Environment variable:
 
 .. code-block:: bash
 
   SH_API_KEY="your-secret-api-key"
-  # or
-  JAVA_OPTS='-Dapikey="your-secret-api-key"'
 
 For legacy support (to use the same naming as SmartQuery) the environment variable 'SQ_API_KEY' works as well.
 
@@ -198,8 +197,9 @@ Idle Unload
 ^^^^^^^^^^^
 
 The service might unload a index when it is not used for a certain time (30 minutes by default). When a new request comes in for that tenant, the suggest index will be recreated again with a little warmup time.
-That idle timeout can be changed by setting the time in minutes either using the environment variable :code:`SUGGESTER_MAX_IDLE_MINUTES=90` or the startup parameter :code:`JAVA_OPTS="-Dsuggester.max.idle.minutes=90"`.
-A value of '0' or smaller will disable the unloading mechanic completely and never free up the .
+That idle timeout can be changed by setting the time in minutes either using the environment variable :code:`SUGGESTER_MAX_IDLE_MINUTES=90` or the startup parameter :code:`JAVA_OPTS="-Dsuggest.max-idle-minutes=90"`.
+
+A value of '0' or smaller will disable the unloading mechanic completely and never free up used space by created suggest indexes.
 
 
 Monitoring

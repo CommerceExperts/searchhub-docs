@@ -256,10 +256,9 @@ The payload might contain the following keys:</p>
 </dl>
 <section id="api-key">
 <h3>API KEY<a class="headerlink" href="#api-key" title="Permalink to this heading">¶</a></h3>
-<p>The searchHub API key can either be set using an environment variable or system property.</p>
+<p>The API Key is required to start the service. You will get the searchHub API Key from your contact person.
+It is recommended to inject the API Key via Environment variable:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SH_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-secret-api-key&quot;</span>
-<span class="c1"># or</span>
-<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s1">&#39;-Dapikey=&quot;your-secret-api-key&quot;&#39;</span>
 </pre></div>
 </div>
 <p>For legacy support (to use the same naming as SmartQuery) the environment variable ‘SQ_API_KEY’ works as well.</p>
@@ -276,8 +275,8 @@ Can be set via environment variable as a comma-separated list:</p>
 <section id="idle-unload">
 <h3>Idle Unload<a class="headerlink" href="#idle-unload" title="Permalink to this heading">¶</a></h3>
 <p>The service might unload a index when it is not used for a certain time (30 minutes by default). When a new request comes in for that tenant, the suggest index will be recreated again with a little warmup time.
-That idle timeout can be changed by setting the time in minutes either using the environment variable <code class="code docutils literal notranslate"><span class="pre">SUGGESTER_MAX_IDLE_MINUTES=90</span></code> or the startup parameter <code class="code docutils literal notranslate"><span class="pre">JAVA_OPTS=&quot;-Dsuggester.max.idle.minutes=90&quot;</span></code>.
-A value of ‘0’ or smaller will disable the unloading mechanic completely and never free up the .</p>
+That idle timeout can be changed by setting the time in minutes either using the environment variable <code class="code docutils literal notranslate"><span class="pre">SUGGESTER_MAX_IDLE_MINUTES=90</span></code> or the startup parameter <code class="code docutils literal notranslate"><span class="pre">JAVA_OPTS=&quot;-Dsuggest.max-idle-minutes=90&quot;</span></code>.</p>
+<p>A value of ‘0’ or smaller will disable the unloading mechanic completely and never free up used space by created suggest indexes.</p>
 </section>
 </section>
 <section id="monitoring">
