@@ -111,11 +111,14 @@
 <dt>Story</dt><dd><p>As a user, I want to see auto-completion/search suggestions displayed when I click on the search box, even if I haven’t started typing anything yet.</p>
 </dd>
 <dt>Acceptance criteria</dt><dd><ul class="simple">
-<li><p>AI-Suggestions from search|hub are displayed when the search box is clicked on and its value is empty</p></li>
+<li><p>AI-Suggestions from searchHub of type “TBD” are displayed when the search box is clicked on and its value is empty</p></li>
 <li><p>The AI-Suggestions displayed are the most relevant for our use case, which may be a combination of different types</p></li>
-<li><p>The AI-Suggestions can be displayed as a single list or in blocks, depending on the specific use case. (optimize for demand, for trends, for findability, for sellability, or a combination of all)</p></li>
+<li><p>The AI-Suggestions are a simple list of queries without any metadata, so they should be displayed in a simple list.</p></li>
 </ul>
 </dd>
+</dl>
+<p>The 5 provided types of AI suggestions are optimized for demand, for trends, for findability, for sellability, or a combination of all (MOST_INSPIRING)</p>
+<dl>
 <dt>Technical hint</dt><dd><p>To request the AI-Suggestions from SmartSuggest you’ll have to provide one of the following 5 different exposed <strong>special queries</strong> to the API:</p>
 <ul class="simple">
 <li><p>MOST_INSPIRING</p></li>
@@ -124,6 +127,8 @@
 <li><p>HIGHEST_FINDABILITY_UPLIFT</p></li>
 <li><p>HIGHEST_SELLABILITY_UPLIFT</p></li>
 </ul>
+<p>Those query are set with the same parameter <code class="code docutils literal notranslate"><span class="pre">userQuery</span></code> that is also used for the user input. As soon as the user starts typing, the used special query should be replaced
+by the according user input.</p>
 </dd>
 </dl>
 </section>

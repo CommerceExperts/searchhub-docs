@@ -4,8 +4,8 @@ Direct Integration
 Requirements
 ------------
 
-- Java version >=1.8
-- approximately, 200MB to 500MB additional Java Heapspace (depending on the amount of data to be managed)
+- Java version >= 11
+- approximately, 120MB to 300MB additional Java Heapspace (depending on the amount of data to be managed)
 - If a firewall is used, it needs to be configured to allow connections to the following HTTPS Endpoints https://query.searchhub.io/ and https://import.searchhub.io/
 
 Maven Dependency

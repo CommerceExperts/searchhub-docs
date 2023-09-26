@@ -4,7 +4,7 @@ Direct Integration
 Requirements
 ------------
 
-- Java version >= 1.11
+- Java version >= 11
 - around 100MB to 500MB additional Java Heapspace (depending on the amount of data to be managed by the service)
 - If using a firewall, please adjust the configuration to allow connections to the following HTTPS Endpoints https://query.searchhub.io/ and https://import.searchhub.io/
 
@@ -19,12 +19,12 @@ All related components can be pulled as a maven dependency from our repository h
     <dependency>
         <groupId>de.cxp.ocs</groupId>
         <artifactId>smartsuggest-lib</artifactId>
-        <version>0.16.0</version>
+        <version>0.18.0</version>
     </dependency>
     <dependency>
         <groupId>io.searchhub</groupId>
         <artifactId>searchhub-suggest-data-provider</artifactId>
-        <version>0.16.0</version>
+        <version>1.0.0</version>
     </dependency>
     
     <!-- ... -->
@@ -49,7 +49,7 @@ The index name is the full `tenant`_ name used at search|hub. For example: "mysh
 Alternatively you can specify index name to tenant mappings via ENV variable "SH_TENANT_MAPPINGS" or system property "searchhub.tenant_mappings". 
 Their value should be a comma separated list of key value pairs. Example: SH_TENANT_MAPPINGS="indexname=tenant.name,myshop=myshop.com"
 
-To load the correct data, the update process must get your search|hub API key, which you will receive during search|hub onboarding.
+To load the correct data, the update process must get your searchHub API key, which you will receive during search|hub onboarding.
 This API key must be set either, as environment variable "SH_API_KEY" or, as system property "searchhub.apikey" within the Java environment.
 
 
