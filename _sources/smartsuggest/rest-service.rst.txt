@@ -13,7 +13,7 @@ Requirements
 Start the service
 -----------------
 
-The service is provided as docker image on `docker hub`_ with the name :code:`commerceexperts/searchhub-smartsuggest-service:1.0.0`
+The service is provided as docker image on `docker hub`_ with the name :code:`commerceexperts/searchhub-smartsuggest-service:1.0.1`
 
 The container has to be started with your API key set at the environment variable `SH_API_KEY`. 
 
@@ -22,7 +22,7 @@ It exposes port 8081 that can be mapped to any port.
 .. code-block:: bash
     
     # use the API key you'll receive from us
-    docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:1.0.0
+    docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:1.0.1
 
 
 Use the service
@@ -219,6 +219,14 @@ Metrics
 ^^^^^^^
 
 There are several metrics that are exposed in the prometheus format through the :code:`/prometheus` endpoint of the service. This endpoint exposes a "status_up 1.0" metrics plus the metrics described in the `monitoring`_ section at the `direct integration`_ docs (in the prometheus format, which practically means underscores instead of dots).
+
+To enable JVM Metrics the following environment variables have to be set to :code:`true`:
+
+SUGGEST_SERVICE_METRICS_JVM_MEMORY_ENABLE
+    | enables metrics of memory consumption and garbage collector
+
+SUGGEST_SERVICE_METRICS_JVM_THREADS_ENABLE
+    | enables metrics around the JVM threads
 
 
 Troubleshooting
