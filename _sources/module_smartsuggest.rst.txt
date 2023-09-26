@@ -17,5 +17,8 @@ We recommend following the `best practices`_ to get started with the SmartSugges
    :maxdepth: 2
    :glob:
 
-   smartsuggest/*
+   smartsuggest/direct-integration
+   smartsuggest/rest-service
+   smartsuggest/best-practices
+   smartsuggest/changelog
    
