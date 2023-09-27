@@ -4,6 +4,9 @@ Changelog
 Version 2
 ---------
 
+Version 2.0.3
+    - Don't return the user query as part of the potentialCorrections
+
 Version 2.0.x
     - Update internal API to version 2 (new data exchange format)
     - Use Minimal-Perfect-Hash Map implementation to reduce memory-footprint
