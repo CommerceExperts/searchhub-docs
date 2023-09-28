@@ -56,8 +56,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#search-button">Search button</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#suggest-search-terms">Suggest (search terms)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#result-count">Result Count</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#product">Product</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#products">Products</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#zero-results-container">Zero Results Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#redirects-and-landing-pages">Redirects and Landing Pages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-to-cart-plp">Add to cart (PLP)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#add-to-cart-pdp">Add to cart (PDP)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#associated-product">Associated Product</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#checkout">Checkout</a></li>
@@ -232,12 +234,13 @@ To find out more about tracking customizations, just contact us directly or look
 </pre></div>
 </div>
 </section>
-<section id="product">
-<h3>Product<a class="headerlink" href="#product" title="Permalink to this heading">¶</a></h3>
+<section id="products">
+<h3>Products<a class="headerlink" href="#products" title="Permalink to this heading">¶</a></h3>
 <p>A product representation for the current search writeResult. The attributes here include a <code class="docutils literal notranslate"><span class="pre">priceContainer</span></code> in addition, the tracking script will automatically strip the non-numeric characters.
 The value for the <code class="docutils literal notranslate"><span class="pre">data-product-id</span></code> attribute has to be an ID that uniquely identifies the product.
 In B2B exist more edge cases. E.g. a certain SKU of the product family is used to represent the product group or family.
-In such cases, it is important that the same IDs are used on the product listing page (PDP) and on the product detail page (PLP).</p>
+In such cases, it is important that the same IDs are used on the product listing page (PDP) and on the product detail page (PLP).
+We recommend to use the mainId/parentId for products when possible.</p>
 <p><img alt="Product Tracking" src="_images/product.png" /></p>
 <table class="colwidths-given docutils align-default" id="id6">
 <caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
@@ -255,13 +258,17 @@ In such cases, it is important that the same IDs are used on the product listing
 <td><p>product</p></td>
 </tr>
 <tr class="row-odd"><td><p>data-product-id</p></td>
-<td><p>{mainSKU}</p></td>
+<td><p>{mainId}</p></td>
 </tr>
 <tr class="row-even"><td><p>data-track-id</p></td>
 <td><p>priceContainer</p></td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Add the <cite>data-*</cite> attributes on category and/or landing pages too. This way searchHub can track KPIs for queries that will trigger a redirect to specific landing pages with best selling products or a category pages instead of the PLP.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can omit the <cite>data-product-id</cite> and <cite>data-track-id=”priceContainer”</cite> attributes if you have a javascript object that contains the required information.
@@ -303,13 +310,91 @@ E.g. the <cite>dataLayer</cite> object. Please contact us if you want to rely on
 </pre></div>
 </div>
 </section>
+<section id="redirects-and-landing-pages">
+<h3>Redirects and Landing Pages<a class="headerlink" href="#redirects-and-landing-pages" title="Permalink to this heading">¶</a></h3>
+<p>When certain search queries trigger a redirect and do not land on the normal search results page, these pages often have banners or other buttons to guide the user more easily through the product assortment.
+For example, if you are looking for a specific brand of clothing, the landing page might have banners for the most common categories (Training, Outdoor, Running…).
+All buttons and links which lead to other pages that are associated to the initial query (or landing page) have to be labeled with attributes, in order to keep the association to the initial search query.
+This can also span several pages. For example, a click on “Outdoor” can land on a subsequent page that again contains buttons and links such as “Jackets”, “Bags”, “Shoes” and so on.
+If a subsequent page does not contain any products for the initial query, the button/link does not have to be labeled.</p>
+<p><img alt="Tracking Redirects" src="_images/redirectSubSelectors.png" /></p>
+<table class="colwidths-given docutils align-default" id="id8">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>data-track-id (required)</p></td>
+<td><p>redirectSubSelector</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/campaign-page/catA&quot;</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;redirectSubSelector&quot;</span><span class="p">&gt;</span>
+    Are you interested in our products of Category A
+<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/campaign-page/catB&quot;</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;redirectSubSelector&quot;</span><span class="p">&gt;</span>
+    Are you interested in our products of Category B
+<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/campaign-page/catC&quot;</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;redirectSubSelector&quot;</span><span class="p">&gt;</span>
+    Are you interested in our products of Category C
+<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- PLP, CMS or other content --&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="add-to-cart-plp">
+<h3>Add to cart (PLP)<a class="headerlink" href="#add-to-cart-plp" title="Permalink to this heading">¶</a></h3>
+<p>Some onlineshops allow the user to put products into basket directly from the PLP. Please add the <code class="docutils literal notranslate"><span class="pre">data-track-id</span></code> and <code class="docutils literal notranslate"><span class="pre">data-product-id</span></code> attributes to these basket buttons too.
+An additional element containing the amount put into the basket can be annotated with the <code class="docutils literal notranslate"><span class="pre">data-track-id=&quot;addToBasketQuantity&quot;</span></code> attribute, in most cases this is a common div, select or input element.</p>
+<p><img alt="Add to basket PLP Tracking" src="_images/basketPLP.png" /></p>
+<table class="colwidths-given docutils align-default" id="id9">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>data-track-id (required)</p></td>
+<td><p>addToCartPLP</p></td>
+</tr>
+<tr class="row-odd"><td><p>data-product-id</p></td>
+<td><p>{mainId}</p></td>
+</tr>
+<tr class="row-even"><td><p>data-track-id</p></td>
+<td><p>addToBasketQuantity</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can omit the <cite>data-product-id</cite> and <cite>data-track-id=”addToBasketQuantity”</cite> attributes if you have a javascript object that contains the required information.
+E.g. the <cite>dataLayer</cite> object. Please contact us if you want to rely on js data.</p>
+</div>
+<p><strong>Example</strong></p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;addToBasketQuantity&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-track-id</span><span class="o">=</span><span class="s">&quot;addToCartPDP&quot;</span> <span class="na">data-product-id</span><span class="o">=</span><span class="s">&quot;abc&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
 <section id="add-to-cart-pdp">
 <h3>Add to cart (PDP)<a class="headerlink" href="#add-to-cart-pdp" title="Permalink to this heading">¶</a></h3>
 <p>On the product detail page the <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">to</span> <span class="pre">cart</span></code> button has to be attributed with the <code class="docutils literal notranslate"><span class="pre">data-track-id</span></code> and <code class="docutils literal notranslate"><span class="pre">data-product-id</span></code> attributes.
 An additional element containing the amount put into the basket can be annotated with the <code class="docutils literal notranslate"><span class="pre">data-track-id</span></code> attribute, in most cases this is a common div, select or input element.</p>
 <p><img alt="Add to basket PDP Tracking" src="_images/basketPDP.png" /></p>
-<table class="colwidths-given docutils align-default" id="id8">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id10">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -324,7 +409,7 @@ An additional element containing the amount put into the basket can be annotated
 <td><p>addToCartPDP</p></td>
 </tr>
 <tr class="row-odd"><td><p>data-product-id</p></td>
-<td><p>{mainSKU}</p></td>
+<td><p>{mainId}</p></td>
 </tr>
 <tr class="row-even"><td><p>data-track-id</p></td>
 <td><p>addToBasketQuantity</p></td>
@@ -348,8 +433,8 @@ E.g. the <cite>dataLayer</cite> object. Please contact us if you want to rely on
 user, these products should be annotated almost the same way as products are annotated on the product listing page.
 The only difference is the <code class="docutils literal notranslate"><span class="pre">associatedProduct</span></code> value of the <code class="docutils literal notranslate"><span class="pre">data-track-id</span></code> attribute.</p>
 <p><img alt="Associated Product Tracking" src="_images/associatedProduct.png" /></p>
-<table class="colwidths-given docutils align-default" id="id9">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id11">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id11" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -364,7 +449,7 @@ The only difference is the <code class="docutils literal notranslate"><span clas
 <td><p>associatedProduct</p></td>
 </tr>
 <tr class="row-odd"><td><p>data-product-id</p></td>
-<td><p>{mainSKU}</p></td>
+<td><p>{mainId}</p></td>
 </tr>
 <tr class="row-even"><td><p>data-track-id</p></td>
 <td><p>priceContainer</p></td>
@@ -390,8 +475,8 @@ E.g. the <cite>dataLayer</cite> object. Please contact us if you want to rely on
 <p>Checkout tracking is implemented on the very last summary page in your checkout process.
 All products have to be attributed similar to the product listing page in addition to the <code class="docutils literal notranslate"><span class="pre">&quot;Commit</span> <span class="pre">and</span> <span class="pre">Buy&quot;</span></code> button which will finalize the order.</p>
 <p><img alt="Checkout Tracking" src="_images/checkout.png" /></p>
-<table class="colwidths-given docutils align-default" id="id10">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id12">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -409,7 +494,7 @@ All products have to be attributed similar to the product listing page in additi
 <td><p>checkoutButton</p></td>
 </tr>
 <tr class="row-even"><td><p>data-product-id</p></td>
-<td><p>{mainSKU}</p></td>
+<td><p>{mainId}</p></td>
 </tr>
 <tr class="row-odd"><td><p>data-track-id</p></td>
 <td><p>priceContainer</p></td>

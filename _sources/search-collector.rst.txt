@@ -10,6 +10,9 @@
 .. |basketPDP| image:: img/basketPDP.png
   :alt: Add to basket PDP Tracking
 
+.. |basketPLP| image:: img/basketPLP.png
+  :alt: Add to basket PLP Tracking
+
 .. |checkout| image:: img/checkout.png
   :alt: Checkout Tracking
 
@@ -21,6 +24,9 @@
 
 .. |associatedProduct| image:: img/associatedProduct.png
   :alt: Associated Product Tracking
+
+.. |redirectSubSelector| image:: img/redirectSubSelectors.png
+  :alt: Tracking Redirects
 
 .. _search-collector: https://github.com/searchhub/search-collector
 
@@ -155,12 +161,13 @@ The writeResult count is the number of products found for the current search (**
     </div>
 
 
-Product
+Products
 ----------------------------
 A product representation for the current search writeResult. The attributes here include a ``priceContainer`` in addition, the tracking script will automatically strip the non-numeric characters.
 The value for the ``data-product-id`` attribute has to be an ID that uniquely identifies the product.
 In B2B exist more edge cases. E.g. a certain SKU of the product family is used to represent the product group or family.
 In such cases, it is important that the same IDs are used on the product listing page (PDP) and on the product detail page (PLP).
+We recommend to use the mainId/parentId for products when possible.
 
 |product|
 
@@ -173,9 +180,12 @@ In such cases, it is important that the same IDs are used on the product listing
    * - data-track-id (required)
      - product
    * - data-product-id
-     - {mainSKU}
+     - {mainId}
    * - data-track-id
      - priceContainer
+
+.. note::
+   Add the `data-*` attributes on category and/or landing pages too. This way searchHub can track KPIs for queries that will trigger a redirect to specific landing pages with best selling products or a category pages instead of the PLP.
 
 .. note::
    You can omit the `data-product-id` and `data-track-id="priceContainer"` attributes if you have a javascript object that contains the required information.
@@ -214,6 +224,73 @@ The zero results container is the container that contains the text that is displ
     </div>
 
 
+Redirects and Landing Pages
+---------------------------------
+When certain search queries trigger a redirect and do not land on the normal search results page, these pages often have banners or other buttons to guide the user more easily through the product assortment.
+For example, if you are looking for a specific brand of clothing, the landing page might have banners for the most common categories (Training, Outdoor, Running...).
+All buttons and links which lead to other pages that are associated to the initial query (or landing page) have to be labeled with attributes, in order to keep the association to the initial search query.
+This can also span several pages. For example, a click on "Outdoor" can land on a subsequent page that again contains buttons and links such as "Jackets", "Bags", "Shoes" and so on.
+If a subsequent page does not contain any products for the initial query, the button/link does not have to be labeled.
+
+|redirectSubSelector|
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id (required)
+     - redirectSubSelector
+
+**Example**
+
+.. code-block:: html
+
+    <a href="/campaign-page/catA" data-track-id="redirectSubSelector">
+        Are you interested in our products of Category A
+    </a>
+    <a href="/campaign-page/catB" data-track-id="redirectSubSelector">
+        Are you interested in our products of Category B
+    </a>
+    <a href="/campaign-page/catC" data-track-id="redirectSubSelector">
+        Are you interested in our products of Category C
+    </a>
+    <!-- PLP, CMS or other content -->
+
+
+Add to cart (PLP)
+----------------------------
+Some onlineshops allow the user to put products into basket directly from the PLP. Please add the ``data-track-id`` and ``data-product-id`` attributes to these basket buttons too.
+An additional element containing the amount put into the basket can be annotated with the ``data-track-id="addToBasketQuantity"`` attribute, in most cases this is a common div, select or input element.
+
+|basketPLP|
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id (required)
+     - addToCartPLP
+   * - data-product-id
+     - {mainId}
+   * - data-track-id
+     - addToBasketQuantity
+
+.. note::
+   You can omit the `data-product-id` and `data-track-id="addToBasketQuantity"` attributes if you have a javascript object that contains the required information.
+   E.g. the `dataLayer` object. Please contact us if you want to rely on js data.
+
+**Example**
+
+.. code-block:: html
+
+    <select data-track-id="addToBasketQuantity">...</select>
+    <button data-track-id="addToCartPDP" data-product-id="abc"></button>
+
+
 Add to cart (PDP)
 ----------------------------
 On the product detail page the ``Add to cart`` button has to be attributed with the ``data-track-id`` and ``data-product-id`` attributes.
@@ -230,7 +307,7 @@ An additional element containing the amount put into the basket can be annotated
    * - data-track-id (required)
      - addToCartPDP
    * - data-product-id
-     - {mainSKU}
+     - {mainId}
    * - data-track-id
      - addToBasketQuantity
 
@@ -263,7 +340,7 @@ The only difference is the ``associatedProduct`` value of the ``data-track-id`` 
    * - data-track-id (required)
      - associatedProduct
    * - data-product-id
-     - {mainSKU}
+     - {mainId}
    * - data-track-id
      - priceContainer
 
@@ -299,7 +376,7 @@ All products have to be attributed similar to the product listing page in additi
    * - data-track-id (required)
      - checkoutButton
    * - data-product-id
-     - {mainSKU}
+     - {mainId}
    * - data-track-id
      - priceContainer
    * - data-track-id
