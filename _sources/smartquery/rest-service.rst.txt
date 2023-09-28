@@ -13,7 +13,7 @@ Requirements
 Start the service
 -----------------
 
-The service is provided as a docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:2.0.3`
+The service is provided as a docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:2.0.4`
     
 The container must be initiated with your API key set to the environment variable `SH_API_KEY` (for legacy support `SQ_API_KEY` is also accepted).
 The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the Requirements_ section.
@@ -21,7 +21,7 @@ The container exposes port 8081 which can be mapped to any port. Please consider
   .. code-block:: bash
 
     # use the API key we provide
-    docker run -d --name=smartquery-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:2.0.3
+    docker run -d --name=smartquery-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:2.0.4
 
     
 Using the service
