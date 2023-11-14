@@ -1,6 +1,23 @@
 Changelog
 =========
 
+Version 1.1.1
+
+    - Fix dependency version conflict of searchHub API with smartQuery
+
+Version 1.1.0
+
+    - Update to smartsuggest-lib 0.19.0
+
+
+Version 1.0.3
+
+    - Remove unused thomasmueller:minperf dependency
+
+Version 1.0.2
+
+    - Fix max-sharpened-queries-config
+
 Version 1.0.1
 
     - Add possibility to monitor JVM details enabled by :code:`SUGGEST_SERVICE_METRICS_JVM_*` env vars
