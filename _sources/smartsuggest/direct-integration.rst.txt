@@ -99,6 +99,111 @@ The javadoc of the :code:`QuerySuggestManager.builder()` methods tell you more a
 The last parameter of type 'Set' (where at this example simply 'Collections.emptySet()' is passed) is there for filtering suggestions according to their tags. 
 However the data from SearchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.
 
+Options for QueryMapperManagerBuilder
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When building a QuerySuggestManager - the central object that build and holds the QuerySuggest instances for all indexes,
+there are several options that can be set to change the default behaviour:
+
+.. code-block:: java
+		QuerySuggestManager querySuggestManager = QuerySuggestManager.builder()
+
+			/**
+			 * Since the index directory is not cleaned up after index closing, it could be useful
+			 * to use the same directory all the time, so that existing files are reused and overwritten.
+			 * If this index folder is not specified, a random temporary folder is picked.
+			 */
+			.indexFolder(Files.createDirectory(Path.of("/tmp/suggest-index-dir")))
+
+			/**
+			 * To start load indexes directly after initialization, specify them here
+			 */
+			.preloadIndexes("my.tenant_1", "my.tenant_2")
+
+			/**
+			 * Overwrite the default of 60 seconds update rate. Min = 5 / Max = 3600
+			 */
+			.updateRate(120)
+
+			/**
+			 * Attach a meter registry to the suggest manager and all QuerySuggester produced by it
+			 */
+			.addMetricsRegistryAdapter(MeterRegistryAdapter.of(new JmxMeterRegistry(config, clock)))
+
+			/**
+			 * Customize default configuration that is used as a basis for other configs provided by
+			 * a potential SuggestConfigProvider (that can be added via the standard java ServiceLoader)
+			 */
+			.withDefaultSuggestConfig(SuggestConfig.builder().alwaysDoFuzzy(false).maxSharpenedQueries(5).build())
+
+			/**
+			 * A custom SuggestDataProvider can either be injected using the standard java ServiceLoader mechanic
+			 * or by passing an instance directly to the builder:
+			 **/
+			.withSuggestDataProvider(mySuggestDataProvider)
+
+			/**
+			 * Data provider configs are class specific, so the same config will be passed to each instance that has
+			 * data for a requested index.
+			 * If there should be two different data providers of the same class, make sure to pass individual parameters
+			 * during instance creation. The data provider config will be passed additionally.
+			 * This is useful for general connection settings for example.
+			 **/
+			.addDataProviderConfig(mySuggestDataProvider.getClass().getCanonicalName(), singletonMap("my-setting", "value"))
+
+			.build();
+
+
+Adding Custom Data
+------------------
+
+The Suggest Library is build as service that takes care of updates on its own. So no external process is necessary to send data
+to the Suggest Library. Instead a :code:`SuggestDataProvider` implementation is required, that encapsulates all the data loading.
+
+Assume you have a database where your required data is managed and updated every now and then. Your :code:`SuggestDataProvider`
+implementation needs to provide two pieces of information in advance:
+
+  - Is there data for a given index?
+  - What is the last time, this data was modified?
+
+The modification time of your data is important, because the Suggest Library will only request the data itself, if it
+is not indexed yet or if the indexed data is older than the indexed data. The check for new data is done every minute by default
+and can be changed with the :code:`updateRate` setting. If there is no modification timestamp in your database, you can either
+increase the :code:`updateRate` or manage a custom modification time inside your :code:`SuggestDataProvider` implementation that might
+only be incremented every N hours.
+
+When loading data, the :code:`SuggestDataProvider` implementation needs to produce all suggest records at once and provide a single
+big :code:`SuggestData` object. Here an example what goes into that DTO:
+
+.. code-block:: java
+   		SuggestData suggestDTO = SuggestData.builder()
+
+				/**
+				 * the type will be attached to every suggestion coming from this data provider
+				 **/
+				.type("product")
+
+				/**
+				 * the locale is used for several normalisation during index time are done
+				 **/
+				.locale(Locale.GERMAN)
+
+				/**
+				 * this is where the actual suggest records are loaded and passed to the DTO
+				 **/
+				.suggestRecords(loadSuggestions())
+
+				/**
+				 * The same timestamp has to be set here, as returned by `getLastDataModTime(String indexName)`
+				 **/
+				.modificationTime(getModificationTime())
+
+				/**
+				 * If available, it's also possible to add stop-words that will be ignored during indexing.
+				 **/
+				.wordsToIgnore(Set.of("this", "that"))
+
+				.build();
 
 Monitoring
 ----------

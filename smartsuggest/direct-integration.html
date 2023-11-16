@@ -54,7 +54,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maven-dependency">Maven Dependency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#essential-usage">Essential Usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-example">Usage Example</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#options-for-querymappermanagerbuilder">Options for QueryMapperManagerBuilder</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-custom-data">Adding Custom Data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#monitoring">Monitoring</a></li>
 </ul>
 </li>
@@ -143,6 +147,31 @@ This API key must be set either, as environment variable “SH_API_KEY” or, as
 <p>The javadoc of the <code class="code docutils literal notranslate"><span class="pre">QuerySuggestManager.builder()</span></code> methods tell you more about the available settings.</p>
 <p>The last parameter of type ‘Set’ (where at this example simply ‘Collections.emptySet()’ is passed) is there for filtering suggestions according to their tags.
 However the data from SearchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.</p>
+<section id="options-for-querymappermanagerbuilder">
+<h3>Options for QueryMapperManagerBuilder<a class="headerlink" href="#options-for-querymappermanagerbuilder" title="Permalink to this heading">¶</a></h3>
+<p>When building a QuerySuggestManager - the central object that build and holds the QuerySuggest instances for all indexes,
+there are several options that can be set to change the default behaviour:</p>
+</section>
+</section>
+<section id="adding-custom-data">
+<h2>Adding Custom Data<a class="headerlink" href="#adding-custom-data" title="Permalink to this heading">¶</a></h2>
+<p>The Suggest Library is build as service that takes care of updates on its own. So no external process is necessary to send data
+to the Suggest Library. Instead a <code class="code docutils literal notranslate"><span class="pre">SuggestDataProvider</span></code> implementation is required, that encapsulates all the data loading.</p>
+<p>Assume you have a database where your required data is managed and updated every now and then. Your <code class="code docutils literal notranslate"><span class="pre">SuggestDataProvider</span></code>
+implementation needs to provide two pieces of information in advance:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Is there data for a given index?</p></li>
+<li><p>What is the last time, this data was modified?</p></li>
+</ul>
+</div></blockquote>
+<p>The modification time of your data is important, because the Suggest Library will only request the data itself, if it
+is not indexed yet or if the indexed data is older than the indexed data. The check for new data is done every minute by default
+and can be changed with the <code class="code docutils literal notranslate"><span class="pre">updateRate</span></code> setting. If there is no modification timestamp in your database, you can either
+increase the <code class="code docutils literal notranslate"><span class="pre">updateRate</span></code> or manage a custom modification time inside your <code class="code docutils literal notranslate"><span class="pre">SuggestDataProvider</span></code> implementation that might
+only be incremented every N hours.</p>
+<p>When loading data, the <code class="code docutils literal notranslate"><span class="pre">SuggestDataProvider</span></code> implementation needs to produce all suggest records at once and provide a single
+big <code class="code docutils literal notranslate"><span class="pre">SuggestData</span></code> object. Here an example what goes into that DTO:</p>
 </section>
 <section id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this heading">¶</a></h2>
