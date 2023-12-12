@@ -144,13 +144,13 @@
 <ul>
 <li><p>The export is clearly assigned to a single tenant / shop / sales channel</p></li>
 <li><p>Conforms to the following naming convention:
-<code class="docutils literal notranslate"><span class="pre">&lt;custom-prefix&gt;.&lt;tenant&gt;.&lt;date:YYYY-MM-DD&gt;[-&lt;date:YYYY-MM-DD&gt;].&lt;file-extension&gt;</span></code></p>
+<code class="docutils literal notranslate"><span class="pre">&lt;custom-prefix&gt;.&lt;tenant&gt;.&lt;date:YYYY-MM-DD&gt;.&lt;file-extension&gt;</span></code></p>
 <p>Explanation to naming convention:</p>
 <ul>
 <li><p>A custom prefix or other custom strings are allowed to be added to the filename, e.g. “export”</p></li>
 <li><p>The tenant (shop, or sales channel) must be part of the file name! See the <a class="reference external" href="glossary.html">glossary</a> concerning what a <a class="reference external" href="../glossary.html#tenant">tenant</a> is. You can use your own designation, the only requirement is that it must be unique.</p></li>
-<li><p>Each export is associated with a certain date-range. This could be either, a single day or, a range of two days (both considered inclusive).</p>
-<p>If the export pertains to a single day, the second date is not necessary.</p>
+<li><p>Each export is associated with a certain date.</p>
+<p>If the export contains data from more than a day, choose the latest date.</p>
 </li>
 </ul>
 </li>

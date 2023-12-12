@@ -65,7 +65,7 @@ As a data format, we prefer CSV/TSV feeds that meet the following conditions:
 - The export is clearly assigned to a single tenant / shop / sales channel
 
 - Conforms to the following naming convention: 
-  ``<custom-prefix>.<tenant>.<date:YYYY-MM-DD>[-<date:YYYY-MM-DD>].<file-extension>``
+  ``<custom-prefix>.<tenant>.<date:YYYY-MM-DD>.<file-extension>``
 
   Explanation to naming convention: 
 
@@ -73,9 +73,9 @@ As a data format, we prefer CSV/TSV feeds that meet the following conditions:
 
   - The tenant (shop, or sales channel) must be part of the file name! See the `glossary`_ concerning what a `tenant`_ is. You can use your own designation, the only requirement is that it must be unique.
     
-  - Each export is associated with a certain date-range. This could be either, a single day or, a range of two days (both considered inclusive).
+  - Each export is associated with a certain date. 
 
-    If the export pertains to a single day, the second date is not necessary.
+    If the export contains data from more than a day, choose the latest date.
 
 The delimiters and the order of the information is not important. The filename must simply contain the necessary information.
 
