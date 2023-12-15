@@ -149,14 +149,15 @@ docker run -d --name<span class="o">=</span>smartquery-service -e <span class="n
 <dl>
 <dt>URL Scheme:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">http://&lt;host&gt;:&lt;port&gt;/smartquery/v2/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery=&lt;user-query&gt;</span></code></p>
 </dd>
-<dt>Example:</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl localhost:10240/smartquery/v2/test/working?userQuery<span class="o">=</span>bierzellt -o -
+<dt>Example:</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl localhost:10240/smartquery/v2/test/working?userQuery<span class="o">=</span>jakce -o -
 <span class="c1"># returns:</span>
 <span class="o">{</span>
-  <span class="s2">&quot;userQuery&quot;</span>:<span class="s2">&quot;bierzellt&quot;</span>,
-  <span class="s2">&quot;masterQuery&quot;</span>:<span class="s2">&quot;bierzelt&quot;</span>,
-  <span class="s2">&quot;searchQuery&quot;</span>:<span class="s2">&quot;bierzelt&quot;</span>,
+  <span class="s2">&quot;userQuery&quot;</span>:<span class="s2">&quot;jakce&quot;</span>,
+  <span class="s2">&quot;masterQuery&quot;</span>:<span class="s2">&quot;jacke&quot;</span>,
+  <span class="s2">&quot;searchQuery&quot;</span>:<span class="s2">&quot;jacke&quot;</span>,
   <span class="s2">&quot;redirect&quot;</span>:null,
-  <span class="s2">&quot;successful&quot;</span>:true
+  <span class="s2">&quot;successful&quot;</span>:true,
+  <span class="s2">&quot;potentialCorrections&quot;</span>: null
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -170,6 +171,7 @@ docker run -d --name<span class="o">=</span>smartquery-service -e <span class="n
 <li><p><strong>searchQuery</strong>: the final search query. This is the master or the user query.</p></li>
 <li><p><strong>redirect</strong>: URL to a landing page or null if no redirect is configured.</p></li>
 <li><p><strong>successful</strong>: <cite>true</cite> if the query could be handled by smartQuery</p></li>
+<li><p><strong>potentialCorrections</strong>: an optional array of 1 or more queries that could be a correction to the given query. This is only given if no reliable masterQuery could be found.</p></li>
 </ul>
 </div></blockquote>
 </section>

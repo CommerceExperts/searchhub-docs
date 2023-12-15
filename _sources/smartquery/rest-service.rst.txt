@@ -58,14 +58,15 @@ URL Scheme:
 Example:
   .. code-block:: bash
 
-     curl localhost:10240/smartquery/v2/test/working?userQuery=bierzellt -o -
+     curl localhost:10240/smartquery/v2/test/working?userQuery=jakce -o -
      # returns: 
      {
-       "userQuery":"bierzellt",
-       "masterQuery":"bierzelt",
-       "searchQuery":"bierzelt",
+       "userQuery":"jakce",
+       "masterQuery":"jacke",
+       "searchQuery":"jacke",
        "redirect":null,
-       "successful":true
+       "successful":true,
+       "potentialCorrections": null
      }
 
 The response is an object that contains the following properties:
@@ -75,6 +76,7 @@ The response is an object that contains the following properties:
   - **searchQuery**: the final search query. This is the master or the user query.
   - **redirect**: URL to a landing page or null if no redirect is configured.
   - **successful**: `true` if the query could be handled by smartQuery
+  - **potentialCorrections**: an optional array of 1 or more queries that could be a correction to the given query. This is only given if no reliable masterQuery could be found.
 
 
 Configuration

@@ -55,6 +55,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Best Practices</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#basic-smartquery-implementation">Basic SmartQuery Implementation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#query-correction-feedback">Query Correction Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#potential-corrected-alternative-queries">Potential corrected alternative Queries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#search-hub-redirects">Search|Hub Redirects</a></li>
 </ul>
 </li>
@@ -120,6 +121,22 @@
 <dt>Technical hint</dt><dd><ul class="simple">
 <li><p>You can use the <a class="reference external" href="common.html">bypass</a> feature of SmartQuery by wrapping the query into quotes. Passing that query will not do any mapping but, rather, remove the quotes again.</p></li>
 <li><p>In the event the <a class="reference external" href="direct-integration.html">direct integration</a> is implemented, the util function <cite>io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder</cite> can be used to avoid displaying the query correction feedback resulting from the query consisting of the same words.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="potential-corrected-alternative-queries">
+<h2>Potential corrected alternative Queries<a class="headerlink" href="#potential-corrected-alternative-queries" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Story</dt><dd><p>As a customer, I want to see corrected variants of my misspelled query, if it couldn’t be corrected automatically.</p>
+</dd>
+<dt>Acceptance criteria</dt><dd><ul class="simple">
+<li><p>If no mapping took place, display a text about alternative potential corrections (“Did you mean …”)</p></li>
+<li><p>Those displayed queries should be clickable and should replace the currect user-query when clicked</p></li>
+</ul>
+</dd>
+<dt>Technical hint</dt><dd><ul class="simple">
+<li><p>A mapping contains the property ‘potentialCorrections’, which is an array with 1 or more queries as string</p></li>
 </ul>
 </dd>
 </dl>

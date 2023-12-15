@@ -31,6 +31,20 @@ Technical hint
   - In the event the `direct integration`_ is implemented, the util function `io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder` can be used to avoid displaying the query correction feedback resulting from the query consisting of the same words.
 
 
+Potential corrected alternative Queries
+---------------------------------------
+
+Story
+  As a customer, I want to see corrected variants of my misspelled query, if it couldn't be corrected automatically.
+
+Acceptance criteria
+  - If no mapping took place, display a text about alternative potential corrections ("Did you mean ...")
+  - Those displayed queries should be clickable and should replace the currect user-query when clicked
+
+Technical hint
+  - A mapping contains the property 'potentialCorrections', which is an array with 1 or more queries as string
+
+
 Search|Hub Redirects
 --------------------
 

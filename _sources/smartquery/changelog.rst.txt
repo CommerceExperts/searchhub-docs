@@ -4,8 +4,20 @@ Changelog
 Version 2
 ---------
 
+Version 2.1.1
+    A single fuzzy match is not used as master-query mapping anymore, instead just as a potential correction
+
+Version 2.1.0
+    Expose Api2.1 features: resultModifications + relatedQueries
+
+Version 2.0.5
+    Update fuzzy-mapping library preDICT
+
+Version 2.0.4
+    Improve fuzzy-mapping (more normalization to get rid of unwanted effects)
+
 Version 2.0.3
-    - Don't return the user query as part of the potentialCorrections
+    Don't return the user query as part of the potentialCorrections
 
 Version 2.0.x
     - Update internal API to version 2 (new data exchange format)
