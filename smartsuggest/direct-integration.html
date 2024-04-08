@@ -54,10 +54,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maven-dependency">Maven Dependency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#essential-usage">Essential Usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#usage-example">Usage Example</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#options-for-querymappermanagerbuilder">Options for QueryMapperManagerBuilder</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#options-for-querymappermanagerbuilder">Options for QueryMapperManagerBuilder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-config">Custom Config</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#adding-custom-data">Adding Custom Data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#monitoring">Monitoring</a></li>
 </ul>
@@ -112,12 +111,12 @@ All related components can be pulled as a maven dependency from our repository <
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>de.cxp.ocs<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>smartsuggest-lib<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>0.19.0<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.21.0<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 <span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>io.searchhub<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>searchhub-suggest-data-provider<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.1.1<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.2.0<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 
 <span class="cm">&lt;!-- ... --&gt;</span>
@@ -133,7 +132,7 @@ All related components can be pulled as a maven dependency from our repository <
 <h2>Essential Usage<a class="headerlink" href="#essential-usage" title="Permalink to this heading">¶</a></h2>
 <p>The QuerySuggester is the central object of the smartsuggest library. It is used to fetch the matching suggestions based on the (partial) user input.
 To get access to a QuerySuggester object, a single QuerySuggestManager must be built and maintained as a central reference.
-This is important as the QuerySuggestManager instance takes care of updating the suggest data should the data change.
+This is important as the QuerySuggestManager instance takes care of updating the suggest data in case the data changes at the data-source.
 It can also be used to shutdown any QuerySuggesters and therefore free related resources.</p>
 <p>A QuerySuggester instance can be accessed from the QuerySuggestManager using an “index name” as a parameter.
 The index name is the full <a class="reference external" href="../glossary.html#tenant">tenant</a> name used at search|hub. For example: “myshop.com”.</p>
@@ -147,11 +146,77 @@ This API key must be set either, as environment variable “SH_API_KEY” or, as
 <p>The javadoc of the <code class="code docutils literal notranslate"><span class="pre">QuerySuggestManager.builder()</span></code> methods tell you more about the available settings.</p>
 <p>The last parameter of type ‘Set’ (where at this example simply ‘Collections.emptySet()’ is passed) is there for filtering suggestions according to their tags.
 However the data from SearchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.</p>
+</section>
 <section id="options-for-querymappermanagerbuilder">
-<h3>Options for QueryMapperManagerBuilder<a class="headerlink" href="#options-for-querymappermanagerbuilder" title="Permalink to this heading">¶</a></h3>
+<h2>Options for QueryMapperManagerBuilder<a class="headerlink" href="#options-for-querymappermanagerbuilder" title="Permalink to this heading">¶</a></h2>
 <p>When building a QuerySuggestManager - the central object that build and holds the QuerySuggest instances for all indexes,
 there are several options that can be set to change the default behaviour:</p>
 </section>
+<section id="custom-config">
+<h2>Custom Config<a class="headerlink" href="#custom-config" title="Permalink to this heading">¶</a></h2>
+<p>The simplest way is to set a static default configuration during <code class="code docutils literal notranslate"><span class="pre">QuerySuggestManager</span></code> setup by using the method <code class="code docutils literal notranslate"><span class="pre">withDefaultSuggestConfig</span></code>
+and setting an object of type <code class="code docutils literal notranslate"><span class="pre">de.cxp.ocs.smartsuggest.spi.SuggestConfig</span></code>. It allows several changes about how the suggest
+library will behave. All of them described in detail below.</p>
+<p>Another possibility is the injection of a <code class="code docutils literal notranslate"><span class="pre">SuggestDataProvider</span></code> implementation using Java Service-Loader mechanic
+(which is to have a file on classpath named <code class="code docutils literal notranslate"><span class="pre">META-INF.services/de.cxp.ocs.smartsuggest.spi.SuggestDataProvider</span></code> that contains
+the full canonical class-name of the implementation that must also be on classpath and a no-args-constructor).
+This option comes in handy when you have index-specific configuration or if you want to load configuration dynamically from an external
+resource or database. That implementation is then asked for a configuration object everytime new data is loaded.</p>
+<p>Here a full description of all configuration properties (the names in brackets are the for suggest.properties in case the standard
+implementation SuggestServiceProperties is used)</p>
+<blockquote>
+<div><ul>
+<li><p>locale (suggest.locale): the locale for a index to be used. Relevant for normalization of the indexed text.</p></li>
+<li><p>alwaysDoFuzzy (suggest.always-do-fuzzy): if set to true, a fuzzy lookup is made even when some exact prefix-matches are found.
+This will increase the average lookup time and should only be done in case of bad data or many ambiguous matches.
+If not set, fuzzy-lookup are only done for input terms that don’t match any text as an exact prefix.</p></li>
+<li><dl class="simple">
+<dt>sortStrategy (suggest.sort-strategy): can be one of ‘PrimaryAndSecondaryByWeight’ or ‘MatchGroupsSeparated’</dt><dd><ul class="simple">
+<li><p>MatchGroupsSeparated: Suggestions are ordered by their match-group (sharpened, primary, secondary, fuzzy1, fuzzy2, etc).
+Within each group, matches are ordered according to “best match” (a combination of match-position and weight).</p></li>
+<li><p>PrimaryAndSecondaryByWeight: Similar to MatchGroupsSeparated, but “primary” and “secondary” group are considered equal and merged.
+Within these first match groups, suggestions are only ordered by weight.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>maxSharpenedQueries (suggest.max-sharpened-queries): Defines the limit of returned sharpened queries.
+Sharpened queries are queries that are injected directly (without requesting a Lucene index) from a hash-map if</p>
+<blockquote>
+<div><p>the input query matches one of the existing entries.</p>
+</div></blockquote>
+<p>This limit is only considered if there are more sharpened queries than defined by that limit.</p>
+</li>
+<li><p>isIndexConcurrently (suggest.concurrent-indexation): If set to false, the indexation of the received data will be done sequentially.
+This means it will take longer until the service is ready for usage and will spare computational power that might be used for others.</p></li>
+<li><p>useDataSourceMerger (suggest.data-source-merger): boolean value that only is required if there are several data-sources. If set to true, those data is merged and
+indexed into one index. This could reduce load and improve performance since a single Lucene suggester is asked for results.
+However in such a case the weights should be in a similar range to avoid a proper ranking.</p></li>
+<li><p>groupKey (suggest.group.key): With this setting it is possible to specify a key that is available in the payload of all provided suggestions.
+The final result list will then be grouped by this payload-value and truncated according to the provided group configs.</p>
+<blockquote>
+<div><p>It’s recommended to use setGroupConfig as well, otherwise the default limiter will be used after grouping.</p>
+</div></blockquote>
+</li>
+<li><p>groupConfig (either ‘suggest.group.share-conf’ or ‘suggest.group.cutoff-conf’ if relative or absolute values should be used):
+An ordered list of string-integer tuples. Each string refers to a value of the group-key.
+It defines the amount of suggestions to return as a maximums for a single suggest-result-list,
+e.g. max 4 brand-suggestions and max. 6 category suggestions</p></li>
+<li><p>useRelativeShareLimit (already reflected in the use of suggest.group.share-conf):
+This changes the meaning of the groupConfig values. If set to true the group-configs are used as relative share values,
+for example 20 and 80 are treated as 20% and 80%.</p></li>
+<li><p>groupDeduplicationOrder (suggest.group.deduplication-order): Defines in which order similar suggestions from different “groups” are preferred.
+Names that appear first are preferred over names appearing later. This setting is ‘null’ per default, which means no
+deduplication is done at all. If an empty String[] is set, deduplication is done randomly.
+This only works, if the suggest service is configured with a grouping key.</p></li>
+<li><dl class="simple">
+<dt>prefetchLimitFactor (suggest.group.prefetch-limit-factor): If grouping and limiting is configured by a key that comes from a single or merged data-provider, then this value</dt><dd><p>can be used to increase the internal amount of fetched suggestions.
+This is usable to increase the likeliness to get the desired group counts.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
 </section>
 <section id="adding-custom-data">
 <h2>Adding Custom Data<a class="headerlink" href="#adding-custom-data" title="Permalink to this heading">¶</a></h2>

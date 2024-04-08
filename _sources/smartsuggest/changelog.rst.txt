@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 1.2.0
+    - Update to smartsuggest-lib 0.21.0
+    - Fixing destroyed suggester leaves dangling meters
+    - Add config option for non-parallel indexation (suggest.concurrent-indexation=false)
+
 Version 1.1.1
 
     - Fix dependency version conflict of searchHub API with smartQuery

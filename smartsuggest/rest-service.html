@@ -118,11 +118,11 @@
 </section>
 <section id="start-the-service">
 <h2>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this heading">¶</a></h2>
-<p>The service is provided as docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags">docker hub</a> with the name <code class="code docutils literal notranslate"><span class="pre">commerceexperts/searchhub-smartsuggest-service:1.1.1</span></code></p>
+<p>The service is provided as docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags">docker hub</a> with the name <code class="code docutils literal notranslate"><span class="pre">commerceexperts/searchhub-smartsuggest-service:1.2.0</span></code></p>
 <p>The container has to be started with your API key set at the environment variable <cite>SH_API_KEY</cite>.</p>
 <p>It exposes port 8081 that can be mapped to any port.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># use the API key you&#39;ll receive from us</span>
-docker run -d --name<span class="o">=</span>smartsuggest-service -e <span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/searchhub-smartsuggest-service:1.1.1
+docker run -d --name<span class="o">=</span>smartsuggest-service -e <span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/searchhub-smartsuggest-service:1.2.0
 </pre></div>
 </div>
 </section>
@@ -210,13 +210,14 @@ The payload might contain the following keys:</p>
 </section>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
-<p>Each setting can also be set as system property or environment variable (alternative environment variable names in brakets), however the ones in the suggest.properties file are preferred.</p>
+<p>Each setting can also be set as system property or environment variable (alternative environment variable names in brackets),
+however the ones in the suggest.properties file are preferred.</p>
 <p>To inject those properties as system-properties, use the JAVA_OPTS environment variable and specify each property prefixed with <cite>-D</cite>, for example</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-v <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/suggest.properties&quot;</span>:/app/config/suggest.properties
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-e <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsearchhub.apikey=&#39;your-api-key&#39; -Dsuggest.service.max-idle-minutes=90&quot;</span>
 </pre></div>
 </div>
 <p>To inject a properties file into the container, bind it into the container at path <code class="code docutils literal notranslate"><span class="pre">/app/config/suggest.properties</span></code></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-e <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsearchhub.apikey=&#39;your-api-key&#39; -Dsuggest.service.max-idle-minutes=90&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-v <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/suggest.properties&quot;</span>:/app/config/suggest.properties
 </pre></div>
 </div>
 <dl>
@@ -247,6 +248,12 @@ The payload might contain the following keys:</p>
 <dt>suggest.preload-indexes</dt><dd><div class="line-block">
 <div class="line">(<em>SUGGEST_PRELOAD_INDEXES</em>, <em>SH_INIT_TENANTS</em>)</div>
 <div class="line">Comma-separated list of indexes (=searchHub tenants) that should be initialized at the start of the service.</div>
+</div>
+</dd>
+<dt>suggest.concurrent-indexation</dt><dd><div class="line-block">
+<div class="line">(<em>SUGGEST_CONCURRENT_INDEXATION</em>)</div>
+<div class="line">boolean value, ‘true’ per default. Can be set to ‘false’ so that the indexation of the received data will be done sequentially.</div>
+<div class="line">This means it will take longer until the service is ready for usage and will spare computational power that might be used for others.</div>
 </div>
 </dd>
 <dt>searchhub.apikey</dt><dd><div class="line-block">

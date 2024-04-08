@@ -13,7 +13,7 @@ Requirements
 Start the service
 -----------------
 
-The service is provided as docker image on `docker hub`_ with the name :code:`commerceexperts/searchhub-smartsuggest-service:1.1.1`
+The service is provided as docker image on `docker hub`_ with the name :code:`commerceexperts/searchhub-smartsuggest-service:1.2.0`
 
 The container has to be started with your API key set at the environment variable `SH_API_KEY`. 
 
@@ -22,7 +22,7 @@ It exposes port 8081 that can be mapped to any port.
 .. code-block:: bash
     
     # use the API key you'll receive from us
-    docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:1.1.1
+    docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:1.2.0
 
 
 Use the service
@@ -128,19 +128,20 @@ All kinds of requests support a "limit" parameter. By default, the limit is set 
 Configuration
 -------------
 
-Each setting can also be set as system property or environment variable (alternative environment variable names in brakets), however the ones in the suggest.properties file are preferred.
+Each setting can also be set as system property or environment variable (alternative environment variable names in brackets),
+however the ones in the suggest.properties file are preferred.
 
 To inject those properties as system-properties, use the JAVA_OPTS environment variable and specify each property prefixed with `-D`, for example
 
 .. code-block:: bash
 
-   -v "$(pwd)/suggest.properties":/app/config/suggest.properties
+  -e JAVA_OPTS="-Dsearchhub.apikey='your-api-key' -Dsuggest.service.max-idle-minutes=90"
 
 To inject a properties file into the container, bind it into the container at path :code:`/app/config/suggest.properties`
 
 .. code-block:: bash
 
-  -e JAVA_OPTS="-Dsearchhub.apikey='your-api-key' -Dsuggest.service.max-idle-minutes=90"
+   -v "$(pwd)/suggest.properties":/app/config/suggest.properties
 
 
 suggest.server.port
@@ -162,10 +163,13 @@ suggest.update-rate
 suggest.preload-indexes
     | (*SUGGEST_PRELOAD_INDEXES*, *SH_INIT_TENANTS*)
     | Comma-separated list of indexes (=searchHub tenants) that should be initialized at the start of the service.
+suggest.concurrent-indexation
+    | (*SUGGEST_CONCURRENT_INDEXATION*)
+    | boolean value, 'true' per default. Can be set to 'false' so that the indexation of the received data will be done sequentially.
+    | This means it will take longer until the service is ready for usage and will spare computational power that might be used for others.
 searchhub.apikey
     | (*SH_API_KEY*)
     | Required API Key to load suggestions from searchHub
-
 
 API KEY
 ^^^^^^^
