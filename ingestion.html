@@ -24,7 +24,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Search Collector" href="search-collector.html" />
-    <link rel="prev" title="CXP search|hub documentation" href="index.html" /> 
+    <link rel="prev" title="CXP searchHub documentation" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Ingestion</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#search-analytics-data">1. Search Analytics Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#frontend-search-tracking">Frontend Search Tracking</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#google-analytics-api-access">Google Analytics API Access</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#analytics-file-export">Analytics File Export</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#necessary-export-kpis">Necessary Export KPIs</a></li>
@@ -92,10 +93,10 @@
              
   <section id="ingestion">
 <h1>Ingestion<a class="headerlink" href="#ingestion" title="Permalink to this heading">¶</a></h1>
-<p>Search|Hub primarily relies on search-analytics data. However, the following types of data are used to further improve the outcome.</p>
+<p>searchHub primarily relies on search-analytics data. However, the following types of data are used to further improve the outcome.</p>
 <ol class="arabic simple">
 <li><p>Search Analytics Data</p></li>
-<li><p>Curated Queries / whitelisted queries</p></li>
+<li><p>Curated Queries</p></li>
 <li><p>Product Data</p></li>
 </ol>
 <p>See below what to consider when creating the respective data feeds.</p>
@@ -103,6 +104,7 @@
 <h2>1. Search Analytics Data<a class="headerlink" href="#search-analytics-data" title="Permalink to this heading">¶</a></h2>
 <p>We provide the following methods of ingesting analytics data:</p>
 <ul class="simple">
+<li><p><strong>Frontend Search Tracking</strong></p></li>
 <li><p><strong>Google-Analytics, API access.</strong></p></li>
 <li><p><strong>File exports:</strong></p>
 <ul>
@@ -112,9 +114,14 @@
 </ul>
 </li>
 </ul>
+<section id="frontend-search-tracking">
+<h3>Frontend Search Tracking<a class="headerlink" href="#frontend-search-tracking" title="Permalink to this heading">¶</a></h3>
+<p>For the best searchHub integration, we recommend the using our <a class="reference external" href="/search-collector.html">searchCollector</a> tracking solution. To ensure minimal effort, we offer a shop-specific integration script ready to be embedded. Apply your own data attributes, for a more stable integration. Read full searchCollector <a href="#id1"><span class="problematic" id="id2">documentation_</span></a> for more details.</p>
+</section>
 <section id="google-analytics-api-access">
 <h3>Google Analytics API Access<a class="headerlink" href="#google-analytics-api-access" title="Permalink to this heading">¶</a></h3>
-<p>API access to Google Analytics site-search analytics view is preferred. To do so, please <a class="reference external" href="https://support.google.com/analytics/answer/1009702?hl=en">grant access</a> with at least the ‘Viewer’ role to the following two accounts:</p>
+<p>API access to Google Analytics (UA or GA4) is a secondary option. However, site search tracking is no longer standard in GA4. For this reason, it’s necessary to create a custom search-tracking integration within GA4, for it to work.</p>
+<p>To connect searchHub to your GA data, please <a class="reference external" href="https://support.google.com/analytics/answer/1009702?hl=en">grant access</a> to at least the ‘Viewer’ role to the following two accounts:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">searchhub</span><span class="nd">@searchhub</span><span class="o">-</span><span class="n">analytics</span><span class="o">.</span><span class="n">iam</span><span class="o">.</span><span class="n">gserviceaccount</span><span class="o">.</span><span class="n">com</span>
 <span class="n">analytics</span><span class="nd">@commerce</span><span class="o">-</span><span class="n">experts</span><span class="o">.</span><span class="n">com</span>
 </pre></div>
@@ -126,17 +133,17 @@
 <p>In the event you are unable to grant API access to your analytics system, a file export is also acceptable. Please make sure to provide these files regulary in order to ensure sustainability and system continuity.</p>
 <section id="necessary-export-kpis">
 <h4>Necessary Export KPIs<a class="headerlink" href="#necessary-export-kpis" title="Permalink to this heading">¶</a></h4>
-<p>Most important for Search|Hub are user generated search queries (user queries) and their corresponding KPIs. Below is a list of the most useful search KPIs:</p>
+<p>Most important for searchHub are user generated search queries (user queries) and their corresponding KPIs. Below is a list of the most useful search KPIs:</p>
 <ul class="simple">
 <li><p>Search-Frequency (Required!)</p></li>
 <li><p>Match-Count</p></li>
-<li><p>Unique Clicks per Query or CTR</p></li>
+<li><p>Unique Clicks per Query or click-through-rate / CTR</p></li>
 <li><p>Clicks to Basket</p></li>
 <li><p>Revenue per Search</p></li>
 <li><p>Total-Revenue</p></li>
 <li><p>Exit-Rate</p></li>
 </ul>
-<p>These KPIs allow Search|Hub to make better decisions. Your selection depends upon your search query optimization goal. Ex.: you want to lover the zero-match rate - then “Match Count” must be included in your analytics export.</p>
+<p>These KPIs allow searchHub to make better decisions. Your selection depends upon your search query optimization goal. Ex.: you want to lover the zero-match rate - then “Match Count” must be included in your analytics export.</p>
 </section>
 <section id="data-format">
 <h4>Data Format<a class="headerlink" href="#data-format" title="Permalink to this heading">¶</a></h4>
@@ -161,7 +168,7 @@
 </section>
 <section id="curated-queries">
 <h2>2. Curated Queries<a class="headerlink" href="#curated-queries" title="Permalink to this heading">¶</a></h2>
-<p>If you have curated landing pages for certain queries or optimized search results, you can export the corresponding queries and Search|Hub will prefer these and automatically increase the traffic to them.
+<p>If you have curated landing pages for certain queries or optimized search results, you can export the corresponding queries and searchHub will prefer these and automatically increase the traffic to them.
 This can be a simple text file with the name of the tenant (shop or sales channel), e.g. <code class="docutils literal notranslate"><span class="pre">curated-queries.&lt;tenant&gt;.txt</span></code> or any other format from which such queries may be easily extracted.</p>
 </section>
 <section id="product-data">
@@ -188,7 +195,7 @@ This can be a simple text file with the name of the tenant (shop or sales channe
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="CXP search|hub documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="CXP searchHub documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="search-collector.html" class="btn btn-neutral float-right" title="Search Collector" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

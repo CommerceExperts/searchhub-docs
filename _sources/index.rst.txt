@@ -1,4 +1,4 @@
-CXP search|hub documentation
+CXP searchHub documentation
 ============================
 
 .. toctree::
@@ -17,7 +17,7 @@ Getting Started
 ---------------
 
 Before integrating one of our modules into your system(s), we need tracking data to warm-up our machine learning models:
-Keep in mind that Search|Hub is designed to be integrated into your existing search engine, not replace it.
+Keep in mind that searchHub is designed to be integrated into your existing search engine, not replace it.
 
 Minimum Requirements
 ____________________
@@ -29,7 +29,7 @@ At a minimum we require a search analytics report (e.g. an export from Google An
 Value Assessment
 ________________
 
-Based on this data, we will both train, as well as, estimate the potential performance of Search|Hub. Following this initial step we will provide you with further information regarding which modules are best suitable for and how they can be integrated into your system.
+Based on this data, we will both train, as well as, estimate the potential performance of searchHub. Following this initial step we will provide you with further information regarding which modules are best suitable for and how they can be integrated into your system.
 
 Please `contact us`_ to further define your use-cases, speak with us regarding your detailed questions or to request a potential search query optimization report.
 
@@ -37,7 +37,7 @@ Please `contact us`_ to further define your use-cases, speak with us regarding y
 Modules
 -------
 
-There are several approaches to "search query optimization". Search|Hub provides a modular solution for each with respective documentation. This approach allows for dedicated focus to specfic aspects of query optimization, while at the same time, offering full flexibility to combine modules.
+There are several approaches to "search query optimization". searchHub provides a modular solution for each with respective documentation. This approach allows for dedicated focus to specfic aspects of query optimization, while at the same time, offering full flexibility to combine modules.
 
 In this way each added module supports the successive optimization of your data-driven approach to search query optimization.
 

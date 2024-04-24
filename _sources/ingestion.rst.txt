@@ -1,10 +1,10 @@
 Ingestion
 =========
 
-Search|Hub primarily relies on search-analytics data. However, the following types of data are used to further improve the outcome. 
+searchHub primarily relies on search-analytics data. However, the following types of data are used to further improve the outcome. 
 
 #. Search Analytics Data
-#. Curated Queries / whitelisted queries
+#. Curated Queries
 #. Product Data
 
 See below what to consider when creating the respective data feeds.
@@ -14,6 +14,8 @@ See below what to consider when creating the respective data feeds.
 ------------------------
 
 We provide the following methods of ingesting analytics data:
+
+- **Frontend Search Tracking**
 
 - **Google-Analytics, API access.**
 
@@ -26,10 +28,18 @@ We provide the following methods of ingesting analytics data:
   - In the absence of an analytics system, we offer a log-, or raw-file ingestion service. This professional service extracts the necessary information directly from the respective data source. **Please contact us, to speak about this option or to discuss other options in more detail.**
 
 
+Frontend Search Tracking
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+For the best searchHub integration, we recommend the using our `searchCollector`_ tracking solution. To ensure minimal effort, we offer a shop-specific integration script ready to be embedded. Apply your own data attributes, for a more stable integration. Read full searchCollector documentation_ for more details.
+
+
 Google Analytics API Access
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-API access to Google Analytics site-search analytics view is preferred. To do so, please `grant access`_ with at least the 'Viewer' role to the following two accounts:
+API access to Google Analytics (UA or GA4) is a secondary option. However, site search tracking is no longer standard in GA4. For this reason, it's necessary to create a custom search-tracking integration within GA4, for it to work.
+
+To connect searchHub to your GA data, please `grant access`_ to at least the 'Viewer' role to the following two accounts:
 
 :: 
 
@@ -46,17 +56,17 @@ In the event you are unable to grant API access to your analytics system, a file
 
 Necessary Export KPIs
 """""""""""""""""""""
-Most important for Search|Hub are user generated search queries (user queries) and their corresponding KPIs. Below is a list of the most useful search KPIs:
+Most important for searchHub are user generated search queries (user queries) and their corresponding KPIs. Below is a list of the most useful search KPIs:
 
 - Search-Frequency (Required!)
 - Match-Count
-- Unique Clicks per Query or CTR
+- Unique Clicks per Query or click-through-rate / CTR
 - Clicks to Basket
 - Revenue per Search
 - Total-Revenue
 - Exit-Rate
 
-These KPIs allow Search|Hub to make better decisions. Your selection depends upon your search query optimization goal. Ex.: you want to lover the zero-match rate - then "Match Count" must be included in your analytics export.
+These KPIs allow searchHub to make better decisions. Your selection depends upon your search query optimization goal. Ex.: you want to lover the zero-match rate - then "Match Count" must be included in your analytics export.
 
 Data Format
 """""""""""
@@ -83,7 +93,7 @@ The delimiters and the order of the information is not important. The filename m
 2. Curated Queries
 ------------------
 
-If you have curated landing pages for certain queries or optimized search results, you can export the corresponding queries and Search|Hub will prefer these and automatically increase the traffic to them.
+If you have curated landing pages for certain queries or optimized search results, you can export the corresponding queries and searchHub will prefer these and automatically increase the traffic to them.
 This can be a simple text file with the name of the tenant (shop or sales channel), e.g. ``curated-queries.<tenant>.txt`` or any other format from which such queries may be easily extracted.
 
 
@@ -111,3 +121,5 @@ optionally we can also use:
 .. _glossary: glossary.html
 .. _tenant: ../glossary.html#tenant
 .. _grant access: https://support.google.com/analytics/answer/1009702?hl=en
+.. _searchCollector: /search-collector.html
+.. _Read full searchCollector documentation: /search-collector.html
