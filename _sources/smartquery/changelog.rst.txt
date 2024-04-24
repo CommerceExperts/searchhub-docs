@@ -78,11 +78,11 @@ Version 1.2.2
     (Since version 1.1 it could happen, that if data update failed, smartQuery stopped doing the mappings)
 
 Version 1.2.1
-    - Update to latest SearchHub API with extended data models
+    - Update to latest searchHub API with extended data models
 
 Version 1.2
-    - Add OCS SmartQuery Plugin
-    - Update to stats-collector 1.2 (update to latest SearchHub API version) fixing dependency divergence
+    - Add OCS smartQuery Plugin
+    - Update to stats-collector 1.2 (update to latest searchHub API version) fixing dependency divergence
 
 Version 1.1
     - Add data modification time to tracked mappings
@@ -122,9 +122,9 @@ Version 1.0.7
     Fix port-parsing of http proxy variable
 
 Version 1.0.6
-    Add option for http proxy for SearchHub API Access
+    Add option for http proxy for searchHub API Access
 
-        SmartQuery can be used in a secured network to go trough the http-proxy when fetching SearchHub data.
+        smartQuery can be used in a secured network to go trough the http-proxy when fetching searchHub data.
 
 Version 1.0.5
     Update stats collector
@@ -155,7 +155,7 @@ Version 1.0.1
 Version 1.0
     - Add support for redirect feature
     - Fingerprint mapper picks best master if more than one is matching
-    - Track SmartQuery version and Java version as user-agent with stats-collector
+    - Track smartQuery version and Java version as user-agent with stats-collector
 
 
 Version 0

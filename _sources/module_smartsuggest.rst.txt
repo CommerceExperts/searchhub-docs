@@ -1,12 +1,12 @@
-Module: SmartSuggest
+Module: smartSuggest
 ====================
 
-SmartSuggest uses the enriched and clustered search|hub data to build a sophisticated suggest functionality. 
+smartSuggest uses the enriched and clustered searchHub data to build a sophisticated suggest functionality. 
 As a base technology Apache Lucene is used to provide fast and weighted query suggestions. The implementation is part of the "`Open Commerce Search Stack`_"
 
-The module automatically connects to the search|hub API in order to get the required data and to send back statistics and performance information about the module and its usage.
+The module automatically connects to the searchHub API in order to get the required data and to send back statistics and performance information about the module and its usage.
 
-We recommend following the `best practices`_ to get started with the SmartSuggest integration into your system.
+We recommend following the `best practices`_ to get started with the smartSuggest integration into your system.
 
 
 .. _best practices: smartsuggest/best-practices.html

@@ -48,8 +48,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: SmartSuggest</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: smartQuery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: smartSuggest</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="direct-integration.html">Direct Integration</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">REST Service Integration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
@@ -95,7 +95,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../module_smartsuggest.html">Module: SmartSuggest</a></li>
+          <li class="breadcrumb-item"><a href="../module_smartsuggest.html">Module: smartSuggest</a></li>
       <li class="breadcrumb-item active">REST Service Integration</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/smartsuggest/rest-service.rst.txt" rel="nofollow"> View page source</a>
@@ -108,7 +108,7 @@
              
   <section id="rest-service-integration">
 <h1>REST Service Integration<a class="headerlink" href="#rest-service-integration" title="Permalink to this heading">¶</a></h1>
-<p>In case you can’t use the Java library directly (most likely because your system doesn’t run on the JVM), you can use the REST-service wrapper for SmartSuggest. It’s delivered as a docker image and can run in your environment. (SaaS is also an option, please contact us for more details).</p>
+<p>In case you can’t use the Java library directly (most likely because your system doesn’t run on the JVM), you can use the REST-service wrapper for smartSuggest. It’s delivered as a docker image and can run in your environment. (SaaS is also an option, please contact us for more details).</p>
 <section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
@@ -130,7 +130,7 @@ docker run -d --name<span class="o">=</span>smartsuggest-service -e <span class=
 <h2>Use the service<a class="headerlink" href="#use-the-service" title="Permalink to this heading">¶</a></h2>
 <p>The service offers two possible endpoints. Both requests are mostly identical and just differ at the version part of the request path.
 The first endpoint (v1) will return a sophisticated blockwise response and the second (v2) will return a simple list of strings. We recommend using v3 because it already cares about picking the optimal set of queries and exposes extra meta-data.</p>
-<p>Keep in mind, that SmartSuggest starts fetching the necessary data, after the first request for a tenant was received. So the first few seconds all requests will return an empty result. A few seconds later you should get mapped queries (if data is available).
+<p>Keep in mind, that smartSuggest starts fetching the necessary data, after the first request for a tenant was received. So the first few seconds all requests will return an empty result. A few seconds later you should get mapped queries (if data is available).
 It’s possible to lower that startup latency by specifying the tenants using the preloadTenants parameter (SH_INIT_TENANTS), which is described below.</p>
 <section id="v1-request">
 <h3>V1 Request<a class="headerlink" href="#v1-request" title="Permalink to this heading">¶</a></h3>
@@ -181,7 +181,7 @@ The payload might contain the following keys:</p>
 <dl class="simple">
 <dt>meta.matchGroupName</dt><dd><p>Corresponds to the name of the v1 response.</p>
 </dd>
-<dt>type</dt><dd><p>Currently, the only supported value is <em>keyword</em>. However, SmartSuggest can index different data types, e.g. products or categories.</p>
+<dt>type</dt><dd><p>Currently, the only supported value is <em>keyword</em>. However, smartSuggest can index different data types, e.g. products or categories.</p>
 </dd>
 <dt>redirect</dt><dd><p>The redirect URL, configured for the query over the searchHub-UI. <strong>Optional</strong> omitted if no redirect exists.</p>
 </dd>

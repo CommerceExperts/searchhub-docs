@@ -1,7 +1,7 @@
 REST Service Integration
 ========================
 
-In case you can't use the Java library directly (most likely because your system doesn't run on the JVM), you can use the REST-service wrapper for SmartSuggest. It's delivered as a docker image and can run in your environment. (SaaS is also an option, please contact us for more details).
+In case you can't use the Java library directly (most likely because your system doesn't run on the JVM), you can use the REST-service wrapper for smartSuggest. It's delivered as a docker image and can run in your environment. (SaaS is also an option, please contact us for more details).
 
 Requirements
 ------------
@@ -31,7 +31,7 @@ Use the service
 The service offers two possible endpoints. Both requests are mostly identical and just differ at the version part of the request path. 
 The first endpoint (v1) will return a sophisticated blockwise response and the second (v2) will return a simple list of strings. We recommend using v3 because it already cares about picking the optimal set of queries and exposes extra meta-data.
 
-Keep in mind, that SmartSuggest starts fetching the necessary data, after the first request for a tenant was received. So the first few seconds all requests will return an empty result. A few seconds later you should get mapped queries (if data is available).
+Keep in mind, that smartSuggest starts fetching the necessary data, after the first request for a tenant was received. So the first few seconds all requests will return an empty result. A few seconds later you should get mapped queries (if data is available).
 It's possible to lower that startup latency by specifying the tenants using the preloadTenants parameter (SH_INIT_TENANTS), which is described below.
 
 V1 Request
@@ -98,7 +98,7 @@ The payload might contain the following keys:
 meta.matchGroupName
   Corresponds to the name of the v1 response.
 type
-  Currently, the only supported value is *keyword*. However, SmartSuggest can index different data types, e.g. products or categories.
+  Currently, the only supported value is *keyword*. However, smartSuggest can index different data types, e.g. products or categories.
 redirect
   The redirect URL, configured for the query over the searchHub-UI. **Optional** omitted if no redirect exists.
 

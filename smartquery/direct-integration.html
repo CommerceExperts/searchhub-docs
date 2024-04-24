@@ -48,7 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartquery.html">Module: smartQuery</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="common.html">Common concepts and behavior</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Direct Integration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
@@ -63,7 +63,7 @@
 <li class="toctree-l2"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../module_smartsuggest.html">Module: SmartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartsuggest.html">Module: smartSuggest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
 </ul>
 
@@ -81,7 +81,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../module_smartquery.html">Module: SmartQuery</a></li>
+          <li class="breadcrumb-item"><a href="../module_smartquery.html">Module: smartQuery</a></li>
       <li class="breadcrumb-item active">Direct Integration</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/smartquery/direct-integration.rst.txt" rel="nofollow"> View page source</a>
@@ -104,7 +104,7 @@
 </section>
 <section id="maven-dependency">
 <h2>Maven Dependency<a class="headerlink" href="#maven-dependency" title="Permalink to this heading">¶</a></h2>
-<p>The SmartQuery library can be pulled as a maven dependency from our private repository <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhub-external/">https://nexus.commerce-experts.com/content/repositories/searchhub-external/</a>.</p>
+<p>The smartQuery library can be pulled as a maven dependency from our private repository <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhub-external/">https://nexus.commerce-experts.com/content/repositories/searchhub-external/</a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;dependency&gt;
     &lt;groupId&gt;io.searchhub&lt;/groupId&gt;
     &lt;artifactId&gt;smartquery&lt;/artifactId&gt;
@@ -126,7 +126,7 @@
 <dl>
 <dt>Tenant</dt><dd><p>Simple POJO that represents a single data domain. (See the <a class="reference external" href="../glossary.html">glossary</a> about what a <a class="reference external" href="../glossary.html#tenant">Tenant</a> is.)</p>
 </dd>
-<dt>QueryMapper</dt><dd><p>The central component provided by the SmartQuery library is the <cite>QueryMapper</cite>. It provides query mappings with the <cite>mapQuery</cite> method.</p>
+<dt>QueryMapper</dt><dd><p>The central component provided by the smartQuery library is the <cite>QueryMapper</cite>. It provides query mappings with the <cite>mapQuery</cite> method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">QueryMapping mapQuery(String input)</dt>
 <dd class="field-odd"><p>This method returns a query mapping, with the original user query, a mapped query and an optional redirect URL. A <cite>QueryMapping</cite> has some convenient methods to handle redirects and queries accordingly - please refer to the Javadoc.</p>
@@ -199,7 +199,7 @@ If the environment variable <cite>SH_API_KEY</cite> is available, the API Key is
 </section>
 <section id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this heading">¶</a></h2>
-<p>SmartQuery optionally exposes internal metrics using the <a class="reference external" href="https://micrometer.io/docs">Micrometer</a> framework. If you’d like to receive these metrics, add the desired Micrometer connector to your dependencies, as well as, the MeterRegistry implementation.</p>
+<p>smartQuery optionally exposes internal metrics using the <a class="reference external" href="https://micrometer.io/docs">Micrometer</a> framework. If you’d like to receive these metrics, add the desired Micrometer connector to your dependencies, as well as, the MeterRegistry implementation.</p>
 <blockquote>
 <div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// ...</span><span class="w"></span>
 <span class="n">MeterRegistry</span><span class="w"> </span><span class="n">meterRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getYourMeterRegistryInstance</span><span class="p">();</span><span class="w"></span>
@@ -219,7 +219,7 @@ If the environment variable <cite>SH_API_KEY</cite> is available, the API Key is
 <dt id="term-smartquery.statsCollector.queue.size">smartquery.statsCollector.queue.size<a class="headerlink" href="#term-smartquery.statsCollector.queue.size" title="Permalink to this term">¶</a></dt><dd><p>The current number of items inside the transmission queue of the stats-collector.
 Since the queue size is limited to 500 entries per default, a higher value should never appear. Hitting this limit is an indicator of a broken connection to the stats API.</p>
 </dd>
-<dt id="term-smartquery.statsCollector.bulk.size.count">smartquery.statsCollector.bulk.size.count<a class="headerlink" href="#term-smartquery.statsCollector.bulk.size.count" title="Permalink to this term">¶</a></dt><dt id="term-smartquery.statsCollector.bulk.size.sum">smartquery.statsCollector.bulk.size.sum<a class="headerlink" href="#term-smartquery.statsCollector.bulk.size.sum" title="Permalink to this term">¶</a></dt><dt id="term-smartquery.statsCollector.bulk.size.max">smartquery.statsCollector.bulk.size.max<a class="headerlink" href="#term-smartquery.statsCollector.bulk.size.max" title="Permalink to this term">¶</a></dt><dd><p>The stats-collector’s bulk size metrics describe, how large the bulks are that were sent to the search|hub stats API.
+<dt id="term-smartquery.statsCollector.bulk.size.count">smartquery.statsCollector.bulk.size.count<a class="headerlink" href="#term-smartquery.statsCollector.bulk.size.count" title="Permalink to this term">¶</a></dt><dt id="term-smartquery.statsCollector.bulk.size.sum">smartquery.statsCollector.bulk.size.sum<a class="headerlink" href="#term-smartquery.statsCollector.bulk.size.sum" title="Permalink to this term">¶</a></dt><dt id="term-smartquery.statsCollector.bulk.size.max">smartquery.statsCollector.bulk.size.max<a class="headerlink" href="#term-smartquery.statsCollector.bulk.size.max" title="Permalink to this term">¶</a></dt><dd><p>The stats-collector’s bulk size metrics describe, how large the bulks are that were sent to the searchHub stats API.
 With <code class="docutils literal notranslate"><span class="pre">sum/count</span></code> the average size can be calculated. Max is the biggest bulk since application start.</p>
 </dd>
 <dt id="term-smartquery.statsCollector.fail.count.total">smartquery.statsCollector.fail.count.total<a class="headerlink" href="#term-smartquery.statsCollector.fail.count.total" title="Permalink to this term">¶</a></dt><dd><p>The total amount of failed transmissions, that were reported to the stats API.</p>

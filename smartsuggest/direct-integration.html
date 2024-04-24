@@ -24,7 +24,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="REST Service Integration" href="rest-service.html" />
-    <link rel="prev" title="Module: SmartSuggest" href="../module_smartsuggest.html" /> 
+    <link rel="prev" title="Module: smartSuggest" href="../module_smartsuggest.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,8 +48,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: SmartQuery</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: SmartSuggest</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: smartQuery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: smartSuggest</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Direct Integration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maven-dependency">Maven Dependency</a></li>
@@ -83,7 +83,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../module_smartsuggest.html">Module: SmartSuggest</a></li>
+          <li class="breadcrumb-item"><a href="../module_smartsuggest.html">Module: smartSuggest</a></li>
       <li class="breadcrumb-item active">Direct Integration</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/smartsuggest/direct-integration.rst.txt" rel="nofollow"> View page source</a>
@@ -106,7 +106,7 @@
 </section>
 <section id="maven-dependency">
 <h2>Maven Dependency<a class="headerlink" href="#maven-dependency" title="Permalink to this heading">¶</a></h2>
-<p>The basic SmartSuggest library is part of the Open-Commerce-Search stack. In order to load the search|hub data, our searchhub-suggest-data-provider must be added to the classpath.
+<p>The basic smartSuggest library is part of the Open-Commerce-Search stack. In order to load the searchHub data, our searchhub-suggest-data-provider must be added to the classpath.
 All related components can be pulled as a maven dependency from our repository <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhub-external/">https://nexus.commerce-experts.com/content/repositories/searchhub-external/</a></p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>de.cxp.ocs<span class="nt">&lt;/groupId&gt;</span>
@@ -135,17 +135,17 @@ To get access to a QuerySuggester object, a single QuerySuggestManager must be b
 This is important as the QuerySuggestManager instance takes care of updating the suggest data in case the data changes at the data-source.
 It can also be used to shutdown any QuerySuggesters and therefore free related resources.</p>
 <p>A QuerySuggester instance can be accessed from the QuerySuggestManager using an “index name” as a parameter.
-The index name is the full <a class="reference external" href="../glossary.html#tenant">tenant</a> name used at search|hub. For example: “myshop.com”.</p>
+The index name is the full <a class="reference external" href="../glossary.html#tenant">tenant</a> name used at searchHub. For example: “myshop.com”.</p>
 <p>Alternatively you can specify index name to tenant mappings via ENV variable “SH_TENANT_MAPPINGS” or system property “searchhub.tenant_mappings”.
 Their value should be a comma separated list of key value pairs. Example: SH_TENANT_MAPPINGS=”indexname=tenant.name,myshop=myshop.com”</p>
-<p>To load the correct data, the update process must get your searchHub API key, which you will receive during search|hub onboarding.
+<p>To load the correct data, the update process must get your searchHub API key, which you will receive during searchHub onboarding.
 This API key must be set either, as environment variable “SH_API_KEY” or, as system property “searchhub.apikey” within the Java environment.</p>
 </section>
 <section id="usage-example">
 <h2>Usage Example<a class="headerlink" href="#usage-example" title="Permalink to this heading">¶</a></h2>
 <p>The javadoc of the <code class="code docutils literal notranslate"><span class="pre">QuerySuggestManager.builder()</span></code> methods tell you more about the available settings.</p>
 <p>The last parameter of type ‘Set’ (where at this example simply ‘Collections.emptySet()’ is passed) is there for filtering suggestions according to their tags.
-However the data from SearchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.</p>
+However the data from searchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.</p>
 </section>
 <section id="options-for-querymappermanagerbuilder">
 <h2>Options for QueryMapperManagerBuilder<a class="headerlink" href="#options-for-querymappermanagerbuilder" title="Permalink to this heading">¶</a></h2>
@@ -240,7 +240,7 @@ big <code class="code docutils literal notranslate"><span class="pre">SuggestDat
 </section>
 <section id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this heading">¶</a></h2>
-<p>SmartSuggest, optionally, provides internal metrics using the <a class="reference external" href="https://micrometer.io/docs">Micrometer</a> framework. If you’d like to tap into those metrics, simply add the necessary Micrometer connector to your dependencies followed by, your desired MeterRegistry.</p>
+<p>smartSuggest, optionally, provides internal metrics using the <a class="reference external" href="https://micrometer.io/docs">Micrometer</a> framework. If you’d like to tap into those metrics, simply add the necessary Micrometer connector to your dependencies followed by, your desired MeterRegistry.</p>
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1">// ...</span><span class="w"></span>
 <span class="w"> </span><span class="n">MeterRegistry</span><span class="w"> </span><span class="n">meterRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getYourMeterRegistryInstance</span><span class="p">();</span><span class="w"></span>
 
@@ -277,7 +277,7 @@ This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../module_smartsuggest.html" class="btn btn-neutral float-left" title="Module: SmartSuggest" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../module_smartsuggest.html" class="btn btn-neutral float-left" title="Module: smartSuggest" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="rest-service.html" class="btn btn-neutral float-right" title="REST Service Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

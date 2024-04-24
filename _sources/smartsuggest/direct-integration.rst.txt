@@ -11,7 +11,7 @@ Requirements
 Maven Dependency
 ----------------
 
-The basic SmartSuggest library is part of the Open-Commerce-Search stack. In order to load the search|hub data, our searchhub-suggest-data-provider must be added to the classpath.
+The basic smartSuggest library is part of the Open-Commerce-Search stack. In order to load the searchHub data, our searchhub-suggest-data-provider must be added to the classpath.
 All related components can be pulled as a maven dependency from our repository https://nexus.commerce-experts.com/content/repositories/searchhub-external/
 
 .. code-block:: xml
@@ -44,12 +44,12 @@ This is important as the QuerySuggestManager instance takes care of updating the
 It can also be used to shutdown any QuerySuggesters and therefore free related resources.
 
 A QuerySuggester instance can be accessed from the QuerySuggestManager using an "index name" as a parameter.
-The index name is the full `tenant`_ name used at search|hub. For example: "myshop.com".
+The index name is the full `tenant`_ name used at searchHub. For example: "myshop.com".
 
 Alternatively you can specify index name to tenant mappings via ENV variable "SH_TENANT_MAPPINGS" or system property "searchhub.tenant_mappings". 
 Their value should be a comma separated list of key value pairs. Example: SH_TENANT_MAPPINGS="indexname=tenant.name,myshop=myshop.com"
 
-To load the correct data, the update process must get your searchHub API key, which you will receive during search|hub onboarding.
+To load the correct data, the update process must get your searchHub API key, which you will receive during searchHub onboarding.
 This API key must be set either, as environment variable "SH_API_KEY" or, as system property "searchhub.apikey" within the Java environment.
 
 
@@ -97,7 +97,7 @@ Usage Example
 The javadoc of the :code:`QuerySuggestManager.builder()` methods tell you more about the available settings.
 
 The last parameter of type 'Set' (where at this example simply 'Collections.emptySet()' is passed) is there for filtering suggestions according to their tags. 
-However the data from SearchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.
+However the data from searchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.
 
 Options for QueryMapperManagerBuilder
 -------------------------------------
@@ -272,7 +272,7 @@ big :code:`SuggestData` object. Here an example what goes into that DTO:
 Monitoring
 ----------
 
-SmartSuggest, optionally, provides internal metrics using the `Micrometer`_ framework. If you'd like to tap into those metrics, simply add the necessary Micrometer connector to your dependencies followed by, your desired MeterRegistry.
+smartSuggest, optionally, provides internal metrics using the `Micrometer`_ framework. If you'd like to tap into those metrics, simply add the necessary Micrometer connector to your dependencies followed by, your desired MeterRegistry.
 
 .. code-block:: java
 

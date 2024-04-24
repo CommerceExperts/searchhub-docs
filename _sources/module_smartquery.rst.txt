@@ -1,10 +1,10 @@
-Module: SmartQuery
+Module: smartQuery
 ==================
 
-SmartQuery is a search|hub module that maps similar queries (e.g. "skate board", "skate boarding", "skateboards", "skateboard", "scate burd") to the best [1]_ query - the so-called MasterQuery.
-The SmartQuery module automatically connects to the search|hub API to get the required data and to send back statistics and performance information about the module itself and the mapping process.
+smartQuery is a searchHub module that maps similar queries (e.g. "skate board", "skate boarding", "skateboards", "skateboard", "scate burd") to the best [1]_ query - the so-called MasterQuery.
+The smartQuery module automatically connects to the searchHub API to get the required data and to send back statistics and performance information about the module itself and the mapping process.
 
-We recommend following the `best practices`_ to get started with the SmartQuery integration into your system.
+We recommend following the `best practices`_ to get started with the smartQuery integration into your system.
 
 
 

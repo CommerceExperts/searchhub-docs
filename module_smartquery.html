@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module: SmartQuery &mdash; CXP SearchHub 0.63.3 documentation</title>
+  <title>Module: smartQuery &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -48,7 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search-collector.html">Search Collector</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Module: SmartQuery</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Module: smartQuery</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="smartquery/common.html">Common concepts and behavior</a></li>
 <li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html">Direct Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html">REST Service Integration</a></li>
@@ -56,7 +56,7 @@
 <li class="toctree-l2"><a class="reference internal" href="smartquery/changelog.html">Changelog</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: SmartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: smartSuggest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 
@@ -74,7 +74,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-      <li class="breadcrumb-item active">Module: SmartQuery</li>
+      <li class="breadcrumb-item active">Module: smartQuery</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/module_smartquery.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -85,10 +85,10 @@
            <div itemprop="articleBody">
              
   <section id="module-smartquery">
-<h1>Module: SmartQuery<a class="headerlink" href="#module-smartquery" title="Permalink to this heading">¶</a></h1>
-<p>SmartQuery is a search|hub module that maps similar queries (e.g. “skate board”, “skate boarding”, “skateboards”, “skateboard”, “scate burd”) to the best <a class="footnote-reference brackets" href="#id2" id="id1">1</a> query - the so-called MasterQuery.
-The SmartQuery module automatically connects to the search|hub API to get the required data and to send back statistics and performance information about the module itself and the mapping process.</p>
-<p>We recommend following the <a class="reference external" href="smartquery/best-practices.html">best practices</a> to get started with the SmartQuery integration into your system.</p>
+<h1>Module: smartQuery<a class="headerlink" href="#module-smartquery" title="Permalink to this heading">¶</a></h1>
+<p>smartQuery is a searchHub module that maps similar queries (e.g. “skate board”, “skate boarding”, “skateboards”, “skateboard”, “scate burd”) to the best <a class="footnote-reference brackets" href="#id2" id="id1">1</a> query - the so-called MasterQuery.
+The smartQuery module automatically connects to the searchHub API to get the required data and to send back statistics and performance information about the module itself and the mapping process.</p>
+<p>We recommend following the <a class="reference external" href="smartquery/best-practices.html">best practices</a> to get started with the smartQuery integration into your system.</p>
 <dl class="footnote brackets">
 <dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>Additionally, there are  use cases, where we have ambiguous mappings, which result in multiple MasterQueries. In the future, these will receive differentiated handling. It is important to understand that the term “best query” refers to the keyword with most positive outcome in terms of user interaction, as well as, and economic profit.</p>
@@ -115,10 +115,10 @@ The SmartQuery module automatically connects to the search|hub API to get the re
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="smartquery/best-practices.html">Best Practices</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#basic-smartquery-implementation">Basic SmartQuery Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#basic-smartquery-implementation">Basic smartQuery Implementation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#query-correction-feedback">Query Correction Feedback</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#potential-corrected-alternative-queries">Potential corrected alternative Queries</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#search-hub-redirects">Search|Hub Redirects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#potential-correction-alternatives">Potential correction alternatives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#searchhub-redirects">searchHub Redirects</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="smartquery/changelog.html">Changelog</a><ul>

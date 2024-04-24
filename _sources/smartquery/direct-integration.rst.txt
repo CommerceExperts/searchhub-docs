@@ -11,7 +11,7 @@ Requirements
 Maven Dependency
 ----------------
 
-The SmartQuery library can be pulled as a maven dependency from our private repository https://nexus.commerce-experts.com/content/repositories/searchhub-external/.
+The smartQuery library can be pulled as a maven dependency from our private repository https://nexus.commerce-experts.com/content/repositories/searchhub-external/.
 
 ::
 
@@ -39,7 +39,7 @@ Tenant
   
 
 QueryMapper
-  The central component provided by the SmartQuery library is the `QueryMapper`. It provides query mappings with the `mapQuery` method.
+  The central component provided by the smartQuery library is the `QueryMapper`. It provides query mappings with the `mapQuery` method.
 
   :QueryMapping mapQuery(String input):
   
@@ -110,7 +110,7 @@ The Javadoc of the :code:`QueryMapperManager.builder()` methods tell you more ab
 Monitoring
 ----------
 
-SmartQuery optionally exposes internal metrics using the `Micrometer`_ framework. If you'd like to receive these metrics, add the desired Micrometer connector to your dependencies, as well as, the MeterRegistry implementation.
+smartQuery optionally exposes internal metrics using the `Micrometer`_ framework. If you'd like to receive these metrics, add the desired Micrometer connector to your dependencies, as well as, the MeterRegistry implementation.
 
   .. code-block:: java
 
@@ -136,7 +136,7 @@ Subsequently, you will be able to track the following metrics:
     smartquery.statsCollector.bulk.size.count
     smartquery.statsCollector.bulk.size.sum
     smartquery.statsCollector.bulk.size.max
-        The stats-collector's bulk size metrics describe, how large the bulks are that were sent to the search|hub stats API. 
+        The stats-collector's bulk size metrics describe, how large the bulks are that were sent to the searchHub stats API. 
         With :literal:`sum/count` the average size can be calculated. Max is the biggest bulk since application start.
 
     smartquery.statsCollector.fail.count.total
