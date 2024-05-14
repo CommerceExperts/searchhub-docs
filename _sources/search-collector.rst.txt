@@ -380,7 +380,7 @@ All products have to be attributed similar to the product listing page in additi
    * - data-track-id
      - priceContainer
    * - data-track-id
-     - checkoutQuantity
+     - checkoutQuantityContainer
 
 .. note::
    You can omit the `data-product-id`, `data-track-id="priceContainer"` and `data-track-id="checkoutQuantity"` attributes if you have a javascript object that contains the required information.
