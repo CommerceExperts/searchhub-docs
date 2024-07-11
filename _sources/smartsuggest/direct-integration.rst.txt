@@ -56,7 +56,8 @@ This API key must be set either, as environment variable "SH_API_KEY" or, as sys
 Usage Example
 -------------
 
-.. code-block:: java
+  .. code-block:: java
+
     static QuerySuggestManager qsm;
     static {
         try {
