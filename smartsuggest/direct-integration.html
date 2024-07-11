@@ -143,31 +143,6 @@ This API key must be set either, as environment variable “SH_API_KEY” or, as
 </section>
 <section id="usage-example">
 <h2>Usage Example<a class="headerlink" href="#usage-example" title="Permalink to this heading">¶</a></h2>
-    <blockquote>
-        <div><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">private</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="w"> </span><span class="n">querySuggestManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w"></span>
-<span class="w">     </span><span class="p">.</span><span class="na">withSuggestDataProvider</span><span class="p">(</span><span class="s">new SearchhubSuggestDataProvider()</span><span class="p">)</span><span class="w"></span>
-<span class="w">     </span><span class="p">.</span><span class="na">preloadIndexes</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// optional</span><span class="w"></span>
-<span class="w">     </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w"></span>
-
-<span class="c1">//ENV: SHA_PI_KEY=yourApiKey</span><span class="w"></span>
-
-<span class="kd">public</span><span class="w"> </span><span class="kt">List&lt;Suggestion&gt;</span><span class="w"> </span><span class="nf">suggest</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">channel</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">userQuery</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"></span><span class="w"> </span><span class="n">querySuggestManager</span><span class="p">.</span><span class="na">getQuerySuggester</span><span class="p">(channel)</span><span class="p">.</span><span class="na">suggest</span><span class="p">(userQuery);</span><span class="p"><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="c1">// It&#39;s recommended to bind the qmManager instance to your JVM&#39;s lifecycle</span><span class="w"></span>
-<span class="c1">// and close the QueryMapperManager during shutdown.</span><span class="w"></span>
-<span class="c1">// Internally a ScheduledExecutorService is used, that will be stopped then.</span><span class="w"></span>
-<span class="nd">@PreDestroy</span><span class="w"></span>
-<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onJvmShutdown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">querySuggestManager</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</pre></div>
-        </div>
-        </div></blockquote>
-
-
 <p>The javadoc of the <code class="code docutils literal notranslate"><span class="pre">QuerySuggestManager.builder()</span></code> methods tell you more about the available settings.</p>
 <p>The last parameter of type ‘Set’ (where at this example simply ‘Collections.emptySet()’ is passed) is there for filtering suggestions according to their tags.
 However the data from searchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.</p>
