@@ -1,0 +1,48 @@
+name: "Sphinx: Render docs"
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    - uses: oprypin/find-latest-tag@v1
+      id: smartquery_version
+      with:
+        repository: CommerceExperts/smartquery
+        releases-only: false  # This repository doesn't use GitHub's "release" feature.
+        prefix: 'v'           # only with prefix v
+    - uses: oprypin/find-latest-tag@v1
+      id: smartsuggest_version
+      with:
+        repository: CommerceExperts/smartsuggest
+        releases-only: false  # This repository doesn't use GitHub's "release" feature.
+    - uses: jacobtomlinson/gha-find-replace@v3
+      with:
+        find: "${SMARTQUERY_VERSION}"
+        replace: "${{ steps.smartquery_version.outputs.tag }}"
+        include: "docs/smartquery/**"
+        regex: false
+    - uses: jacobtomlinson/gha-find-replace@v3
+      with:
+        find: "${SMARTSUGGEST_VERSION}"
+        replace: "${{ steps.smartsuggest_version.outputs.tag }}"
+        include: "docs/smartsuggest/**"
+        regex: false
+    - name: Build HTML
+      uses: ammaraskar/sphinx-action@master
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: html-docs
+        path: docs/build/html/
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: docs/build/html
+
