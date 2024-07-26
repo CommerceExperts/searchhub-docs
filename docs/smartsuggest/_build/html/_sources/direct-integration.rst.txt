@@ -1,0 +1,145 @@
+Direct Integration
+==================
+
+Requirements
+------------
+
+- Java version >= 1.11
+- around 100MB to 500MB additional Java Heapspace (depending on the amount of data to be managed by the service)
+- If using a firewall, please adjust the configuration to allow connections to the following HTTPS Endpoints https://query.searchhub.io/ and https://import.searchhub.io/
+
+Maven Dependency
+----------------
+
+The basic SmartSuggest library is part of the Open-Commerce-Search stack. In order to load the search|hub data, our searchhub-suggest-data-provider must be added to the classpath.
+All related components can be pulled as a maven dependency from our repository https://nexus.commerce-experts.com/content/repositories/searchhub-external/
+
+.. code-block:: xml
+
+    <dependency>
+        <groupId>de.cxp.ocs</groupId>
+        <artifactId>smartsuggest-lib</artifactId>
+        <version>0.18.0</version>
+    </dependency>
+    <dependency>
+        <groupId>io.searchhub</groupId>
+        <artifactId>searchhub-suggest-data-provider</artifactId>
+        <version>${SMARTSUGGEST_VERSION}</version>
+    </dependency>
+    
+    <!-- ... -->
+    
+    <repository>
+        <id>external-releases</id>
+        <url>https://nexus.commerce-experts.com/content/repositories/searchhub-external/</url>
+    </repository>
+
+
+Essential Usage
+---------------
+
+The QuerySuggester is the central object of the smartsuggest library. It is used to fetch the matching suggestions based on the (partial) user input.
+To get access to a QuerySuggester object, a single QuerySuggestManager must be built and maintained as a central reference. 
+This is important as the QuerySuggestManager instance takes care of updating the suggest data should the data change. 
+It can also be used to shutdown any QuerySuggesters and therefore free related resources.
+
+A QuerySuggester instance can be accessed from the QuerySuggestManager using an "index name" as a parameter.
+The index name is the full `tenant`_ name used at search|hub. For example: "myshop.com".
+
+Alternatively you can specify index name to tenant mappings via ENV variable "SH_TENANT_MAPPINGS" or system property "searchhub.tenant_mappings". 
+Their value should be a comma separated list of key value pairs. Example: SH_TENANT_MAPPINGS="indexname=tenant.name,myshop=myshop.com"
+
+To load the correct data, the update process must get your searchHub API key, which you will receive during search|hub onboarding.
+This API key must be set either, as environment variable "SH_API_KEY" or, as system property "searchhub.apikey" within the Java environment.
+
+
+Usage Example
+-------------
+
+.. code-block:: java
+    static QuerySuggestManager qsm;
+    static {
+        try {
+            // this should not be necessary, instead the API key should be set from
+            // the outside of the java process
+            System.setProperty("searchhub.apikey", "123abc");
+            System.setProperty("searchhub.tenant_mappings", "example=example.com");
+
+            qsm = QuerySuggestManager.builder()
+                    // required for lucene where it puts the index files
+                    .indexFolder(Files.createTempDirectory("smartsuggest"))
+                    // the builder also has other options
+                    .build();
+        }
+        catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    // It's recommended to bind the querySuggestManager instance to your JVM's lifecycle
+    // and close the QueryMapperManager during shutdown.
+    // Internally a ScheduledExecutorService is used, that will be stopped then.
+    @PreDestroy
+    public void onJvmShutdown() {
+        qsm.close();
+    }
+
+    private List<String> suggestQueries(String userQuery, int maxSuggestions) throws IOException {
+        return qsm.getQuerySuggester("example")
+                .suggest(userQuery, maxSuggestions, Collections.emptySet())
+                .stream()
+                .map(suggestion -> suggestion.getLabel())
+                .collect(Collectors.toList());
+    }
+
+
+
+The javadoc of the :code:`QuerySuggestManager.builder()` methods tell you more about the available settings.
+
+The last parameter of type 'Set' (where at this example simply 'Collections.emptySet()' is passed) is there for filtering suggestions according to their tags. 
+However the data from SearchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.
+
+
+Monitoring
+----------
+
+SmartSuggest, optionally, provides internal metrics using the `Micrometer`_ framework. If you'd like to tap into those metrics, simply add the necessary Micrometer connector to your dependencies followed by, your desired MeterRegistry.
+
+.. code-block:: java
+
+    // ...
+    MeterRegistry meterRegistry = getYourMeterRegistryInstance();
+    
+    // example: to reveal metrics over JMX create a JmxMeterRegistry 
+    meterRegistry = new JmxMeterRegistry(JmxConfig.DEFAULT, Clock.SYSTEM);
+    
+    // and add it to the QueryMapperManager.builder afterwards
+   QuerySuggestManager.builder()
+      // ...
+      .addMetricsRegistryAdapter(MeterRegistryAdapter.of(meterRegistry));
+      // ...
+
+You will be able to track the following metrics:
+
+.. glossary::
+
+    smartsuggest.update.success.count.total
+        Total number of successful data updates per tenant.
+        This metric is tagged with the corresponding `tenant_name` and `tenant_channel`.
+
+    smartsuggest.update.fail.count
+        Number of successive failed update attempts for a certain tenant. If an update succeeds, this value will be reset to "0".
+        If this value reaches "5", the respective update process will be stopped and only restarted, if suggestions for the related tenant are requested again.
+        This metric is tagged with the corresponding `tenant_name` and `tenant_channel`.
+        
+    smartsuggest.suggestions.size
+        Current number of raw suggestion records per tenant.
+        This metric is tagged with the corresponding `tenant_name` and `tenant_channel`.
+        
+    smartsuggest.suggestions.age.seconds
+        That is the amount of time passed, since the last successful update took place.
+        This metric is tagged with the corresponding `tenant_name` and `tenant_channel`.
+
+    
+.. _tenant: ../glossary.html#tenant
+.. _Micrometer: https://micrometer.io/docs

@@ -1,0 +1,51 @@
+CXP searchHub documentation
+============================
+
+.. toctree::
+   :maxdepth: 2
+   :glob:
+   :caption: Contents:
+
+   Getting Started <self>
+   ingestion
+   search-collector
+   module_*
+   glossary
+
+   
+Getting Started
+---------------
+
+Before integrating one of our modules into your system(s), we need tracking data to warm-up our machine learning models:
+Keep in mind that searchHub is designed to be integrated into your existing search engine, not replace it.
+
+Minimum Requirements
+____________________
+
+At a minimum we require a search analytics report (e.g. an export from Google Analytics) from a representative time interval.
+
+*Check out the* `Ingestion`_ *section for more details about the supported data formats and data access possibilities.*
+
+Value Assessment
+________________
+
+Based on this data, we will both train, as well as, estimate the potential performance of searchHub. Following this initial step we will provide you with further information regarding which modules are best suitable for and how they can be integrated into your system.
+
+Please `contact us`_ to further define your use-cases, speak with us regarding your detailed questions or to request a potential search query optimization report.
+
+
+Modules
+-------
+
+There are several approaches to "search query optimization". searchHub provides a modular solution for each with respective documentation. This approach allows for dedicated focus to specfic aspects of query optimization, while at the same time, offering full flexibility to combine modules.
+
+In this way each added module supports the successive optimization of your data-driven approach to search query optimization.
+
+Good To Know
+____________
+
+We make it possible, using native Java Code, to integrate individual modules directly into a system. Read the respective module documentation for more details.
+
+
+.. _Ingestion: ingestion.html
+.. _contact us: https://www.searchhub.io/contact-us.html

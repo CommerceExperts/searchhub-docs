@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Direct Integration &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/direct-integration.html" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="REST Service Integration" href="rest-service.html" />
+    <link rel="prev" title="Best Practices" href="best-practices.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+            <a href="index.html" class="icon icon-home"> CXP SearchHub
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="best-practices.html">Best Practices</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Direct Integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#maven-dependency">Maven Dependency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#essential-usage">Essential Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring">Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rest-service.html">REST Service Integration</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Direct Integration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/direct-integration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="direct-integration">
+<h1>Direct Integration<a class="headerlink" href="#direct-integration" title="Permalink to this heading">¶</a></h1>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Java version &gt;= 1.11</p></li>
+<li><p>around 100MB to 500MB additional Java Heapspace (depending on the amount of data to be managed by the service)</p></li>
+<li><p>If using a firewall, please adjust the configuration to allow connections to the following HTTPS Endpoints <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> and <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a></p></li>
+</ul>
+</section>
+<section id="maven-dependency">
+<h2>Maven Dependency<a class="headerlink" href="#maven-dependency" title="Permalink to this heading">¶</a></h2>
+<p>The basic SmartSuggest library is part of the Open-Commerce-Search stack. In order to load the search|hub data, our searchhub-suggest-data-provider must be added to the classpath.
+All related components can be pulled as a maven dependency from our repository <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhub-external/">https://nexus.commerce-experts.com/content/repositories/searchhub-external/</a></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>de.cxp.ocs<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>smartsuggest-lib<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.18.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>io.searchhub<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>searchhub-suggest-data-provider<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>${SMARTSUGGEST_VERSION}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="cm">&lt;!-- ... --&gt;</span>
+
+<span class="nt">&lt;repository&gt;</span>
+    <span class="nt">&lt;id&gt;</span>external-releases<span class="nt">&lt;/id&gt;</span>
+    <span class="nt">&lt;url&gt;</span>https://nexus.commerce-experts.com/content/repositories/searchhub-external/<span class="nt">&lt;/url&gt;</span>
+<span class="nt">&lt;/repository&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="essential-usage">
+<h2>Essential Usage<a class="headerlink" href="#essential-usage" title="Permalink to this heading">¶</a></h2>
+<p>The QuerySuggester is the central object of the smartsuggest library. It is used to fetch the matching suggestions based on the (partial) user input.
+To get access to a QuerySuggester object, a single QuerySuggestManager must be built and maintained as a central reference.
+This is important as the QuerySuggestManager instance takes care of updating the suggest data should the data change.
+It can also be used to shutdown any QuerySuggesters and therefore free related resources.</p>
+<p>A QuerySuggester instance can be accessed from the QuerySuggestManager using an “index name” as a parameter.
+The index name is the full <a class="reference external" href="../glossary.html#tenant">tenant</a> name used at search|hub. For example: “myshop.com”.</p>
+<p>Alternatively you can specify index name to tenant mappings via ENV variable “SH_TENANT_MAPPINGS” or system property “searchhub.tenant_mappings”.
+Their value should be a comma separated list of key value pairs. Example: SH_TENANT_MAPPINGS=”indexname=tenant.name,myshop=myshop.com”</p>
+<p>To load the correct data, the update process must get your searchHub API key, which you will receive during search|hub onboarding.
+This API key must be set either, as environment variable “SH_API_KEY” or, as system property “searchhub.apikey” within the Java environment.</p>
+</section>
+<section id="usage-example">
+<h2>Usage Example<a class="headerlink" href="#usage-example" title="Permalink to this heading">¶</a></h2>
+<p>The javadoc of the <code class="code docutils literal notranslate"><span class="pre">QuerySuggestManager.builder()</span></code> methods tell you more about the available settings.</p>
+<p>The last parameter of type ‘Set’ (where at this example simply ‘Collections.emptySet()’ is passed) is there for filtering suggestions according to their tags.
+However the data from SearchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.</p>
+</section>
+<section id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this heading">¶</a></h2>
+<p>SmartSuggest, optionally, provides internal metrics using the <a class="reference external" href="https://micrometer.io/docs">Micrometer</a> framework. If you’d like to tap into those metrics, simply add the necessary Micrometer connector to your dependencies followed by, your desired MeterRegistry.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c1">// ...</span><span class="w"></span>
+<span class="w"> </span><span class="n">MeterRegistry</span><span class="w"> </span><span class="n">meterRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getYourMeterRegistryInstance</span><span class="p">();</span><span class="w"></span>
+
+<span class="w"> </span><span class="c1">// example: to reveal metrics over JMX create a JmxMeterRegistry</span><span class="w"></span>
+<span class="w"> </span><span class="n">meterRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">JmxMeterRegistry</span><span class="p">(</span><span class="n">JmxConfig</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">Clock</span><span class="p">.</span><span class="na">SYSTEM</span><span class="p">);</span><span class="w"></span>
+
+<span class="w"> </span><span class="c1">// and add it to the QueryMapperManager.builder afterwards</span><span class="w"></span>
+<span class="n">QuerySuggestManager</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w"></span>
+<span class="w">   </span><span class="c1">// ...</span><span class="w"></span>
+<span class="w">   </span><span class="p">.</span><span class="na">addMetricsRegistryAdapter</span><span class="p">(</span><span class="n">MeterRegistryAdapter</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">meterRegistry</span><span class="p">));</span><span class="w"></span>
+<span class="w">   </span><span class="c1">// ...</span><span class="w"></span>
+</pre></div>
+</div>
+<p>You will be able to track the following metrics:</p>
+<dl class="glossary simple">
+<dt id="term-smartsuggest.update.success.count.total">smartsuggest.update.success.count.total<a class="headerlink" href="#term-smartsuggest.update.success.count.total" title="Permalink to this term">¶</a></dt><dd><p>Total number of successful data updates per tenant.
+This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+</dd>
+<dt id="term-smartsuggest.update.fail.count">smartsuggest.update.fail.count<a class="headerlink" href="#term-smartsuggest.update.fail.count" title="Permalink to this term">¶</a></dt><dd><p>Number of successive failed update attempts for a certain tenant. If an update succeeds, this value will be reset to “0”.
+If this value reaches “5”, the respective update process will be stopped and only restarted, if suggestions for the related tenant are requested again.
+This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+</dd>
+<dt id="term-smartsuggest.suggestions.size">smartsuggest.suggestions.size<a class="headerlink" href="#term-smartsuggest.suggestions.size" title="Permalink to this term">¶</a></dt><dd><p>Current number of raw suggestion records per tenant.
+This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+</dd>
+<dt id="term-smartsuggest.suggestions.age.seconds">smartsuggest.suggestions.age.seconds<a class="headerlink" href="#term-smartsuggest.suggestions.age.seconds" title="Permalink to this term">¶</a></dt><dd><p>That is the amount of time passed, since the last successful update took place.
+This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="best-practices.html" class="btn btn-neutral float-left" title="Best Practices" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rest-service.html" class="btn btn-neutral float-right" title="REST Service Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

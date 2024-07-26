@@ -1,0 +1,25 @@
+Module: smartQuery
+==================
+
+smartQuery is a searchHub module that maps similar queries (e.g. "skate board", "skate boarding", "skateboards", "skateboard", "scate burd") to the best [1]_ query - the so-called MasterQuery.
+The smartQuery module automatically connects to the searchHub API to get the required data and to send back statistics and performance information about the module itself and the mapping process.
+
+We recommend following the `best practices`_ to get started with the smartQuery integration into your system.
+
+
+
+.. [1] Additionally, there are  use cases, where we have ambiguous mappings, which result in multiple MasterQueries. In the future, these will receive differentiated handling. It is important to understand that the term "best query" refers to the keyword with most positive outcome in terms of user interaction, as well as, and economic profit.
+.. _best practices: smartquery/best-practices.html
+
+
+
+.. toctree::
+   :maxdepth: 2
+   :glob:
+
+   smartquery/common
+   smartquery/direct-integration
+   smartquery/rest-service
+   smartquery/best-practices
+   smartquery/changelog
+   

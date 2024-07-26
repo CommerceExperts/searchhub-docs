@@ -1,0 +1,236 @@
+REST Service Integration
+========================
+
+In case you can't use the Java library directly (most likely because your system doesn't run on the JVM), you can use the REST-service wrapper for SmartSuggest. It's delivered as a docker image and can run in your environment. (SaaS is also an option, please contact us for more details).
+
+Requirements
+------------
+
+- a minimum of 250MB + more space depending on the amount of data it has to manage
+- the service needs to access the HTTPS Endpoints https://query.searchhub.io/ and https://import.searchhub.io/
+
+
+Start the service
+-----------------
+
+The service is provided as docker image on `docker hub`_ with the name :code:`commerceexperts/searchhub-smartsuggest-service:${SMARTSUGGEST_VERSION}`
+
+The container has to be started with your API key set at the environment variable `SH_API_KEY`. 
+
+It exposes port 8081 that can be mapped to any port.
+
+.. code-block:: bash
+    
+    # use the API key you'll receive from us
+    docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:${SMARTSUGGEST_VERSION}
+
+
+Use the service
+---------------
+
+The service offers two possible endpoints. Both requests are mostly identical and just differ at the version part of the request path. 
+The first endpoint (v1) will return a sophisticated blockwise response and the second (v2) will return a simple list of strings. We recommend using v3 because it already cares about picking the optimal set of queries and exposes extra meta-data.
+
+Keep in mind, that SmartSuggest starts fetching the necessary data, after the first request for a tenant was received. So the first few seconds all requests will return an empty result. A few seconds later you should get mapped queries (if data is available).
+It's possible to lower that startup latency by specifying the tenants using the preloadTenants parameter (SH_INIT_TENANTS), which is described below.
+
+V1 Request
+^^^^^^^^^^
+
+*Deprecated*!
+
+.. code-block:: bash
+
+  http://<host>:<port>/smartsuggest/v1/<tenant-name>/<tenant-channel>?userQuery=<user-query>
+
+**Response**:
+
+.. code-block:: json
+
+  [
+    {
+      "name": "best matches",
+      "suggestions": [
+        "suggestion 1",
+        "suggestion 2",
+        "etc."
+      ]
+    }
+  ]
+
+A block with the name "best matches" is the best case scenario. There are also 3 other kind of blocks, named "typo matches", "fuzzy matches with 1 edit" and "fuzzy matches with 2 edits". In case nothing is found, an empty array is returned.
+It is also possible (depending on settings and user input) that several blocks are delivered. In such a case it's up to the implementor to decide which queries to use for the autosuggestion.
+If there is no need for some special logic, we recommend to use API v2/v3.
+
+
+V2 Request
+^^^^^^^^^^
+
+.. code-block:: bash
+
+  http://<host>:<port>/smartsuggest/v2/<tenant-name>/<tenant-channel>?userQuery=<user-query>
+
+**Response**:
+
+The response is a JSON array with simple strings that can be used as autocompletion result.
+
+.. code-block:: json
+
+  [
+    "suggestion 1",
+    "suggestion 2",
+    "etc."
+  ]
+
+
+V3 Request
+^^^^^^^^^^
+
+.. code-block:: bash
+
+  http://<host>:<port>/smartsuggest/v3/<tenant-name>/<tenant-channel>?userQuery=<user-query>
+
+**Response**:
+
+The response is a JSON array consisting of a complex object that contains an additional payload for every autosuggestion query.
+The payload might contain the following keys:
+
+meta.matchGroupName
+  Corresponds to the name of the v1 response.
+type
+  Currently, the only supported value is *keyword*. However, SmartSuggest can index different data types, e.g. products or categories.
+redirect
+  The redirect URL, configured for the query over the SearchHub-UI. **Optional** omitted if no redirect exists.
+
+.. code-block:: json
+
+  [
+    {
+      "payload": {
+        "meta.matchGroupName": "best matches",
+        "type": "keyword"
+      },
+      "suggestion": "suggestion1"
+    },
+    {
+      "payload": {
+        "meta.matchGroupName": "best matches",
+        "type": "keyword",
+        "redirect": "https://some-redirect-url.com",
+      },
+      "suggestion": "suggestion2"
+    }
+  ]  
+
+All kinds of requests support a "limit" parameter. By default, the limit is set to 10. This parameter will limit the amount of returned suggestions.
+
+
+Configuration
+-------------
+
+Each setting can also be set as system property or environment variable (alternative environment variable names in brakets), however the ones in the suggest.properties file are preferred.
+
+To inject those properties as system-properties, use the JAVA_OPTS environment variable and specify each property prefixed with `-D`, for example
+
+.. code-block:: bash
+
+   -v "$(pwd)/suggest.properties":/app/config/suggest.properties
+
+To inject a properties file into the container, bind it into the container at path :code:`/app/config/suggest.properties`
+
+.. code-block:: bash
+
+  -e JAVA_OPTS="-Dsearchhub.apikey='your-api-key' -Dsuggest.service.max-idle-minutes=90"
+
+
+suggest.server.port
+    | (*SUGGEST_SERVER_PORT*)
+    | System port to start the service inside the container.
+    | Defaults to 8080
+suggest.server.address
+    | (*SUGGEST_SERVER_ADDRESS*)
+    | System address to listen to inside the container.
+    | Defaults to 0.0.0.0
+suggest.service.max-idle-minutes
+    | (*SUGGEST_SERVICE_MAX_IDLE_MINUTES*)
+    | If a suggest index is not requested for that time, it will be unloaded. A new request to that index will return an empty list, but restart the loading of that index.
+    | Defaults to 30
+suggest.update-rate
+    | (*SUGGEST_UPDATE_RATE*)
+    | Defines in seconds, how often the suggest library checks for new data for every loaded index.
+    | Defaults to 60
+suggest.preload-indexes
+    | (*SUGGEST_PRELOAD_INDEXES*, *SH_INIT_TENANTS*)
+    | Comma-separated list of indexes (=SearchHub tenants) that should be initialized at the start of the service.
+searchhub.apikey
+    | (*SH_API_KEY*)
+    | Required API Key to load suggestions from searchHub
+
+
+
+
+
+API KEY
+^^^^^^^
+
+The SearchHub API key can either be set using an environment variable or system property.
+
+.. code-block:: bash
+
+  SH_API_KEY="your-secret-api-key"
+  # or
+  JAVA_OPTS='-Dapikey="your-secret-api-key"'
+
+For legacy support (to use the same naming as SmartQuery) the environment variable 'SQ_API_KEY' works as well.
+
+
+Preload Tenants
+^^^^^^^^^^^^^^^
+
+Specify tenants that should be loaded immediately after initialization.
+Can be set via environment variable as a comma-separated list:
+
+.. code-block:: bash
+
+	SH_INIT_TENANTS="example.num1,example.num2"
+
+For legacy support or to get a better and more explicit naming, this variable can also be named 'SUGGEST_INIT_TENANTS' or 'SQ_INIT_TENANTS'. All those names work in the same way.
+
+
+Idle Unload
+^^^^^^^^^^^
+
+The service might unload a index when it is not used for a certain time (30 minutes by default). When a new request comes in for that tenant, the suggest index will be recreated again with a little warmup time.
+That idle timeout can be changed by setting the time in minutes either using the environment variable :code:`SUGGESTER_MAX_IDLE_MINUTES=90` or the startup parameter :code:`JAVA_OPTS="-Dsuggester.max.idle.minutes=90"`.
+A value of '0' or smaller will disable the unloading mechanic completely and never free up the .
+
+
+Monitoring
+----------
+
+Health/Up Endpoints
+^^^^^^^^^^^^^^^^^^^
+
+For a quick readiness or health check, the endpoints :code:`/up` and :code:`/health` can be used. The :code:`/health` endpoint exposes all loaded tenants. 
+Please note, that using the 'SH_INIT_TENANTS' setting to load tenants on start up, will make those endpoints wait until the named tenants are fully available.
+
+Metrics
+^^^^^^^
+
+There are several metrics that are exposed in the prometheus format through the :code:`/prometheus` endpoint of the service. This endpoint exposes a "status_up 1.0" metrics plus the metrics described in the `monitoring`_ section at the `direct integration`_ docs (in the prometheus format, which practically means underscores instead of dots).
+
+
+Troubleshooting
+----------------
+
+  - If you forgot to specify the API key, the container will stop with the log message
+    `"IllegalArgumentException: no SearchHub API key provided! Either specify ENV var 'SH_API_KEY' or system property 'searchhub.apikey'"`
+  - In case you tried to access an unpermitted tenant/channel (maybe because you specified the wrong API key), you will see such a message in the logs of the service: 
+    `Unauthorized while fetching data for tenant 'foo.bar': [401 Unauthorized]`
+  - To get more information about the internal processes, enable debug log. Do that with the docker startup parameter :code:`-e JAVA_OPTS="-Dlog.searchhub.level=DEBUG"` or for more debug messages additionally :code:`-Dlog.root.level=DEBUG`.
+
+
+.. _direct integration: direct-integration.html
+.. _monitoring: direct-integration.html#monitoring
+.. _docker hub: https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags
+

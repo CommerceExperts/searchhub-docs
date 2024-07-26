@@ -1,0 +1,71 @@
+Best Practices
+==============
+
+In order to aid Product Owners in developing according to agile principles, we have expressed our recommended best practices as user stories. Feel free to copy and paste this to your backlog.
+
+Basic smartQuery Implementation
+-------------------------------
+
+Story
+  As a customer, I want to see search results that are optimized using CXP searchHub (https://docs.searchhub.io/) and which are frequently updated using recent KPI data.
+
+Acceptance criteria
+  - Search phrases are checked/optimized using searchHub's smartQuery Module (https://docs.searchhub.io/module_smartquery.html) before submitting them to the internal search engine
+  - internal systems can access https://query.searchhub.io/ to perform the search phrase check
+  - internal systems can access https://import.searchhub.io/ to send and receive data updates
+
+
+Extended smartQuery Implementation
+----------------------------------
+
+Story
+  As a search-manager, I want to leverage the full potential of searchHub query testing, so that I can compare the performance of different results for the same search intent.
+
+Acceptance criteria
+  - Everything from the *Basic smartQuery Implementation*
+  - The value of the cookie :code:`SearchCollectorSession` is passed to smartQuery
+  - For search queries from a cluster with queries under test, I want to see different search results at different sessions
+
+
+Query Correction Feedback
+-------------------------
+
+Story
+  As a customer, I want to see the corrected query and retain have the opportunity to search for my inserted query instead.
+
+Acceptance criteria
+  - If a mapping took place, display a text about the corrected query
+  - Additionally, I want the system to add a link that enables the user to search for the original query instead. 
+  - When clicking the above mentioned link, no mapping should take place.
+
+Technical hint
+  - You can use the `bypass`_ feature of smartQuery by wrapping the query into quotes. Passing that query will not do any mapping but, rather, remove the quotes again.
+  - In the event the `direct integration`_ is implemented, the util function `io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder` can be used to avoid displaying the query correction feedback resulting from the query consisting of the same words.
+
+
+Potential correction alternatives
+---------------------------------
+
+Story
+  As a user, I expect to view alternative versions of my misspelled query if it cannot be automatically corrected via direct mapping. 
+
+Acceptance Criteria
+  - If no automatic correction is made, show a text suggesting alternative potential corrections ("Did you mean…").
+  - The suggested queries should be clickable and replace the current user query when clicked.
+
+Technical Guidance
+  Each mapping includes the 'potentialCorrections' property, which is an array containing one or two query strings.
+
+
+searchHub Redirects
+-------------------
+
+Story
+  As a search manager, I want users to be redirected to landing pages for certain queries according to the configuration within searchHub.
+
+Acceptance criteria
+  - The usage of queries, that are configured for a redirect, should lead to the configured landing page / URL.
+
+
+.. _bypass: common.html
+.. _direct integration: direct-integration.html
