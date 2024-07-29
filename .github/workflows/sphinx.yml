@@ -15,14 +15,14 @@ jobs:
         repository: CommerceExperts/smartquery
         releases-only: false  # This repository doesn't use GitHub's "release" feature.
         prefix: 'v'           # only with prefix v
-        token: "${{ secrets.PERSONAL_TOKEN }}"
+        token: "${{ secrets.CXP_MODULE_ACCESS}}"
     - uses: oprypin/find-latest-tag@v1
       id: smartsuggest_version
       with:
         repository: CommerceExperts/smartsuggest
         releases-only: false  # This repository doesn't use GitHub's "release" feature.
         # no prefix here
-        token: "${{ secrets.PERSONAL_TOKEN }}"
+        token: "${{ secrets.CXP_MODULE_ACCESS}}"
     - uses: jacobtomlinson/gha-find-replace@v3
       with:
         find: "${SMARTQUERY_VERSION}"
