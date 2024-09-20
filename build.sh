@@ -61,7 +61,7 @@ substModuleVersions _build/html .html
 
 # - special case to make 404 page work for all missing links
 if [ -e "_build/html/404.html" ]; then
-	sed -i 's#<head>#<head>\n  <base href="/searchhub-docs/">\n#' _build/html/404.html
+	sed -i 's#<head>#<head>\n  <base href="/">\n#' _build/html/404.html
 else
 	find _build/ -name 404.html -print0 | xargs -0 -L1 sed -i 's#<head>#<head>\n  <base href="/searchhub-docs/">\n#'
 fi
