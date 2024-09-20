@@ -17,7 +17,6 @@ publish() {
 
 substModuleVersions() {
     dir="$1"
-    type="$2"
     modules=(smartquery smartsuggest)
     for module in ${modules[*]};
     do
@@ -25,7 +24,7 @@ substModuleVersions() {
         TAG="$(getLatestTag "$module")"
         VERSION="${TAG/v/}"
         declare -x $(echo "$module" | tr '[:lower:]' '[:upper:]')_VERSION="$VERSION"
-        find "$dir/$module"/ -name '*'"$type" | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst > "$file"; rm "$file.orig"; done
+        find "$dir/$module"/ -type f | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst > "$file"; rm "$file.orig"; done
 
     done
 }
@@ -57,7 +56,7 @@ sudo -n chown -R "$(whoami)": _build/
 
 echo -n "docs.searchhub.io" > _build/html/CNAME
 # - replace placeholders, like version numbers etc:
-substModuleVersions _build/html .html
+substModuleVersions _build/html
 
 # - special case to make 404 page work for all missing links
 if [ -e "_build/html/404.html" ]; then
