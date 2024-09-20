@@ -56,7 +56,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#start-the-service">Start the service</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#using-the-service">Using the service</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#service-endpoint-v1">Service Endpoint V1</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#service-endpoint-v2">Service Endpoint V2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#service-endpoint-v2-recommended">Service Endpoint V2 (Recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integration-with-sessionid">Integration with sessionID</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a><ul>
@@ -115,12 +116,12 @@
 </section>
 <section id="start-the-service">
 <h2>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this heading">¶</a></h2>
-<p>The service is provided as a docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal notranslate"><span class="pre">commerceexperts/smartquery-service:2.2.0</span></code></p>
+<p>The service is provided as a docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/smartquery-service/tags">docker hub</a> with the name <code class="code docutils literal notranslate"><span class="pre">commerceexperts/smartquery-service:2.3.0</span></code></p>
 <p>The container must be initiated with your API key set to the environment variable <cite>SH_API_KEY</cite> (for legacy support <cite>SQ_API_KEY</cite> is also accepted).
 The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the <a class="reference internal" href="#requirements">Requirements</a> section.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># use the API key we provide</span>
-docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:2.2.0
+docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:2.3.0
 </pre></div>
 </div>
 </div></blockquote>
@@ -133,6 +134,13 @@ docker run -d --name<span class="o">=</span>smartquery-service -e <span class="n
 <dl>
 <dt>URL Scheme:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">http://&lt;host&gt;:&lt;port&gt;/smartquery/v1/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery=&lt;user-query&gt;</span></code></p>
 </dd>
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p>tenant-name (path): the first part of the tenant provided by searchHub</p></li>
+<li><p>tenant-channel (path): the second part of the tenant provided by searchHub</p></li>
+<li><p>userQuery (query): the text the user entered in the search box</p></li>
+<li><p>sessionId (query): optional parameter that MUST contain the value of the SearchCollectorSession (see details below)</p></li>
+</ul>
+</dd>
 <dt>Example:</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl localhost:10240/smartquery/v1/test/working?userQuery<span class="o">=</span>bierzellt -o -
 <span class="c1"># returns &#39;bierzelt&#39; on success</span>
 <span class="c1"># returns &#39;bierzellt&#39; if no mapping was found or no data is available</span>
@@ -144,10 +152,17 @@ docker run -d --name<span class="o">=</span>smartquery-service -e <span class="n
 <p>Keep in mind, smartQuery starts fetching mapping data, after the initial request for a specific tenant is received. As a result, for the first ~5 seconds all mappings will return the input query, due to mapping data having not yet been fetched. You should begin receiving mapped queries within a few seconds - provided data is available.</p>
 <p>Alternatively, it’s possible to remove the aforementioned startup latency by specifying the desired tenants by invoking the <cite>preloadTenants</cite> parameter outlined below. This variation will make the service available as soon as the mappings have been loaded.</p>
 </section>
-<section id="service-endpoint-v2">
-<h3>Service Endpoint V2<a class="headerlink" href="#service-endpoint-v2" title="Permalink to this heading">¶</a></h3>
+<section id="service-endpoint-v2-recommended">
+<h3>Service Endpoint V2 (Recommended)<a class="headerlink" href="#service-endpoint-v2-recommended" title="Permalink to this heading">¶</a></h3>
 <dl>
 <dt>URL Scheme:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">http://&lt;host&gt;:&lt;port&gt;/smartquery/v2/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery=&lt;user-query&gt;</span></code></p>
+</dd>
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p>tenant-name (path): the first part of the tenant provided by searchHub</p></li>
+<li><p>tenant-channel (path): the second part of the tenant provided by searchHub</p></li>
+<li><p>userQuery (query): the text the user entered in the search box</p></li>
+<li><p>sessionId (query): optional parameter that MUST contain the value of the SearchCollectorSession (see details below)</p></li>
+</ul>
 </dd>
 <dt>Example:</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl localhost:10240/smartquery/v2/test/working?userQuery<span class="o">=</span>jakce -o -
 <span class="c1"># returns:</span>
@@ -171,9 +186,15 @@ docker run -d --name<span class="o">=</span>smartquery-service -e <span class="n
 <li><p><strong>searchQuery</strong>: the final search query. This is the master or the user query.</p></li>
 <li><p><strong>redirect</strong>: URL to a landing page or null if no redirect is configured.</p></li>
 <li><p><strong>successful</strong>: <cite>true</cite> if the query could be handled by smartQuery</p></li>
-<li><p><strong>potentialCorrections</strong>: an optional array of 1 or more queries that could be a correction to the given query. This is only given if no reliable masterQuery could be found.</p></li>
+<li><p><strong>potentialCorrections</strong>: an optional array of 1 or 2 queries that could be a correction to the given query. Only in case no reliable masterQuery could be found.</p></li>
 </ul>
 </div></blockquote>
+</section>
+<section id="integration-with-sessionid">
+<h3>Integration with sessionID<a class="headerlink" href="#integration-with-sessionid" title="Permalink to this heading">¶</a></h3>
+<p>If the <a class="reference external" href="search-collector.html">search collector</a> is integrated into your system’s frontend, it’s advisable to pass the corresponding sessionId to smartQuery. This sessionId helps ensure that search traffic for queries under testing is evenly distributed across both versions. Without the sessionId, the reliability and accuracy of these tests is significantly reduced.</p>
+<p>For implementation, the value of the <code class="code docutils literal notranslate"><span class="pre">SearchCollectorSession</span></code> cookie <em>MUST</em> be used and passed with the ‘sessionId’ parameter. Using a different value may result in unexpected behavior. If the <code class="code docutils literal notranslate"><span class="pre">SearchCollectorSession</span></code> cookie is missing or not available for a request, the ‘sessionId’ parameter should not be set.</p>
+<p>More information about this extended integration in the <a class="reference external" href="best-practice.html">best practice</a> section.</p>
 </section>
 </section>
 <section id="configuration">

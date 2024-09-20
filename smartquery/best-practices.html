@@ -54,6 +54,7 @@
 <li class="toctree-l2"><a class="reference internal" href="rest-service.html">REST Service Integration</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Best Practices</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#basic-smartquery-implementation">Basic smartQuery Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extended-smartquery-implementation">Extended smartQuery Implementation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#query-correction-feedback">Query Correction Feedback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#potential-correction-alternatives">Potential correction alternatives</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#searchhub-redirects">searchHub Redirects</a></li>
@@ -93,16 +94,34 @@
              
   <section id="best-practices">
 <h1>Best Practices<a class="headerlink" href="#best-practices" title="Permalink to this heading">¶</a></h1>
-<p>In order to aid Product Owners in developing according to agile principles, we have expressed our recommended best practices as user stories. Feel free to copy and paste this to your backlog.</p>
+<p>To aid Product Owners in developing according to agile principles, we have expressed our recommended best practices as user stories. You are welcome to copy and paste this into your backlog.</p>
 <section id="basic-smartquery-implementation">
 <h2>Basic smartQuery Implementation<a class="headerlink" href="#basic-smartquery-implementation" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
 <dt>Story</dt><dd><p>As a customer, I want to see search results that are optimized using CXP searchHub (<a class="reference external" href="https://docs.searchhub.io/">https://docs.searchhub.io/</a>) and which are frequently updated using recent KPI data.</p>
 </dd>
 <dt>Acceptance criteria</dt><dd><ul class="simple">
-<li><p>Search phrases are checked/optimized using searchHub’s smartQuery Module (<a class="reference external" href="https://docs.searchhub.io/module_smartquery.html">https://docs.searchhub.io/module_smartquery.html</a>) before submitting them to the internal search engine</p></li>
+<li><p>Search phrases are checked/optimized using searchHub’s smartQuery Module (<a class="reference external" href="https://docs.searchhub.io/module_smartquery.html">https://docs.searchhub.io/module_smartquery.html</a>) before being submitted to the internal search engine</p></li>
 <li><p>internal systems can access <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> to perform the search phrase check</p></li>
 <li><p>internal systems can access <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a> to send and receive data updates</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="extended-smartquery-implementation">
+<h2>Extended smartQuery Implementation<a class="headerlink" href="#extended-smartquery-implementation" title="Permalink to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Story</dt><dd><p>As a search-manager, I want to leverage the full potential of searchHub query testing, so that I can compare the performance of different results for the same search intent.</p>
+</dd>
+<dt>Acceptance criteria</dt><dd><ul class="simple">
+<li><p>Everything from the <em>Basic smartQuery Implementation</em></p></li>
+<li><p>The value of the cookie <code class="code docutils literal notranslate"><span class="pre">SearchCollectorSession</span></code> is passed to smartQuery</p></li>
+<li><p>For search queries being tested, I want to see varying search results across different sessions.</p></li>
+</ul>
+</dd>
+<dt>Technical hint</dt><dd><ul class="simple">
+<li><p>smartQuery::getMapping has a parameter ‘sessionId’ that has to be set for the extended implementation to work.
+When provided, it allows certain queries to return different mapped queries based on the sessionId. This behavior occurs only for queries within a test cluster, where two queries are part of the same query-testing experiment. These experiments can be viewed in the searchHub UI under “Query Testing.”</p></li>
 </ul>
 </dd>
 </dl>
@@ -110,17 +129,17 @@
 <section id="query-correction-feedback">
 <h2>Query Correction Feedback<a class="headerlink" href="#query-correction-feedback" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
-<dt>Story</dt><dd><p>As a customer, I want to see the corrected query and retain have the opportunity to search for my inserted query instead.</p>
+<dt>Story</dt><dd><p>As a customer, I want to see the corrected query but also have the option to search using my original input (instead-search-for).</p>
 </dd>
 <dt>Acceptance criteria</dt><dd><ul class="simple">
-<li><p>If a mapping took place, display a text about the corrected query</p></li>
-<li><p>Additionally, I want the system to add a link that enables the user to search for the original query instead.</p></li>
-<li><p>When clicking the above mentioned link, no mapping should take place.</p></li>
+<li><p>If query mapping occurs, a message should be displayed indicating the corrected query.</p></li>
+<li><p>Additionally, there should be a link allowing the user to search for their original query.</p></li>
+<li><p>When the link is clicked, the original query should be used without any mapping.</p></li>
 </ul>
 </dd>
 <dt>Technical hint</dt><dd><ul class="simple">
-<li><p>You can use the <a class="reference external" href="common.html">bypass</a> feature of smartQuery by wrapping the query into quotes. Passing that query will not do any mapping but, rather, remove the quotes again.</p></li>
-<li><p>In the event the <a class="reference external" href="direct-integration.html">direct integration</a> is implemented, the util function <cite>io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder</cite> can be used to avoid displaying the query correction feedback resulting from the query consisting of the same words.</p></li>
+<li><p>You can utilize the <a class="reference external" href="common.html">bypass</a> feature of smartQuery by wrapping the query in quotes. This prevents mapping, and, upon submission, the quotes will be removed.</p></li>
+<li><p>If a <a class="reference external" href="direct-integration.html">direct integration</a> is implemented, the utility function <cite>io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder</cite> can be used to prevent query correction feedback when the original and corrected queries contain the same words in a different order.</p></li>
 </ul>
 </dd>
 </dl>
@@ -128,24 +147,24 @@
 <section id="potential-correction-alternatives">
 <h2>Potential correction alternatives<a class="headerlink" href="#potential-correction-alternatives" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
-<dt>Story</dt><dd><p>As a user, I expect to view alternative versions of my misspelled query if it cannot be automatically corrected via direct mapping.</p>
+<dt>Story</dt><dd><p>As a user, I want to see alternative versions of my misspelled query if it cannot be confidently corrected automatically through direct mapping.</p>
 </dd>
 <dt>Acceptance Criteria</dt><dd><ul class="simple">
-<li><p>If no automatic correction is made, show a text suggesting alternative potential corrections (“Did you mean…”).</p></li>
-<li><p>The suggested queries should be clickable and replace the current user query when clicked.</p></li>
+<li><p>If no automatic correction is applied, display a suggestion for alternative corrections (e.g., “Did you mean…”).</p></li>
+<li><p>The suggested queries should be clickable, allowing them to replace the current query when selected.</p></li>
 </ul>
 </dd>
-<dt>Technical Guidance</dt><dd><p>Each mapping includes the ‘potentialCorrections’ property, which is an array containing one or two query strings.</p>
+<dt>Technical Guidance</dt><dd><p>If no reliable masterQuery could be found, the mapping includes a ‘potentialCorrections’ property, which is an array containing one or two query suggestions.</p>
 </dd>
 </dl>
 </section>
 <section id="searchhub-redirects">
 <h2>searchHub Redirects<a class="headerlink" href="#searchhub-redirects" title="Permalink to this heading">¶</a></h2>
 <dl class="simple">
-<dt>Story</dt><dd><p>As a search manager, I want users to be redirected to landing pages for certain queries according to the configuration within searchHub.</p>
+<dt>Story</dt><dd><p>As a search manager, I want users to be redirected to specific landing pages for certain queries based on the configurations set within searchHub.</p>
 </dd>
 <dt>Acceptance criteria</dt><dd><ul class="simple">
-<li><p>The usage of queries, that are configured for a redirect, should lead to the configured landing page / URL.</p></li>
+<li><p>When a query is configured for a redirect, users should be directed to the corresponding landing page or URL.</p></li>
 </ul>
 </dd>
 </dl>
