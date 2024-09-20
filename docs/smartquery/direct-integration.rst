@@ -56,12 +56,31 @@ QueryMapperManager
 
     A non-existing tenant won't cause an error but simply return a QueryMapper which always returns `null`.
 
+QueryMapping
+  The object returned by the QueryMapper contains all information to change the search result. The main focus is to change the natural query that is processed by the search engine.
+  That's the so-called 'masterQuery'. In case there is not master query, the original user query should be used for search. To avoid null-checks, the 'getSearchQuery' method can
+  be used, as it does that internally and will always return the correct one.
+
+  However there are also optional properties in the response that should influence the search process:
+
+  - **redirect**: URL to a landing page. If given, the search process can be stopped and the user can be redirected to the according URL.
+  - **potentialCorrections**: An optional array of 1 or 2 queries that could be a correction to the given query. They are given in case no reliable masterQuery could be found
+    and should be shown to the user as possible alternative queries. More information in the `best practices story about potential corrections`_
+  - **relatedQueries**: An optional list of queries that are related to the user input. They can be used as inspiring queries next to the search result.
+  - **resultModifications**: A list of instructions with 4 different types, about how the result should be modified. With each type comes a list of IDs that are addressed with the
+    according modification:
+    - Add: those given IDs should be added to the result at any position so they can be found through scrolling, filtering or sorting.
+    - Remove: the products with those IDs should be removed from the result in case they are present. This should happen during result creation in order to show correct facet filters.
+    - Pin: The given product IDs should be added to the result and moved to the very top of the result.
+    - Penalize: Those specified products should get a score penalty so they vanish to the end of the according result.
 
 .. note::
     The API Key and the preload tenants are automatically populated with the same environment variables as the REST-service:
     If the environment variable `SH_API_KEY` is available, the API Key is set to it. Same for `SH_INIT_TENANTS` that adds tenants to the list of preloaded tenants.
 
 .. [3] We will provide you with a personal API Key.
+
+
 
 
 Usage Example
@@ -184,3 +203,4 @@ Subsequently, you will be able to track the following metrics:
 .. _Micrometer: https://micrometer.io/docs
 .. _search collector: search-collector.html
 .. _best practices: best-practices.html
+.. _best practices story about potential corrections : best-practices.html#potential-correction-alternatives
