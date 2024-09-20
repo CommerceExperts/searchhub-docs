@@ -13,17 +13,20 @@ publish() {
     git add --all .
     git commit -m "Update docs with build $BUILD_ID" && git push -u origin master || echo "no changes"
 }
+substModuleVersions() {
+    dir="$1"
+    type="$2"
+    modules=(smartquery smartsuggest)
+    for module in ${modules[*]};
+    do
+        # variable substitution
+        TAG="$(getLatestTag "$module")"
+        VERSION="${TAG/v/}"
+        declare -x $(echo "$module" | tr '[:lower:]' '[:upper:]')_VERSION="$VERSION"
+        find "$dir/$module"/ -name '*'"$type" | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst > "$file"; rm "$file.orig"; done
 
-modules=(smartquery smartsuggest)
-for module in ${modules[*]};
-do
-	# variable substitution
-    TAG="$(getLatestTag "$module")"
-	VERSION="${TAG/v/}"
-	declare -x $(echo "$module" | tr '[:lower:]' '[:upper:]')_VERSION="$VERSION"
-	find docs/"$module"/ -name '*rst' | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst > "$file"; rm "$file.orig"; done
-
-done
+    done
+}
 
 # build
 cd docs/
@@ -46,7 +49,11 @@ docker run --rm -u root -v "$(pwd)":/docs 399621189843.dkr.ecr.eu-central-1.amaz
 if [ "$?" -ne 0 ]; then echo "could not generate docs"; exit 1; fi
 sudo -n chown -R "$(whoami)": _build/
 
-# special case to make 404 page work for all missing links
+# fix final docs:
+# 1. replace placeholders, like version numbers etc:
+substModuleVersions _build/html .html
+
+# 2: special case to make 404 page work for all missing links
 if [ -e "_build/html/404.html" ]; then
 	sed -i 's#<head>#<head>\n  <base href="/searchhub-docs/">\n#' _build/html/404.html
 else
