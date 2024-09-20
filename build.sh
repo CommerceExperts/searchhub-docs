@@ -8,11 +8,13 @@ getLatestTag() {
         | tail --lines=1 \
         | cut --delimiter='/' --fields=3
 }
+
 publish() {
     cd _build/html/
     git add --all .
     git commit -m "Update docs with build $BUILD_ID" && git push -u origin master || echo "no changes"
 }
+
 substModuleVersions() {
     dir="$1"
     type="$2"
@@ -36,10 +38,9 @@ sudo -n chown -R "$(whoami)": _build/
 rm -rf _build/html
 mkdir -p _build/html
 
+# the very same repository, just a different branch is checkoud in this subdirectory
 git clone -v git@github.com:CommerceExperts/searchhub-docs.git _build/html
 
-# remove potential old files from public repo that wont be generated anymore
-echo -n "docs.searchhub.io" > _build/html/CNAME
 
 # docker login
 AWS_CMD="$(which aws || echo "$HOME/.local/bin/aws")"
@@ -50,16 +51,20 @@ if [ "$?" -ne 0 ]; then echo "could not generate docs"; exit 1; fi
 sudo -n chown -R "$(whoami)": _build/
 
 # fix final docs:
-# 1. replace placeholders, like version numbers etc:
+# - add CNAME files
+
+echo -n "docs.searchhub.io" > _build/html/CNAME
+# - replace placeholders, like version numbers etc:
 substModuleVersions _build/html .html
 
-# 2: special case to make 404 page work for all missing links
+# - special case to make 404 page work for all missing links
 if [ -e "_build/html/404.html" ]; then
 	sed -i 's#<head>#<head>\n  <base href="/searchhub-docs/">\n#' _build/html/404.html
 else
 	find _build/ -name 404.html -print0 | xargs -0 -L1 sed -i 's#<head>#<head>\n  <base href="/searchhub-docs/">\n#'
 fi
 
+# publish if requested
 if [[ "$1" == "publish" ]]; then
     publish
 fi
