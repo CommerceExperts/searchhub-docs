@@ -69,6 +69,8 @@ Usage Example
             qsm = QuerySuggestManager.builder()
                     // required for lucene where it puts the index files
                     .indexFolder(Files.createTempDirectory("smartsuggest"))
+                    // force synchronous indexation (optional)
+                    .preloadIndexes("example")
                     // the builder also has other options
                     .build();
         }
