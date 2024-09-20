@@ -67,28 +67,47 @@ Parameters:
     - userQuery (query): the text the user entered in the search box
     - sessionId (query): optional parameter that MUST contain the value of the SearchCollectorSession (see details below)
 
-Example:
-  .. code-block:: bash
-
-     curl localhost:10240/smartquery/v2/test/working?userQuery=jakce -o -
-     # returns: 
-     {
-       "userQuery":"jakce",
-       "masterQuery":"jacke",
-       "searchQuery":"jacke",
-       "redirect":null,
-       "successful":true,
-       "potentialCorrections": null
-     }
+Response:
 
 The response is an object that contains the following properties:
 
   - **userQuery**: the entered user query
   - **masterQuery**: if the query could be mapped, the master query is set, otherwise it's null.
   - **searchQuery**: the final search query. This is the master or the user query.
-  - **redirect**: URL to a landing page or null if no redirect is configured.
   - **successful**: `true` if the query could be handled by smartQuery
+  - **redirect**: URL to a landing page or null if no redirect is configured.
   - **potentialCorrections**: an optional array of 1 or 2 queries that could be a correction to the given query. Only in case no reliable masterQuery could be found.
+  - **relatedQueries**: An optional list of queries that are related to the user input. They can be used as inspiring queries next to the search result.
+  - **resultModifications**: 4 types of instructions, about how the result should be modified. With each type comes a list of IDs that are addressed with the according modification.
+
+Example:
+
+This example shows the full response with all values set, even if you won't encounter such a response in reality. Normally only one of 'redirect', 'potentialCorrections', 'relatedQueries' or 'resultModifications' is set and the others are :code:`null`. So please do null-checks for those values.
+
+  .. code-block:: bash
+
+     curl localhost:10240/smartquery/v2/test/working?userQuery=jakce -o -
+     # returns: 
+     {
+       "userQuery": "lether jakce",
+       "masterQuery": "leather jacket",
+       "searchQuery": "leather jacket",
+       "successful":true,
+       "redirect": "http://www.your-shop.com/category/jackets/?material=leather",
+       "potentialCorrections": ["jacket", "jack"],
+       "relatedQueries": [
+           {"query": "black leather jacket", "relation": "sharpened"},
+           {"query": "jacket", "relation": "relaxed"},
+           {"query": "leather west", "relation": "synonym"}
+       ],
+       "resultModifications": [
+           {"modificationType": "Pin", "ids": ["12405", "19032", "03857"]},
+           {"modificationType": "Add", "ids": ["21453", "02857"]},
+           {"modificationType": "Penalize", "ids": ["12857", "093273"]},
+           {"modificationType": "Remove", "ids": ["12001"]}
+       ]
+     }
+
 
 
 Integration with sessionID

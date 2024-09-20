@@ -122,6 +122,7 @@ If the :code:`SearchCollectorSession` cookie does not exist or is not provided f
 More information about this extended integration is in the `best practices`_ section.
 
 
+
 Monitoring
 ----------
 
