@@ -9,10 +9,11 @@ getLatestTag() {
         | cut --delimiter='/' --fields=3
 }
 
+TARGET_BRANCH="gh-pages"
 publish() {
     cd _build/html/
     git add --all .
-    git commit -m "Update docs with build $BUILD_ID" && git push -u origin master || echo "no changes"
+    git commit -m "Update docs with build $BUILD_ID" && git push -u origin "$TARGET_BRANCH" || echo "no changes"
 }
 
 substModuleVersions() {
@@ -39,7 +40,7 @@ resetBuildDir() {
     mkdir -p _build/html
 
     # the very same repository, just a different branch is checkoud in this subdirectory
-    git clone --depth 1 --single-branch --branch=master -v git@github.com:CommerceExperts/searchhub-docs.git _build/html
+    git clone --depth 1 --single-branch --branch="$TARGET_BRANCH" -v git@github.com:CommerceExperts/searchhub-docs.git _build/html
 }
 resetBuildDir
 
