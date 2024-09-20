@@ -13,7 +13,7 @@ Requirements
 Start the service
 -----------------
 
-The service is provided as a docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:${SMARTQUERY_VERSION}`
+The service is provided as a docker image on `docker hub`_ with the name :code:`commerceexperts/smartquery-service:2.3.0`
     
 The container must be initiated with your API key set to the environment variable `SH_API_KEY` (for legacy support `SQ_API_KEY` is also accepted).
 The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the Requirements_ section.
@@ -21,7 +21,7 @@ The container exposes port 8081 which can be mapped to any port. Please consider
   .. code-block:: bash
 
     # use the API key we provide
-    docker run -d --name=smartquery-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:${SMARTQUERY_VERSION}
+    docker run -d --name=smartquery-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:2.3.0
 
     
 Using the service
@@ -55,8 +55,8 @@ Keep in mind, smartQuery starts fetching mapping data, after the initial request
 Alternatively, it's possible to remove the aforementioned startup latency by specifying the desired tenants by invoking the `preloadTenants` parameter outlined below. This variation will make the service available as soon as the mappings have been loaded.
 
 
-Service Endpoint V2
-^^^^^^^^^^^^^^^^^^^
+Service Endpoint V2 (Recommended)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 URL Scheme:
   ``http://<host>:<port>/smartquery/v2/<tenant-name>/<tenant-channel>?userQuery=<user-query>``
@@ -88,17 +88,18 @@ The response is an object that contains the following properties:
   - **searchQuery**: the final search query. This is the master or the user query.
   - **redirect**: URL to a landing page or null if no redirect is configured.
   - **successful**: `true` if the query could be handled by smartQuery
-  - **potentialCorrections**: an optional array of 1 or more queries that could be a correction to the given query. This is only given if no reliable masterQuery could be found.
+  - **potentialCorrections**: an optional array of 1 or 2 queries that could be a correction to the given query. Only in case no reliable masterQuery could be found.
+
 
 Integration with sessionID
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If the `search collector`_ is integrated into the frontend of your system, it is recommended to pass the corresponding sessionId to smartQuery.
-This sessionId is used for clusters with queries under test to distribute the search traffic evenly between both queries.
-Without the sessionId, the informative value and success rate of these tests are lower.
+If the `search collector`_ is integrated into your system's frontend, it's advisable to pass the corresponding sessionId to smartQuery. This sessionId helps ensure that search traffic for queries under testing is evenly distributed across both versions. Without the sessionId, the reliability and accuracy of these tests is significantly reduced.
 
-For implementation, the value of the :code:`SearchCollectorSession` cookie *MUST* be used and passed with the 'sessionId' parameter. Using a different will lead to unexpected results.
-If the :code:`SearchCollectorSession` cookie does not exist or is not provided for a request, don't set the 'sessionId' parameter at all.
+For implementation, the value of the :code:`SearchCollectorSession` cookie *MUST* be used and passed with the 'sessionId' parameter. Using a different value may result in unexpected behavior. If the :code:`SearchCollectorSession` cookie is missing or not available for a request, the 'sessionId' parameter should not be set.
+
+More information about this extended integration in the `best practice`_ section.
+
 
 Configuration
 -------------
@@ -198,3 +199,4 @@ Troubleshooting
 .. _Spring Boot 2 Monitoring Reference: https://docs.spring.io/spring-boot/docs/2.1.17.RELEASE/reference/html/production-ready-monitoring.html
 .. _Spring Boot 2 web server configuration: https://docs.spring.io/spring-boot/docs/2.1.17.RELEASE/reference/html/howto-embedded-web-servers.html#howto-change-the-http-port
 .. _search collector: search-collector.html
+.. _best practice: best-practice.html
