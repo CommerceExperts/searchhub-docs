@@ -119,7 +119,7 @@ Without the sessionId, the informative value and success rate of these tests are
 For implementation, the value of the :code:`SearchCollectorSession` cookie *MUST* be used. Using a different sessionId will lead to unexpected results.
 If the :code:`SearchCollectorSession` cookie does not exist or is not provided for a request, pass 'null' instead.
 
-More information about this extended integration is in the `best practice`_ section.
+More information about this extended integration is in the `best practices`_ section.
 
 
 Monitoring
@@ -182,4 +182,4 @@ Subsequently, you will be able to track the following metrics:
 .. _tenant: ../glossary.html#tenant
 .. _Micrometer: https://micrometer.io/docs
 .. _search collector: search-collector.html
-.. _best practice: best-practice.html
+.. _best practices: best-practices.html
