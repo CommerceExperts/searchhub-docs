@@ -56,7 +56,7 @@ This API key must be set either, as environment variable "SH_API_KEY" or, as sys
 Usage Example
 -------------
 
-  .. code-block:: java
+.. code-block:: java
 
     static QuerySuggestManager qsm;
     static {
@@ -109,6 +109,7 @@ When building a QuerySuggestManager - the central object that build and holds th
 there are several options that can be set to change the default behaviour:
 
 .. code-block:: java
+
     QuerySuggestManager querySuggestManager = QuerySuggestManager.builder()
 
         /**
@@ -188,7 +189,7 @@ implementation SuggestServiceProperties is used)
 
     - maxSharpenedQueries (suggest.max-sharpened-queries): Defines the limit of returned sharpened queries.
       Sharpened queries are queries that are injected directly (without requesting a Lucene index) from a hash-map if
-	  the input query matches one of the existing entries.
+      the input query matches one of the existing entries.
       This limit is only considered if there are more sharpened queries than defined by that limit.
 
     - isIndexConcurrently (suggest.concurrent-indexation): If set to false, the indexation of the received data will be done sequentially.
@@ -200,7 +201,7 @@ implementation SuggestServiceProperties is used)
 
     - groupKey (suggest.group.key): With this setting it is possible to specify a key that is available in the payload of all provided suggestions.
       The final result list will then be grouped by this payload-value and truncated according to the provided group configs.
-	  It's recommended to use setGroupConfig as well, otherwise the default limiter will be used after grouping.
+      It's recommended to use setGroupConfig as well, otherwise the default limiter will be used after grouping.
 
     - groupConfig (either 'suggest.group.share-conf' or 'suggest.group.cutoff-conf' if relative or absolute values should be used):
       An ordered list of string-integer tuples. Each string refers to a value of the group-key.
@@ -217,8 +218,8 @@ implementation SuggestServiceProperties is used)
       This only works, if the suggest service is configured with a grouping key.
 
     - prefetchLimitFactor (suggest.group.prefetch-limit-factor): If grouping and limiting is configured by a key that comes from a single or merged data-provider, then this value
-	  can be used to increase the internal amount of fetched suggestions.
-	  This is usable to increase the likeliness to get the desired group counts.
+      can be used to increase the internal amount of fetched suggestions.
+      This is usable to increase the likeliness to get the desired group counts.
 
 
 Adding Custom Data
@@ -243,34 +244,35 @@ When loading data, the :code:`SuggestDataProvider` implementation needs to produ
 big :code:`SuggestData` object. Here an example what goes into that DTO:
 
 .. code-block:: java
-   		SuggestData suggestDTO = SuggestData.builder()
 
-				/**
-				 * the type will be attached to every suggestion coming from this data provider
-				 **/
-				.type("product")
+        SuggestData suggestDTO = SuggestData.builder()
 
-				/**
-				 * the locale is used for several normalisation during index time are done
-				 **/
-				.locale(Locale.GERMAN)
+                /**
+                 * the type will be attached to every suggestion coming from this data provider
+                 **/
+                .type("product")
 
-				/**
-				 * this is where the actual suggest records are loaded and passed to the DTO
-				 **/
-				.suggestRecords(loadSuggestions())
+                /**
+                 * the locale is used for several normalisation during index time are done
+                 **/
+                .locale(Locale.GERMAN)
 
-				/**
-				 * The same timestamp has to be set here, as returned by `getLastDataModTime(String indexName)`
-				 **/
-				.modificationTime(getModificationTime())
+                /**
+                 * this is where the actual suggest records are loaded and passed to the DTO
+                 **/
+                .suggestRecords(loadSuggestions())
 
-				/**
-				 * If available, it's also possible to add stop-words that will be ignored during indexing.
-				 **/
-				.wordsToIgnore(Set.of("this", "that"))
+                /**
+                 * The same timestamp has to be set here, as returned by `getLastDataModTime(String indexName)`
+                 **/
+                .modificationTime(getModificationTime())
 
-				.build();
+                /**
+                 * If available, it's also possible to add stop-words that will be ignored during indexing.
+                 **/
+                .wordsToIgnore(Set.of("this", "that"))
+
+                .build();
 
 Monitoring
 ----------
