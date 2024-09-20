@@ -33,14 +33,16 @@ substModuleVersions() {
 # build
 cd docs/
 
-# clear potential old build
-sudo -n chown -R "$(whoami)": _build/
-rm -rf _build/html
-mkdir -p _build/html
+resetBuildDir() {
+    # clear potential old build
+    sudo -n chown -R "$(whoami)": _build/
+    rm -rf _build/html
+    mkdir -p _build/html
 
-# the very same repository, just a different branch is checkoud in this subdirectory
-git clone --depth 1 --single-branch --branch=master -v git@github.com:CommerceExperts/searchhub-docs.git _build/html
-
+    # the very same repository, just a different branch is checkoud in this subdirectory
+    git clone --depth 1 --single-branch --branch=master -v git@github.com:CommerceExperts/searchhub-docs.git _build/html
+}
+resetBuildDir
 
 # docker login
 AWS_CMD="$(which aws || echo "$HOME/.local/bin/aws")"
