@@ -29,13 +29,13 @@ done
 cd docs/
 
 # clear potential old build
+sudo -n chown -R "$(whoami)": _build/
 rm -rf _build/html
 mkdir -p _build/html
 
 git clone -v git@github.com:CommerceExperts/searchhub-docs.git _build/html
 
 # remove potential old files from public repo that wont be generated anymore
-rm -rf _build/html/*
 echo -n "docs.searchhub.io" > _build/html/CNAME
 
 # docker login
@@ -44,6 +44,7 @@ $($AWS_CMD ecr get-login --no-include-email --region eu-central-1)
 
 docker run --rm -u root -v "$(pwd)":/docs 399621189843.dkr.ecr.eu-central-1.amazonaws.com/util/sphinx-docs:5.3.0 make html
 if [ "$?" -ne 0 ]; then echo "could not generate docs"; exit 1; fi
+sudo -n chown -R "$(whoami)": _build/
 
 # special case to make 404 page work for all missing links
 if [ -e "_build/html/404.html" ]; then
