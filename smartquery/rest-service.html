@@ -219,7 +219,7 @@ docker run -d --name<span class="o">=</span>smartquery-service -e <span class="n
 <h3>Integration with sessionID<a class="headerlink" href="#integration-with-sessionid" title="Permalink to this heading">¶</a></h3>
 <p>If the <a class="reference external" href="search-collector.html">search collector</a> is integrated into your system’s frontend, it’s advisable to pass the corresponding sessionId to smartQuery. This sessionId helps ensure that search traffic for queries under testing is evenly distributed across both versions. Without the sessionId, the reliability and accuracy of these tests is significantly reduced.</p>
 <p>For implementation, the value of the <code class="code docutils literal notranslate"><span class="pre">SearchCollectorSession</span></code> cookie <em>MUST</em> be used and passed with the ‘sessionId’ parameter. Using a different value may result in unexpected behavior. If the <code class="code docutils literal notranslate"><span class="pre">SearchCollectorSession</span></code> cookie is missing or not available for a request, the ‘sessionId’ parameter should not be set.</p>
-<p>More information about this extended integration in the <a class="reference external" href="best-practice.html">best practice</a> section.</p>
+<p>More information about this extended integration in the <a class="reference external" href="best-practices.html">best practices</a> section.</p>
 </section>
 </section>
 <section id="configuration">

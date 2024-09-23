@@ -124,7 +124,7 @@ If the `search collector`_ is integrated into your system's frontend, it's advis
 
 For implementation, the value of the :code:`SearchCollectorSession` cookie *MUST* be used and passed with the 'sessionId' parameter. Using a different value may result in unexpected behavior. If the :code:`SearchCollectorSession` cookie is missing or not available for a request, the 'sessionId' parameter should not be set.
 
-More information about this extended integration in the `best practice`_ section.
+More information about this extended integration in the `best practices`_ section.
 
 
 Configuration
@@ -225,4 +225,4 @@ Troubleshooting
 .. _Spring Boot 2 Monitoring Reference: https://docs.spring.io/spring-boot/docs/2.1.17.RELEASE/reference/html/production-ready-monitoring.html
 .. _Spring Boot 2 web server configuration: https://docs.spring.io/spring-boot/docs/2.1.17.RELEASE/reference/html/howto-embedded-web-servers.html#howto-change-the-http-port
 .. _search collector: search-collector.html
-.. _best practice: best-practice.html
+.. _best practices: best-practices.html
