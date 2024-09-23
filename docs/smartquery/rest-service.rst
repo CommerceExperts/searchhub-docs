@@ -78,11 +78,11 @@ The response is an object that contains the following properties:
   - **redirect**: URL to a landing page or null if no redirect is configured.
   - **potentialCorrections**: an optional array of 1 or 2 queries that could be a correction to the given query. Only in case no reliable masterQuery could be found.
   - **relatedQueries**: An optional list of queries that are related to the user input. They can be used as inspiring queries next to the search result.
-  - **resultModifications**: 4 types of instructions, about how the result should be modified. With each type comes a list of IDs that are addressed with the according modification.
+  - **resultModifications**: An optional list of up to four different object types, each describing how the initial search result should be modified. Each modification type is paired with a list of corresponding IDs (docIDs).
 
 Example:
 
-This example shows the full response with all values set, even if you won't encounter such a response in reality. Normally only one of 'redirect', 'potentialCorrections', 'relatedQueries' or 'resultModifications' is set and the others are :code:`null`. So please do null-checks for those values.
+This example displays a complete response with all values populated, even though such a response is unlikely in practice. Typically, only one of 'redirect', 'potentialCorrections', 'relatedQueries', or 'resultModifications' will be set, while the others will be null. Therefore, be sure to perform null-checks for those values.
 
   .. code-block:: bash
 
