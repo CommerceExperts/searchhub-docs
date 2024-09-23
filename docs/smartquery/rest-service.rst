@@ -80,6 +80,13 @@ The response is an object that contains the following properties:
   - **relatedQueries**: An optional list of queries that are related to the user input. They can be used as inspiring queries next to the search result.
   - **resultModifications**: An optional list of up to four different object types, each describing how the initial search result should be modified. Each modification type is paired with a list of corresponding IDs (docIDs).
 
+    Supported resultModification types:
+
+    - **Add**: The specified IDs should be inserted into the result at any position during result generation, allowing them to be discovered through scrolling, filtering, or sorting.
+    - **Remove**: Products with the specified IDs should be excluded from the result, if present. This should occur during result generation to ensure accurate facet filtering.
+    - **Pin**: The specified product IDs should be included in the result and placed at the top.
+    - **Penalize**: The specified products should receive a score reduction, pushing them toward the end of the result.
+
 Example:
 
 This example displays a complete response with all values populated, even though such a response is unlikely in practice. Typically, only one of 'redirect', 'potentialCorrections', 'relatedQueries', or 'resultModifications' will be set, while the others will be null. Therefore, be sure to perform null-checks for those values.
