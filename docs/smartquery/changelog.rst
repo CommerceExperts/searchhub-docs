@@ -4,6 +4,7 @@ Changelog
 Version 2
 ---------
 Version 2.3.0
+    - Expose 'resultModifications' coming from NeuralInfusion(R)
     - Add extended integration with SearchCollector sessionId to support better query-testing
     - Add improved support for timed redirects
     - Removed compatibilty to Java 8
