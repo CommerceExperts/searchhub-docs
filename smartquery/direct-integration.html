@@ -144,6 +144,26 @@ If no longer needed, the <cite>close</cite> method should be called to stop the 
 </dd>
 </dl>
 </dd>
+<dt>QueryMapping</dt><dd><p>The object returned by the QueryMapper contains all information to change the search result. The main focus is to change the natural query that is processed by the search engine.
+That’s the so-called ‘masterQuery’. In case there is not master query, the original user query should be used for search. To avoid null-checks, the ‘getSearchQuery’ method can
+be used, as it does that internally and will always return the correct one.</p>
+<p>However there are also optional properties in the response that should influence the search process:</p>
+<ul>
+<li><p><strong>redirect</strong>: URL to a landing page. If given, the search process can be stopped and the user can be redirected to the according URL.</p></li>
+<li><p><strong>potentialCorrections</strong>: An optional array of 1 or 2 queries that could be a correction to the given query. They are given in case no reliable masterQuery could be found
+and should be shown to the user as possible alternative queries. More information in the <a class="reference external" href="best-practices.html#potential-correction-alternatives">best practices story about potential corrections</a></p></li>
+<li><p><strong>relatedQueries</strong>: An optional list of queries that are related to the user input. They can be used as inspiring queries next to the search result.</p></li>
+<li><p><strong>resultModifications</strong>: An optional list of up to four different object types, each describing how the initial search result should be modified. Each modification type is paired with a list of corresponding IDs (docIDs).</p>
+<p>Supported resultModification types:</p>
+<ul class="simple">
+<li><p><strong>Add</strong>: The specified IDs should be inserted into the result at any position during result generation, allowing them to be discovered through scrolling, filtering, or sorting..</p></li>
+<li><p><strong>Remove</strong>: Products with the specified IDs should be excluded from the result, if present. This should occur during result generation to ensure accurate facet filtering.</p></li>
+<li><p><strong>Pin</strong>: The specified product IDs should be included in the result and placed at the top.</p></li>
+<li><p><strong>Penalize</strong>: The specified products should receive a score reduction, pushing them toward the end of the result.</p></li>
+</ul>
+</li>
+</ul>
+</dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

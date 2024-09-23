@@ -67,28 +67,54 @@ Parameters:
     - userQuery (query): the text the user entered in the search box
     - sessionId (query): optional parameter that MUST contain the value of the SearchCollectorSession (see details below)
 
-Example:
-  .. code-block:: bash
-
-     curl localhost:10240/smartquery/v2/test/working?userQuery=jakce -o -
-     # returns: 
-     {
-       "userQuery":"jakce",
-       "masterQuery":"jacke",
-       "searchQuery":"jacke",
-       "redirect":null,
-       "successful":true,
-       "potentialCorrections": null
-     }
+Response:
 
 The response is an object that contains the following properties:
 
   - **userQuery**: the entered user query
   - **masterQuery**: if the query could be mapped, the master query is set, otherwise it's null.
   - **searchQuery**: the final search query. This is the master or the user query.
-  - **redirect**: URL to a landing page or null if no redirect is configured.
   - **successful**: `true` if the query could be handled by smartQuery
+  - **redirect**: URL to a landing page or null if no redirect is configured.
   - **potentialCorrections**: an optional array of 1 or 2 queries that could be a correction to the given query. Only in case no reliable masterQuery could be found.
+  - **relatedQueries**: An optional list of queries that are related to the user input. They can be used as inspiring queries next to the search result.
+  - **resultModifications**: An optional list of up to four different object types, each describing how the initial search result should be modified. Each modification type is paired with a list of corresponding IDs (docIDs).
+
+    Supported resultModification types:
+
+    - **Add**: The specified IDs should be inserted into the result at any position during result generation, allowing them to be discovered through scrolling, filtering, or sorting.
+    - **Remove**: Products with the specified IDs should be excluded from the result, if present. This should occur during result generation to ensure accurate facet filtering.
+    - **Pin**: The specified product IDs should be included in the result and placed at the top.
+    - **Penalize**: The specified products should receive a score reduction, pushing them toward the end of the result.
+
+Example:
+
+This example displays a complete response with all values populated, even though such a response is unlikely in practice. Typically, only one of 'redirect', 'potentialCorrections', 'relatedQueries', or 'resultModifications' will be set, while the others will be null. Therefore, be sure to perform null-checks for those values.
+
+  .. code-block:: bash
+
+     curl localhost:10240/smartquery/v2/test/working?userQuery=jakce -o -
+     # returns: 
+     {
+       "userQuery": "lether jakce",
+       "masterQuery": "leather jacket",
+       "searchQuery": "leather jacket",
+       "successful":true,
+       "redirect": "http://www.your-shop.com/category/jackets/?material=leather",
+       "potentialCorrections": ["jacket", "jack"],
+       "relatedQueries": [
+           {"query": "black leather jacket", "relation": "sharpened"},
+           {"query": "jacket", "relation": "relaxed"},
+           {"query": "leather west", "relation": "synonym"}
+       ],
+       "resultModifications": [
+           {"modificationType": "Pin", "ids": ["12405", "19032", "03857"]},
+           {"modificationType": "Add", "ids": ["21453", "02857"]},
+           {"modificationType": "Penalize", "ids": ["12857", "093273"]},
+           {"modificationType": "Remove", "ids": ["12001"]}
+       ]
+     }
+
 
 
 Integration with sessionID
