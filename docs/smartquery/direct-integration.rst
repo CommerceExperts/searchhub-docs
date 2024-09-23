@@ -67,12 +67,14 @@ QueryMapping
   - **potentialCorrections**: An optional array of 1 or 2 queries that could be a correction to the given query. They are given in case no reliable masterQuery could be found
     and should be shown to the user as possible alternative queries. More information in the `best practices story about potential corrections`_
   - **relatedQueries**: An optional list of queries that are related to the user input. They can be used as inspiring queries next to the search result.
-  - **resultModifications**: A list of instructions with 4 different types, about how the result should be modified. With each type comes a list of IDs that are addressed with the
-    according modification:
-    - Add: those given IDs should be added to the result at any position so they can be found through scrolling, filtering or sorting.
-    - Remove: the products with those IDs should be removed from the result in case they are present. This should happen during result creation in order to show correct facet filters.
-    - Pin: The given product IDs should be added to the result and moved to the very top of the result.
-    - Penalize: Those specified products should get a score penalty so they vanish to the end of the according result.
+  - **resultModifications**: An optional list of up to four different object types, each describing how the initial search result should be modified. Each modification type is paired with a list of corresponding IDs (docIDs).
+
+    Supported resultModification types:
+
+    - **Add**: The specified IDs should be inserted into the result at any position during result generation, allowing them to be discovered through scrolling, filtering, or sorting..
+    - **Remove**: Products with the specified IDs should be excluded from the result, if present. This should occur during result generation to ensure accurate facet filtering.
+    - **Pin**: The specified product IDs should be included in the result and placed at the top.
+    - **Penalize**: The specified products should receive a score reduction, pushing them toward the end of the result.
 
 .. note::
     The API Key and the preload tenants are automatically populated with the same environment variables as the REST-service:
