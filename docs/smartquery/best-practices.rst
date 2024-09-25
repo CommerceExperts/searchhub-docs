@@ -15,7 +15,7 @@ Acceptance criteria
   - internal systems can access https://import.searchhub.io/ to send and receive data updates
 
 
-Extended smartQuery Implementation
+Extended smartQuery Implementation (Recommended)
 ----------------------------------
 
 Story
