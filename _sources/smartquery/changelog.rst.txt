@@ -3,6 +3,10 @@ Changelog
 
 Version 2
 ---------
+Version 2.3.1
+    - Fixing micrometer version conflict
+    - Migrate authentication to spring recommendation
+
 Version 2.3.0
     - Expose 'resultModifications' coming from NeuralInfusion(R)
     - Add extended integration with SearchCollector sessionId to support better query-testing
