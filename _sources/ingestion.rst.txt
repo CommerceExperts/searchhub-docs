@@ -100,19 +100,19 @@ This can be a simple text file with the name of the tenant (shop or sales channe
 3. Product Data
 ---------------
 
-Product data should be provided as a Google Shopping Feed and contain all types of linguistic data, such as:
+Product data should be provided on variant level as CSV file or in the Google-Shopping-Feed-XML format and contain at least the following data fields:
 
+- id (should be identical to what is exposed in the shop frontend)
 - title
-- product type
-- descriptions
+- image-url
 - categories
 - brand
 
 optionally we can also use:
 
+- product-type
 - attributes
-- image urls
-- product url
+- product-url
 
 
 **Please contact us directly, if you have other data formats / structures / feeds and no possibility to transform them into the appropriate format.**

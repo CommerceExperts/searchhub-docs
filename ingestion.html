@@ -173,19 +173,19 @@ This can be a simple text file with the name of the tenant (shop or sales channe
 </section>
 <section id="product-data">
 <h2>3. Product Data<a class="headerlink" href="#product-data" title="Permalink to this heading">¶</a></h2>
-<p>Product data should be provided as a Google Shopping Feed and contain all types of linguistic data, such as:</p>
+<p>Product data should be provided on variant level as CSV file or in the Google-Shopping-Feed-XML format and contain at least the following data fields:</p>
 <ul class="simple">
+<li><p>id (should be identical to what is exposed in the shop frontend)</p></li>
 <li><p>title</p></li>
-<li><p>product type</p></li>
-<li><p>descriptions</p></li>
+<li><p>image-url</p></li>
 <li><p>categories</p></li>
 <li><p>brand</p></li>
 </ul>
 <p>optionally we can also use:</p>
 <ul class="simple">
+<li><p>product-type</p></li>
 <li><p>attributes</p></li>
-<li><p>image urls</p></li>
-<li><p>product url</p></li>
+<li><p>product-url</p></li>
 </ul>
 <p><strong>Please contact us directly, if you have other data formats / structures / feeds and no possibility to transform them into the appropriate format.</strong></p>
 </section>
