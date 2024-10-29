@@ -47,6 +47,10 @@ resetBuildDir
 # - replace placeholders, like version numbers etc:
 substModuleVersions .
 
+# substitute dynamic values in config.py
+YEAR="$(date +%Y)"
+file=conf.py; cp "$file" "$file.orig"; <"$file.orig" envsubst > "$file"; rm "$file.orig"
+
 # docker login
 AWS_CMD="$(which aws || echo "$HOME/.local/bin/aws")"
 $($AWS_CMD ecr get-login --no-include-email --region eu-central-1)
@@ -71,3 +75,4 @@ fi
 if [[ "$1" == "publish" ]]; then
     publish
 fi
+git checkout .

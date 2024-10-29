@@ -46,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'CXP SearchHub'
-copyright = u'2023, CXP Commerce Experts GmbH'
+copyright = u'${YEAR}, CXP Commerce Experts GmbH'
 author = u'CXP Commerce Experts GmbH'
 html_baseurl = u'https://commerceexperts.github.io/searchhub-docs/'
 
