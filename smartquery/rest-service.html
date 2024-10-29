@@ -121,7 +121,7 @@
 The container exposes port 8081 which can be mapped to any port. Please consider, that the docker container needs access to the remote URLs mentioned above in the <a class="reference internal" href="#requirements">Requirements</a> section.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># use the API key we provide</span>
-docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:<span class="si">${</span><span class="nv">SMARTQUERY_VERSION</span><span class="si">}</span>
+docker run -d --name<span class="o">=</span>smartquery-service -e <span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/smartquery-service:2.3.1
 </pre></div>
 </div>
 </div></blockquote>
@@ -308,7 +308,7 @@ For smartquery service version &lt;= 1.2.9 the properties are without the ‘spr
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, CXP Commerce Experts GmbH.</p>
+    <p>&#169; Copyright , CXP Commerce Experts GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
