@@ -25,7 +25,7 @@ substModuleVersions() {
         TAG="$(getLatestTag "$module")"
         VERSION="${TAG/v/}"
         declare -x $(echo "$module" | tr '[:lower:]' '[:upper:]')_VERSION="$VERSION"
-        find "$dir/$module"/ -type f | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst > "$file"; rm "$file.orig"; done
+        find "$dir/$module"/ -type f -name '*.rst' | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst > "$file"; rm "$file.orig"; done
 
     done
 }
