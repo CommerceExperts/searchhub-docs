@@ -44,6 +44,9 @@ resetBuildDir() {
 }
 resetBuildDir
 
+# - replace placeholders, like version numbers etc:
+substModuleVersions .
+
 # docker login
 AWS_CMD="$(which aws || echo "$HOME/.local/bin/aws")"
 $($AWS_CMD ecr get-login --no-include-email --region eu-central-1)
@@ -56,8 +59,6 @@ sudo -n chown -R "$(whoami)": _build/
 # - add CNAME files
 
 echo -n "docs.searchhub.io" > _build/html/CNAME
-# - replace placeholders, like version numbers etc:
-substModuleVersions _build/html
 
 # - special case to make 404 page work for all missing links
 if [ -e "_build/html/404.html" ]; then
