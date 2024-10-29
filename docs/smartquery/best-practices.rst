@@ -16,7 +16,7 @@ Acceptance criteria
 
 
 Extended smartQuery Implementation (Recommended)
-----------------------------------
+------------------------------------------------
 
 Story
   As a search-manager, I want to leverage the full potential of searchHub query testing, so that I can compare the performance of different results for the same search intent.
