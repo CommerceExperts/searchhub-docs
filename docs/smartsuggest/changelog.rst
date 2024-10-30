@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Version 1.4.0
+   - Update to lucene 9.12
+   - Ensure performance to normalized benchmarks
+
 Version 1.3.0
     - Update to latest searchHub API (2.3.1)
 
