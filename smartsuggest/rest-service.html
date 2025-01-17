@@ -118,11 +118,11 @@
 </section>
 <section id="start-the-service">
 <h2>Start the service<a class="headerlink" href="#start-the-service" title="Permalink to this heading">¶</a></h2>
-<p>The service is provided as docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags">docker hub</a> with the name <code class="code docutils literal notranslate"><span class="pre">commerceexperts/searchhub-smartsuggest-service:1.4.0</span></code></p>
+<p>The service is provided as docker image on <a class="reference external" href="https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags">docker hub</a> with the name <code class="code docutils literal notranslate"><span class="pre">commerceexperts/searchhub-smartsuggest-service:1.4.1</span></code></p>
 <p>The container has to be started with your API key set at the environment variable <cite>SH_API_KEY</cite>.</p>
 <p>It exposes port 8081 that can be mapped to any port.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># use the API key you&#39;ll receive from us</span>
-docker run -d --name<span class="o">=</span>smartsuggest-service -e <span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/searchhub-smartsuggest-service:1.4.0
+docker run -d --name<span class="o">=</span>smartsuggest-service -e <span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt; -P commerceexperts/searchhub-smartsuggest-service:1.4.1
 </pre></div>
 </div>
 </section>
