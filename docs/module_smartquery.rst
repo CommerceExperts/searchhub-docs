@@ -20,6 +20,6 @@ We recommend following the `best practices`_ to get started with the smartQuery 
    smartquery/common
    smartquery/direct-integration
    smartquery/rest-service
-   smartquery/best-practices
+   smartquery/user-stories
    smartquery/changelog
    

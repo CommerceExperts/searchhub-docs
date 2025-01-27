@@ -19,6 +19,6 @@ We recommend following the `best practices`_ to get started with the smartSugges
 
    smartsuggest/direct-integration
    smartsuggest/rest-service
-   smartsuggest/best-practices
+   smartsuggest/user-stories
    smartsuggest/changelog
    
