@@ -13,6 +13,7 @@ If you're new to searchHub or at the beginning of integrating it, we recommend t
    ingestion
    search-collector
    module_*
+   operations
    glossary
 
 
