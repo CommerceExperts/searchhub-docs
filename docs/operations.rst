@@ -89,6 +89,7 @@ Additional Endpoints
 :code:`/health` gives more details about the loaded modules and which tenants are loaded respectively. For example:
 
 .. code-block:: json
+
     {
         "smartquery": {"tenant.one": "Ready", "tenant.two": "Noop"},
         "suggest": {"tenant.one": "Ready", "tenant.two": "NotReady"}

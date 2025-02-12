@@ -1,5 +1,5 @@
-Best Practices
-==============
+User Stories
+============
 
 To aid Product Owners in developing according to agile principles, we have expressed our recommended best practices as user stories. You are welcome to copy and paste this into your backlog.
 

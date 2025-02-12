@@ -5,7 +5,7 @@ If you're new to searchHub or at the beginning of integrating it, we recommend t
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :glob:
    :caption: Contents:
 
