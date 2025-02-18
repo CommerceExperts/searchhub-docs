@@ -22,7 +22,7 @@ Depending on the chosen integration type, these are additional requirements:
     - Java version >= 17
     - Memory: at least 100MB additional Java Heap space + more space depending on the amount of data to manage
 
-   .. tab:: REST Service
+   .. tab:: HTTP Service
 
     - Container runtime environment (docker, kubernetes, etc.)
     - Memory: at least 200MB + more space depending on the amount of data to manage
@@ -39,7 +39,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
 
       Add smartQuery as dependency to your project.
 
-      .. code-block:: bash
+      .. code-block:: XML
 
         <dependency>
             <groupId>io.searchhub</groupId>
@@ -54,7 +54,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
             <url>https://nexus.commerce-experts.com/content/repositories/searchhub-external/</url>
         </repository>
 
-    .. tab:: REST Service (bash)
+    .. tab:: HTTP Service (bash)
 
       .. code-block:: bash
 
@@ -70,7 +70,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
     .. tab:: PHP Client
 
       See the 'bash' tab about how to start the docker container.
-      Then to use the REST Service in a PHP environment you can use our public `PHP Client`_ from ``https://github.com/CommerceExperts/searchhub-php-client``.
+      Then to use the HTTP Service in a PHP environment you can use our public `PHP Client`_ from ``https://github.com/CommerceExperts/searchhub-php-client``.
       You will find several code samples through the documentation using that PHP Client.
 
       .. code-block:: json
@@ -163,12 +163,12 @@ It needs several seconds until the data actually responds. For testing you can m
             }
 
         .. note::
-            The API Key and the preload tenants are automatically populated with the same environment variables as the REST-service:
+            The API Key and the preload tenants are automatically populated with the same environment variables as the HTTP service:
             If the environment variable `SH_API_KEY` is available, the API Key is set to it. Same for `SH_INIT_TENANTS` that adds tenants to the list of preloaded tenants.
             In that case you can simple use :code:`QueryMapperManager.builder().build()`
 
 
-    .. tab:: REST Service (bash)
+    .. tab:: HTTP Service (bash)
 
       If you have the service started, use the known tenant data and a sample user query to fetch a query mapping.
 
@@ -192,7 +192,7 @@ It needs several seconds until the data actually responds. For testing you can m
 
     .. tab:: PHP Client
 
-      The PHP Client comes with the ability to run in several modes. But here we configure it to run connected to a local REST service.
+      The PHP Client comes with the ability to run in several modes. But here we configure it to run connected to a local HTTP service.
 
       .. code-block:: php
 
@@ -226,6 +226,16 @@ It needs several seconds until the data actually responds. For testing you can m
       More code examples are available in the `clients repository <https://github.com/CommerceExperts/searchhub-js-client>`_.
 
 Now that you can fetch a QueryMapping, head over to the `integration`_ section to learn what to do with the different data retrievable by smartQuery.
+
+
+
+Troubleshooting
+----------------
+
+  - The container won't start, if you forget to specify the API key.
+  - Should you attempt to access a non-permitted tenant/channel (due to an incorrect API key, for example), you will see an error message similar to: `update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {"message":"Invalid authentication credentials"}`
+  - Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter `-e JAVA_OPTS="-Dlog.searchhub.level=DEBUG"`
+
 
 .. _PHP Client: https://github.com/CommerceExperts/searchhub-php-client
 .. _searchHub JS Client: https://github.com/CommerceExperts/searchhub-js-client

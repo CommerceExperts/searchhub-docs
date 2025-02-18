@@ -1,21 +1,53 @@
 Integration Details
 ===================
 
+API
+---
 
-QueryMapping
-------------
+There is basically a single method that needs the user query and give you access to the according ``QueryMapping``.
+
+.. tabs::
+
+    .. tab:: Java Integration
+
+      .. code-block:: java
+
+        QueryMapper qm = qmManager.getQueryMapper(tenant);
+        String sessionId = null; //optional
+        QueryMapping mapping = qm.mapQuery(searchQuery, sessionId);
+
+    .. tab:: HTTP Service
+
+        URL Scheme:
+        ``http://<host>:<port>/smartquery/v2/<tenant-name>/<tenant-channel>?userQuery=<user-query>[&sessionId=<SearchCollectorSession>]``
+
+        Parameters:
+            - tenant-name (path): the first part of the tenant provided by searchHub
+            - tenant-channel (path): the second part of the tenant provided by searchHub
+            - userQuery (query): the text the user entered in the search box
+            - sessionId (query): optional parameter that MUST contain the value of the SearchCollectorSession (see details below)
+
+
+
+QueryMapping Response
+---------------------
 
 The object returned by the QueryMapper contains all information to change the search result. The main focus is to change the natural query that is processed by the search engine.
 That's the so-called 'masterQuery'. In case there is no masterQuery, the original user query should be used for search. To avoid null-checks, there is the 'searchQuery' property
 that will always contain the correct query.
 
+  - **userQuery**: the entered user query
+  - **masterQuery**: if the query could be mapped, the master query is set, otherwise it's null.
+  - **searchQuery**: the final search query. This is the master or the user query.
+  - **successful**: `true` if the query could be handled by smartQuery
+
 Additional the QueryMapping contains more properties that can be used to further improve the result for the user.
 
-  - `redirect`: URL to a landing page. If given, the search process can be stopped and the user can be redirected to the according URL.
-  - `potentialCorrections`: An optional array of 1 or 2 queries that could be a correction to the given query. They are given in case no reliable masterQuery could be found
+  - **redirect**: URL to a landing page. If given, the search process can be stopped and the user can be redirected to the according URL.
+  - **potentialCorrections**: An optional array of 1 or 2 queries that could be a correction to the given query. They are given in case no reliable masterQuery could be found
     and should be shown to the user as possible alternative queries.
-  - `relatedQueries`: An optional list of queries that are related to the user input. They can be used as inspiring queries next to the search result.
-  - `resultModifications`: An optional list of up to four different list types, each describing how the initial search result should be modified. Each modification type is paired with a list of corresponding IDs (docIDs).
+  - **relatedQueries**: An optional list of queries that are related to the user input. They can be used as inspiring queries next to the search result.
+  - **resultModifications**: An optional list of up to four different list types, each describing how the initial search result should be modified. Each modification type is paired with a list of corresponding IDs (docIDs).
 
 
 Redirect
@@ -33,6 +65,16 @@ Potential Corrections
 
 To implement the `user story about potential corrections <user-stories.html#potential-correction-alternatives>`_ you should use the queries given with the ``potentialCorrections`` property.
 It's a string array of one or more elements in case no certain mapping is available.
+
+    .. code-block:: json
+
+        {
+            "userQuery": "batroom",
+            "potentialCorrections": [
+                "bathroom", "bedroom"
+            ]
+        }
+
 Along with a potential search result it should be presented to the user as alternative queries, maybe embedded into some feedback text like "*Did you mean '${potentialCorrections[0]}'*".
 
 A click on one of those queries should cause a new search request and can lead to an improved search result. In combination with our searchCollector tracking, we gather accepted corrections and may automatically improve future requests of those corrected queries.
@@ -308,66 +350,49 @@ Without the sessionId, the informative value and success rate of these tests are
 For implementation, the value of the :code:`SearchCollectorSession` cookie *MUST* be used. Using a different sessionId will lead to unexpected results.
 If the :code:`SearchCollectorSession` cookie does not exist or is not provided for a request, pass 'null' instead.
 
-More information about this extended integration is in the `best practices`_ section.
+.. tabs::
+
+    .. tab:: Java Integration
+
+      The session ID is passed as additional parameter to the :code:`QueryMapper::mapQuery` method.
+
+    .. tab:: HTTP Service
+
+      The session ID is passed to the service endpoint with the query parameter :code:`sessionId`.
+
 
 
 
 Instrumenting
 -------------
 
-.. note::
-    The REST service exposes those metrics per default (see listing below). Only at the Java integration they have to be enabled explicitly.
-
 smartQuery optionally exposes internal metrics using the `Micrometer`_ framework. If you'd like to receive these metrics, add the desired Micrometer connector to your dependencies, as well as the MeterRegistry implementation.
 
-  .. code-block:: java
+.. tabs::
 
-    // ...
-    MeterRegistry meterRegistry = getYourMeterRegistryInstance();
-    
+    .. tab:: Java
 
-    // Example: To expose metrics over JMX, create a JmxMeterRegistry 
-    meterRegistry = new JmxMeterRegistry(JmxConfig.DEFAULT, Clock.SYSTEM);
+      Since that micrometer dependency is optional and we don't want to cause class-loading errors, the according MeterRegistry has to be passed with a "MeterRegistryAdapter" when available. That's as simple as :code:`MeterRegistryAdapter.of(meterRegistry)`.
 
-    // and add it to the QueryMapperManager.builder afterwards
-    queryMapperManagerBuilder.addMetricsRegistryAdapter(MeterRegistryAdapter.of(meterRegistry));
+      .. code-block:: java
 
-    // ...
+        // ...
+        MeterRegistry meterRegistry = getYourMeterRegistryInstance();
 
 
-Subsequently, you will be able to track the following metrics:
+        // Example: To expose metrics over JMX, create a JmxMeterRegistry
+        meterRegistry = new JmxMeterRegistry(JmxConfig.DEFAULT, Clock.SYSTEM);
 
-.. glossary::
+        // and add it to the QueryMapperManager.builder afterwards
+        queryMapperManagerBuilder.addMetricsRegistryAdapter(MeterRegistryAdapter.of(meterRegistry));
 
-    smartquery.statsCollector.queue.size
-        The current number of items inside the transmission queue of the stats-collector.
-        Since the queue size is limited to 500 entries per default, a higher value should never appear. Hitting this limit is an indicator of a broken connection to the stats API.
+    .. tab:: HTTP Service
 
-    smartquery.statsCollector.bulk.size.count
-    smartquery.statsCollector.bulk.size.sum
-    smartquery.statsCollector.bulk.size.max
-        The stats-collector's bulk size metrics describe how large the bulks are that were sent to the searchHub stats API. 
-        With :literal:`sum/count` the average size can be calculated. Max is the biggest bulk since the application started.
+        The HTTP service exposes those metrics per default. Only at the Java integration they have to be enabled explicitly.
 
-    smartquery.statsCollector.fail.count.total
-        The total amount of failed transmissions, that were reported to the stats API.
 
-    smartquery.update.fail.count
-        The number of successive failed mapping update attempts for a certain tenant. If an update succeeds, this value will be reset to "0".
-        If this value reaches "5", that update process will be stopped and only started again if mappings for the respective tenant are requested once more.
-        This metric is tagged with the appropriate `tenant_name` and `tenant_channel`.
+Subsequently, you will be able to track the metrics described in the `Operations > Monitoring`_ section.
 
-    smartquery.update.success.count.total
-        The total number of successful data updates per tenant.
-        This metric is tagged with the respective `tenant_name` and `tenant_channel`.
-
-    smartquery.mappings.size
-        The current number of raw mapping pairs per tenant.
-        This metric is tagged with the respective `tenant_name` and `tenant_channel`.
-        
-    smartquery.mappings.age.seconds
-        Time passed since the last successful mapping update.
-        This metric is tagged with the respective `tenant_name` and `tenant_channel`.
 
 
 .. _Ingestion: ingestion.html
@@ -376,3 +401,5 @@ Subsequently, you will be able to track the following metrics:
 .. _Micrometer: https://micrometer.io/docs
 .. _search collector: search-collector.html
 .. _best practices: best-practices.html
+.. _general operations: ../operations.html
+.. _Operations > Monitoring: operations.html#monitoring

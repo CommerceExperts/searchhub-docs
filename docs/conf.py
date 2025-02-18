@@ -30,7 +30,7 @@ import sphinx_rtd_theme
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.githubpages', 'sphinx_tabs.tabs']
+extensions = ['sphinx.ext.githubpages', 'sphinx.ext.autosectionlabel', 'sphinx_tabs.tabs']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -85,7 +85,6 @@ todo_include_todos = False
 #
 #html_theme = 'conestack'
 html_theme = 'sphinx_rtd_theme'
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -95,7 +94,6 @@ html_theme_options = {
     'canonical_url': html_baseurl,
 
     # for sphinx_rtd_theme
-    'display_version': False,
     'style_nav_header_background': '#2B2D42',
     'logo_only': True,
 }

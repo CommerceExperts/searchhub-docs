@@ -1,20 +1,37 @@
-Direct Integration
-==================
+Java Integration
+================
 
-Requirements
+.. warning::
+
+    The `Java integration`_ is only recommended in the case you want to combine it with your existing suggest service or extend the suggest service with more custom data source. And of course it's only possible if your service is running inside a JVM environment.
+
+    Also keep in mind that you have to take care of the service providing those suggestions.
+
+    For a simple frontend integration, please consider using the `service integration`_.
+
+
+The ``QuerySuggester`` is the central object of the smartSuggest library. It is used to fetch the matching suggestions based on the (partial) user input.
+To get access to a ``QuerySuggester`` object, a single ``QuerySuggestManager`` must be initialized and maintained as a central reference.
+This is important as the QuerySuggestManager instance takes care of updating the suggest data in case the data changes at the data-source.
+It can also be used to shutdown any ``QuerySuggesters`` and therefore free related resources.
+
+A ``QuerySuggester`` instance can be accessed from the ``QuerySuggestManager`` using an "index name" as a parameter.
+The index name is the full `tenant`_ name used at searchHub. For example: "myshop.com".
+
+Alternatively you can specify index name to tenant mappings via ENV variable "SH_TENANT_MAPPINGS" or system property "searchhub.tenant_mappings".
+Their value should be a comma separated list of key value pairs. Example: SH_TENANT_MAPPINGS="indexname=tenant.name,myshop=myshop.com"
+
+To load the correct data, the update process must get your searchHub API key, which you will receive during searchHub onboarding.
+This API key must be set either, as environment variable "SH_API_KEY" or, as system property "searchhub.apikey" within the Java environment.
+
+Dependencies
 ------------
 
-- Java version >= 11
-- around 100MB to 500MB additional Java Heapspace (depending on the amount of data to be managed by the service)
-- If using a firewall, please adjust the configuration to allow connections to the following HTTPS Endpoints https://query.searchhub.io/ and https://import.searchhub.io/
+The basic smartSuggest library is part of the Open-Commerce-Search stack, therefor the dependency is ``de.cxp.ocs::smartsuggest-lib``.
+In order to load the searchHub data, our ``searchhub-suggest-data-provider`` must be added to the classpath as well.
+All related components can be pulled as a maven dependency from `our repository <https://nexus.commerce-experts.com/content/repositories/searchhub-external/>`_
 
-Maven Dependency
-----------------
-
-The basic smartSuggest library is part of the Open-Commerce-Search stack. In order to load the searchHub data, our searchhub-suggest-data-provider must be added to the classpath.
-All related components can be pulled as a maven dependency from our repository https://nexus.commerce-experts.com/content/repositories/searchhub-external/
-
-.. code-block:: xml
+.. code-block:: XML
 
     <dependency>
         <groupId>de.cxp.ocs</groupId>
@@ -26,43 +43,30 @@ All related components can be pulled as a maven dependency from our repository h
         <artifactId>searchhub-suggest-data-provider</artifactId>
         <version>${SMARTSUGGEST_VERSION}</version>
     </dependency>
-    
+
     <!-- ... -->
-    
+
     <repository>
         <id>external-releases</id>
         <url>https://nexus.commerce-experts.com/content/repositories/searchhub-external/</url>
     </repository>
 
 
-Essential Usage
----------------
+Initialization
+--------------
 
-The QuerySuggester is the central object of the smartsuggest library. It is used to fetch the matching suggestions based on the (partial) user input.
-To get access to a QuerySuggester object, a single QuerySuggestManager must be built and maintained as a central reference. 
-This is important as the QuerySuggestManager instance takes care of updating the suggest data in case the data changes at the data-source.
-It can also be used to shutdown any QuerySuggesters and therefore free related resources.
-
-A QuerySuggester instance can be accessed from the QuerySuggestManager using an "index name" as a parameter.
-The index name is the full `tenant`_ name used at searchHub. For example: "myshop.com".
-
-Alternatively you can specify index name to tenant mappings via ENV variable "SH_TENANT_MAPPINGS" or system property "searchhub.tenant_mappings". 
-Their value should be a comma separated list of key value pairs. Example: SH_TENANT_MAPPINGS="indexname=tenant.name,myshop=myshop.com"
-
-To load the correct data, the update process must get your searchHub API key, which you will receive during searchHub onboarding.
-This API key must be set either, as environment variable "SH_API_KEY" or, as system property "searchhub.apikey" within the Java environment.
-
-
-Usage Example
--------------
+This example code should just show how the Suggester can be initialized. Depending on your application architecture you should wrap it inside a Service implementation and build
+your controller endpoints.
 
 .. code-block:: java
 
     static QuerySuggestManager qsm;
     static {
         try {
-            // this should not be necessary, instead the API key should be set from
-            // the outside of the java process
+            // as the 'searchhub-suggest-data-provider' is loaded via the Java SPI system
+            // you cannot configure it directly. The required settings have to be set as
+            // system properties (Setting them directly is not recommended, we just do it for
+            // demonstration purposes)
             System.setProperty("searchhub.apikey", "123abc");
             System.setProperty("searchhub.tenant_mappings", "example=example.com");
 
@@ -70,7 +74,7 @@ Usage Example
                     // required for lucene where it puts the index files
                     .indexFolder(Files.createTempDirectory("smartsuggest"))
                     // force synchronous indexation (optional)
-                    .preloadIndexes("example")
+                    .preloadIndexes("example.com")
                     // the builder also has other options
                     .build();
         }
@@ -99,14 +103,13 @@ Usage Example
 
 The javadoc of the :code:`QuerySuggestManager.builder()` methods tell you more about the available settings.
 
-The last parameter of type 'Set' (where at this example simply 'Collections.emptySet()' is passed) is there for filtering suggestions according to their tags. 
+The last parameter of the 'suggest' method (type 'Set' where at this example simply 'Collections.emptySet()' is passed) is there for filtering suggestions according to their tags.
 However the data from searchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.
 
-Options for QueryMapperManagerBuilder
--------------------------------------
+General Configuration
+---------------------
 
-When building a QuerySuggestManager - the central object that build and holds the QuerySuggest instances for all indexes,
-there are several options that can be set to change the default behaviour:
+When building a QuerySuggestManager - the central object that build and holds the QuerySuggest instances for all indexes - there are several options that can be set to change the default behaviour:
 
 .. code-block:: java
 
@@ -159,21 +162,15 @@ there are several options that can be set to change the default behaviour:
 
         .build();
 
-Custom Config
+SuggestConfig
 -------------
 
-The simplest way is to set a static default configuration during :code:`QuerySuggestManager` setup by using the method :code:`withDefaultSuggestConfig`
-and setting an object of type :code:`de.cxp.ocs.smartsuggest.spi.SuggestConfig`. It allows several changes about how the suggest
-library will behave. All of them described in detail below.
+The simplest way is to set a static default configuration during :code:`QuerySuggestManager` setup by using the method :code:`withDefaultSuggestConfig` and setting an object of type :code:`de.cxp.ocs.smartsuggest.spi.SuggestConfig`. It allows several changes about how the suggest library will behave. All of them described in detail below.
 
-Another possibility is the injection of a :code:`SuggestDataProvider` implementation using Java Service-Loader mechanic
-(which is to have a file on classpath named :code:`META-INF.services/de.cxp.ocs.smartsuggest.spi.SuggestDataProvider` that contains
-the full canonical class-name of the implementation that must also be on classpath and a no-args-constructor).
-This option comes in handy when you have index-specific configuration or if you want to load configuration dynamically from an external
-resource or database. That implementation is then asked for a configuration object everytime new data is loaded.
+Another possibility is the injection of a :code:`SuggestDataProvider` implementation by using Java Service-Loader mechanic. Therefor you need the file on classpath named :code:`META-INF.services/de.cxp.ocs.smartsuggest.spi.SuggestDataProvider` that contains the full canonical class-name of your custom implementation. That custom implementation also needs be on classpath and have a no-args-constructor.
+This option comes in handy when you have index-specific configuration or if you want to load configuration dynamically from an external resource or database. The implementation is then asked for a configuration object everytime new data is loaded.
 
-Here a full description of all configuration properties (the names in brackets are the for suggest.properties in case the standard
-implementation SuggestServiceProperties is used)
+Here a full description of all configuration properties. The names in brackets are the for ``suggest.properties`` file in case the standard implementation :code:`SuggestServiceProperties` is used.
 
     - locale (suggest.locale): the locale for a index to be used. Relevant for normalization of the indexed text.
 
@@ -225,51 +222,34 @@ implementation SuggestServiceProperties is used)
 Adding Custom Data
 ------------------
 
-The Suggest Library is build as service that takes care of updates on its own. So no external process is necessary to send data
-to the Suggest Library. Instead a :code:`SuggestDataProvider` implementation is required, that encapsulates all the data loading.
+The Suggest Library is build as service that takes care of updates on its own. So no external process is necessary to send data to the Suggest Library. Instead a :code:`SuggestDataProvider` implementation is required, that encapsulates all the data loading. Check the :ref:`SuggestConfig` section above about how to add a custom :code:`SuggestDataProvider` to the suggest service.
 
-Assume you have a database where your required data is managed and updated every now and then. Your :code:`SuggestDataProvider`
-implementation needs to provide two pieces of information in advance:
+Let's assume you have a database where your required data is managed and updated every now and then. Your :code:`SuggestDataProvider` implementation needs to provide two pieces of information in advance:
 
   - Is there data for a given index?
   - What is the last time, this data was modified?
 
-The modification time of your data is important, because the Suggest Library will only request the data itself, if it
-is not indexed yet or if the indexed data is older than the indexed data. The check for new data is done every minute by default
-and can be changed with the :code:`updateRate` setting. If there is no modification timestamp in your database, you can either
-increase the :code:`updateRate` or manage a custom modification time inside your :code:`SuggestDataProvider` implementation that might
-only be incremented every N hours.
+The modification time of your data is important, because the Suggest Library will only request the data itself, if it is not indexed yet or if the indexed data is older than the indexed data. The check for new data is done every minute by default and can be changed with the :code:`updateRate` setting of the :code:`QuerySuggestManagerBuilder`. If there is no modification timestamp in your database, you can either increase the :code:`updateRate` or manage a custom modification time inside your :code:`SuggestDataProvider` implementation that might only be incremented every N hours.
 
-When loading data, the :code:`SuggestDataProvider` implementation needs to produce all suggest records at once and provide a single
-big :code:`SuggestData` object. Here an example what goes into that DTO:
+When loading data, the :code:`SuggestDataProvider` implementation needs to produce all suggest records at once and provide a single big :code:`SuggestData` object. Here an example what goes into that DTO:
 
 .. code-block:: java
 
         SuggestData suggestDTO = SuggestData.builder()
 
-                /**
-                 * the type will be attached to every suggestion coming from this data provider
-                 **/
+                // the type will be attached to every suggestion coming from this data provider
                 .type("product")
 
-                /**
-                 * the locale is used for several normalisation during index time are done
-                 **/
+                // the locale is used for several normalisation during index time are done
                 .locale(Locale.GERMAN)
 
-                /**
-                 * this is where the actual suggest records are loaded and passed to the DTO
-                 **/
+                // this is where the actual suggest records are loaded and passed to the DTO
                 .suggestRecords(loadSuggestions())
 
-                /**
-                 * The same timestamp has to be set here, as returned by `getLastDataModTime(String indexName)`
-                 **/
+                // The same timestamp has to be set here, as returned by `getLastDataModTime(String indexName)`
                 .modificationTime(getModificationTime())
 
-                /**
-                 * If available, it's also possible to add stop-words that will be ignored during indexing.
-                 **/
+                // If available, it's also possible to add stop-words that will be ignored during indexing.
                 .wordsToIgnore(Set.of("this", "that"))
 
                 .build();
@@ -283,37 +263,18 @@ smartSuggest, optionally, provides internal metrics using the `Micrometer`_ fram
 
     // ...
     MeterRegistry meterRegistry = getYourMeterRegistryInstance();
-    
-    // example: to reveal metrics over JMX create a JmxMeterRegistry 
+
+    // example: to reveal metrics over JMX create a JmxMeterRegistry
     meterRegistry = new JmxMeterRegistry(JmxConfig.DEFAULT, Clock.SYSTEM);
-    
+
     // and add it to the QueryMapperManager.builder afterwards
    QuerySuggestManager.builder()
       // ...
       .addMetricsRegistryAdapter(MeterRegistryAdapter.of(meterRegistry));
       // ...
 
-You will be able to track the following metrics:
 
-.. glossary::
 
-    smartsuggest.update.success.count.total
-        Total number of successful data updates per tenant.
-        This metric is tagged with the corresponding `tenant_name` and `tenant_channel`.
-
-    smartsuggest.update.fail.count
-        Number of successive failed update attempts for a certain tenant. If an update succeeds, this value will be reset to "0".
-        If this value reaches "5", the respective update process will be stopped and only restarted, if suggestions for the related tenant are requested again.
-        This metric is tagged with the corresponding `tenant_name` and `tenant_channel`.
-        
-    smartsuggest.suggestions.size
-        Current number of raw suggestion records per tenant.
-        This metric is tagged with the corresponding `tenant_name` and `tenant_channel`.
-        
-    smartsuggest.suggestions.age.seconds
-        That is the amount of time passed, since the last successful update took place.
-        This metric is tagged with the corresponding `tenant_name` and `tenant_channel`.
-
-    
-.. _tenant: ../glossary.html#tenant
-.. _Micrometer: https://micrometer.io/docs
+.. _tenant: ../glossary.html
+.. _Micrometer: https://micrometer.io/
+.. _service integration: service-integration.html
