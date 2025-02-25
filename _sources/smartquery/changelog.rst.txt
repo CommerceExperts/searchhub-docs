@@ -3,6 +3,13 @@ Changelog
 
 Version 2
 ---------
+Version 2.3.3
+    - Fix potential NPE for cluster without masterQuery (e.g. only redirect)
+
+Version 2.3.2
+    - Update preDict library (to 1.1.2)
+    - Ensure compatibility with smartSuggest (v1.4.2)
+
 Version 2.3.1
     - Fixing micrometer version conflict
     - Migrate authentication to spring recommendation
