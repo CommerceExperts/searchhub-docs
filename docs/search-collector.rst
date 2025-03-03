@@ -53,8 +53,7 @@ To integrate the tracking, only a couple of HTML attributes have to be attached 
 User Story
 ##########
 
-searchHub Search Collector Integration
---------------------------------------
+**searchHub Search Collector Integration**
 
 Story
   As a search-manager, I want searchHub to track the search related actions visitors do in our shop, so that I gain insights of search problems
