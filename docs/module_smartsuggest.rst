@@ -15,7 +15,7 @@ We recommend following the `user stories`_ to get started with the smartSuggest 
 
 .. toctree::
    :maxdepth: 2
-   :glob:
+   :hidden:
 
    smartsuggest/user-stories
    smartsuggest/setup
