@@ -1,10 +1,10 @@
-Best Practices
-==============
+User Stories
+============
 
 In order to aid Product Owners in developing according to agile principles, we have expressed our recommended best practices as user stories. Feel free to copy and paste this to your backlog.
 
-Basic smartSuggest Implementation
----------------------------------
+smartSuggest Implementation
+---------------------------
 
 Story
   As a customer I want to see autocompletion / search suggestions in the searchbar that are optimized using CXP searchHub.

@@ -36,8 +36,9 @@ Search Collector
 ================
 Introduction
 ############
-To gather the required tracking data the open-source search-collector search-collector_ tracking library is used.
-The search-collector library scans the HTML DOM to gather search-related data and user events.
+
+To gather the required tracking data, searchHub provides a customized script, that is based on the open-source search-collector_ tracking library.
+It scans the HTML DOM to gather search-related data and user events.
 
 To integrate the tracking, only a couple of HTML attributes have to be attached to your page. The remaining search-collector implementation is done by searchHub.
 
@@ -47,6 +48,30 @@ To integrate the tracking, only a couple of HTML attributes have to be attached 
 
 ..
    TODO mention the sr is the foundation
+
+
+User Story
+##########
+
+searchHub Search Collector Integration
+--------------------------------------
+
+Story
+  As a search-manager, I want searchHub to track the search related actions visitors do in our shop, so that I gain insights of search problems
+  and know about the optimization potential.
+
+Acceptance criteria
+  - search related DOM elements are extended with according data-attributes as described at ``https://docs.searchhub.io/search-collector.html``.
+  - Embed the provided script into the shop, bound to the cookie compliance.
+  - When the required cookies are accepted, the script from ``c.searchhub.io`` is loaded.
+  - Search related events (e.g. typing something in the search box) cause requests to ``p.searchhub.io``
+
+Technical hint
+  - The provided script is already adjusted by searchHub to the according shop.
+  - The data-attributes make sure, the tracking is immune to changes at the style or site structure.
+  - Single problems with some tracking events will be reported by searchHub and might need some more adjustment in the shop.
+
+
 
 Rule of Thumb
 #############

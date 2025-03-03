@@ -3,8 +3,8 @@ User Stories
 
 To aid Product Owners in developing according to agile principles, we have expressed our recommended best practices as user stories. You are welcome to copy and paste this into your backlog.
 
-Basic smartQuery Implementation
--------------------------------
+smartQuery Integration
+----------------------
 
 Story
   As a customer, I want to see search results that are optimized using CXP searchHub (https://docs.searchhub.io/) and which are frequently updated using recent KPI data.
@@ -15,20 +15,25 @@ Acceptance criteria
   - internal systems can access https://import.searchhub.io/ to send and receive data updates
 
 
-Extended smartQuery Implementation (Recommended)
-------------------------------------------------
+smartQuery Query Testing support
+--------------------------------
 
 Story
   As a search-manager, I want to leverage the full potential of searchHub query testing, so that I can compare the performance of different results for the same search intent.
 
 Acceptance criteria
-  - Everything from the *Basic smartQuery Implementation*
+  - Based on the *smartQuery Integration*
   - The value of the cookie :code:`SearchCollectorSession` is passed to smartQuery
   - For search queries being tested, I want to see varying search results across different sessions.
 
 Technical hint
   - smartQuery::getMapping has a parameter 'sessionId' that has to be set for the extended implementation to work.
-    When provided, it allows certain queries to return different mapped queries based on the sessionId. This behavior occurs only for queries within a test cluster, where two queries are part of the same query-testing experiment. These experiments can be viewed in the searchHub UI under "Query Testing."
+  - The HTTP service endpoints ``/smartquery/*`` and ``/smartsuggest/v4/`` fetch that information from the optional parameter ``sessionId``
+
+Technical background
+  When the SearchCollector session-ID is provided, it is used to return different mapped queries for the same query.
+  This behavior occurs only for queries within a cluster under test, where two queries are part of the same query-testing experiment.
+  These experiments can be viewed in the searchHub UI under "Query Testing."
 
 
 Query Correction Feedback
