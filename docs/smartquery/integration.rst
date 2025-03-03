@@ -77,7 +77,8 @@ It's a string array of one or more elements in case no certain mapping is availa
 
 Along with a potential search result it should be presented to the user as alternative queries, maybe embedded into some feedback text like "*Did you mean '${potentialCorrections[0]}'*".
 
-A click on one of those queries should cause a new search request and can lead to an improved search result. In combination with our searchCollector tracking, we gather accepted corrections and may automatically improve future requests of those corrected queries.
+A click on one of those queries should cause a new search request and can lead to an improved search result. In combination with our Search Collector tracking,
+we gather accepted corrections and may automatically improve future requests of those corrected queries.
 
 
 Related Queries

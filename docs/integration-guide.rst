@@ -14,17 +14,17 @@ Combining this data makes sure that users are supported at essential steps along
 
 To better support an integration par excellence, into existing search ecosystems, we have extracted 3 separate components:
 
-    - searchCollector
+    - Search Collector
     - smartSuggest
     - smartQuery
 
 Search Collector
 ~~~~~~~~~~~~~~~~
-The search-collector is used to collect users' inputs and track interactions with the associated results. This is the foundational data source for the building of intent clusters. What's more, the same data is also used to provide industry-leading insights for the operation and maintenance of the search.
+The Search Collector is used to collect users' inputs and track interactions with the associated results. This is the foundational data source for the building of intent clusters. What's more, the same data is also used to provide industry-leading insights for the operation and maintenance of the search.
 
 smartSuggest
 ~~~~~~~~~~~~
-The smartSuggest module uses the clustered query variations and their related KPIs to provide relevant, performance-driven and versatile as-you-type suggestions (also known as auto-completions). With searchCollector delivering robust query variation data, we can deliver unique, high-value, typo-free, and duplicate-free suggestions.
+The smartSuggest module uses the clustered query variations and their related KPIs to provide relevant, performance-driven and versatile as-you-type suggestions (also known as auto-completions). With Search Collector delivering robust query variation data, we can deliver unique, high-value, typo-free, and duplicate-free suggestions.
 
 smartQuery
 ~~~~~~~~~~
@@ -44,17 +44,17 @@ This is a basic overview of the steps toward a full searchHub integration. Our e
 
 1. POC
 ~~~~~~
-For an initial POC setup, we require some kind of query-based data, exported from your analytics system. Such data is generally of poor quality and no longer useful beyond the POC phase. To ensure production-ready search data collection, we highly recommend implementing our well-documented and easy-to-integrate searchCollector.
+For an initial POC setup, we require some kind of query-based data, exported from your analytics system. Such data is generally of poor quality and no longer useful beyond the POC phase. To ensure production-ready search data collection, we highly recommend implementing our well-documented and easy-to-integrate Search Collector.
 
-2. searchCollector Tracking
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-searchCollector is a searchHub script installed directly into your shop front-end. It's specific to your shop structure, making integration easy. To ensure the highest level of reliability, we recommend adding tracking attributes to the shop HTML. Further details can be found in the accompanying `Integration Docs <search-collector.html>`_.
+2. Search Collector Tracking
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Search Collector is a searchHub script installed directly into your shop front-end. It's specific to your shop structure, making integration easy. To ensure the highest level of reliability, we recommend adding tracking attributes to the shop HTML. Further details can be found in the accompanying `Integration Docs <search-collector.html>`_.
 
 Additionally, we provide sample texts for your cookie consent management system and your privacy policy. Be sure to include the necessary internal business contacts to guarantee corporate compliance.
 
 3. searchHub on-boarding
 ~~~~~~~~~~~~~~~~~~~~~~~~
-Upon receiving an initial search data export or once the searchCollector has been integrated, we allocate a single or multichannel tenant within searchHub. A channel defines distinct operational units within a tenant. Each language is a unique channel. However, there are scenarios in which a single language may necessitate several channels. For example, within tenants of a single language but with differing shop data. 
+Upon receiving an initial search data export or once the Search Collector has been integrated, we allocate a single or multichannel tenant within searchHub. A channel defines distinct operational units within a tenant. Each language is a unique channel. However, there are scenarios in which a single language may necessitate several channels. For example, within tenants of a single language but with differing shop data.
 
 Once completing setup, you will receive a list of your allocated channels, and your API Key.
 
