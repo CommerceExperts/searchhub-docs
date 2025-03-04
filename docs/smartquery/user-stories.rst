@@ -11,11 +11,12 @@ Story
 
 Acceptance criteria
   - Search phrases are checked/optimized using searchHub's smartQuery Module (https://docs.searchhub.io/module_smartquery.html) before being submitted to the internal search engine
+  - Redirects provided by smartQuery are used to send the user to the according landing page.
   - internal systems can access https://query.searchhub.io/ to perform the search phrase check
   - internal systems can access https://import.searchhub.io/ to send and receive data updates
 
 
-smartQuery Query Testing support
+smartQuery Query Testing Support
 --------------------------------
 
 Story
