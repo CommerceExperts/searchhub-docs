@@ -67,6 +67,12 @@ Our continuous implementation build pushes the library into our own Maven reposi
 
         docker run -d --name=smartquery-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:${SMARTQUERY_VERSION}
 
+      **Troubleshooting**
+
+          - The container won't start, if you forget to specify the API key.
+          - Should you attempt to access a non-permitted tenant/channel (due to an incorrect API key, for example), you will see an error message similar to: `update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {"message":"Invalid authentication credentials"}`
+          - Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter `-e JAVA_OPTS="-Dlog.searchhub.level=DEBUG"`
+
     .. tab:: PHP Client
 
       See the 'bash' tab about how to start the docker container.
@@ -228,13 +234,6 @@ It needs several seconds until the data actually responds. For testing you can m
 Now that you can fetch a QueryMapping, head over to the `integration`_ section to learn what to do with the different data retrievable by smartQuery.
 
 
-
-Troubleshooting
-----------------
-
-  - The container won't start, if you forget to specify the API key.
-  - Should you attempt to access a non-permitted tenant/channel (due to an incorrect API key, for example), you will see an error message similar to: `update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {"message":"Invalid authentication credentials"}`
-  - Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter `-e JAVA_OPTS="-Dlog.searchhub.level=DEBUG"`
 
 
 .. _PHP Client: https://github.com/CommerceExperts/searchhub-php-client
