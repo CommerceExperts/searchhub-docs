@@ -1,6 +1,14 @@
 Common Operations
 =================
 
+.. note::
+
+    This common operations section extends the module specific section `smartQuery operations`_ and `smartSuggest operations`_, specifically the HTTP service part.
+    That's possible as the HTTP service for both modules are built from the same source base.
+
+Principles
+----------
+
 Both modules are built in accordance with the `12-Factor App <https://12factor.net/>`_ methodology. The following points provide insights into how the modules are designed, developed, and encapsulated as RESTful/HTTP services (referred to simply as "services" in this section):
 
 #. **Codebase and Compatibility**: Both module services are built from a single codebase and ensure full API backward compatibility.
@@ -65,16 +73,18 @@ The combined service is especially important for the ``/smartsuggest/v4`` endpoi
 Operational Endpoints
 ---------------------
 
-:code:`/up` is a simple static endpoint, that will respond with http code 200 as soon as the container is started
+/up:
+    is a simple static endpoint, that will respond with http code 200 as soon as the container is started
 
-:code:`/health` gives more details about the loaded modules and which tenants are loaded respectively. For example:
+``/health``:
+    gives more details about the loaded modules and which tenants are loaded respectively. For example:
 
-.. code-block:: json
-
-    {
-        "smartquery": {"tenant.one": "Ready", "tenant.two": "Noop"},
-        "suggest": {"tenant.one": "Ready", "tenant.two": "NotReady"}
-    }
+    .. code-block:: json
+    
+        {
+            "smartquery": {"tenant.one": "Ready", "tenant.two": "Noop"},
+            "suggest": {"tenant.one": "Ready", "tenant.two": "NotReady"}
+        }
 
 
 :code:`/prometheus` and :code:`/metrics` provide access to insight metrics. The module specific metrics are described in the according module section.
@@ -188,3 +198,7 @@ or if you're already using the ``JAVA_OPTS`` environment variable, you can add i
     SH_INIT_TENANTS="example.num1,example.num2"
     # alternative:
     JAVA_OPTS="-Dsmartquery.preloadTenants=example.num1,example.num2"
+
+
+.. _smartQuery operations: smartquery/operations.html
+.. _smartSuggest operations: smartsuggest/service-operations.html

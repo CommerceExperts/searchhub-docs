@@ -40,7 +40,7 @@ If the user query can't be mapped then itself should be sent to the search engin
 Bypassing Query
 ---------------
 
-If the inserted query is wrapped in double quotes (:code:`"example"`) the query will be handled as an unknown query and will not be mapped, however smartQuery will strip the quotes so the unquoted query can be processed by the following search phrases.
+If the inserted query is wrapped in double quotes (``"example query"``) the query will be handled as an unknown query and will not be mapped, however smartQuery will strip the quotes so the unquoted query can be processed by the following search phrases.
 
 This can be used to implement the `query correction feedback`_ feature that gives the customer the option to search for this initial input, e.g. ``Results are shown for <mapped query> - search instead for "<original query>"``.
 Just make sure to pass the double quotes into smartQuery as well, it will strip it for you.

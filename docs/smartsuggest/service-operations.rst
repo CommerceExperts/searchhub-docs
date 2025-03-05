@@ -3,7 +3,7 @@ Service Operations
 
 .. note::
 
-    This part covers the specifics to suggest. Please check the general `operations`_ section for more configuration options.
+    This part covers the specifics to suggest. Please check the `common operations`_ section for more configuration options.
 
 
 Configuration
@@ -98,4 +98,4 @@ There are several metrics that are exposed in the prometheus format through the 
 
 
 
-.. _operations: ../operations.html
+.. _common operations: ../operations.html

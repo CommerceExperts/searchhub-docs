@@ -4,7 +4,7 @@ Operations
 .. note::
 
     This part covers the specifics to smartQuery additional to what's described in the `setup`_ and `integration`_ section.
-    Please check the `general operations`_ section for the service configuration options.
+    Please check the `common operations`_ section for the service configuration options.
 
 
 Configuration
@@ -140,5 +140,5 @@ Additional to the `general monitoring`_ values exposed around the service, the s
 
 .. _setup: setup.html
 .. _integration: integration.html
-.. _general operations: ../operations.html
+.. _common operations: ../operations.html
 .. _general monitoring: ../operations.html#monitoring
