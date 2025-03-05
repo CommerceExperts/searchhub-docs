@@ -31,8 +31,8 @@ Technical hint
   - smartQuery::getMapping has a parameter 'sessionId' that has to be set for the extended implementation to work.
   - The HTTP service endpoints ``/smartquery/*`` and ``/smartsuggest/v4/`` fetch that information from the optional parameter ``sessionId``
 
-Technical background
-  When the SearchCollector session-ID is provided, it is used to return different mapped queries for the same query.
+Background information
+  When the SearchCollector session-ID is provided, it can be used to return different mapped queries for the same query.
   This behavior occurs only for queries within a cluster under test, where two queries are part of the same query-testing experiment.
   These experiments can be viewed in the searchHub UI under "Query Testing."
 
@@ -43,7 +43,6 @@ Query Correction Feedback
 Story
   As a customer, I want to see the corrected query but also have the option to search using my original input (instead-search-for).
 
-
 Acceptance criteria
   - If query mapping occurs, a message should be displayed indicating the corrected query.
   - Additionally, there should be a link allowing the user to search for their original query.
@@ -51,7 +50,7 @@ Acceptance criteria
 
 Technical hint
   - You can utilize the `bypass`_ feature of smartQuery by wrapping the query in quotes. This prevents mapping, and, upon submission, the quotes will be removed.
-  - If a `direct integration`_ is implemented, the utility function `io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder` can be used to prevent query correction feedback when the original and corrected queries contain the same words in a different order.
+  - If a `java integration`_ is done, the utility function `io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder` can be used to prevent query correction feedback when the original and corrected queries contain the same words in a different order.
 
 
 Potential correction alternatives
@@ -78,5 +77,5 @@ Acceptance criteria
   - When a query is configured for a redirect, users should be directed to the corresponding landing page or URL.
 
 
-.. _bypass: common.html
-.. _direct integration: direct-integration.html
+.. _bypass: glossary.html#bypassing-query
+.. _java integration: setup.html
