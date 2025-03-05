@@ -1,7 +1,7 @@
 .wy-nav-side {
   background-color: #2B2D42;
 }
-.wy-menu-vertical header, .wy-menu-vertical p.caption, .wy-nav-content a, .wy-nav-content a:hover, .wy-nav-content a:visited {
+.wy-menu-vertical header, .wy-menu-vertical p.caption, .wy-nav-content a, .wy-nav-content a:hover, .wy-nav-content a:visited, a:hover, a:visited, a {
   color: #E02E37;
 }
 span.pre {

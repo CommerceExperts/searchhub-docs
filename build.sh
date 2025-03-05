@@ -55,7 +55,7 @@ file=conf.py; cp "$file" "$file.orig"; <"$file.orig" envsubst > "$file"; rm "$fi
 AWS_CMD="$(which aws || echo "$HOME/.local/bin/aws")"
 $($AWS_CMD ecr get-login --no-include-email --region eu-central-1)
 
-docker run --rm -u root -v "$(pwd)":/docs 399621189843.dkr.ecr.eu-central-1.amazonaws.com/util/sphinx-docs:5.3.0 make html
+docker run --rm -u root -v "$(pwd)":/docs 399621189843.dkr.ecr.eu-central-1.amazonaws.com/util/sphinx-docs:5.3.1 make html
 if [ "$?" -ne 0 ]; then echo "could not generate docs"; exit 1; fi
 sudo -n chown -R "$(whoami)": _build/
 
