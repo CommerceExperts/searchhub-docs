@@ -46,4 +46,4 @@ This can be used to implement the `query correction feedback`_ feature that give
 Just make sure to pass the double quotes into smartQuery as well, it will strip it for you.
 
 
-.. _query correction feedback: smart-query/user-stories.html#query-correction-feedback
+.. _query correction feedback: smartquery/user-stories.html#query-correction-feedback

@@ -400,7 +400,7 @@ Subsequently, you will be able to track the metrics described in the `Operations
 .. _glossary: ../glossary.html
 .. _tenant: ../glossary.html#tenant
 .. _Micrometer: https://micrometer.io/docs
-.. _search collector: search-collector.html
+.. _search collector: ../search-collector.html
 .. _best practices: best-practices.html
 .. _general operations: ../operations.html
 .. _Operations > Monitoring: operations.html#monitoring

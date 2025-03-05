@@ -77,5 +77,5 @@ Acceptance criteria
   - When a query is configured for a redirect, users should be directed to the corresponding landing page or URL.
 
 
-.. _bypass: glossary.html#bypassing-query
+.. _bypass: ../glossary.html#bypassing-query
 .. _java integration: setup.html
