@@ -1,5 +1,5 @@
-Operations
-==========
+Common Operations
+=================
 
 Both modules are built in accordance with the `12-Factor App <https://12factor.net/>`_ methodology. The following points provide insights into how the modules are designed, developed, and encapsulated as RESTful/HTTP services (referred to simply as "services" in this section):
 

@@ -12,7 +12,7 @@ Search instructions go beyond simple query replacement. Currently, this module s
 
 Please make sure to know about the basic terminology defined in the `glossary`_ before going on with this section.
 Then we recommend to understand the predefined `user stories`_ describing the high level goals of an integration and finally head to `setup`_ and `integration`_ for all the details.
-Operators of the HTTP service variant should have a close look at the common `operations`_ section that covers all around system behaviour and instrumentation.
+Operators of the HTTP service should have a close look at the specific `operations`_ and the `common operations`_ section that cover all around system behaviour and instrumentation.
 To stay updated about recent changes, have a look at the `changelog`_.
 
 
@@ -30,5 +30,6 @@ To stay updated about recent changes, have a look at the `changelog`_.
 .. _user stories: smartquery/user-stories.html
 .. _setup: smartquery/setup.html
 .. _integration: smartquery/integration.html
-.. _operations: operations.html
+.. _operations: smartquery/operations.html
+.. _common operations: operations.html
 .. _changelog: smartquery/changelog.html
