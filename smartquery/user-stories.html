@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Stories &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=afbf3d36" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.jpg"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartquery/user-stories.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Setup" href="setup.html" />
+    <link rel="prev" title="Module: smartQuery" href="../module_smartquery.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-searchhub.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../integration-guide.html">Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartquery.html">Module: smartQuery</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">User Stories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smartquery-integration">smartQuery Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smartquery-query-testing-support">smartQuery Query Testing Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#query-correction-feedback">Query Correction Feedback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#potential-correction-alternatives">Potential correction alternatives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#searchhub-redirects">searchHub Redirects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html">Integration Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartsuggest.html">Module: smartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Common Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../module_smartquery.html">Module: smartQuery</a></li>
+      <li class="breadcrumb-item active">User Stories</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/smartquery/user-stories.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="user-stories">
+<h1>User Stories<a class="headerlink" href="#user-stories" title="Link to this heading"></a></h1>
+<p>To aid Product Owners in developing according to agile principles, we have expressed our recommended best practices as user stories. You are welcome to copy and paste this into your backlog.</p>
+<section id="smartquery-integration">
+<h2>smartQuery Integration<a class="headerlink" href="#smartquery-integration" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Story</dt><dd><p>As a customer, I want to see search results that are optimized using CXP searchHub (<a class="reference external" href="https://docs.searchhub.io/">https://docs.searchhub.io/</a>) and which are frequently updated using recent KPI data.</p>
+</dd>
+<dt>Acceptance criteria</dt><dd><ul class="simple">
+<li><p>Search phrases are checked/optimized using searchHub’s smartQuery Module (<a class="reference external" href="https://docs.searchhub.io/module_smartquery.html">https://docs.searchhub.io/module_smartquery.html</a>) before being submitted to the internal search engine</p></li>
+<li><p>Redirects provided by smartQuery are used to send the user to the according landing page.</p></li>
+<li><p>internal systems can access <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> to perform the search phrase check</p></li>
+<li><p>internal systems can access <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a> to send and receive data updates</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="smartquery-query-testing-support">
+<h2>smartQuery Query Testing Support<a class="headerlink" href="#smartquery-query-testing-support" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Story</dt><dd><p>As a search-manager, I want to leverage the full potential of searchHub query testing, so that I can compare the performance of different results for the same search intent.</p>
+</dd>
+<dt>Acceptance criteria</dt><dd><ul class="simple">
+<li><p>Based on the <em>smartQuery Integration</em></p></li>
+<li><p>The value of the cookie <code class="code docutils literal notranslate"><span class="pre">SearchCollectorSession</span></code> is passed to smartQuery</p></li>
+<li><p>For search queries being tested, I want to see varying search results across different sessions.</p></li>
+</ul>
+</dd>
+<dt>Technical hint</dt><dd><ul class="simple">
+<li><p>smartQuery::getMapping has a parameter ‘sessionId’ that has to be set for the extended implementation to work.</p></li>
+<li><p>The HTTP service endpoints <code class="docutils literal notranslate"><span class="pre">/smartquery/*</span></code> and <code class="docutils literal notranslate"><span class="pre">/smartsuggest/v4/</span></code> fetch that information from the optional parameter <code class="docutils literal notranslate"><span class="pre">sessionId</span></code></p></li>
+</ul>
+</dd>
+<dt>Background information</dt><dd><p>When the SearchCollector session-ID is provided, it can be used to return different mapped queries for the same query.
+This behavior occurs only for queries within a cluster under test, where two queries are part of the same query-testing experiment.
+These experiments can be viewed in the searchHub UI under “Query Testing.”</p>
+</dd>
+</dl>
+</section>
+<section id="query-correction-feedback">
+<h2>Query Correction Feedback<a class="headerlink" href="#query-correction-feedback" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Story</dt><dd><p>As a customer, I want to see the corrected query but also have the option to search using my original input (instead-search-for).</p>
+</dd>
+<dt>Acceptance criteria</dt><dd><ul class="simple">
+<li><p>If query mapping occurs, a message should be displayed indicating the corrected query.</p></li>
+<li><p>Additionally, there should be a link allowing the user to search for their original query.</p></li>
+<li><p>When the link is clicked, the original query should be used without any mapping.</p></li>
+</ul>
+</dd>
+<dt>Technical hint</dt><dd><ul class="simple">
+<li><p>You can utilize the <a class="reference external" href="../glossary.html#bypassing-query">bypass</a> feature of smartQuery by wrapping the query in quotes. This prevents mapping, and, upon submission, the quotes will be removed.</p></li>
+<li><p>If a <a class="reference external" href="setup.html">java integration</a> is done, the utility function <cite>io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder</cite> can be used to prevent query correction feedback when the original and corrected queries contain the same words in a different order.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="potential-correction-alternatives">
+<h2>Potential correction alternatives<a class="headerlink" href="#potential-correction-alternatives" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Story</dt><dd><p>As a user, I want to see alternative versions of my misspelled query if it cannot be confidently corrected automatically through direct mapping.</p>
+</dd>
+<dt>Acceptance Criteria</dt><dd><ul class="simple">
+<li><p>If no automatic correction is applied, display a suggestion for alternative corrections (e.g., “Did you mean…”).</p></li>
+<li><p>The suggested queries should be clickable, allowing them to replace the current query when selected.</p></li>
+</ul>
+</dd>
+<dt>Technical Guidance</dt><dd><p>If no reliable masterQuery could be found, the mapping includes a ‘potentialCorrections’ property, which is an array containing one or two query suggestions.</p>
+</dd>
+</dl>
+</section>
+<section id="searchhub-redirects">
+<h2>searchHub Redirects<a class="headerlink" href="#searchhub-redirects" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Story</dt><dd><p>As a search manager, I want users to be redirected to specific landing pages for certain queries based on the configurations set within searchHub.</p>
+</dd>
+<dt>Acceptance criteria</dt><dd><ul class="simple">
+<li><p>When a query is configured for a redirect, users should be directed to the corresponding landing page or URL.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../module_smartquery.html" class="btn btn-neutral float-left" title="Module: smartQuery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="setup.html" class="btn btn-neutral float-right" title="Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright , CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setup &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=afbf3d36" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.jpg"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartquery/setup.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Integration Details" href="integration.html" />
+    <link rel="prev" title="User Stories" href="user-stories.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-searchhub.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../integration-guide.html">Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartquery.html">Module: smartQuery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="user-stories.html">User Stories</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#client-setup">Client Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html">Integration Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartsuggest.html">Module: smartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Common Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../module_smartquery.html">Module: smartQuery</a></li>
+      <li class="breadcrumb-item active">Setup</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/smartquery/setup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h1>
+<p>smartQuery module is delivered as a Java Library. If you’re running on Java, it is recommended to integrate it directly into your search infrastructure.</p>
+<p>The HTTP/REST headless service is available for all other platforms or when external proprietary code is restricted. Delivered as public Docker image, it can be deployed on-premise or hosted by searchHub as a service. For optimal performance, we recommend running the service on-premise to minimize latency. The simple JSON API can be easily integrated using a generated OpenAPI client, a custom-built HTTP client, or one of our in-house clients.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Be sure the application is allowed to connect to the following HTTPS endpoints: <code class="docutils literal notranslate"><span class="pre">https://query.searchhub.io/</span></code> and <code class="docutils literal notranslate"><span class="pre">https://import.searchhub.io/</span></code></p></li>
+<li><p>In case fuzzy mapping is activated (true by default), running the library/service on better CPU is recommended. We are able to enable/disable fuzziness from our end during runtime, in case there should be any performance issues.</p></li>
+<li><p>The amount of memory heavily relies on the amount of data we get and preprocess for you. However due to the high efficient data structure, even a model with over 500k entries only needs around 300MB memory. The easiest way to find out the required memory for your system is to measure the initialized footprint.</p></li>
+</ul>
+<p>Depending on the chosen integration type, these are additional requirements:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">HTTP Service</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><ul class="simple">
+<li><p>The runtime environment must be able to verify Let’s Encrypt certificates</p></li>
+<li><p>Java version &gt;= 17</p></li>
+<li><p>Memory: at least 100MB additional Java Heap space + more space depending on the amount of data to manage</p></li>
+</ul>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><ul class="simple">
+<li><p>Container runtime environment (docker, kubernetes, etc.)</p></li>
+<li><p>Memory: at least 200MB + more space depending on the amount of data to manage</p></li>
+</ul>
+</div></div>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>Our continuous implementation build pushes the library into our own Maven repository and builds the according docker image right afterwards.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">HTTP Service (bash)</button><button aria-controls="panel-1-1-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-2" name="1-2" role="tab" tabindex="-1">PHP Client</button><button aria-controls="panel-1-1-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-3" name="1-3" role="tab" tabindex="-1">JS Client</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><p>Add smartQuery as dependency to your project.</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>io.searchhub<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>smartquery<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>2.3.3<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="cm">&lt;!-- ... --&gt;</span>
+
+<span class="nt">&lt;repository&gt;</span>
+<span class="w">    </span><span class="nt">&lt;id&gt;</span>external-releases<span class="nt">&lt;/id&gt;</span>
+<span class="w">    </span><span class="nt">&lt;url&gt;</span>https://nexus.commerce-experts.com/content/repositories/searchhub-external/<span class="nt">&lt;/url&gt;</span>
+<span class="nt">&lt;/repository&gt;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>commerceexperts/smartquery-service:2.3.3
+</pre></div>
+</div>
+<p>The container must be initiated with your API key set to the environment variable <cite>SH_API_KEY</cite>.
+The container exposes port 8081 which can be mapped to any port.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="o">=</span>smartquery-service<span class="w"> </span>-e<span class="w"> </span><span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt;<span class="w"> </span>-P<span class="w"> </span>commerceexperts/smartquery-service:2.3.3
+</pre></div>
+</div>
+<p><strong>Troubleshooting</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The container won’t start, if you forget to specify the API key.</p></li>
+<li><p>Should you attempt to access a non-permitted tenant/channel (due to an incorrect API key, for example), you will see an error message similar to: <cite>update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {“message”:”Invalid authentication credentials”}</cite></p></li>
+<li><p>Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter <cite>-e JAVA_OPTS=”-Dlog.searchhub.level=DEBUG”</cite></p></li>
+</ul>
+</div></blockquote>
+</div><div aria-labelledby="tab-1-1-2" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-2" name="1-2" role="tabpanel" tabindex="0"><p>See the ‘bash’ tab about how to start the docker container.
+Then to use the HTTP Service in a PHP environment you can use our public <a class="reference external" href="https://github.com/CommerceExperts/searchhub-php-client">PHP Client</a> from <code class="docutils literal notranslate"><span class="pre">https://github.com/CommerceExperts/searchhub-php-client</span></code>.
+You will find several code samples through the documentation using that PHP Client.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;require&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;commerce-experts/searchhub-php-client&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-1-3" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-3" name="1-3" role="tabpanel" tabindex="0"><p>In case you request a search-vendor API directly from the frontend of your shop or from a Node JS backend, feel free to use our <a class="reference external" href="https://github.com/CommerceExperts/searchhub-js-client">searchHub JS Client</a> from
+<code class="docutils literal notranslate"><span class="pre">https://github.com/CommerceExperts/searchhub-js-client</span></code>.</p>
+<p>For example install it via <code class="code docutils literal notranslate"><span class="pre">npm</span> <span class="pre">i</span> <span class="pre">-S</span> <span class="pre">searchhub-js-client</span></code></p>
+</div></div>
+</section>
+<section id="client-setup">
+<h2>Client Setup<a class="headerlink" href="#client-setup" title="Link to this heading"></a></h2>
+<p>What you need for the first code to work:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Your API Key</p></li>
+<li><p>The tenant name and channels that you can use (here we use “example.com”)</p></li>
+<li><p>some sample queries that lead to different outcomes. You might get some from us, otherwise look up some common misspellings with your account at <code class="docutils literal notranslate"><span class="pre">my.searchhub.io</span></code>.
+(In the examples here we assume “jeanss” to be mapped to “jeans”.)</p></li>
+</ul>
+</div></blockquote>
+<p>Next you have to choose where to use smartQuery inside your application.
+Somewhere in your (backend) architecture there is place where the users query is either directly forwarded to a search engine endpoint or transformed into a technical query for your
+search engine (e.g. Elasticsearch, Solr). You should request smartQuery for a <code class="code docutils literal notranslate"><span class="pre">QueryMapping</span></code> before that processing starts, so that the user query can be replaced
+or other instructions can be processed.</p>
+<p>Keep in mind that after initializing smartQuery, there is an asynchronous process running in the background that fetches the first data.
+It needs several seconds until the data actually responds. For testing you can make this process blocking, but for production it should stay exactly like that.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">HTTP Service (bash)</button><button aria-controls="panel-2-2-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-2" name="2-2" role="tab" tabindex="-1">PHP Client</button><button aria-controls="panel-2-2-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-3" name="2-3" role="tab" tabindex="-1">JS Client</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><p>The key class at the Java integration is the <code class="code docutils literal notranslate"><span class="pre">QueryMapperManager</span></code>. It is responsible for initializing and managing the QueryMappers for one or more Tenants.
+It needs to be instantiated with the provided API key.
+It’s <em>important</em> to use a single <cite>QueryMapperManager</cite> object since it will internally spawn and manage several threads to update the <cite>QueryMapper</cite> instances asynchronously,
+and retain a reference to it.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// should be centrally managed, e.g. a singleton bean in application context</span>
+<span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="w"> </span><span class="n">qmManager</span><span class="p">;</span>
+<span class="kd">static</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">qmManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">                                  </span><span class="p">.</span><span class="na">apiToken</span><span class="p">(</span><span class="s">&quot;YourS3cr3tAPIkey&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// preload will make the &#39;build&#39; call to block until the data is loaded</span>
+<span class="w">                                  </span><span class="p">.</span><span class="na">preloadTenants</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span>
+<span class="w">                                  </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// The Javadoc of the QueryMapperManager::builder methods</span>
+<span class="w">    </span><span class="c1">// tell you more about the available settings.</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">searchProcess</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">resp</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// init search process...</span>
+<span class="w">    </span><span class="n">Tenant</span><span class="w"> </span><span class="n">tenant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Tenant</span><span class="p">(</span><span class="s">&quot;example&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;com&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">QueryMapper</span><span class="w"> </span><span class="n">qm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qmManager</span><span class="p">.</span><span class="na">getQueryMapper</span><span class="p">(</span><span class="n">tenant</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">searchQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&quot;q&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// in case the session-id of the searchHub collector is given, it should be used here.</span>
+<span class="w">    </span><span class="c1">// If not, stick with &#39;null&#39; because a different session leads to unwanted results!</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">shCookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getCookieValue</span><span class="p">(</span><span class="s">&quot;SearchCollectorSession&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">QueryMapping</span><span class="w"> </span><span class="n">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qm</span><span class="p">.</span><span class="na">mapQuery</span><span class="p">(</span><span class="n">searchQuery</span><span class="p">,</span><span class="w"> </span><span class="n">shCookie</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mapping</span><span class="p">.</span><span class="na">hasRedirect</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&quot;Location&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="p">.</span><span class="na">getRedirect</span><span class="p">());</span>
+<span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="mi">302</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">searchQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapping</span><span class="p">.</span><span class="na">getSearchQuery</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// continue with search process...</span>
+<span class="p">}</span>
+
+<span class="c1">// Optionally bind the qmManager instance to your JVM&#39;s lifecycle</span>
+<span class="c1">// and close the QueryMapperManager during shutdown.</span>
+<span class="c1">// Internally a ScheduledExecutorService is used, that will be stopped then.</span>
+<span class="nd">@PreDestroy</span>
+<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onJvmShutdown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">qmManager</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The API Key and the preload tenants are automatically populated with the same environment variables as the HTTP service:
+If the environment variable <cite>SH_API_KEY</cite> is available, the API Key is set to it. Same for <cite>SH_INIT_TENANTS</cite> that adds tenants to the list of preloaded tenants.
+In that case you can simple use <code class="code docutils literal notranslate"><span class="pre">QueryMapperManager.builder().build()</span></code></p>
+</div>
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><p>If you have the service started, use the known tenant data and a sample user query to fetch a query mapping.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$&gt;<span class="w"> </span><span class="nv">port</span><span class="o">=</span><span class="m">10240</span>
+$&gt;<span class="w"> </span><span class="nv">tenant_name</span><span class="o">=</span><span class="s2">&quot;example&quot;</span>
+$&gt;<span class="w"> </span><span class="nv">tenant_channel</span><span class="o">=</span><span class="s2">&quot;com&quot;</span>
+$&gt;<span class="w"> </span>curl<span class="w"> </span><span class="s2">&quot;http://localhost:/smartquery/v2//?userQuery=&quot;</span><span class="w"> </span>-o<span class="w"> </span>-<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+<span class="w"> </span>&gt;<span class="w">  </span><span class="o">{</span>
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;userQuery&quot;</span>:<span class="w"> </span><span class="s2">&quot;jeanss&quot;</span>,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;masterQuery&quot;</span>:<span class="w"> </span><span class="s2">&quot;jeans&quot;</span>,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;redirect&quot;</span>:<span class="w"> </span>null,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;potentialCorrections&quot;</span>:<span class="w"> </span>null,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;relatedQueries&quot;</span>:<span class="w"> </span>null,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;resultModifications&quot;</span>:<span class="w"> </span>null,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;successful&quot;</span>:<span class="w"> </span>true,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;searchQuery&quot;</span>:<span class="w"> </span><span class="s2">&quot;jeans&quot;</span>
+<span class="w"> </span>&gt;<span class="w">  </span><span class="o">}</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-2-2" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-2" name="2-2" role="tabpanel" tabindex="0"><p>The PHP Client comes with the ability to run in several modes. But here we configure it to run connected to a local HTTP service.</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">= &quot;example&quot;;</span>
+<span class="x">= &quot;com&quot;;</span>
+<span class="x">= &quot;jeanss&quot;;</span>
+
+<span class="x">= new Config(, , null, null,</span>
+<span class="x">   &quot;http://localhost:/smartquery/v2/{}/{}&quot;);</span>
+<span class="x">= new SearchHubClient();</span>
+<span class="x">= -&gt;mapQuery();</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-2-3" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-3" name="2-3" role="tabpanel" tabindex="0"><p>The JS Client comes only with the ability to connect to a SaaS Service so far. Therefor only tenant name is required for initialization.
+However additional it comes with the ability to do the splitting for an A/B test that can be evaluated by searchHub. Set this value to <cite>false</cite> unless other communicated.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">BrowserClientFactory</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;searchhub-js-client&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">smartSuggestClient</span><span class="p">,</span><span class="w"> </span><span class="nx">smartQueryClient</span><span class="p">,</span><span class="w"> </span><span class="nx">abTestManager</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">BrowserClientFactory</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">tenant</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">abTestActive</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">});</span>
+
+<span class="c1">// automatically respects ab test assignment + caching</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">smartQueryClient</span><span class="p">.</span><span class="nx">getMapping</span><span class="p">(</span><span class="s2">&quot;jeanss&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>More code examples are available in the <a class="reference external" href="https://github.com/CommerceExperts/searchhub-js-client">clients repository</a>.</p>
+</div></div>
+<p>Now that you can fetch a QueryMapping, head over to the <a class="reference external" href="integration.html">integration</a> section to learn what to do with the different data retrievable by smartQuery.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="user-stories.html" class="btn btn-neutral float-left" title="User Stories" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integration.html" class="btn btn-neutral float-right" title="Integration Details" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright , CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

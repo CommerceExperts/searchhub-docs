@@ -1,25 +1,24 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Search Collector &mdash; CXP SearchHub 0.63.3 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=afbf3d36" />
+
+  
     <link rel="shortcut icon" href="_static/favicon.jpg"/>
     <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/search-collector.html" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -32,12 +31,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #2B2D42" >
-            <a href="index.html">
-            <img src="_static/logo-searchhub.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo-searchhub.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -45,10 +48,11 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration-guide.html">Integration Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Search Collector</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-story">User Story</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#rule-of-thumb">Rule of Thumb</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#script">Script</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#integration">Integration</a><ul>
@@ -69,6 +73,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: smartQuery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: smartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Common Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 
@@ -85,7 +90,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Search Collector</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/search-collector.rst.txt" rel="nofollow"> View page source</a>
@@ -97,11 +102,11 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>Search Collector<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
+<h1>Search Collector<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h2>
-<p>To gather the required tracking data the open-source search-collector <a class="reference external" href="https://github.com/searchhub/search-collector">search-collector</a> tracking library is used.
-The search-collector library scans the HTML DOM to gather search-related data and user events.</p>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>To gather the required tracking data, searchHub provides a customized script, that is based on the open-source <a class="reference external" href="https://github.com/searchhub/search-collector">search-collector</a> tracking library.
+It scans the HTML DOM to gather search-related data and user events.</p>
 <p>To integrate the tracking, only a couple of HTML attributes have to be attached to your page. The remaining search-collector implementation is done by searchHub.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -109,13 +114,35 @@ The search-collector library scans the HTML DOM to gather search-related data an
 To find out more about tracking customizations, just contact us directly or look for a hint in the documentation.</p>
 </div>
 </section>
+<section id="user-story">
+<h2>User Story<a class="headerlink" href="#user-story" title="Link to this heading"></a></h2>
+<p><strong>searchHub Search Collector Integration</strong></p>
+<dl class="simple">
+<dt>Story</dt><dd><p>As a search-manager, I want searchHub to track the search related actions visitors do in our shop, so that I gain insights of search problems
+and know about the optimization potential.</p>
+</dd>
+<dt>Acceptance criteria</dt><dd><ul class="simple">
+<li><p>search related DOM elements are extended with according data-attributes as described at <code class="docutils literal notranslate"><span class="pre">https://docs.searchhub.io/search-collector.html</span></code>.</p></li>
+<li><p>Embed the provided script into the shop, bound to the cookie compliance.</p></li>
+<li><p>When the required cookies are accepted, the script from <code class="docutils literal notranslate"><span class="pre">c.searchhub.io</span></code> is loaded.</p></li>
+<li><p>Search related events (e.g. typing something in the search box) cause requests to <code class="docutils literal notranslate"><span class="pre">p.searchhub.io</span></code></p></li>
+</ul>
+</dd>
+<dt>Technical hint</dt><dd><ul class="simple">
+<li><p>The provided script is already adjusted by searchHub to the according shop.</p></li>
+<li><p>The data-attributes make sure, the tracking is immune to changes at the style or site structure.</p></li>
+<li><p>Single problems with some tracking events will be reported by searchHub and might need some more adjustment in the shop.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
 <section id="rule-of-thumb">
-<h2>Rule of Thumb<a class="headerlink" href="#rule-of-thumb" title="Permalink to this heading">¶</a></h2>
+<h2>Rule of Thumb<a class="headerlink" href="#rule-of-thumb" title="Link to this heading"></a></h2>
 <p><em>If you are not sure which HTML element exactly to put the data-attribute on, using the elements you use for specific user events is a good rule of thumb.</em></p>
 <p><em>E.g. if your click listener for the search button is attached to an HTML button element, you should add the corresponding collector HTML attribute to that button element.</em></p>
 </section>
 <section id="script">
-<h2>Script<a class="headerlink" href="#script" title="Permalink to this heading">¶</a></h2>
+<h2>Script<a class="headerlink" href="#script" title="Link to this heading"></a></h2>
 <p>Include your searchHub tracking snippet on every page in your shop like:</p>
 <div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">script</span> <span class="na">defer</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://c.searchhub.io/{SCRIPT_ID}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </pre></div>
@@ -123,16 +150,16 @@ To find out more about tracking customizations, just contact us directly or look
 <p>Replace the <code class="docutils literal notranslate"><span class="pre">{SCRIPT_ID}</span></code> with the unique script id searchHub provided for you. The script will automatically load and execute. Please do not confuse the <code class="docutils literal notranslate"><span class="pre">SCRIPT_ID</span></code> with the searchHub api key. If you do not have the <code class="docutils literal notranslate"><span class="pre">SCRIPT_ID</span></code> please contact your searchHub representative.</p>
 </section>
 <section id="integration">
-<h2>Integration<a class="headerlink" href="#integration" title="Permalink to this heading">¶</a></h2>
+<h2>Integration<a class="headerlink" href="#integration" title="Link to this heading"></a></h2>
 <section id="search-box">
-<h3>Search box<a class="headerlink" href="#search-box" title="Permalink to this heading">¶</a></h3>
+<h3>Search box<a class="headerlink" href="#search-box" title="Link to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">searchbox</span></code> is used to perform text-based queries. In most cases, the <code class="docutils literal notranslate"><span class="pre">searchbox</span></code> is an HTML input element.</p>
 <p><img alt="Searchbox Tracking" src="_images/searchbox.png" /></p>
-<table class="colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -151,14 +178,14 @@ To find out more about tracking customizations, just contact us directly or look
 </div>
 </section>
 <section id="search-button">
-<h3>Search button<a class="headerlink" href="#search-button" title="Permalink to this heading">¶</a></h3>
+<h3>Search button<a class="headerlink" href="#search-button" title="Link to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">searchbutton</span></code> is used to trigger a search.</p>
 <p><img alt="Searchbutton Tracking" src="_images/searchbutton.png" /></p>
-<table class="colwidths-given docutils align-default" id="id3">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -177,14 +204,14 @@ To find out more about tracking customizations, just contact us directly or look
 </div>
 </section>
 <section id="suggest-search-terms">
-<h3>Suggest (search terms)<a class="headerlink" href="#suggest-search-terms" title="Permalink to this heading">¶</a></h3>
+<h3>Suggest (search terms)<a class="headerlink" href="#suggest-search-terms" title="Link to this heading"></a></h3>
 <p>If search terms are proposed to the shop user while typing, each element containing keywords should be annotated with the <code class="docutils literal notranslate"><span class="pre">data-track-id=&quot;suggestSearchTerm&quot;</span></code> attribute.</p>
 <p><img alt="Suggest Tracking" src="_images/suggest.png" /></p>
-<table class="colwidths-given docutils align-default" id="id4">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id4" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -206,14 +233,14 @@ To find out more about tracking customizations, just contact us directly or look
 </div>
 </section>
 <section id="result-count">
-<h3>Result Count<a class="headerlink" href="#result-count" title="Permalink to this heading">¶</a></h3>
+<h3>Result Count<a class="headerlink" href="#result-count" title="Link to this heading"></a></h3>
 <p>The writeResult count is the number of products found for the current search (<strong>not</strong> the number of products displayed on the current page). This is usually a somewhat higher number like hundreds or even thousands.</p>
 <p><img alt="Result Count Tracking" src="_images/resultCount.png" /></p>
-<table class="colwidths-given docutils align-default" id="id5">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id5" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -235,18 +262,18 @@ To find out more about tracking customizations, just contact us directly or look
 </div>
 </section>
 <section id="products">
-<h3>Products<a class="headerlink" href="#products" title="Permalink to this heading">¶</a></h3>
+<h3>Products<a class="headerlink" href="#products" title="Link to this heading"></a></h3>
 <p>A product representation for the current search writeResult. The attributes here include a <code class="docutils literal notranslate"><span class="pre">priceContainer</span></code> in addition, the tracking script will automatically strip the non-numeric characters.
 The value for the <code class="docutils literal notranslate"><span class="pre">data-product-id</span></code> attribute has to be an ID that uniquely identifies the product.
 In B2B exist more edge cases. E.g. a certain SKU of the product family is used to represent the product group or family.
 In such cases, it is important that the same IDs are used on the product listing page (PDP) and on the product detail page (PLP).
 We recommend to use the mainId/parentId for products when possible.</p>
 <p><img alt="Product Tracking" src="_images/product.png" /></p>
-<table class="colwidths-given docutils align-default" id="id6">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id6">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id6" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -284,13 +311,13 @@ E.g. the <cite>dataLayer</cite> object. Please contact us if you want to rely on
 </div>
 </section>
 <section id="zero-results-container">
-<h3>Zero Results Container<a class="headerlink" href="#zero-results-container" title="Permalink to this heading">¶</a></h3>
+<h3>Zero Results Container<a class="headerlink" href="#zero-results-container" title="Link to this heading"></a></h3>
 <p>The zero results container is the container that contains the text that is displayed when no products are found for the current search.</p>
-<table class="colwidths-given docutils align-default" id="id7">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id7">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id7" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -311,18 +338,18 @@ E.g. the <cite>dataLayer</cite> object. Please contact us if you want to rely on
 </div>
 </section>
 <section id="redirects-and-landing-pages">
-<h3>Redirects and Landing Pages<a class="headerlink" href="#redirects-and-landing-pages" title="Permalink to this heading">¶</a></h3>
+<h3>Redirects and Landing Pages<a class="headerlink" href="#redirects-and-landing-pages" title="Link to this heading"></a></h3>
 <p>When certain search queries trigger a redirect and do not land on the normal search results page, these pages often have banners or other buttons to guide the user more easily through the product assortment.
 For example, if you are looking for a specific brand of clothing, the landing page might have banners for the most common categories (Training, Outdoor, Running…).
 All buttons and links which lead to other pages that are associated to the initial query (or landing page) have to be labeled with attributes, in order to keep the association to the initial search query.
 This can also span several pages. For example, a click on “Outdoor” can land on a subsequent page that again contains buttons and links such as “Jackets”, “Bags”, “Shoes” and so on.
 If a subsequent page does not contain any products for the initial query, the button/link does not have to be labeled.</p>
 <p><img alt="Tracking Redirects" src="_images/redirectSubSelectors.png" /></p>
-<table class="colwidths-given docutils align-default" id="id8">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id8">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id8" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -350,15 +377,15 @@ If a subsequent page does not contain any products for the initial query, the bu
 </div>
 </section>
 <section id="add-to-cart-plp">
-<h3>Add to cart (PLP)<a class="headerlink" href="#add-to-cart-plp" title="Permalink to this heading">¶</a></h3>
+<h3>Add to cart (PLP)<a class="headerlink" href="#add-to-cart-plp" title="Link to this heading"></a></h3>
 <p>Some onlineshops allow the user to put products into basket directly from the PLP. Please add the <code class="docutils literal notranslate"><span class="pre">data-track-id</span></code> and <code class="docutils literal notranslate"><span class="pre">data-product-id</span></code> attributes to these basket buttons too.
 An additional element containing the amount put into the basket can be annotated with the <code class="docutils literal notranslate"><span class="pre">data-track-id=&quot;addToBasketQuantity&quot;</span></code> attribute, in most cases this is a common div, select or input element.</p>
 <p><img alt="Add to basket PLP Tracking" src="_images/basketPLP.png" /></p>
-<table class="colwidths-given docutils align-default" id="id9">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id9" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -389,15 +416,15 @@ E.g. the <cite>dataLayer</cite> object. Please contact us if you want to rely on
 </div>
 </section>
 <section id="add-to-cart-pdp">
-<h3>Add to cart (PDP)<a class="headerlink" href="#add-to-cart-pdp" title="Permalink to this heading">¶</a></h3>
+<h3>Add to cart (PDP)<a class="headerlink" href="#add-to-cart-pdp" title="Link to this heading"></a></h3>
 <p>On the product detail page the <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">to</span> <span class="pre">cart</span></code> button has to be attributed with the <code class="docutils literal notranslate"><span class="pre">data-track-id</span></code> and <code class="docutils literal notranslate"><span class="pre">data-product-id</span></code> attributes.
 An additional element containing the amount put into the basket can be annotated with the <code class="docutils literal notranslate"><span class="pre">data-track-id</span></code> attribute, in most cases this is a common div, select or input element.</p>
 <p><img alt="Add to basket PDP Tracking" src="_images/basketPDP.png" /></p>
-<table class="colwidths-given docutils align-default" id="id10">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id10">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id10" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -428,16 +455,16 @@ E.g. the <cite>dataLayer</cite> object. Please contact us if you want to rely on
 </div>
 </section>
 <section id="associated-product">
-<h3>Associated Product<a class="headerlink" href="#associated-product" title="Permalink to this heading">¶</a></h3>
+<h3>Associated Product<a class="headerlink" href="#associated-product" title="Link to this heading"></a></h3>
 <p>If on product detail page some associated products (recommendations, similar products and so on) are proposed to the shop
 user, these products should be annotated almost the same way as products are annotated on the product listing page.
 The only difference is the <code class="docutils literal notranslate"><span class="pre">associatedProduct</span></code> value of the <code class="docutils literal notranslate"><span class="pre">data-track-id</span></code> attribute.</p>
 <p><img alt="Associated Product Tracking" src="_images/associatedProduct.png" /></p>
-<table class="colwidths-given docutils align-default" id="id11">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id11" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id11">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id11" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -471,15 +498,15 @@ E.g. the <cite>dataLayer</cite> object. Please contact us if you want to rely on
 </div>
 </section>
 <section id="checkout">
-<h3>Checkout<a class="headerlink" href="#checkout" title="Permalink to this heading">¶</a></h3>
+<h3>Checkout<a class="headerlink" href="#checkout" title="Link to this heading"></a></h3>
 <p>Checkout tracking is implemented on the very last summary page in your checkout process.
 All products have to be attributed similar to the product listing page in addition to the <code class="docutils literal notranslate"><span class="pre">&quot;Commit</span> <span class="pre">and</span> <span class="pre">Buy&quot;</span></code> button which will finalize the order.</p>
 <p><img alt="Checkout Tracking" src="_images/checkout.png" /></p>
-<table class="colwidths-given docutils align-default" id="id12">
-<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id12">
+<caption><span class="caption-text">data-attributes</span><a class="headerlink" href="#id12" title="Link to this table"></a></caption>
 <colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
+<col style="width: 50.0%" />
+<col style="width: 50.0%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>

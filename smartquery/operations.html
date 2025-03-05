@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operations &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=afbf3d36" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.jpg"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartquery/operations.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="Integration Details" href="integration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-searchhub.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../integration-guide.html">Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartquery.html">Module: smartQuery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="user-stories.html">User Stories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integration.html">Integration Details</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#update-rate">Update Rate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preload-tenants">Preload Tenants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mapping-threshold">Mapping Threshold</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stats-collector-filter">Stats Collector Filter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring">Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartsuggest.html">Module: smartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Common Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../module_smartquery.html">Module: smartQuery</a></li>
+      <li class="breadcrumb-item active">Operations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/smartquery/operations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="operations">
+<h1>Operations<a class="headerlink" href="#operations" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This part covers the specifics to smartQuery additional to what’s described in the <a class="reference external" href="setup.html">setup</a> and <a class="reference external" href="integration.html">integration</a> section.
+Please check the <a class="reference external" href="../operations.html">common operations</a> section for the service configuration options.</p>
+</div>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<p>At the Java integration you can directly set those values. For the HTTP Service all is done via System properties. Those are passed into the container using the <code class="docutils literal notranslate"><span class="pre">JAVA_OPTS</span></code> environment variable.</p>
+<section id="update-rate">
+<h3>Update Rate<a class="headerlink" href="#update-rate" title="Link to this heading"></a></h3>
+<p>Sets the rate (in seconds) at which the update should run. The value must be between 5 and 3600.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">HTTP Service</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.updateRateInSeconds=60&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">QueryMapperManagerBuilder</span><span class="w"> </span><span class="n">qmmBuilder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="p">.</span><span class="na">builder</span><span class="p">();</span>
+<span class="n">qmmBuilder</span><span class="p">.</span><span class="na">updateRate</span><span class="p">(</span><span class="mi">3600</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="preload-tenants">
+<h3>Preload Tenants<a class="headerlink" href="#preload-tenants" title="Link to this heading"></a></h3>
+<p>Specify tenants that should be loaded immediately following initialization. The service will only be ready (listening on the given port) after those tenants are loaded.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">HTTP Service</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><p>There are two ways to set the preload tenants. Either set the <code class="docutils literal notranslate"><span class="pre">SH_INIT_TENANTS</span></code> environment variable directly
+or if you’re already using the <code class="docutils literal notranslate"><span class="pre">JAVA_OPTS</span></code> environment variable, you can add it as a part of it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SH_INIT_TENANTS</span><span class="o">=</span><span class="s2">&quot;example.num1,example.num2&quot;</span>
+<span class="c1"># alternative:</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.preloadTenants=example.num1,example.num2&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">QueryMapperManagerBuilder</span><span class="w"> </span><span class="n">qmmBuilder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="p">.</span><span class="na">builder</span><span class="p">();</span>
+<span class="n">qmmBuilder</span><span class="p">.</span><span class="na">updateRate</span><span class="p">(</span><span class="mi">3600</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="mapping-threshold">
+<h3>Mapping Threshold<a class="headerlink" href="#mapping-threshold" title="Link to this heading"></a></h3>
+<p>In case you want to guard against wrong data updates, you can define a minimum amount of data records. If the update fetches less data records, an update is denied. Please be careful with this setting, especially if you don’t know how much data searchHub will provide for your tenants.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">HTTP Service</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.defaultMappingThreshold=100&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">QueryMapperManagerBuilder</span><span class="w"> </span><span class="n">qmmBuilder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="p">.</span><span class="na">builder</span><span class="p">();</span>
+<span class="n">qmmBuilder</span><span class="p">.</span><span class="na">mappingThreshold</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="stats-collector-filter">
+<h3>Stats Collector Filter<a class="headerlink" href="#stats-collector-filter" title="Link to this heading"></a></h3>
+<p>If you notice too much traffic load sent by the internal stats-collector to <code class="docutils literal notranslate"><span class="pre">import.searchhub.io</span></code>, you can enable the stats-collector-filter</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">HTTP Service</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.statsCollectorFilter.enable=true&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is only available as a part of the HTTP Service.</p>
+</div>
+</div></div>
+</section>
+</section>
+<section id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Link to this heading"></a></h2>
+<p>Additional to the <a class="reference external" href="../operations.html#monitoring">general monitoring</a> values exposed around the service, the smartQuery module also exposes these specific values.</p>
+<dl class="simple glossary">
+<dt id="term-smartquery.statsCollector.queue.size">smartquery.statsCollector.queue.size<a class="headerlink" href="#term-smartquery.statsCollector.queue.size" title="Link to this term"></a></dt><dd><p>The current number of items inside the transmission queue of the stats-collector.
+Since the queue size is limited to 500 entries per default, a higher value should never appear. Hitting this limit is an indicator of a broken connection to the stats API.</p>
+</dd>
+<dt id="term-smartquery.statsCollector.bulk.size.count">smartquery.statsCollector.bulk.size.count<a class="headerlink" href="#term-smartquery.statsCollector.bulk.size.count" title="Link to this term"></a></dt><dt id="term-smartquery.statsCollector.bulk.size.sum">smartquery.statsCollector.bulk.size.sum<a class="headerlink" href="#term-smartquery.statsCollector.bulk.size.sum" title="Link to this term"></a></dt><dt id="term-smartquery.statsCollector.bulk.size.max">smartquery.statsCollector.bulk.size.max<a class="headerlink" href="#term-smartquery.statsCollector.bulk.size.max" title="Link to this term"></a></dt><dd><p>The stats-collector’s bulk size metrics describe how large the bulks are that were sent to the searchHub stats API.
+With <code class="docutils literal notranslate"><span class="pre">sum/count</span></code> the average size can be calculated. Max is the biggest bulk since the application started.</p>
+</dd>
+<dt id="term-smartquery.statsCollector.fail.count.total">smartquery.statsCollector.fail.count.total<a class="headerlink" href="#term-smartquery.statsCollector.fail.count.total" title="Link to this term"></a></dt><dd><p>The total amount of failed transmissions, that were reported to the stats API.</p>
+</dd>
+<dt id="term-smartquery.update.fail.count">smartquery.update.fail.count<a class="headerlink" href="#term-smartquery.update.fail.count" title="Link to this term"></a></dt><dd><p>The number of successive failed mapping update attempts for a certain tenant. If an update succeeds, this value will be reset to “0”.
+If this value reaches “5”, that update process will be stopped and only started again if mappings for the respective tenant are requested once more.
+This metric is tagged with the appropriate <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+</dd>
+<dt id="term-smartquery.update.success.count.total">smartquery.update.success.count.total<a class="headerlink" href="#term-smartquery.update.success.count.total" title="Link to this term"></a></dt><dd><p>The total number of successful data updates per tenant.
+This metric is tagged with the respective <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+</dd>
+<dt id="term-smartquery.mappings.size">smartquery.mappings.size<a class="headerlink" href="#term-smartquery.mappings.size" title="Link to this term"></a></dt><dd><p>The current number of raw mapping pairs per tenant.
+This metric is tagged with the respective <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+</dd>
+<dt id="term-smartquery.mappings.age.seconds">smartquery.mappings.age.seconds<a class="headerlink" href="#term-smartquery.mappings.age.seconds" title="Link to this term"></a></dt><dd><p>Time passed since the last successful mapping update.
+This metric is tagged with the respective <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="integration.html" class="btn btn-neutral float-left" title="Integration Details" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright , CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

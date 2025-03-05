@@ -1,29 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Module: smartQuery &mdash; CXP SearchHub 0.63.3 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=afbf3d36" />
+
+  
     <link rel="shortcut icon" href="_static/favicon.jpg"/>
     <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/module_smartquery.html" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Common concepts and behavior" href="smartquery/common.html" />
+    <link rel="next" title="User Stories" href="smartquery/user-stories.html" />
     <link rel="prev" title="Search Collector" href="search-collector.html" /> 
 </head>
 
@@ -32,12 +31,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #2B2D42" >
-            <a href="index.html">
-            <img src="_static/logo-searchhub.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo-searchhub.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -45,18 +48,19 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration-guide.html">Integration Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search-collector.html">Search Collector</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Module: smartQuery</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/common.html">Common concepts and behavior</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html">Direct Integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html">REST Service Integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/user-stories.html">User Stories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/integration.html">Integration Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="smartquery/operations.html">Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="smartquery/changelog.html">Changelog</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: smartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Common Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 
@@ -73,7 +77,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Module: smartQuery</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/module_smartquery.rst.txt" rel="nofollow"> View page source</a>
@@ -85,51 +89,22 @@
            <div itemprop="articleBody">
              
   <section id="module-smartquery">
-<h1>Module: smartQuery<a class="headerlink" href="#module-smartquery" title="Permalink to this heading">¶</a></h1>
-<p>smartQuery is a searchHub module that maps similar queries (e.g. “skate board”, “skate boarding”, “skateboards”, “skateboard”, “scate burd”) to the best <a class="footnote-reference brackets" href="#id2" id="id1">1</a> query - the so-called MasterQuery.
-The smartQuery module automatically connects to the searchHub API to get the required data and to send back statistics and performance information about the module itself and the mapping process.</p>
-<p>We recommend following the <a class="reference external" href="smartquery/best-practices.html">best practices</a> to get started with the smartQuery integration into your system.</p>
-<dl class="footnote brackets">
-<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Additionally, there are  use cases, where we have ambiguous mappings, which result in multiple MasterQueries. In the future, these will receive differentiated handling. It is important to understand that the term “best query” refers to the keyword with most positive outcome in terms of user interaction, as well as, and economic profit.</p>
-</dd>
-</dl>
+<h1>Module: smartQuery<a class="headerlink" href="#module-smartquery" title="Link to this heading"></a></h1>
+<p>The smartQuery module provides search instructions to the associated search engine. This begins with a straight-forward query mapping that simply replaces the user query with a so-called master query. This “keyword ambassador query” represents an entire query intent cluster. It’s the query that has historically performed the best within the framework of the associated search engine.</p>
+<p>Search instructions go beyond simple query replacement. Currently, this module supports the following search engine instructions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Redirect URLs that lead users to curated or targeted landing pages</p></li>
+<li><p>In the case of ambiguous input, we provide potential search term corrections for the end user.</p></li>
+<li><p>Related queries that might lead the user to more precise and therefore better results.</p></li>
+<li><p>Result Modification that improves the result set itself.</p></li>
+</ul>
+</div></blockquote>
+<p>Please make sure to know about the basic terminology defined in the <a class="reference external" href="glossary.html">glossary</a> before going on with this section.
+Then we recommend to understand the predefined <a class="reference external" href="smartquery/user-stories.html">user stories</a> describing the high level goals of an integration and finally head to <a class="reference external" href="smartquery/setup.html">setup</a> and <a class="reference external" href="smartquery/integration.html">integration</a> for all the details.
+Operators of the HTTP service should have a close look at the specific <a class="reference external" href="smartquery/operations.html">operations</a> and the <a class="reference external" href="operations.html">common operations</a> section that cover all around system behaviour and instrumentation.
+To stay updated about recent changes, have a look at the <a class="reference external" href="smartquery/changelog.html">changelog</a>.</p>
 <div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="smartquery/common.html">Common concepts and behavior</a></li>
-<li class="toctree-l1"><a class="reference internal" href="smartquery/direct-integration.html">Direct Integration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#maven-dependency">Maven Dependency</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#essential-usage">Essential Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#usage-example">Usage Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#integration-with-sessionid">Integration with sessionID</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/direct-integration.html#monitoring">Monitoring</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="smartquery/rest-service.html">REST Service Integration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html#start-the-service">Start the service</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html#using-the-service">Using the service</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html#configuration">Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html#monitoring">Monitoring</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/rest-service.html#troubleshooting">Troubleshooting</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="smartquery/best-practices.html">Best Practices</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#basic-smartquery-implementation">Basic smartQuery Implementation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#extended-smartquery-implementation-recommended">Extended smartQuery Implementation (Recommended)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#query-correction-feedback">Query Correction Feedback</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#potential-correction-alternatives">Potential correction alternatives</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/best-practices.html#searchhub-redirects">searchHub Redirects</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="smartquery/changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/changelog.html#version-2">Version 2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/changelog.html#version-1">Version 1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="smartquery/changelog.html#version-0">Version 0</a></li>
-</ul>
-</li>
-</ul>
 </div>
 </section>
 
@@ -138,7 +113,7 @@ The smartQuery module automatically connects to the searchHub API to get the req
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="search-collector.html" class="btn btn-neutral float-left" title="Search Collector" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="smartquery/common.html" class="btn btn-neutral float-right" title="Common concepts and behavior" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="smartquery/user-stories.html" class="btn btn-neutral float-right" title="User Stories" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

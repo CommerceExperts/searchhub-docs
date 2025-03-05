@@ -31,7 +31,7 @@ We provide the following methods of ingesting analytics data:
 Frontend Search Tracking
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-For the best searchHub integration, we recommend the using our `searchCollector`_ tracking solution. To ensure minimal effort, we offer a shop-specific integration script ready to be embedded. Apply your own data attributes, for a more stable integration. `Read full searchCollector documentation`_ for more details.
+For the best searchHub integration, we recommend the using our `Search Collector`_ tracking solution. To ensure minimal effort, we offer a shop-specific integration script ready to be embedded. Apply your own data attributes, for a more stable integration. `Read full Search Collector documentation`_ for more details.
 
 
 Google Analytics API Access
@@ -121,5 +121,5 @@ optionally we can also use:
 .. _glossary: glossary.html
 .. _tenant: ../glossary.html#tenant
 .. _grant access: https://support.google.com/analytics/answer/1009702?hl=en
-.. _searchCollector: /search-collector.html
-.. _Read full searchCollector documentation: /search-collector.html
+.. _Search Collector: /search-collector.html
+.. _Read full Search Collector documentation: /search-collector.html

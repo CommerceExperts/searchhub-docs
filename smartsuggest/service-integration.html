@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service Integration &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=afbf3d36" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.jpg"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartsuggest/service-integration.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Service Operations" href="service-operations.html" />
+    <link rel="prev" title="Setup" href="setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-searchhub.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../integration-guide.html">Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: smartQuery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: smartSuggest</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="user-stories.html">User Stories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Service Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#v1-request">V1 Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#v2-request">V2 Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#v3-request">V3 Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#v4-request">V4 Request</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="service-operations.html">Service Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="java-integration.html">Java Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Common Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../module_smartsuggest.html">Module: smartSuggest</a></li>
+      <li class="breadcrumb-item active">Service Integration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/smartsuggest/service-integration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="service-integration">
+<h1>Service Integration<a class="headerlink" href="#service-integration" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is the recommended way to integrate suggest, as the service can be directly consumed from your frontend!</p>
+<p>The <a class="reference external" href="java-integration.html">Java integration</a> is only recommended in the case you want to combine it with your existing suggest service or extend the suggest service with more custom data source. And of course it’s only possible if your service is running inside a JVM environment.</p>
+</div>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Link to this heading"></a></h2>
+<p>The suggest service comes with several endpoints, that give you a different level of detail.
+The suggestions themselves are all the same, just the structure or the meta data attached to the suggestions will differ.</p>
+<p>Keep in mind, that smartSuggest starts fetching the necessary data, after the first request for a tenant was received. So the first few seconds all requests will return an empty result. A few seconds later you should get suggestions (if API Key is correctly set and the used tenant is correct).
+It’s possible to lower that startup latency by specifying the tenants using the preloadTenants parameter (SH_INIT_TENANTS), which is described below.</p>
+<section id="v1-request">
+<h3>V1 Request<a class="headerlink" href="#v1-request" title="Link to this heading"></a></h3>
+<p>This endpoint will deliver the suggestions grouped into blocks. Each block represents a different quality of suggestions depending on how they matched. This might be useful if you want to restrict the list to only the best matching suggestions.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://&lt;host&gt;:&lt;port&gt;/smartsuggest/v1/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery<span class="o">=</span>&lt;user-query&gt;<span class="o">[</span><span class="p">&amp;</span><span class="nv">limit</span><span class="o">=</span>&lt;n&gt;<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>Request Parameters</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>tenant-name (path): the first part of the tenant provided by searchHub</p></li>
+<li><p>tenant-channel (path): the second part of the tenant provided by searchHub</p></li>
+<li><p>userQuery (query): the text the user entered in the search box</p></li>
+<li><p>limit (query): This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Response</strong>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;best matches&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;suggestions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;suggestion 1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;suggestion 2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;etc.&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>A block with the name “best matches” is the best case scenario. There are also 3 other kind of blocks, named “typo matches”, “fuzzy matches with 1 edit” and “fuzzy matches with 2 edits”. In case nothing is found, an empty array is returned.
+It is also possible (depending on settings and user input) that several blocks are delivered. In such a case it’s up to you to decide which queries to use for the autosuggestion.
+If there is no need for some special logic, we recommend to use API v2 or v3.</p>
+</section>
+<section id="v2-request">
+<h3>V2 Request<a class="headerlink" href="#v2-request" title="Link to this heading"></a></h3>
+<p>This endpoint is for the simplest integration, as it will just deliver an array of strings. No grouping, no meta data. Just queries as strings. This is useful if you want a simple integration without any sophisticated feature.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://&lt;host&gt;:&lt;port&gt;/smartsuggest/v2/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery<span class="o">=</span>&lt;user-query&gt;<span class="o">[</span><span class="p">&amp;</span><span class="nv">limit</span><span class="o">=</span>&lt;n&gt;<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>Request Parameters</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>tenant-name (path): the first part of the tenant provided by searchHub</p></li>
+<li><p>tenant-channel (path): the second part of the tenant provided by searchHub</p></li>
+<li><p>userQuery (query): the text the user entered in the search box</p></li>
+<li><p>limit (query): This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Response</strong>:</p>
+<p>The response is a JSON array with simple strings that can be used as autocompletion result.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">  </span><span class="s2">&quot;suggestion 1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;suggestion 2&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;etc.&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="v3-request">
+<h3>V3 Request<a class="headerlink" href="#v3-request" title="Link to this heading"></a></h3>
+<p>This endpoint delivers a list of suggestions, where each suggestion is a rich object that also has some meta data attached to it.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://&lt;host&gt;:&lt;port&gt;/smartsuggest/v3/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery<span class="o">=</span>&lt;user-query&gt;<span class="o">[</span><span class="p">&amp;</span><span class="nv">limit</span><span class="o">=</span>&lt;n&gt;<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>Request Parameters</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>tenant-name (path): the first part of the tenant provided by searchHub</p></li>
+<li><p>tenant-channel (path): the second part of the tenant provided by searchHub</p></li>
+<li><p>userQuery (query): the text the user entered in the search box</p></li>
+<li><p>limit (query): This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Response</strong>:</p>
+<p>The response is a JSON array consisting of rich objects that contain an additional payload for every autosuggestion query.
+The payload might contain the following keys:</p>
+<dl class="simple">
+<dt>meta.matchKey</dt><dd><p>The actual text that was searched and matched. Especially for untypical queries matching one of the cluster variants, this will yield a complete list of queries.
+The main purpose of this value is debugging.</p>
+</dd>
+<dt>meta.matchGroupName</dt><dd><p>Corresponds to the group names as described for the v1 request.</p>
+</dd>
+<dt>meta.weight</dt><dd><p>This will be set to the internal weight of that suggestion. That’s the weight the suggestions are ordered, unless the match-type won’t give an extra penalty.</p>
+</dd>
+<dt>type</dt><dd><p>Currently, the only supported value is <em>keyword</em>. In case you add another data source to the suggest index, this could be something like “product” or “category”.</p>
+</dd>
+<dt>redirect</dt><dd><p>The redirect URL, configured for the query over the searchHub-UI. <strong>Optional</strong> omitted if no redirect exists.
+If this value is given, it’s recommended to redirect directly to that URL and avoid an unnecessary request to your search backend.</p>
+</dd>
+</dl>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;meta.matchKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;meta.matchGroupName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;best matches&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;meta.weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10234</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;keyword&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;suggestion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion1&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;meta.matchKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;meta.matchGroupName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;best matches&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;meta.weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10109</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;keyword&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;redirect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://some-redirect-url.com&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;suggestion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion2&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="v4-request">
+<h3>V4 Request<a class="headerlink" href="#v4-request" title="Link to this heading"></a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This endpoint is only available if you are using the <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-integration-service</span></code>, since it will use the smartQuery module to enrich the response.</p>
+</div>
+<p>This endpoint comes handy when you want to do a low latency frontend integration, that should fetch the smartQuery mapping while the user still types into suggest.
+Actually that’s exactly what the <a class="reference external" href="https://github.com/CommerceExperts/searchhub-js-client/">Javascript Client</a> does and why it depends on that exact endpoint.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>http://&lt;host&gt;:&lt;port&gt;/smartsuggest/v4/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery<span class="o">=</span>&lt;user-query&gt;<span class="o">[</span><span class="p">&amp;</span><span class="nv">limit</span><span class="o">=</span>&lt;n&gt;<span class="o">][</span><span class="p">&amp;</span><span class="nv">sessionId</span><span class="o">=</span>&lt;SearchCollectorSession&gt;<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>Request Parameters</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>tenant-name (path): the first part of the tenant provided by searchHub</p></li>
+<li><p>tenant-channel (path): the second part of the tenant provided by searchHub</p></li>
+<li><p>userQuery (query): the text the user entered in the search box</p></li>
+<li><p>limit (query): This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.</p></li>
+<li><p>sessionId (query): This optional parameter improves the integration of smartQuery. See the according <a class="reference external" href="../smartquery/integration.html#integration-with-sessionid">Integration with sessionId</a> section for details.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Response</strong>:</p>
+<p>The response is a JSON object consisting of a ‘suggestions’ array similar to v3 and a ‘mappingTarget’ object as described in the <a class="reference external" href="../smartquery/integration.html">smartQuery integration</a></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;suggestions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;meta.matchKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion a1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;mappingTarget.searchQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;master query a1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;keyword&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;meta.weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;37220&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;mappingTarget.redirect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;meta.matchGroupName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;best matches&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;suggestion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion a1&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;mappingTarget&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;userQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;masterQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;master query a1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;redirect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;potentialCorrections&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;relatedQueries&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;resultModifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;successful&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;searchQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;master query a1&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="setup.html" class="btn btn-neutral float-left" title="Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="service-operations.html" class="btn btn-neutral float-right" title="Service Operations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright , CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

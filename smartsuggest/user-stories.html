@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Stories &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=afbf3d36" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.jpg"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartsuggest/user-stories.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Setup" href="setup.html" />
+    <link rel="prev" title="Module: smartSuggest" href="../module_smartsuggest.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-searchhub.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../integration-guide.html">Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: smartQuery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: smartSuggest</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">User Stories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smartsuggest-implementation">smartSuggest Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#searchhub-ai-suggestions">searchHub AI-Suggestions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service-integration.html">Service Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service-operations.html">Service Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="java-integration.html">Java Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Common Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../module_smartsuggest.html">Module: smartSuggest</a></li>
+      <li class="breadcrumb-item active">User Stories</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/smartsuggest/user-stories.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="user-stories">
+<h1>User Stories<a class="headerlink" href="#user-stories" title="Link to this heading"></a></h1>
+<p>In order to aid Product Owners in developing according to agile principles, we have expressed our recommended best practices as user stories. Feel free to copy and paste this to your backlog.</p>
+<section id="smartsuggest-implementation">
+<h2>smartSuggest Implementation<a class="headerlink" href="#smartsuggest-implementation" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Story</dt><dd><p>As a customer I want to see autocompletion / search suggestions in the searchbar that are optimized using CXP searchHub.</p>
+</dd>
+<dt>Acceptance criteria</dt><dd><ul class="simple">
+<li><p>When typing into the search box, search phrases are suggested based on every single typed user input using searchHub’s smartSuggest Module (<a class="reference external" href="https://docs.searchhub.io/module_smartsuggest.html">https://docs.searchhub.io/module_smartsuggest.html</a>).</p></li>
+<li><p>Selecting one of those suggested queries, causes a search request to the shop</p></li>
+<li><p>(In case <a class="reference external" href="https://docs.searchhub.io/module_smartquery.html">SmartQuery</a> is used, these suggested terms should still be mapped by SmartQuery)</p></li>
+<li><p>internal systems can access <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> to fetch the necessary data</p></li>
+<li><p>internal systems can access <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a> to send usage information that are used to monitor and optimize the results</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="searchhub-ai-suggestions">
+<h2>searchHub AI-Suggestions<a class="headerlink" href="#searchhub-ai-suggestions" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Story</dt><dd><p>As a user, I want to see auto-completion/search suggestions displayed when I click on the search box, even if I haven’t started typing anything yet.</p>
+</dd>
+<dt>Acceptance criteria</dt><dd><ul class="simple">
+<li><p>AI-Suggestions from searchHub of type “TBD” are displayed when the search box is clicked on and its value is empty</p></li>
+<li><p>The AI-Suggestions displayed are the most relevant for our use case, which may be a combination of different types</p></li>
+<li><p>The AI-Suggestions are a simple list of queries without any metadata, so they should be displayed in a simple list.</p></li>
+</ul>
+</dd>
+</dl>
+<p>The 5 provided types of AI suggestions are optimized for demand, for trends, for findability, for sellability, or a combination of all (MOST_INSPIRING)</p>
+<dl>
+<dt>Technical hint</dt><dd><p>To request the AI-Suggestions from smartSuggest you’ll have to provide one of the following 5 different exposed <strong>special queries</strong> to the API:</p>
+<ul class="simple">
+<li><p>MOST_INSPIRING</p></li>
+<li><p>MOST_POPULAR</p></li>
+<li><p>HIGHEST_POPULARITY_UPLIFT</p></li>
+<li><p>HIGHEST_FINDABILITY_UPLIFT</p></li>
+<li><p>HIGHEST_SELLABILITY_UPLIFT</p></li>
+</ul>
+<p>Those query are set with the same parameter <code class="code docutils literal notranslate"><span class="pre">userQuery</span></code> that is also used for the user input. As soon as the user starts typing, the used special query should be replaced
+by the according user input.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../module_smartsuggest.html" class="btn btn-neutral float-left" title="Module: smartSuggest" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="setup.html" class="btn btn-neutral float-right" title="Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright , CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,30 +1,29 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ingestion &mdash; CXP SearchHub 0.63.3 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=afbf3d36" />
+
+  
     <link rel="shortcut icon" href="_static/favicon.jpg"/>
     <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/ingestion.html" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Search Collector" href="search-collector.html" />
-    <link rel="prev" title="CXP searchHub documentation" href="index.html" /> 
+    <link rel="prev" title="Integration Guide" href="integration-guide.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -32,12 +31,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #2B2D42" >
-            <a href="index.html">
-            <img src="_static/logo-searchhub.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo-searchhub.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -45,7 +48,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration-guide.html">Integration Guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Ingestion</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#search-analytics-data">1. Search Analytics Data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#frontend-search-tracking">Frontend Search Tracking</a></li>
@@ -64,6 +67,7 @@
 <li class="toctree-l1"><a class="reference internal" href="search-collector.html">Search Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: smartQuery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: smartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Common Operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 
@@ -80,7 +84,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Ingestion</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/ingestion.rst.txt" rel="nofollow"> View page source</a>
@@ -92,7 +96,7 @@
            <div itemprop="articleBody">
              
   <section id="ingestion">
-<h1>Ingestion<a class="headerlink" href="#ingestion" title="Permalink to this heading">¶</a></h1>
+<h1>Ingestion<a class="headerlink" href="#ingestion" title="Link to this heading"></a></h1>
 <p>searchHub primarily relies on search-analytics data. However, the following types of data are used to further improve the outcome.</p>
 <ol class="arabic simple">
 <li><p>Search Analytics Data</p></li>
@@ -101,7 +105,7 @@
 </ol>
 <p>See below what to consider when creating the respective data feeds.</p>
 <section id="search-analytics-data">
-<h2>1. Search Analytics Data<a class="headerlink" href="#search-analytics-data" title="Permalink to this heading">¶</a></h2>
+<h2>1. Search Analytics Data<a class="headerlink" href="#search-analytics-data" title="Link to this heading"></a></h2>
 <p>We provide the following methods of ingesting analytics data:</p>
 <ul class="simple">
 <li><p><strong>Frontend Search Tracking</strong></p></li>
@@ -115,11 +119,11 @@
 </li>
 </ul>
 <section id="frontend-search-tracking">
-<h3>Frontend Search Tracking<a class="headerlink" href="#frontend-search-tracking" title="Permalink to this heading">¶</a></h3>
-<p>For the best searchHub integration, we recommend the using our <a class="reference external" href="/search-collector.html">searchCollector</a> tracking solution. To ensure minimal effort, we offer a shop-specific integration script ready to be embedded. Apply your own data attributes, for a more stable integration. <a class="reference external" href="/search-collector.html">Read full searchCollector documentation</a> for more details.</p>
+<h3>Frontend Search Tracking<a class="headerlink" href="#frontend-search-tracking" title="Link to this heading"></a></h3>
+<p>For the best searchHub integration, we recommend the using our <a class="reference external" href="/search-collector.html">Search Collector</a> tracking solution. To ensure minimal effort, we offer a shop-specific integration script ready to be embedded. Apply your own data attributes, for a more stable integration. <a class="reference external" href="/search-collector.html">Read full Search Collector documentation</a> for more details.</p>
 </section>
 <section id="google-analytics-api-access">
-<h3>Google Analytics API Access<a class="headerlink" href="#google-analytics-api-access" title="Permalink to this heading">¶</a></h3>
+<h3>Google Analytics API Access<a class="headerlink" href="#google-analytics-api-access" title="Link to this heading"></a></h3>
 <p>API access to Google Analytics (UA or GA4) is a secondary option. However, site search tracking is no longer standard in GA4. For this reason, it’s necessary to create a custom search-tracking integration within GA4, for it to work.</p>
 <p>To connect searchHub to your GA data, please <a class="reference external" href="https://support.google.com/analytics/answer/1009702?hl=en">grant access</a> to at least the ‘Viewer’ role to the following two accounts:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">searchhub</span><span class="nd">@searchhub</span><span class="o">-</span><span class="n">analytics</span><span class="o">.</span><span class="n">iam</span><span class="o">.</span><span class="n">gserviceaccount</span><span class="o">.</span><span class="n">com</span>
@@ -129,10 +133,10 @@
 <p>Once done, please contact us so that we can set up the data-ingestion process on our end.</p>
 </section>
 <section id="analytics-file-export">
-<h3>Analytics File Export<a class="headerlink" href="#analytics-file-export" title="Permalink to this heading">¶</a></h3>
+<h3>Analytics File Export<a class="headerlink" href="#analytics-file-export" title="Link to this heading"></a></h3>
 <p>In the event you are unable to grant API access to your analytics system, a file export is also acceptable. Please make sure to provide these files regulary in order to ensure sustainability and system continuity.</p>
 <section id="necessary-export-kpis">
-<h4>Necessary Export KPIs<a class="headerlink" href="#necessary-export-kpis" title="Permalink to this heading">¶</a></h4>
+<h4>Necessary Export KPIs<a class="headerlink" href="#necessary-export-kpis" title="Link to this heading"></a></h4>
 <p>Most important for searchHub are user generated search queries (user queries) and their corresponding KPIs. Below is a list of the most useful search KPIs:</p>
 <ul class="simple">
 <li><p>Search-Frequency (Required!)</p></li>
@@ -146,7 +150,7 @@
 <p>These KPIs allow searchHub to make better decisions. Your selection depends upon your search query optimization goal. Ex.: you want to lover the zero-match rate - then “Match Count” must be included in your analytics export.</p>
 </section>
 <section id="data-format">
-<h4>Data Format<a class="headerlink" href="#data-format" title="Permalink to this heading">¶</a></h4>
+<h4>Data Format<a class="headerlink" href="#data-format" title="Link to this heading"></a></h4>
 <p>As a data format, we prefer CSV/TSV feeds that meet the following conditions:</p>
 <ul>
 <li><p>The export is clearly assigned to a single tenant / shop / sales channel</p></li>
@@ -167,12 +171,12 @@
 </section>
 </section>
 <section id="curated-queries">
-<h2>2. Curated Queries<a class="headerlink" href="#curated-queries" title="Permalink to this heading">¶</a></h2>
+<h2>2. Curated Queries<a class="headerlink" href="#curated-queries" title="Link to this heading"></a></h2>
 <p>If you have curated landing pages for certain queries or optimized search results, you can export the corresponding queries and searchHub will prefer these and automatically increase the traffic to them.
 This can be a simple text file with the name of the tenant (shop or sales channel), e.g. <code class="docutils literal notranslate"><span class="pre">curated-queries.&lt;tenant&gt;.txt</span></code> or any other format from which such queries may be easily extracted.</p>
 </section>
 <section id="product-data">
-<h2>3. Product Data<a class="headerlink" href="#product-data" title="Permalink to this heading">¶</a></h2>
+<h2>3. Product Data<a class="headerlink" href="#product-data" title="Link to this heading"></a></h2>
 <p>Product data should be provided on variant level as CSV file or in the Google-Shopping-Feed-XML format and contain at least the following data fields:</p>
 <ul class="simple">
 <li><p>id (should be identical to what is exposed in the shop frontend)</p></li>
@@ -195,7 +199,7 @@ This can be a simple text file with the name of the tenant (shop or sales channe
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="CXP searchHub documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integration-guide.html" class="btn btn-neutral float-left" title="Integration Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="search-collector.html" class="btn btn-neutral float-right" title="Search Collector" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -1,0 +1,223 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Service Operations &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=afbf3d36" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.jpg"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartsuggest/service-operations.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Java Integration" href="java-integration.html" />
+    <link rel="prev" title="Service Integration" href="service-integration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-searchhub.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../integration-guide.html">Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: smartQuery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: smartSuggest</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="user-stories.html">User Stories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service-integration.html">Service Integration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Service Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#api-key">API KEY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deprecated-settings">Deprecated Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring">Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="java-integration.html">Java Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Common Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../module_smartsuggest.html">Module: smartSuggest</a></li>
+      <li class="breadcrumb-item active">Service Operations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/smartsuggest/service-operations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="service-operations">
+<h1>Service Operations<a class="headerlink" href="#service-operations" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This part covers the specifics to suggest. Please check the <a class="reference external" href="../operations.html">common operations</a> section for more configuration options.</p>
+</div>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<p>To set those configuration values, you can inject a properties file into the container, bind it into the container at path <code class="docutils literal notranslate"><span class="pre">/app/config/suggest.properties</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="o">[</span>...<span class="o">]</span><span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/suggest.properties&quot;</span>:/app/config/suggest.properties<span class="w"> </span><span class="o">[</span>...<span class="o">]</span>
+</pre></div>
+</div>
+<p>Each setting can also be set as system property or environment variable, those take precedence over what’s set in the <code class="docutils literal notranslate"><span class="pre">suggest.properties</span></code> file. To inject those properties as system-properties, use the JAVA_OPTS environment variable and specify each property prefixed with <cite>-D</cite>, for example</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="o">[</span>...<span class="o">]</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsearchhub.apikey=&#39;your-api-key&#39; -Dsuggest.service.max-idle-minutes=90&quot;</span><span class="w"> </span><span class="o">[</span>...<span class="o">]</span>
+</pre></div>
+</div>
+<p>For all those properties there are also according environments variables that could be set. Those are only used if there is no according “property value” found. Please stick to one way of defining properties to avoid confusion.</p>
+<dl>
+<dt>suggest.service.max-idle-minutes</dt><dd><div class="line-block">
+<div class="line">(<em>SUGGEST_SERVICE_MAX_IDLE_MINUTES</em>)</div>
+<div class="line">If a suggest index is not requested for that time, it will be unloaded. A new request to that index will return an empty list, but restart the loading of that index.</div>
+<div class="line">A value of ‘0’ or smaller will disable the unloading mechanic completely and never free up used space by created suggest indexes.</div>
+<div class="line">Defaults to 30</div>
+</div>
+</dd>
+<dt>suggest.update-rate</dt><dd><div class="line-block">
+<div class="line">(<em>SUGGEST_UPDATE_RATE</em>)</div>
+<div class="line">Defines in seconds, how often the suggest library checks for new data for every loaded index.</div>
+<div class="line">Defaults to 60</div>
+</div>
+</dd>
+<dt>suggest.preload-indexes</dt><dd><div class="line-block">
+<div class="line">(<em>SUGGEST_PRELOAD_INDEXES</em>, <em>SH_INIT_TENANTS</em>)</div>
+<div class="line">Comma-separated list of indexes (=searchHub tenants) that should be initialized at the start of the service.</div>
+</div>
+</dd>
+<dt>suggest.concurrent-indexation</dt><dd><div class="line-block">
+<div class="line">(<em>SUGGEST_CONCURRENT_INDEXATION</em>)</div>
+<div class="line">boolean value, ‘true’ per default. Can be set to ‘false’ so that the indexation of the received data will be done sequentially.</div>
+<div class="line">This means it will take longer until the service is ready for usage and will spare computational power that might be used for others.</div>
+</div>
+</dd>
+<dt>searchhub.apikey</dt><dd><div class="line-block">
+<div class="line">(<em>SH_API_KEY</em>)</div>
+<div class="line">Required API Key to load suggestions from searchHub. That’s the only setting that should rather be set as a environment variable.</div>
+</div>
+</dd>
+</dl>
+<section id="api-key">
+<h3>API KEY<a class="headerlink" href="#api-key" title="Link to this heading"></a></h3>
+<p>The API Key is required to start the service. You will get the searchHub API Key from your contact person.
+In a environment that can manage secrets, it is recommended to inject the API Key via Environment variable .</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SH_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-secret-api-key&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="deprecated-settings">
+<h3>Deprecated Settings<a class="headerlink" href="#deprecated-settings" title="Link to this heading"></a></h3>
+<dl>
+<dt>suggest.server.port</dt><dd><div class="line-block">
+<div class="line">Will only be used, if the renamed property ‘server.port’ can’t be found.</div>
+</div>
+</dd>
+<dt>suggest.server.address</dt><dd><div class="line-block">
+<div class="line">Will only be used, if the renamed property ‘server.address’ can’t be found.</div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+<section id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Link to this heading"></a></h2>
+<p>There are several metrics that are exposed in the prometheus format through the <code class="code docutils literal notranslate"><span class="pre">/prometheus</span></code> endpoint of the service.</p>
+<dl class="simple glossary">
+<dt id="term-smartsuggest.update.success.count.total">smartsuggest.update.success.count.total<a class="headerlink" href="#term-smartsuggest.update.success.count.total" title="Link to this term"></a></dt><dd><p>Total number of successful data updates per tenant.
+This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+</dd>
+<dt id="term-smartsuggest.update.fail.count">smartsuggest.update.fail.count<a class="headerlink" href="#term-smartsuggest.update.fail.count" title="Link to this term"></a></dt><dd><p>Number of successive failed update attempts for a certain tenant. If an update succeeds, this value will be reset to “0”.
+If this value reaches “5”, the respective update process will be stopped and only restarted, if suggestions for the related tenant are requested again.
+This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+</dd>
+<dt id="term-smartsuggest.suggestions.size">smartsuggest.suggestions.size<a class="headerlink" href="#term-smartsuggest.suggestions.size" title="Link to this term"></a></dt><dd><p>Current number of raw suggestion records per tenant.
+This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+</dd>
+<dt id="term-smartsuggest.suggestions.age.seconds">smartsuggest.suggestions.age.seconds<a class="headerlink" href="#term-smartsuggest.suggestions.age.seconds" title="Link to this term"></a></dt><dd><p>That is the amount of time passed, since the last successful update took place.
+This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+</dd>
+</dl>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="service-integration.html" class="btn btn-neutral float-left" title="Service Integration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="java-integration.html" class="btn btn-neutral float-right" title="Java Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright , CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

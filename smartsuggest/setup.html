@@ -1,0 +1,252 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setup &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=afbf3d36" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.jpg"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartsuggest/setup.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Service Integration" href="service-integration.html" />
+    <link rel="prev" title="User Stories" href="user-stories.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-searchhub.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../integration-guide.html">Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartquery.html">Module: smartQuery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartsuggest.html">Module: smartSuggest</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="user-stories.html">User Stories</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#client-setup">Client Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="service-integration.html">Service Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="service-operations.html">Service Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="java-integration.html">Java Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Common Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../module_smartsuggest.html">Module: smartSuggest</a></li>
+      <li class="breadcrumb-item active">Setup</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/smartsuggest/setup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h1>
+<p>smartSuggest is a library that utilizes Apache Lucene to generally achieve good suggest results. You can use that Java library directly to build your custom suggest service,
+but it also comes packed as a HTTP service in form of a container image.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Be sure the application is allowed to connect to <code class="docutils literal notranslate"><span class="pre">https://query.searchhub.io/</span></code>. This is where it fetches the searchHub suggest data.</p></li>
+<li><p>The embedded Lucene library creates several indexes in a temporary directory. Make sure it is able to write to your OS temp directory. That data is volatile and does not need any
+permanent persistence. Inside the container this should work without any further intervention.</p></li>
+<li><p>Around 100MB to 500MB of Memory / Java Heapspace. Depending on the amount of data to be managed by the service it might be more.</p></li>
+<li><p>For Java integration please use at least JDK 17</p></li>
+</ul>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>Our continuous implementation build pushes the library into our own Maven repository and builds the according docker image right afterwards.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">HTTP Service</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>The docker image is available on docker hub with the name <a class="reference external" href="https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags">commerceexperts/searchhub-smartsuggest-service</a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="o">=</span>smartsuggest-service<span class="w"> </span>-e<span class="w"> </span><span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt;<span class="w"> </span>-P<span class="w"> </span>commerceexperts/searchhub-smartsuggest-service:1.4.2
+</pre></div>
+</div>
+<p>The container must be initiated with your API key set to the environment variable <cite>SH_API_KEY</cite>.
+The container exposes port 8081 which can be mapped to any port.</p>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><p>The basic smartSuggest library is part of the Open-Commerce-Search stack, therefor the dependency is <code class="docutils literal notranslate"><span class="pre">de.cxp.ocs::smartsuggest-lib</span></code>.
+In order to load the searchHub data, our <code class="docutils literal notranslate"><span class="pre">searchhub-suggest-data-provider</span></code> must be added to the classpath as well.
+All related components can be pulled as a maven dependency from <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhub-external/">our repository</a></p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>de.cxp.ocs<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>smartsuggest-lib<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>0.22.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>io.searchhub<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>searchhub-suggest-data-provider<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>1.4.2<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="cm">&lt;!-- ... --&gt;</span>
+
+<span class="nt">&lt;repository&gt;</span>
+<span class="w">    </span><span class="nt">&lt;id&gt;</span>external-releases<span class="nt">&lt;/id&gt;</span>
+<span class="w">    </span><span class="nt">&lt;url&gt;</span>https://nexus.commerce-experts.com/content/repositories/searchhub-external/<span class="nt">&lt;/url&gt;</span>
+<span class="nt">&lt;/repository&gt;</span>
+</pre></div>
+</div>
+<p>The full embedded integration is described at the <a class="reference external" href="java-integration.html">Java Integration</a> section.</p>
+</div></div>
+</section>
+<section id="client-setup">
+<h2>Client Setup<a class="headerlink" href="#client-setup" title="Link to this heading"></a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">Java</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">HTTP Service</button><button aria-controls="panel-1-1-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-2" name="1-2" role="tab" tabindex="-1">JS Client</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><p>This is a quick start for setting up a minimal <code class="docutils literal notranslate"><span class="pre">QuerySuggester</span></code>. Read the full <a class="reference external" href="java-integration.html">Java Integration</a> for all details.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">static</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="w"> </span><span class="n">qsm</span><span class="p">;</span>
+<span class="kd">static</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// as the &#39;searchhub-suggest-data-provider&#39; is loaded via the Java SPI system</span>
+<span class="w">        </span><span class="c1">// you cannot configure it directly. The required settings have to be set as</span>
+<span class="w">        </span><span class="c1">// system properties (Setting them directly is not recommended, we just do it for</span>
+<span class="w">        </span><span class="c1">// demonstration purposes)</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;searchhub.apikey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;123abc&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;searchhub.tenant_mappings&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;example=example.com&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">qsm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">                </span><span class="c1">// required for lucene where it puts the index files</span>
+<span class="w">                </span><span class="p">.</span><span class="na">indexFolder</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">createTempDirectory</span><span class="p">(</span><span class="s">&quot;smartsuggest&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="c1">// force synchronous indexation (optional)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">preloadIndexes</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">UncheckedIOException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">suggestQueries</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">qsm</span><span class="p">.</span><span class="na">getQuerySuggester</span><span class="p">(</span><span class="s">&quot;example&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">suggest</span><span class="p">(</span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">,</span><span class="w"> </span><span class="n">Collections</span><span class="p">.</span><span class="na">emptySet</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">suggestion</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">suggestion</span><span class="p">.</span><span class="na">getLabel</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">toList</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><p>For a pure Suggest integration, we recommend to use endpoint v3. But there are more different ones that might fit better to your needs. Continue reading the <a class="reference external" href="service-integration.html">Service Integration</a> for all according details.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$&gt;<span class="w"> </span><span class="nv">port</span><span class="o">=</span><span class="m">38081</span>
+$&gt;<span class="w"> </span><span class="nv">tenant_name</span><span class="o">=</span><span class="s2">&quot;example&quot;</span>
+$&gt;<span class="w"> </span><span class="nv">tenant_channel</span><span class="o">=</span><span class="s2">&quot;com&quot;</span>
+$&gt;<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;http://localhost:/smartsuggest/v3//?userQuery=jea&quot;</span><span class="w"> </span>-o<span class="w"> </span>-<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-1-2" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-2" name="1-2" role="tabpanel" tabindex="0"><p>The JS Client comes only with the ability to connect to a SaaS Service so far. Therefor only tenant name is required for initialization.
+However additional it comes with the ability to do the splitting for an A/B test that can be evaluated by searchHub. Set this value to <cite>false</cite> unless other communicated.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">BrowserClientFactory</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;searchhub-js-client&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">smartSuggestClient</span><span class="p">,</span><span class="w"> </span><span class="nx">smartQueryClient</span><span class="p">,</span><span class="w"> </span><span class="nx">abTestManager</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">BrowserClientFactory</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">tenant</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">abTestActive</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">});</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">suggestions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">smartSuggestClient</span><span class="p">.</span><span class="nx">getSuggestions</span><span class="p">(</span><span class="s2">&quot;jea&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>More code examples are available in the <a class="reference external" href="https://github.com/CommerceExperts/searchhub-js-client">clients repository</a>.</p>
+</div></div>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>If you forgot to specify the API key, the container will stop with the log message
+<cite>“IllegalArgumentException: no searchHub API key provided! Either specify ENV var ‘SH_API_KEY’ or system property ‘searchhub.apikey’”</cite></p></li>
+<li><p>In case you tried to access a non-permitted tenant/channel (maybe because you specified the wrong API key), you will see such a message in the logs of the service:
+<cite>Unauthorized while fetching data for tenant ‘foo.bar’: [401 Unauthorized]</cite></p></li>
+<li><p>To get more information about the internal processes, enable debug log. Do that with the docker startup parameter <code class="code docutils literal notranslate"><span class="pre">-e</span> <span class="pre">JAVA_OPTS=&quot;-Dlog.searchhub.level=DEBUG&quot;</span></code> or for more debug messages additionally <code class="code docutils literal notranslate"><span class="pre">-Dlog.root.level=DEBUG</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="user-stories.html" class="btn btn-neutral float-left" title="User Stories" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="service-integration.html" class="btn btn-neutral float-right" title="Service Integration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright , CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

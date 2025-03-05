@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Common Operations &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=afbf3d36" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.jpg"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/operations.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Glossary" href="glossary.html" />
+    <link rel="prev" title="Changelog" href="smartsuggest/changelog.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo-searchhub.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="integration-guide.html">Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="search-collector.html">Search Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: smartQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: smartSuggest</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Common Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#principles">Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#central-api-connection">Central API Connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smartquery-stats-transmitter">smartQuery: Stats Transmitter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#smartsuggest-volatile-disk-space">smartSuggest: volatile disk space</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#service-topology">Service Topology</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#combined-http-service">Combined HTTP Service</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#operational-endpoints">Operational Endpoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-activation">Module Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basic-authentication">Basic Authentication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#port-and-address">Port and Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#detailed-jvm-metrics">Detailed JVM Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#update-rate">Update Rate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preload-tenants">Preload Tenants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Common Operations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/operations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="common-operations">
+<h1>Common Operations<a class="headerlink" href="#common-operations" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This common operations section extends the module specific section <a class="reference external" href="smartquery/operations.html">smartQuery operations</a> and <a class="reference external" href="smartsuggest/service-operations.html">smartSuggest operations</a>, specifically the HTTP service part.
+That’s possible as the HTTP service for both modules are built from the same source base.</p>
+</div>
+<section id="principles">
+<h2>Principles<a class="headerlink" href="#principles" title="Link to this heading"></a></h2>
+<p>Both modules are built in accordance with the <a class="reference external" href="https://12factor.net/">12-Factor App</a> methodology. The following points provide insights into how the modules are designed, developed, and encapsulated as RESTful/HTTP services (referred to simply as “services” in this section):</p>
+<ol class="arabic simple">
+<li><p><strong>Codebase and Compatibility</strong>: Both module services are built from a single codebase and ensure full API backward compatibility.</p></li>
+<li><p><strong>Dependency Management</strong>: The modules share the same dependency management definition to prevent conflicts when embedded in larger Java applications. Dependencies are declared in the referenced parent Maven POM file, namely “searchhub-module-dependencies”.</p></li>
+<li><p><strong>Configuration</strong> can be managed via volume mounts (e.g., Kubernetes config maps), system properties (startup parameters), or environment variables. (<em>Using a combination of these is possible but may lead to confusion.</em>)</p></li>
+<li><p><strong>Backing Services</strong>: Each module retrieves the required data from the central searchHub API and loads it into the application (whether embedded or containerized). The retrieved data is memory-efficient and disposable after use. Consequently, the modules do not require access to a database, persistent volumes, or other external storage.</p></li>
+<li><p><strong>Build, release, run</strong>: Both modules are delivered through automated CI/CD pipelines. They are rigorously tested for functionality and monitored with performance benchmarks.</p></li>
+<li><p><strong>Processes</strong>: Services are provided as containerized applications running a single Java process (PID 1).</p></li>
+<li><p><strong>Port binding</strong>: By default, the service runs on port <strong>8081</strong>, but this can be changed using the system property <code class="docutils literal notranslate"><span class="pre">-Dserver.port=8082</span></code> or the environment variable <code class="docutils literal notranslate"><span class="pre">SERVER_PORT=8082</span></code>.</p></li>
+<li><p><strong>Concurrency</strong>: The services are synchronized with the central searchHub API and can scale horizontally as needed. Once running, the services operate independently of the API, ensuring no impact on functionality if the API connection is lost. However, maintaining the connection is recommended to receive data updates. More details are covered in the “Central API Connection” section.</p></li>
+<li><p><strong>Disposability</strong>: Yes, as described in 4. and 8.</p></li>
+<li><p><strong>Dev/prod parity</strong>: The services only use data gathered from the production system. Even in TEST or QA environments, the modules rely on productive searchHub data.</p></li>
+<li><p><strong>Logs</strong>: Application logs are logged in a standard format to stdout. Additionally, the smartQuery module collects event-based usage statistics and periodically send them to the central searchHub API in bulk. This is an asynchronous process using a limited buffer to avoid extensive memory consumption. If the connection to the central API is unavailable, usage statistics are dropped until the connection is restored.</p></li>
+<li><p><strong>Admin processes</strong>: The services expose usage metrics and other insights in Prometheus-compatible format at the <code class="docutils literal notranslate"><span class="pre">/metrics</span></code> and <code class="docutils literal notranslate"><span class="pre">/prometheus</span></code> endpoints. Both endpoints can be secured with basic authentication. The container image is based on a minimal Alpine Linux base, allowing shell access when necessary.</p></li>
+</ol>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<section id="central-api-connection">
+<h3>Central API Connection<a class="headerlink" href="#central-api-connection" title="Link to this heading"></a></h3>
+<p>Both modules pull their required data from <code class="docutils literal notranslate"><span class="pre">https://query.searchhub.io</span></code> using the required <code class="docutils literal notranslate"><span class="pre">SH_API_KEY</span></code>. Per default that happens with the first access to the according resource, but asynchronously. For example if <code class="docutils literal notranslate"><span class="pre">/smartquery/v2/$name/$channel?userQuery=xy</span></code> is requested, then the service will immediately respond with the “empty default” result, but internally it will start pulling data for the tenant “$name.$channel”. As soon as the data is loaded, the very same request might respond with more meaningful data (if available for that userQuery).</p>
+<p>To avoid empty default responses at the beginning, a list of tenants can be defined (env-var <code class="docutils literal notranslate"><span class="pre">SH_INIT_TENANTS</span></code> or at the library directly during initialization). In that case, the according module will load the data for those tenants <em>synchronously</em>. For the service this means increased startup time, as the service will only be ready afterwards. But this will also improve availability, as the services can immediately respond with valid data.</p>
+</section>
+<section id="smartquery-stats-transmitter">
+<h3>smartQuery: Stats Transmitter<a class="headerlink" href="#smartquery-stats-transmitter" title="Link to this heading"></a></h3>
+<p>The smartQuery module will also collect event based usage stats and sends them to the central searchHub API <code class="docutils literal notranslate"><span class="pre">https://import.searchhub.io</span></code> in regular bulk requests. This is an asynchronous process using a limited buffer to avoid extensive memory consumption. If the connection to the central API is lost, usage stats are simply dropped until the central API is available again.</p>
+<p>In case messages are dropped, there will be log messages warning about it, for example “searchhub stats transmitting failed {} times for tenant {}”. That can happen in case of unavailability of the central API, but it can also happen, if the service gets more traffic than it can handle. Please contact us in case you have those kind of problems, as it might also be a symptom of a wrong integration.</p>
+</section>
+<section id="smartsuggest-volatile-disk-space">
+<h3>smartSuggest: volatile disk space<a class="headerlink" href="#smartsuggest-volatile-disk-space" title="Link to this heading"></a></h3>
+<p>The suggest module is based on <a class="reference external" href="https://lucene.apache.org/core/">Apache Lucene Core</a> used as an embedded library. As the created indexes need to be stored on disk, a temporary directory is necessary. Per default the OS default temporary directory is used, which is <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> inside the service container.
+It is possible to change that directory directly in the library API <code class="docutils literal notranslate"><span class="pre">.indexFolder(..)</span></code> or for the service using the system property <code class="docutils literal notranslate"><span class="pre">-Dsuggest.index-folder=/your/tmp</span></code> or env-var <code class="docutils literal notranslate"><span class="pre">SUGGEST_INDEX_FOLDER</span></code>.</p>
+</section>
+</section>
+<section id="service-topology">
+<h2>Service Topology<a class="headerlink" href="#service-topology" title="Link to this heading"></a></h2>
+<p>As the suggest module is required for requests from the frontend directly, it should be available without authentication restriction. However we recommend to use a load balancer or reverse proxy to distribute the incoming suggest-requests only to the required suggest endpoints. This way the other unused endpoints are not exposed.</p>
+<p>The smartQuery module should be placed as close to the search-engine as possible, as it needs to be requested right before the search-engine.
+However due the capability of reducing the amount of unique queries (different but similar user queries are mapped to the very same user query), it might be a good idea to place this before the search-engine cache (if available) to increase cache-hit-ratio.
+Another exceptional scenario is a search-engine integrated into frontend, so that its requested directly from the browser. In that case we recommend to use the <code class="docutils literal notranslate"><span class="pre">/smartsuggest/v4</span></code> endpoint, that delivers both service responses with a single request.</p>
+<a class="reference internal image-reference" href="_images/service-topology.png"><img alt="Service Topology" src="_images/service-topology.png" style="width: 690px;" />
+</a>
+<section id="combined-http-service">
+<h3>Combined HTTP Service<a class="headerlink" href="#combined-http-service" title="Link to this heading"></a></h3>
+<p>We use the same code base to build the combined image <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-integration-service:latest</span></code> and the dedicated service images <code class="docutils literal notranslate"><span class="pre">commerceexperts/smartquery-service:${SMARTQUERY_VERSION}</span></code> and <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-smartsuggest-service:${SMARTSUGGEST_VERSION}</span></code>. That’s why the common properties and the common endpoints work for all those image.</p>
+<p>The combined service is especially important for the <code class="docutils literal notranslate"><span class="pre">/smartsuggest/v4</span></code> endpoint, as that endpoint uses the smartQuery module to enrich the suggest response with mapping information. But you can also use it if you want to run both services next to each other anyways.</p>
+</section>
+</section>
+<section id="operational-endpoints">
+<h2>Operational Endpoints<a class="headerlink" href="#operational-endpoints" title="Link to this heading"></a></h2>
+<dl>
+<dt>/up:</dt><dd><p>is a simple static endpoint, that will respond with http code 200 as soon as the container is started</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">/health</span></code>:</dt><dd><p>gives more details about the loaded modules and which tenants are loaded respectively. For example:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;smartquery&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;tenant.one&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ready&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;tenant.two&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Noop&quot;</span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;suggest&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;tenant.one&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ready&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;tenant.two&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NotReady&quot;</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><code class="code docutils literal notranslate"><span class="pre">/prometheus</span></code> and <code class="code docutils literal notranslate"><span class="pre">/metrics</span></code> provide access to insight metrics. The module specific metrics are described in the according module section.
+Additional the following service metrics are exposed.</p>
+</section>
+<section id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Link to this heading"></a></h2>
+<dl class="simple glossary">
+<dt id="term-http_server_requests_count">http_server_requests_count<a class="headerlink" href="#term-http_server_requests_count" title="Link to this term"></a></dt><dd><p>Total number of all requests measured</p>
+</dd>
+<dt id="term-http_server_requests_error_count">http_server_requests_error_count<a class="headerlink" href="#term-http_server_requests_error_count" title="Link to this term"></a></dt><dd><p>total number of requests that were responded with http code &gt;= 400</p>
+</dd>
+<dt id="term-http_server_requests_seconds">http_server_requests_seconds<a class="headerlink" href="#term-http_server_requests_seconds" title="Link to this term"></a></dt><dd><p>total request time of all requests measured. Can be used to calculate rate and total average.</p>
+</dd>
+<dt id="term-http_server_requests_seconds_min">http_server_requests_seconds_min<a class="headerlink" href="#term-http_server_requests_seconds_min" title="Link to this term"></a></dt><dd><p>fastest request measured so far</p>
+</dd>
+<dt id="term-http_server_requests_seconds_max">http_server_requests_seconds_max<a class="headerlink" href="#term-http_server_requests_seconds_max" title="Link to this term"></a></dt><dd><p>slowest request measured so far</p>
+</dd>
+</dl>
+<p>These metrics are labeled with the label “endpoint” having the value “smartsuggest” or “smartquery”.</p>
+<p>In case the property <cite>server.metrics.jvmMemory.enable=true</cite> is set, there will be several metrics exposed around the JVM Memory management. Those metrics have the prefixes <code class="docutils literal notranslate"><span class="pre">jvm_memory_</span></code>, <code class="docutils literal notranslate"><span class="pre">jvm_gc_</span></code> and <code class="docutils literal notranslate"><span class="pre">jvm_buffer_</span></code>.</p>
+<p>In case the property <cite>server.metrics.jvmThreads.enable=true</cite> is set, there will be several metrics exposed with the prefix <code class="docutils literal notranslate"><span class="pre">jvm_threads</span></code> describing details of JVM Thread management.</p>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<p>You could either overwrite the file <code class="docutils literal notranslate"><span class="pre">/app/resources/service.properties</span></code> inside the container with all properties adjusted, or you can overwrite single properties using the <code class="docutils literal notranslate"><span class="pre">JAVA_OPTS</span></code> environment variable. The properties set via <code class="docutils literal notranslate"><span class="pre">JAVA_OPTS</span></code> will always take precedence over the ones in the file. In this documentation all examples are shown with the <code class="docutils literal notranslate"><span class="pre">JAVA_OPTS</span></code> environment variable, if you combine them, make sure to define that environment variable only once for all properties.</p>
+<section id="module-activation">
+<h3>Module Activation<a class="headerlink" href="#module-activation" title="Link to this heading"></a></h3>
+<p>In case you are using the combined service image <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-integration-service</span></code>, both modules are only activated the first time the according endpoint is used.
+This may lead to unwanted behaviour, as the service then needs some time before the data is actually available. Until then only default response objects are delivered.
+So alternatively you can activate the modules during startup:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true&quot;</span>
+</pre></div>
+</div>
+<p>The dedicated variants of that service come with the corresponding module activated.</p>
+</section>
+<section id="basic-authentication">
+<h3>Basic Authentication<a class="headerlink" href="#basic-authentication" title="Link to this heading"></a></h3>
+<p>In case you want to enable basic authentication for all the endpoints, add the following properties to the <cite>JAVA_OPTS</cite> environment variable.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dserver.auth.all.enable=true -Dserver.auth.username=&lt;username&gt; -Dserver.auth.password=&lt;your-password&gt;&quot;</span>
+</pre></div>
+</div>
+<p>Instead of enabling authentication for all endpoints, it’s also possible to only enable authentication for some endpoints only. Therefor omit the <code class="docutils literal notranslate"><span class="pre">-Dserver.auth.all.enable=true</span></code>
+property and instead only use the desired ones of the following properties:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dserver.auth.smartquery.enable=true -Dserver.auth.suggest.enable=true -Dserver.auth.management.enable=true&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="port-and-address">
+<h3>Port and Address<a class="headerlink" href="#port-and-address" title="Link to this heading"></a></h3>
+<p>In case you want to change the listening port and/or address of the internal java server, these are the properties for you. Don’t confuse that with the mapped port of your container whatsoever.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dserver.port=&lt;port&gt; -Dserver.address=&lt;0.0.0.0&gt;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="detailed-jvm-metrics">
+<h3>Detailed JVM Metrics<a class="headerlink" href="#detailed-jvm-metrics" title="Link to this heading"></a></h3>
+<p>If you are interested in detailed JVM metrics (memory and thread stats), you can enable the instrumentation of those. They are then also available via the <code class="docutils literal notranslate"><span class="pre">/prometheus</span></code>
+and <code class="docutils literal notranslate"><span class="pre">/metrics</span></code> endpoint.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dserver.metrics.jvmMemory.enable=true -Dserver.metrics.jvmThreads.enable=true&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="update-rate">
+<h3>Update Rate<a class="headerlink" href="#update-rate" title="Link to this heading"></a></h3>
+<p>Sets the rate (in seconds) at which the background update should check for new data. The value must be between 5 and 3600. Defaults to 60. The update rates of smartQuery and smartSuggest are set separately. If you notice problems with your memory or CPU resource, because both modules start their updates at the same time, you might want to set different prime numbers as update rates.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.updateRateInSeconds=83 -Dsuggest.update-rate=719&quot;</span>
+</pre></div>
+</div>
+<p>(<em>The different property names have historical reason and are kept for legacy support</em>)</p>
+</section>
+<section id="preload-tenants">
+<h3>Preload Tenants<a class="headerlink" href="#preload-tenants" title="Link to this heading"></a></h3>
+<p>You can specify the tenants that should be loaded during startup. The service will only be ready (listening on the given port) after those tenants are loaded.</p>
+<p>There are two ways to set the preload tenants. Either set the <code class="docutils literal notranslate"><span class="pre">SH_INIT_TENANTS</span></code> environment variable directly
+or if you’re already using the <code class="docutils literal notranslate"><span class="pre">JAVA_OPTS</span></code> environment variable, you can add it as a part of it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SH_INIT_TENANTS</span><span class="o">=</span><span class="s2">&quot;example.num1,example.num2&quot;</span>
+<span class="c1"># alternative:</span>
+<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.preloadTenants=example.num1,example.num2&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartsuggest/changelog.html" class="btn btn-neutral float-left" title="Changelog" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright , CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

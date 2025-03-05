@@ -1,0 +1,454 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Integration Details &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=afbf3d36" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.jpg"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/smartquery/integration.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/tabs.js?v=3030b3cb"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Operations" href="operations.html" />
+    <link rel="prev" title="Setup" href="setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/logo-searchhub.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../integration-guide.html">Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../search-collector.html">Search Collector</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../module_smartquery.html">Module: smartQuery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="user-stories.html">User Stories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Integration Details</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#querymapping-response">QueryMapping Response</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#redirect">Redirect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#potential-corrections">Potential Corrections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#related-queries">Related Queries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#result-modifications">Result Modifications</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#integration-with-sessionid">Integration with sessionID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instrumenting">Instrumenting</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="operations.html">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../module_smartsuggest.html">Module: smartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operations.html">Common Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../module_smartquery.html">Module: smartQuery</a></li>
+      <li class="breadcrumb-item active">Integration Details</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/smartquery/integration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="integration-details">
+<h1>Integration Details<a class="headerlink" href="#integration-details" title="Link to this heading"></a></h1>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Link to this heading"></a></h2>
+<p>There is basically a single method that needs the user query and give you access to the according <code class="docutils literal notranslate"><span class="pre">QueryMapping</span></code>.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">HTTP Service</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">QueryMapper</span><span class="w"> </span><span class="n">qm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qmManager</span><span class="p">.</span><span class="na">getQueryMapper</span><span class="p">(</span><span class="n">tenant</span><span class="p">);</span>
+<span class="n">String</span><span class="w"> </span><span class="n">sessionId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"> </span><span class="c1">//optional</span>
+<span class="n">QueryMapping</span><span class="w"> </span><span class="n">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qm</span><span class="p">.</span><span class="na">mapQuery</span><span class="p">(</span><span class="n">searchQuery</span><span class="p">,</span><span class="w"> </span><span class="n">sessionId</span><span class="p">);</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><p>URL Scheme:
+<code class="docutils literal notranslate"><span class="pre">http://&lt;host&gt;:&lt;port&gt;/smartquery/v2/&lt;tenant-name&gt;/&lt;tenant-channel&gt;?userQuery=&lt;user-query&gt;[&amp;sessionId=&lt;SearchCollectorSession&gt;]</span></code></p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p>tenant-name (path): the first part of the tenant provided by searchHub</p></li>
+<li><p>tenant-channel (path): the second part of the tenant provided by searchHub</p></li>
+<li><p>userQuery (query): the text the user entered in the search box</p></li>
+<li><p>sessionId (query): optional parameter that MUST contain the value of the SearchCollectorSession (see details below)</p></li>
+</ul>
+</dd>
+</dl>
+</div></div>
+</section>
+<section id="querymapping-response">
+<h2>QueryMapping Response<a class="headerlink" href="#querymapping-response" title="Link to this heading"></a></h2>
+<p>The object returned by the QueryMapper contains all information to change the search result. The main focus is to change the natural query that is processed by the search engine.
+That’s the so-called ‘masterQuery’. In case there is no masterQuery, the original user query should be used for search. To avoid null-checks, there is the ‘searchQuery’ property
+that will always contain the correct query.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>userQuery</strong>: the entered user query</p></li>
+<li><p><strong>masterQuery</strong>: if the query could be mapped, the master query is set, otherwise it’s null.</p></li>
+<li><p><strong>searchQuery</strong>: the final search query. This is the master or the user query.</p></li>
+<li><p><strong>successful</strong>: <cite>true</cite> if the query could be handled by smartQuery</p></li>
+</ul>
+</div></blockquote>
+<p>Additional the QueryMapping contains more properties that can be used to further improve the result for the user.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>redirect</strong>: URL to a landing page. If given, the search process can be stopped and the user can be redirected to the according URL.</p></li>
+<li><p><strong>potentialCorrections</strong>: An optional array of 1 or 2 queries that could be a correction to the given query. They are given in case no reliable masterQuery could be found
+and should be shown to the user as possible alternative queries.</p></li>
+<li><p><strong>relatedQueries</strong>: An optional list of queries that are related to the user input. They can be used as inspiring queries next to the search result.</p></li>
+<li><p><strong>resultModifications</strong>: An optional list of up to four different list types, each describing how the initial search result should be modified. Each modification type is paired with a list of corresponding IDs (docIDs).</p></li>
+</ul>
+</div></blockquote>
+<section id="redirect">
+<h3>Redirect<a class="headerlink" href="#redirect" title="Link to this heading"></a></h3>
+<p>At searchHub search managers have the ability to add redirect URLs for certain search intends. That can be redirects to category pages, filtered or sorted search results or other arbitrary sites in the shop. If a <code class="docutils literal notranslate"><span class="pre">redirect</span></code> is given, it should take precedence over the normal search. In fact, you can spare the request to the search engine, saving cost and time.</p>
+<p>Normally the provided redirect URL comes as a full qualified URL. That way you can also validate if this is a redirect inside the shop. However, we can also provide relative URLs.
+That’s helpful if you have the same URL structures in different stages and want them to work in all of them.
+To achieve that, please let us know about your URL structures, we then adjust the exported URLs accordingly.</p>
+</section>
+<section id="potential-corrections">
+<h3>Potential Corrections<a class="headerlink" href="#potential-corrections" title="Link to this heading"></a></h3>
+<p>To implement the <a class="reference external" href="user-stories.html#potential-correction-alternatives">user story about potential corrections</a> you should use the queries given with the <code class="docutils literal notranslate"><span class="pre">potentialCorrections</span></code> property.
+It’s a string array of one or more elements in case no certain mapping is available.</p>
+<blockquote>
+<div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;userQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;batroom&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;potentialCorrections&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;bathroom&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bedroom&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Along with a potential search result it should be presented to the user as alternative queries, maybe embedded into some feedback text like “<em>Did you mean ‘${potentialCorrections[0]}’</em>”.</p>
+<p>A click on one of those queries should cause a new search request and can lead to an improved search result. In combination with our Search Collector tracking,
+we gather accepted corrections and may automatically improve future requests of those corrected queries.</p>
+</section>
+<section id="related-queries">
+<h3>Related Queries<a class="headerlink" href="#related-queries" title="Link to this heading"></a></h3>
+<p>Users often enter broad queries, generating extensive search results that require filtering to find more specific results.
+Related queries offer an alternative way to guide users toward more specific and relevant results.</p>
+<p>Additionally, related queries can help when a search is too specific and should be broadened.
+For example, the query “women’s black trousers” might be relaxed to “women’s trousers” by omitting the color term.</p>
+<p>Whenever related queries are available for a user’s search, you can present them as suggestions for further exploration.
+The “relation” property can be useful for filtering related queries or determining how to present them.</p>
+<blockquote>
+<div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;userQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;relatedQueries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sharpened&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom furniture&quot;</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sharpened&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom supplies&quot;</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alternative&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bath&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Since the list of related queries may exceed the available display space, feel free to limit the number shown to the user.</p>
+<p>These are the different available <em>relation</em> types:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><em>sharpened</em>: The related query is more specific than the user query</p></li>
+<li><p><em>relaxed</em>: The related query is less specific than the user query</p></li>
+<li><p><em>alternative</em>: The related query is different to the user query and might be synonym or hyponym</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="result-modifications">
+<h3>Result Modifications<a class="headerlink" href="#result-modifications" title="Link to this heading"></a></h3>
+<p>With our Neural-Infusion approach we are able to provide additional products to the ones delivered by your search engine. Also due to detailed tracking we know about low performing products or products that are not relevant at all for a given query. This information is given to you trough the <code class="docutils literal notranslate"><span class="pre">resultModifications</span></code> property: A list of product sets that should be added or removed to the generated result.</p>
+<p><strong>Example</strong></p>
+<blockquote>
+<div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;userQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jeans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;resultModifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;modificationType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pin&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;100012&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100049&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100139&quot;</span><span class="p">]},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;modificationType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Add&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;100472&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100202&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100387&quot;</span><span class="p">]},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;modificationType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Penalize&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;100355&quot;</span><span class="p">]}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>In this example 3 products should be “pinned” to the top of the result, 3 more products should be added and submerged into the result and 1 product should get a penalty to not show up in the top results.</p>
+<p>These are the available resultModification types:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Add</strong>: The specified IDs should be inserted into the result at any position during result generation, allowing them to be discovered through scrolling, filtering, or sorting..</p></li>
+<li><p><strong>Remove</strong>: Products with the specified IDs should be excluded from the result, if present. This should occur during result generation to ensure accurate facet filtering.</p></li>
+<li><p><strong>Pin</strong>: The specified product IDs should be included in the result and placed at the top.</p></li>
+<li><p><strong>Penalize</strong>: The specified products should receive a score reduction, pushing them toward the end of the result.</p></li>
+</ul>
+</div></blockquote>
+<p>In the best case, your search engine is be able to perform those modifications during result generation, so those changes are already reflected in the filter facets.
+In the rather suboptimal case, you have to filter or insert those products artificially in the returned result. Please reach out to us for integration help with your search engine.
+In the following example queries we show how it could be done with common open source engines.</p>
+<section id="adding-products">
+<h4>Adding Products<a class="headerlink" href="#adding-products" title="Link to this heading"></a></h4>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">Solr</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">Elasticsearch / OpenSearch</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><p>This request type allows you to search for documents that match either your query or a list of document IDs.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">q</span><span class="o">=</span>your_field:search<span class="w"> </span>term<span class="w"> </span>OR<span class="w"> </span>id:<span class="o">(</span>id1<span class="w"> </span>id2<span class="w"> </span>id3<span class="o">)</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><p>The should clause allows you to search for documents that match either your query or a list of document IDs.
+The terms query filters documents by the specified list of document IDs. In case your document IDs don’t match the product IDs, use the according field.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;bool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;should&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;match&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;your_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search term&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;terms&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id3&quot;</span><span class="p">]</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="pinning-products">
+<h4>Pinning Products<a class="headerlink" href="#pinning-products" title="Link to this heading"></a></h4>
+<p>Pinning goes beyond adding products. Those products should be shown at the very beginning of your result.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">Solr</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">Elasticsearch</button><button aria-controls="panel-2-2-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-2" name="2-2" role="tab" tabindex="-1">Opensearch</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><p>To achieve prioritization of specific document IDs in Solr use the <cite>Query Elevation Component &lt;https://solr.apache.org/guide/solr/latest/query-guide/query-elevation-component.html&gt;</cite>.
+It provides the ‘elevateIds’ parameter that allows you to specify document IDs that should be prioritized in the search results.
+In this case, id1, id2, and id3 will receive a boost and appear higher in the results.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">q</span><span class="o">={</span>!edismax<span class="w"> </span><span class="nv">qf</span><span class="o">=</span>your_field<span class="o">}</span>search<span class="w"> </span>term<span class="p">&amp;</span><span class="nv">elevateIds</span><span class="o">=</span>id1,id2,id3
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><p>If you want the documents found by _id to be prioritized over those that match the query, you can use a <cite>pinned query &lt;https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-pinned-query.html&gt;</cite>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;pinned&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id3&quot;</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;organic&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;match&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;your_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search term&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-2-2" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-2" name="2-2" role="tabpanel" tabindex="0"><p>As of now, Opensearch does not support pinned query. You can achieve similar results by boosting the according products with a high boosting value for example by using
+a query-string query.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;bool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;should&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;match&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;your_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search term&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;id1^10000 id2^9999 id3^9998&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;default_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_id&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;default_operator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OR&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="removing-products">
+<h4>Removing Products<a class="headerlink" href="#removing-products" title="Link to this heading"></a></h4>
+<p>Products with the specified IDs should be excluded from the result, if present. This should occur during result generation to ensure accurate facet filtering.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">Solr</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">Elasticsearch / OpenSearch</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><p>To achieve exclusion of specific document IDs in Solr using the excludeIds request parameters, you can do the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">q</span><span class="o">={</span>!edismax<span class="w"> </span><span class="nv">qf</span><span class="o">=</span>your_field<span class="o">}</span>search<span class="w"> </span>term<span class="p">&amp;</span><span class="nv">elevateIds</span><span class="o">=</span>id1,id2,id3<span class="p">&amp;</span><span class="nv">excludeIds</span><span class="o">=</span>id1,id2,id3
+</pre></div>
+</div>
+<p>This parameter specifies document IDs that should be excluded from the search results entirely. Here, id1, id2, and id3 will be removed from the results even if they match the search term.</p>
+</div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><p>If you want to exclude the documents matched by _id from the final search results, you can achieve this by using a combination of must_not clause within your query.
+This ensures that documents found by _id are removed from the final set of results, while still running your main query.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;bool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;must&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;match&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;your_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search term&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;must_not&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;terms&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id3&quot;</span><span class="p">]</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="penalizing-products">
+<h4>Penalizing Products<a class="headerlink" href="#penalizing-products" title="Link to this heading"></a></h4>
+<p>Products with the specified IDs should get a score penalty to went down in the result order.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">Solr</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">Elasticsearch / OpenSearch</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><p>To achieve a penalty of specific document IDs in Solr, the boost query can be used with a negated query. Basically all other documents get boosted but the ones listed.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">defType</span><span class="o">=</span>edismax<span class="p">&amp;</span><span class="nv">q</span><span class="o">=</span>search<span class="w"> </span>term<span class="p">&amp;</span><span class="nv">fl</span><span class="o">=</span>id,score<span class="p">&amp;</span><span class="nv">boost</span><span class="o">={</span>!func<span class="o">}</span><span class="k">if</span><span class="o">(</span>not<span class="o">(</span>query<span class="o">({</span>!lucene<span class="w"> </span><span class="nv">v</span><span class="o">=</span><span class="s1">&#39;id:(id1 OR id2 OR id3)&#39;</span><span class="o">}))</span>,10,1<span class="o">)</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><p>You can use the boosting query (<a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-boosting-query.html">ES docs</a> / <a class="reference external" href="https://cwillum.github.io/query-dsl/compound/boosting/">OS docs</a>) to wrap your standard query into the “positive” clause while adding a terms query with the penalized products into the “negative” clause.</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;boosting&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;positive&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;match&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;your_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search term&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;negative&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;terms&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id3&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;negative_boost&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The ‘negative_boost’ value is multiplied with the score of the positive query for the products matching the negative query.</p>
+</div></div>
+</section>
+</section>
+</section>
+<section id="integration-with-sessionid">
+<h2>Integration with sessionID<a class="headerlink" href="#integration-with-sessionid" title="Link to this heading"></a></h2>
+<p>If our <a class="reference external" href="../search-collector.html">search collector</a> is integrated into the frontend of your system, it is recommended to pass the corresponding sessionId to smartQuery.
+This sessionId is used for clusters with queries being tested to distribute the search traffic evenly between both queries.
+Without the sessionId, the informative value and success rate of these tests are lower.</p>
+<p>For implementation, the value of the <code class="code docutils literal notranslate"><span class="pre">SearchCollectorSession</span></code> cookie <em>MUST</em> be used. Using a different sessionId will lead to unexpected results.
+If the <code class="code docutils literal notranslate"><span class="pre">SearchCollectorSession</span></code> cookie does not exist or is not provided for a request, pass ‘null’ instead.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-5-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-5-5-0" name="5-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-5-5-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-5-5-1" name="5-1" role="tab" tabindex="-1">HTTP Service</button></div><div aria-labelledby="tab-5-5-0" class="sphinx-tabs-panel" id="panel-5-5-0" name="5-0" role="tabpanel" tabindex="0"><p>The session ID is passed as additional parameter to the <code class="code docutils literal notranslate"><span class="pre">QueryMapper::mapQuery</span></code> method.</p>
+</div><div aria-labelledby="tab-5-5-1" class="sphinx-tabs-panel" hidden="true" id="panel-5-5-1" name="5-1" role="tabpanel" tabindex="0"><p>The session ID is passed to the service endpoint with the query parameter <code class="code docutils literal notranslate"><span class="pre">sessionId</span></code>.</p>
+</div></div>
+</section>
+<section id="instrumenting">
+<h2>Instrumenting<a class="headerlink" href="#instrumenting" title="Link to this heading"></a></h2>
+<p>smartQuery optionally exposes internal metrics using the <a class="reference external" href="https://micrometer.io/docs">Micrometer</a> framework. If you’d like to receive these metrics, add the desired Micrometer connector to your dependencies, as well as the MeterRegistry implementation.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-6-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-6-6-0" name="6-0" role="tab" tabindex="0">Java</button><button aria-controls="panel-6-6-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-6-6-1" name="6-1" role="tab" tabindex="-1">HTTP Service</button></div><div aria-labelledby="tab-6-6-0" class="sphinx-tabs-panel" id="panel-6-6-0" name="6-0" role="tabpanel" tabindex="0"><p>Since that micrometer dependency is optional and we don’t want to cause class-loading errors, the according MeterRegistry has to be passed with a “MeterRegistryAdapter” when available. That’s as simple as <code class="code docutils literal notranslate"><span class="pre">MeterRegistryAdapter.of(meterRegistry)</span></code>.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// ...</span>
+<span class="n">MeterRegistry</span><span class="w"> </span><span class="n">meterRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getYourMeterRegistryInstance</span><span class="p">();</span>
+
+
+<span class="c1">// Example: To expose metrics over JMX, create a JmxMeterRegistry</span>
+<span class="n">meterRegistry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">JmxMeterRegistry</span><span class="p">(</span><span class="n">JmxConfig</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">Clock</span><span class="p">.</span><span class="na">SYSTEM</span><span class="p">);</span>
+
+<span class="c1">// and add it to the QueryMapperManager.builder afterwards</span>
+<span class="n">queryMapperManagerBuilder</span><span class="p">.</span><span class="na">addMetricsRegistryAdapter</span><span class="p">(</span><span class="n">MeterRegistryAdapter</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">meterRegistry</span><span class="p">));</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-6-6-1" class="sphinx-tabs-panel" hidden="true" id="panel-6-6-1" name="6-1" role="tabpanel" tabindex="0"><p>The HTTP service exposes those metrics per default. Only at the Java integration they have to be enabled explicitly.</p>
+</div></div>
+<p>Subsequently, you will be able to track the metrics described in the <a class="reference external" href="operations.html#monitoring">Operations &gt; Monitoring</a> section.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="setup.html" class="btn btn-neutral float-left" title="Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="operations.html" class="btn btn-neutral float-right" title="Operations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright , CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

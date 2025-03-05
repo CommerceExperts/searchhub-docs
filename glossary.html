@@ -1,29 +1,28 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Glossary &mdash; CXP SearchHub 0.63.3 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=afbf3d36" />
+
+  
     <link rel="shortcut icon" href="_static/favicon.jpg"/>
     <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/glossary.html" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Changelog" href="smartsuggest/changelog.html" /> 
+    <link rel="prev" title="Common Operations" href="operations.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,12 +30,16 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #2B2D42" >
-            <a href="index.html">
-            <img src="_static/logo-searchhub.png" class="logo" alt="Logo"/>
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo-searchhub.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -44,14 +47,17 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration-guide.html">Integration Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="search-collector.html">Search Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: smartQuery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: smartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Common Operations</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#query-mapping">Query Mapping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tenant">Tenant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#query-naming">Query Naming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#query-mapping">Query Mapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bypassing-query">Bypassing Query</a></li>
 </ul>
 </li>
 </ul>
@@ -69,7 +75,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Glossary</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/glossary.rst.txt" rel="nofollow"> View page source</a>
@@ -81,22 +87,44 @@
            <div itemprop="articleBody">
              
   <section id="glossary">
-<h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this heading">¶</a></h1>
-<section id="query-mapping">
-<h2>Query Mapping<a class="headerlink" href="#query-mapping" title="Permalink to this heading">¶</a></h2>
-<p>A mapping takes place, if a user query is changed into a search query. The basic mapping data consists of simple mapping rules only. These are indexed by SmartQuery to generate even more mappings using diverse fuzzy algorithms.</p>
-</section>
+<h1>Glossary<a class="headerlink" href="#glossary" title="Link to this heading"></a></h1>
 <section id="tenant">
-<h2>Tenant<a class="headerlink" href="#tenant" title="Permalink to this heading">¶</a></h2>
-<p>The tenant value is used as an ID and references a single data domain, e.g. a customer domain. The tenant is composed of two values in the format <cite>&lt;name&gt;.&lt;channel&gt;</cite>.</p>
+<h2>Tenant<a class="headerlink" href="#tenant" title="Link to this heading"></a></h2>
+<p>The tenant value is used as an ID and references a single data domain, e.g. a customer domain. Normally we define the tenant names and let you know about it after the setup.</p>
+<p>The tenant is composed of two values in the format <cite>&lt;name&gt;.&lt;channel&gt;</cite> or sometimes as part of a path in the format <cite>/&lt;name&gt;/&lt;channel&gt;/</cite>.</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><p>the basic “name”, which normally would be the customer name</p></li>
-<li><p>a “channel”, which provides a second level of segmentation. This can be a separation by language (en, de, ..), for example, or by sales channel (mobile, www, ..).</p></li>
+<li><p>“name”: That’s the base “name”, which normally would be the customer name and should be static for the complete integration.</p></li>
+<li><p>a “channel”, which provides a second level of segmentation. Naming wise it can represent a language (en, de, ..), for example, or a sales channel (mobile, www, ..).
+The naming is part of the setup and in doubt is normally discussed in one of the first kick-off meetings.</p></li>
 </ol>
 </div></blockquote>
-<p>We recommend a lowercase name only containing alphanumeric characters and optionally dash (<cite>-</cite>) and underscore (<cite>_</cite>) for both tenant values. You can use the shop domain or the combination of your company name and a language code.</p>
 <p>In most cases, the tenant is dictated by the provided data. In practice we inform you about the available tenants, as these are used elsewhere in the overarching data processing pipeline, as unique identifiers.</p>
+</section>
+<section id="query-naming">
+<h2>Query Naming<a class="headerlink" href="#query-naming" title="Link to this heading"></a></h2>
+<p>When talking about a “query”, we distinguish between the following types of queries:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>As soon as a user starts typing, the first letters may be sent to the suggest/auto-complete service. That ‘prefix query’ is considered incomplete and can be handled smartSuggest rather then smartQuery.</p></li>
+<li><p>The final query inserted into the search box (coming by the suggest-service or completed by the user itself) is what we call the “user query”. That query should be passed to smartQuery.</p></li>
+<li><p>The search phrase, which smartQuery maps to, is called “search query” because that’s the actual text that the search engine has to process.</p></li>
+<li><p>Finally, we have the “technical query”. This is the structured query that is sent to the search engine, e.g. a SQL Query or a Elasticsearch query.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="query-mapping">
+<h2>Query Mapping<a class="headerlink" href="#query-mapping" title="Link to this heading"></a></h2>
+<p>A mapping takes place, if a user query is changed into a search query or another instruction for the search-engine.</p>
+<p>In the event the user query is able to be mapped, a different search query will return. The replacement of a user-query with a potentially other query is what we call a query mapping.</p>
+<p>If the user query itself is already known as the best query, we map it back to that identical query. This is tracked as a successful mapping nevertheless.</p>
+<p>If the user query can’t be mapped then itself should be sent to the search engine. The integration methods and endpoints return rich objects that contain all the required information.</p>
+</section>
+<section id="bypassing-query">
+<h2>Bypassing Query<a class="headerlink" href="#bypassing-query" title="Link to this heading"></a></h2>
+<p>If the inserted query is wrapped in double quotes (<code class="docutils literal notranslate"><span class="pre">&quot;example</span> <span class="pre">query&quot;</span></code>) the query will be handled as an unknown query and will not be mapped, however smartQuery will strip the quotes so the unquoted query can be processed by the following search phrases.</p>
+<p>This can be used to implement the <a class="reference external" href="smartquery/user-stories.html#query-correction-feedback">query correction feedback</a> feature that gives the customer the option to search for this initial input, e.g. <code class="docutils literal notranslate"><span class="pre">Results</span> <span class="pre">are</span> <span class="pre">shown</span> <span class="pre">for</span> <span class="pre">&lt;mapped</span> <span class="pre">query&gt;</span> <span class="pre">-</span> <span class="pre">search</span> <span class="pre">instead</span> <span class="pre">for</span> <span class="pre">&quot;&lt;original</span> <span class="pre">query&gt;&quot;</span></code>.
+Just make sure to pass the double quotes into smartQuery as well, it will strip it for you.</p>
 </section>
 </section>
 
@@ -104,7 +132,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="smartsuggest/changelog.html" class="btn btn-neutral float-left" title="Changelog" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="operations.html" class="btn btn-neutral float-left" title="Common Operations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
