@@ -23,14 +23,14 @@ Dependencies
 Central API Connection
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Both modules pull their required data from ``https://query.searchhub.com`` using the required ``SH_API_KEY``. Per default that happens with the first access to the according resource, but asynchronously. For example if ``/smartquery/v2/$name/$channel?userQuery=xy`` is requested, then the service will immediately respond with the "empty default" result, but internally it will start pulling data for the tenant "$name.$channel". As soon as the data is loaded, the very same request might respond with more meaningful data (if available for that userQuery).
+Both modules pull their required data from ``https://query.searchhub.io`` using the required ``SH_API_KEY``. Per default that happens with the first access to the according resource, but asynchronously. For example if ``/smartquery/v2/$name/$channel?userQuery=xy`` is requested, then the service will immediately respond with the "empty default" result, but internally it will start pulling data for the tenant "$name.$channel". As soon as the data is loaded, the very same request might respond with more meaningful data (if available for that userQuery).
 
 To avoid empty default responses at the beginning, a list of tenants can be defined (env-var ``SH_INIT_TENANTS`` or at the library directly during initialization). In that case, the according module will load the data for those tenants *synchronously*. For the service this means increased startup time, as the service will only be ready afterwards. But this will also improve availability, as the services can immediately respond with valid data.
 
 smartQuery: Stats Transmitter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The smartQuery module will also collect event based usage stats and sends them to the central searchHub API ``https://import.searchhub.com`` in regular bulk requests. This is an asynchronous process using a limited buffer to avoid extensive memory consumption. If the connection to the central API is lost, usage stats are simply dropped until the central API is available again.
+The smartQuery module will also collect event based usage stats and sends them to the central searchHub API ``https://import.searchhub.io`` in regular bulk requests. This is an asynchronous process using a limited buffer to avoid extensive memory consumption. If the connection to the central API is lost, usage stats are simply dropped until the central API is available again.
 
 In case messages are dropped, there will be log messages warning about it, for example "searchhub stats transmitting failed {} times for tenant {}". That can happen in case of unavailability of the central API, but it can also happen, if the service gets more traffic than it can handle. Please contact us in case you have those kind of problems, as it might also be a symptom of a wrong integration.
 
