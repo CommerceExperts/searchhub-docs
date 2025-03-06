@@ -3,7 +3,6 @@ Welcome to searchHub
 
 If you're new to searchHub or at the beginning of integrating it, we recommend to read the `Integration Guide`_ first.
 
-
 .. toctree::
    :maxdepth: 3
    :glob:

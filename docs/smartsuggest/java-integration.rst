@@ -36,7 +36,7 @@ All related components can be pulled as a maven dependency from `our repository 
     <dependency>
         <groupId>de.cxp.ocs</groupId>
         <artifactId>smartsuggest-lib</artifactId>
-        <version>0.22.0</version>
+        <version>${OCS_SUGGEST_LIB_VERSION}</version>
     </dependency>
     <dependency>
         <groupId>io.searchhub</groupId>

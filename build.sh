@@ -17,6 +17,10 @@ publish() {
 }
 
 substModuleVersions() {
+    # define variables hat can also be replaced
+    OCS_SUGGEST_LIB_VERSION="$(curl -s "https://nexus.commerce-experts.com/content/repositories/searchhub-external/de/cxp/ocs/smartsuggest-lib/maven-metadata.xml" | xmllint --xpath 'string(/metadata/versioning/release)' -)"
+    export OCS_SUGGEST_LIB_VERSION
+
     dir="$1"
     modules=(smartquery smartsuggest)
     for module in ${modules[*]};
