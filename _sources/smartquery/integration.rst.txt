@@ -4,7 +4,7 @@ Integration Details
 API
 ---
 
-There is basically a single method that needs the user query and give you access to the according ``QueryMapping``.
+There is basically a single method that needs to be called with the user query and that gives you access to the according ``QueryMapping``.
 
 .. tabs::
 
@@ -13,7 +13,7 @@ There is basically a single method that needs the user query and give you access
       .. code-block:: java
 
         QueryMapper qm = qmManager.getQueryMapper(tenant);
-        String sessionId = null; //optional
+        String sessionId = null; // only required to support query-testing (see use cases)
         QueryMapping mapping = qm.mapQuery(searchQuery, sessionId);
 
     .. tab:: HTTP Service
