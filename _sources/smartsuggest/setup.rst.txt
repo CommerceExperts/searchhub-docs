@@ -21,7 +21,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
 
 .. tabs::
 
-    .. tab:: HTTP Service
+    .. tab:: HTTP Service (docker)
 
       The docker image is available on docker hub with the name `commerceexperts/searchhub-smartsuggest-service <https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags>`_
 
@@ -66,6 +66,17 @@ Client Setup
 
 .. tabs::
 
+    .. tab:: HTTP Service (curl)
+
+      For a pure Suggest integration, we recommend to use endpoint v3. But there are more different ones that might fit better to your needs. Continue reading the `Service Integration`_ for all according details.
+
+      .. code-block:: bash
+
+        $> port=38081
+        $> tenant_name="example"
+        $> tenant_channel="com"
+        $> curl -s "http://localhost:$port/smartsuggest/v3/$tenant_name/$tenant_channel?userQuery=jea" -o - | jq .
+
     .. tab:: Java
 
         This is a quick start for setting up a minimal ``QuerySuggester``. Read the full `Java Integration`_ for all details.
@@ -101,17 +112,6 @@ Client Setup
                         .map(suggestion -> suggestion.getLabel())
                         .collect(Collectors.toList());
             }
-
-    .. tab:: HTTP Service
-
-      For a pure Suggest integration, we recommend to use endpoint v3. But there are more different ones that might fit better to your needs. Continue reading the `Service Integration`_ for all according details.
-
-      .. code-block:: bash
-
-        $> port=38081
-        $> tenant_name="example"
-        $> tenant_channel="com"
-        $> curl -s "http://localhost:/smartsuggest/v3//?userQuery=jea" -o - | jq .
 
     .. tab:: JS Client
 
