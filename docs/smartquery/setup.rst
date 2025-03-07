@@ -54,7 +54,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
             <url>https://nexus.commerce-experts.com/content/repositories/searchhub-external/</url>
         </repository>
 
-    .. tab:: HTTP Service (bash)
+    .. tab:: HTTP Service (docker)
 
       .. code-block:: bash
 
@@ -75,7 +75,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
 
     .. tab:: PHP Client
 
-      See the 'bash' tab about how to start the docker container.
+      See the 'HTTP Service' tab about how to start the docker container.
       Then to use the HTTP Service in a PHP environment you can use our public `PHP Client`_ from ``https://github.com/CommerceExperts/searchhub-php-client``.
       You will find several code samples through the documentation using that PHP Client.
 
@@ -174,7 +174,7 @@ It needs several seconds until the data actually responds. For testing you can m
             In that case you can simple use :code:`QueryMapperManager.builder().build()`
 
 
-    .. tab:: HTTP Service (bash)
+    .. tab:: HTTP Service (curl)
 
       If you have the service started, use the known tenant data and a sample user query to fetch a query mapping.
 

@@ -21,7 +21,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
 
 .. tabs::
 
-    .. tab:: HTTP Service
+    .. tab:: HTTP Service (docker)
 
       The docker image is available on docker hub with the name `commerceexperts/searchhub-smartsuggest-service <https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags>`_
 
@@ -102,7 +102,7 @@ Client Setup
                         .collect(Collectors.toList());
             }
 
-    .. tab:: HTTP Service
+    .. tab:: HTTP Service (curl)
 
       For a pure Suggest integration, we recommend to use endpoint v3. But there are more different ones that might fit better to your needs. Continue reading the `Service Integration`_ for all according details.
 
