@@ -28,8 +28,9 @@ substModuleVersions() {
         # variable substitution
         TAG="$(getLatestTag "$module")"
         VERSION="${TAG/v/}"
-        declare -x $(echo "$module" | tr '[:lower:]' '[:upper:]')_VERSION="$VERSION"
-        find "$dir/$module"/ -type f -name '*.rst' | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst > "$file"; rm "$file.orig"; done
+        VAR_NAME="$(echo "$module" | tr '[:lower:]' '[:upper:]')_VERSION"
+        declare -x $VAR_NAME="$VERSION"
+        find "$dir/$module"/ -type f -name '*.rst' | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst "\${$VAR_NAME} \${OCS_SUGGEST_LIB_VERSION}" > "$file"; rm "$file.orig"; done
 
     done
 }
@@ -53,7 +54,7 @@ substModuleVersions .
 
 # substitute dynamic values in config.py
 YEAR="$(date +%Y)"
-file=conf.py; cp "$file" "$file.orig"; <"$file.orig" envsubst > "$file"; rm "$file.orig"
+file=conf.py; cp "$file" "$file.orig"; <"$file.orig" envsubst '${YEAR}' > "$file"; rm "$file.orig"
 
 # docker login
 AWS_CMD="$(which aws || echo "$HOME/.local/bin/aws")"
