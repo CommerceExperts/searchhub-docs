@@ -89,6 +89,19 @@ As a data format, we prefer CSV/TSV feeds that meet the following conditions:
 
 The delimiters and the order of the information is not important. The filename must simply contain the necessary information.
 
+Example
+"""""""
+
+``analytics-export.myshop.de.2024-12-20.csv``:
+
+.. code-block:: csv
+    query,searchFrequency,avgMatchCount,exits,clicks,add to basket,orders,total revenue
+    jeans,3422,152,402,1204,232,195,25309.97
+    corduroy trousers,1243,94,235,792,499,120,13192.23
+    jackets,2415,203,994,2011,1732,208,12982.57
+    jacket,1203,230,873,402,98,20,243.23
+    
+
 
 2. Curated Queries
 ------------------
