@@ -1,0 +1,130 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module: smartQuery &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=afbf3d36" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.jpg"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/module-smartquery.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo-searchhub.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="integration-guide.html">Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="search-collector.html">Search Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: smartQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: smartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Common Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Module: smartQuery</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/module-smartquery.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-smartquery">
+<h1>Module: smartQuery<a class="headerlink" href="#module-smartquery" title="Link to this heading"></a></h1>
+<p>The smartQuery module provides search instructions to the associated search engine. This begins with a straight-forward query mapping that simply replaces the user query with a so-called master query. This “keyword ambassador query” represents an entire query intent cluster. It’s the query that has historically performed the best within the framework of the associated search engine.</p>
+<p>Search instructions go beyond simple query replacement. Currently, this module supports the following search engine instructions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Redirect URLs that lead users to curated or targeted landing pages</p></li>
+<li><p>In the case of ambiguous input, we provide potential search term corrections for the end user.</p></li>
+<li><p>Related queries that might lead the user to more precise and therefore better results.</p></li>
+<li><p>Result Modification that improves the result set itself.</p></li>
+</ul>
+</div></blockquote>
+<p>Please make sure to know about the basic terminology defined in the <a class="reference external" href="glossary.html">glossary</a> before going on with this section.
+Then we recommend to understand the predefined <a class="reference external" href="smartquery/user-stories.html">user stories</a> describing the high level goals of an integration and finally head to <a class="reference external" href="smartquery/setup.html">setup</a> and <a class="reference external" href="smartquery/integration.html">integration</a> for all the details.
+Operators of the HTTP service should have a close look at the specific <a class="reference external" href="smartquery/operations.html">operations</a> and the <a class="reference external" href="operations.html">common operations</a> section that cover all around system behaviour and instrumentation.
+To stay updated about recent changes, have a look at the <a class="reference external" href="smartquery/changelog.html">changelog</a>.</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright , CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

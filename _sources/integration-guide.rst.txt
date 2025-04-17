@@ -64,7 +64,7 @@ smartQuery and smartSuggest integration modules, are delivered as Java Libraries
 
 HTTP/REST headless services are provided for all other platforms, or in instances where external proprietary code is not allowed. Delivered as public Docker images, they can be operated on premise or from searchHub (as a service). If possible, we recommend to run the service on premise to reduce latency. The simple JSON API can be easily adopted either with a generated OpenAPI Client, a self-made HTTP-Client, or one of our available home-grown clients.
 
-In the event on-premise services are chosen, please inform the responsible IT department as soon as possible. Provide them with the appropriate implementation guides for `smartSuggest`_ and `smartQuery`_.
+In the event on-premise services are chosen, please inform the responsible IT department as soon as possible. Provide them with the appropriate implementation guides for `smartSuggest <module-smartsuggest.html>`_ and `smartQuery <module-smartquery.html>`_.
 
 5. Define User Stories
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -77,5 +77,3 @@ Find the user stories for `smartSuggest <smartsuggest/user-stories.html>`_ and `
 Once searchHub is pushed to the "testing stage"  we happily verify everything works as expected, at no extra charge. Please don't hesitate to involve us in your deployment process.
 
 
-.. _smartSuggest: module_smartsuggest.html
-.. _smartQuery: module_smartquery.html
