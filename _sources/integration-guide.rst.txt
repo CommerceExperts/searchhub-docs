@@ -70,7 +70,7 @@ In the event on-premise services are chosen, please inform the responsible IT de
 ~~~~~~~~~~~~~~~~~~~~~~
 It is our aim to support you throughout the searchHub integration process. To this end, we provide you with ready-to-use user story templates, in which we describe the crucial integration tasks for each module. Download them here and add your own relevant integration details now.
 
-Find the user stories for `smartSuggest <smartsuggest/user-stories.html>` and `smartQuery <smartquery/user-stories.html` here.
+Find the user stories for `smartSuggest <smartsuggest/user-stories.html>`_ and `smartQuery <smartquery/user-stories.html>`_ here.
 
 6. Quality Assurance
 ~~~~~~~~~~~~~~~~~~~~
