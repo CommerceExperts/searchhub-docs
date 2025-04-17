@@ -77,5 +77,3 @@ Find the user stories for `smartSuggest <smartsuggest/user-stories.html>`_ and `
 Once searchHub is pushed to the "testing stage"  we happily verify everything works as expected, at no extra charge. Please don't hesitate to involve us in your deployment process.
 
 
-.. _smartSuggest: module_smartsuggest.html
-.. _smartQuery: module_smartquery.html
