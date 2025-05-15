@@ -158,7 +158,15 @@ Another exceptional scenario is a search-engine integrated into frontend, so tha
 </a>
 <section id="combined-http-service">
 <h3>Combined HTTP Service<a class="headerlink" href="#combined-http-service" title="Link to this heading"></a></h3>
-<p>We use the same code base to build the combined image <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-integration-service:latest</span></code> and the dedicated service images <code class="docutils literal notranslate"><span class="pre">commerceexperts/smartquery-service:${SMARTQUERY_VERSION}</span></code> and <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-smartsuggest-service:${SMARTSUGGEST_VERSION}</span></code>. That’s why the common properties and the common endpoints work for all those image.</p>
+<p>We use the same code base to build the combined image <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-integration-service:latest</span></code> and the dedicated service images <code class="docutils literal notranslate"><span class="pre">commerceexperts/smartquery-service</span></code> and <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-smartsuggest-service</span></code>. That’s why the common properties and the common endpoints work for all those images.</p>
+<p>The container accepts all <a class="reference external" href="#configuration">common configuration properties</a> and also the module specific properties.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="o">=</span>searchhub-service<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">9081</span>:8081<span class="w"> </span>commerceexperts/searchhub-integration-service:latest
+</pre></div>
+</div>
+<p>The container must be initiated with your API key set to the environment variable <cite>SH_API_KEY</cite>.</p>
 <p>The combined service is especially important for the <code class="docutils literal notranslate"><span class="pre">/smartsuggest/v4</span></code> endpoint, as that endpoint uses the smartQuery module to enrich the suggest response with mapping information. But you can also use it if you want to run both services next to each other anyways.</p>
 </section>
 </section>
