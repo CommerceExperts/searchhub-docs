@@ -54,6 +54,7 @@
 <li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: smartQuery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: smartSuggest</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Common Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#quick-start-with-combined-service">Quick Start with Combined Service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#principles">Principles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#central-api-connection">Central API Connection</a></li>
@@ -61,10 +62,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#smartsuggest-volatile-disk-space">smartSuggest: volatile disk space</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#service-topology">Service Topology</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#combined-http-service">Combined HTTP Service</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#service-topology">Service Topology</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#operational-endpoints">Operational Endpoints</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#monitoring">Monitoring</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
@@ -112,6 +110,19 @@
 <p>This common operations section extends the module specific section <a class="reference external" href="smartquery/operations.html">smartQuery operations</a> and <a class="reference external" href="smartsuggest/service-operations.html">smartSuggest operations</a>, specifically the HTTP service part.
 That’s possible as the HTTP service for both modules are built from the same source base.</p>
 </div>
+<section id="quick-start-with-combined-service">
+<h2>Quick Start with Combined Service<a class="headerlink" href="#quick-start-with-combined-service" title="Link to this heading"></a></h2>
+<p>We use the same code base to build the combined image <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-integration-service:latest</span></code> and the dedicated service images <code class="docutils literal notranslate"><span class="pre">commerceexperts/smartquery-service</span></code> and <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-smartsuggest-service</span></code>. That’s why the common properties and the common endpoints work for all those images.</p>
+<p>The container accepts all <a class="reference external" href="#configuration">common configuration properties</a> and also the module specific properties.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="o">=</span>searchhub-service<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">9081</span>:8081<span class="w"> </span>commerceexperts/searchhub-integration-service:latest
+</pre></div>
+</div>
+<p>The container must be initiated with your API key set to the environment variable <cite>SH_API_KEY</cite>.</p>
+<p>The combined service is especially important for the <code class="docutils literal notranslate"><span class="pre">/smartsuggest/v4</span></code> endpoint, as that endpoint uses the smartQuery module to enrich the suggest response with mapping information. But you can also use it if you want to run both services next to each other anyways.</p>
+</section>
 <section id="principles">
 <h2>Principles<a class="headerlink" href="#principles" title="Link to this heading"></a></h2>
 <p>Both modules are built in accordance with the <a class="reference external" href="https://12factor.net/">12-Factor App</a> methodology. The following points provide insights into how the modules are designed, developed, and encapsulated as RESTful/HTTP services (referred to simply as “services” in this section):</p>
@@ -156,19 +167,6 @@ However due the capability of reducing the amount of unique queries (different b
 Another exceptional scenario is a search-engine integrated into frontend, so that its requested directly from the browser. In that case we recommend to use the <code class="docutils literal notranslate"><span class="pre">/smartsuggest/v4</span></code> endpoint, that delivers both service responses with a single request.</p>
 <a class="reference internal image-reference" href="_images/service-topology.png"><img alt="Service Topology" src="_images/service-topology.png" style="width: 690px;" />
 </a>
-<section id="combined-http-service">
-<h3>Combined HTTP Service<a class="headerlink" href="#combined-http-service" title="Link to this heading"></a></h3>
-<p>We use the same code base to build the combined image <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-integration-service:latest</span></code> and the dedicated service images <code class="docutils literal notranslate"><span class="pre">commerceexperts/smartquery-service</span></code> and <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-smartsuggest-service</span></code>. That’s why the common properties and the common endpoints work for all those images.</p>
-<p>The container accepts all <a class="reference external" href="#configuration">common configuration properties</a> and also the module specific properties.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="o">=</span>searchhub-service<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-p<span class="w"> </span><span class="m">9081</span>:8081<span class="w"> </span>commerceexperts/searchhub-integration-service:latest
-</pre></div>
-</div>
-<p>The container must be initiated with your API key set to the environment variable <cite>SH_API_KEY</cite>.</p>
-<p>The combined service is especially important for the <code class="docutils literal notranslate"><span class="pre">/smartsuggest/v4</span></code> endpoint, as that endpoint uses the smartQuery module to enrich the suggest response with mapping information. But you can also use it if you want to run both services next to each other anyways.</p>
-</section>
 </section>
 <section id="operational-endpoints">
 <h2>Operational Endpoints<a class="headerlink" href="#operational-endpoints" title="Link to this heading"></a></h2>

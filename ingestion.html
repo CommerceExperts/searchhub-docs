@@ -56,6 +56,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#analytics-file-export">Analytics File Export</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#necessary-export-kpis">Necessary Export KPIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#data-format">Data Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 </ul>
@@ -168,6 +169,10 @@
 </ul>
 <p>The delimiters and the order of the information is not important. The filename must simply contain the necessary information.</p>
 </section>
+<section id="example">
+<h4>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">analytics-export.myshop.de.2024-12-20.csv</span></code>:</p>
+</section>
 </section>
 </section>
 <section id="curated-queries">
@@ -177,19 +182,26 @@ This can be a simple text file with the name of the tenant (shop or sales channe
 </section>
 <section id="product-data">
 <h2>3. Product Data<a class="headerlink" href="#product-data" title="Link to this heading"></a></h2>
-<p>Product data should be provided on variant level as CSV file or in the Google-Shopping-Feed-XML format and contain at least the following data fields:</p>
+<p>Product data is used to enrich search analytics but also for a tenant specific language model. Therefor data should be provided on variant level with according variant titles (e.g. “Men’s shirt, green, XL”).
+As a file format we prefer CSV or the Google-Shopping-Feed-XML format. The feed should be provided as single file from a HTTP location, S3 or GCP bucket.</p>
+<p>Those are the required data fields:</p>
 <ul class="simple">
-<li><p>id (should be identical to what is exposed in the shop frontend)</p></li>
-<li><p>title</p></li>
-<li><p>image-url</p></li>
-<li><p>categories</p></li>
-<li><p>brand</p></li>
+<li><p><strong>id</strong>
+The provided IDs should be identical to what is exposed in the shop frontend, so that we can map the tracked data to it. If main-product-IDs are exposed, then two IDs should be available for each product: one to map with the tracked data and the other to be a unique identifier for each article.</p></li>
+<li><p><strong>title</strong></p></li>
+<li><p><strong>image-url</strong></p></li>
+<li><p><strong>categories</strong>
+A category can be a hierarchical path like “Fashion/Men/Shirts” and it’s also possible to have multiple categories for a product in the same field like “Fashion/Men/Shirts|Fashion/Sale”</p></li>
+<li><p><strong>brand</strong></p></li>
 </ul>
 <p>optionally we can also use:</p>
 <ul class="simple">
-<li><p>product-type</p></li>
-<li><p>attributes</p></li>
-<li><p>product-url</p></li>
+<li><p><strong>product-type</strong>
+In case the categories are not suitable to classify the products, a separate product-type can be provided.</p></li>
+<li><p><strong>attributes</strong>
+If the titles of different variants of the same product do not distinguish the variants good enough, the crucial attributes should be added to the feed.</p></li>
+<li><p><strong>product-url</strong>
+Might be relevant if they are seo friendly and contain proper text.</p></li>
 </ul>
 <p><strong>Please contact us directly, if you have other data formats / structures / feeds and no possibility to transform them into the appropriate format.</strong></p>
 </section>
