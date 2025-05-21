@@ -113,19 +113,27 @@ This can be a simple text file with the name of the tenant (shop or sales channe
 3. Product Data
 ---------------
 
-Product data should be provided on variant level as CSV file or in the Google-Shopping-Feed-XML format and contain at least the following data fields:
+Product data is used to enrich search analytics but also for a tenant specific language model. Therefor data should be provided on variant level with according variant titles (e.g. "Men's shirt, green, XL").
+As a file format we prefer CSV or the Google-Shopping-Feed-XML format. The feed should be provided as single file from a HTTP location, S3 or GCP bucket.
 
-- id (should be identical to what is exposed in the shop frontend)
-- title
-- image-url
-- categories
-- brand
+Those are the required data fields:
+
+- **id**
+  The provided IDs should be identical to what is exposed in the shop frontend, so that we can map the tracked data to it. If main-product-IDs are exposed, then two IDs should be available for each product: one to map with the tracked data and the other to be a unique identifier for each article.
+- **title**
+- **image-url**
+- **categories**
+  A category can be a hierarchical path like "Fashion/Men/Shirts" and it's also possible to have multiple categories for a product in the same field like "Fashion/Men/Shirts|Fashion/Sale"
+- **brand**
 
 optionally we can also use:
 
-- product-type
-- attributes
-- product-url
+- **product-type**
+  In case the categories are not suitable to classify the products, a separate product-type can be provided. 
+- **attributes**
+  If the titles of different variants of the same product do not distinguish the variants good enough, the crucial attributes should be added to the feed.
+- **product-url**
+  Might be relevant if they are seo friendly and contain proper text.
 
 
 **Please contact us directly, if you have other data formats / structures / feeds and no possibility to transform them into the appropriate format.**
