@@ -6,6 +6,26 @@ Common Operations
     This common operations section extends the module specific section `smartQuery operations`_ and `smartSuggest operations`_, specifically the HTTP service part.
     That's possible as the HTTP service for both modules are built from the same source base.
 
+Quick Start with Combined Service
+---------------------------------
+
+We use the same code base to build the combined image ``commerceexperts/searchhub-integration-service:latest`` and the dedicated service images ``commerceexperts/smartquery-service`` and ``commerceexperts/searchhub-smartsuggest-service``. That's why the common properties and the common endpoints work for all those images.
+
+The container accepts all `common configuration properties <#configuration>`_ and also the module specific properties.
+
+.. code-block:: bash
+
+    docker run -d --name=searchhub-service \
+      -e SH_API_KEY=<YourS3cr3tAPIkey> \
+      -e JAVA_OPTS="-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true" \
+      -p 9081:8081 commerceexperts/searchhub-integration-service:latest
+
+The container must be initiated with your API key set to the environment variable `SH_API_KEY`.
+
+The combined service is especially important for the ``/smartsuggest/v4`` endpoint, as that endpoint uses the smartQuery module to enrich the suggest response with mapping information. But you can also use it if you want to run both services next to each other anyways.
+
+
+
 Principles
 ----------
 
@@ -61,25 +81,6 @@ Another exceptional scenario is a search-engine integrated into frontend, so tha
 .. image:: img/service-topology.png
   :width: 690
   :alt: Service Topology
-
-Combined HTTP Service
-~~~~~~~~~~~~~~~~~~~~~
-
-We use the same code base to build the combined image ``commerceexperts/searchhub-integration-service:latest`` and the dedicated service images ``commerceexperts/smartquery-service`` and ``commerceexperts/searchhub-smartsuggest-service``. That's why the common properties and the common endpoints work for all those images.
-
-The container accepts all `common configuration properties <#configuration>`_ and also the module specific properties.
-
-.. code-block:: bash
-
-    docker run -d --name=searchhub-service \
-      -e SH_API_KEY=<YourS3cr3tAPIkey> \
-      -e JAVA_OPTS="-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true" \
-      -p 9081:8081 commerceexperts/searchhub-integration-service:latest
-
-The container must be initiated with your API key set to the environment variable `SH_API_KEY`.
-
-The combined service is especially important for the ``/smartsuggest/v4`` endpoint, as that endpoint uses the smartQuery module to enrich the suggest response with mapping information. But you can also use it if you want to run both services next to each other anyways.
-
 
 Operational Endpoints
 ---------------------
