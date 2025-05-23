@@ -150,6 +150,31 @@ and should be shown to the user as possible alternative queries.</p></li>
 <li><p><strong>resultModifications</strong>: An optional list of up to four different list types, each describing how the initial search result should be modified. Each modification type is paired with a list of corresponding IDs (docIDs).</p></li>
 </ul>
 </div></blockquote>
+<p>This is how a full response would look like if all properties are set, however in most cases the values will only partially be available and others are null:</p>
+<blockquote>
+<div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;userQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;batroom&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;masterQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;redirect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://some.shop.com/category/bathrooms&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;successful&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;searchQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;potentialCorrections&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;bathroom&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bedroom&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;relatedQueries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sharpened&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom furniture&quot;</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sharpened&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom supplies&quot;</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alternative&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bath&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;resultModifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;modificationType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pin&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;100012&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100049&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100139&quot;</span><span class="p">]},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;modificationType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Add&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;100472&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100202&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100387&quot;</span><span class="p">]},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">&quot;modificationType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Penalize&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;100355&quot;</span><span class="p">]}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
 <section id="redirect">
 <h3>Redirect<a class="headerlink" href="#redirect" title="Link to this heading"></a></h3>
 <p>At searchHub search managers have the ability to add redirect URLs for certain search intends. That can be redirects to category pages, filtered or sorted search results or other arbitrary sites in the shop. If a <code class="docutils literal notranslate"><span class="pre">redirect</span></code> is given, it should take precedence over the normal search. In fact, you can spare the request to the search engine, saving cost and time.</p>
