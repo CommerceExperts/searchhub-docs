@@ -49,6 +49,31 @@ Additional the QueryMapping contains more properties that can be used to further
   - **relatedQueries**: An optional list of queries that are related to the user input. They can be used as inspiring queries next to the search result.
   - **resultModifications**: An optional list of up to four different list types, each describing how the initial search result should be modified. Each modification type is paired with a list of corresponding IDs (docIDs).
 
+This is how a full response would look like if all properties are set, however in most cases the values will only partially be available and others are null:
+
+    .. code-block:: json
+
+        {
+            "userQuery": "batroom",
+            "masterQuery": "bathroom",
+            "redirect": "https://some.shop.com/category/bathrooms",
+            "successful": true,
+            "searchQuery": "bathroom",
+            "potentialCorrections": [
+                "bathroom", "bedroom"
+            ],
+            "relatedQueries": [
+                {"relation": "sharpened", "query": "bathroom furniture"},
+                {"relation": "sharpened", "query": "bathroom supplies"},
+                {"relation": "alternative", "query": "bath"}
+            ],
+            "resultModifications": [
+                {"modificationType": "Pin", "ids": ["100012", "100049", "100139"]},
+                {"modificationType": "Add", "ids": ["100472", "100202", "100387"]},
+                {"modificationType": "Penalize", "ids": ["100355"]}
+            ]
+        }
+
 
 Redirect
 ~~~~~~~~
