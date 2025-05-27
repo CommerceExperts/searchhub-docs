@@ -55,6 +55,17 @@ Both modules pull their required data from ``https://query.searchhub.io`` using 
 
 To avoid empty default responses at the beginning, a list of tenants can be defined (env-var ``SH_INIT_TENANTS`` or at the library directly during initialization). In that case, the according module will load the data for those tenants *synchronously*. For the service this means increased startup time, as the service will only be ready afterwards. But this will also improve availability, as the services can immediately respond with valid data.
 
+
+Allow Crawler IP
+~~~~~~~~~~~~~~~~
+
+It is possible with searchHub to maintain redirect URLs for certain search queries. smartQuery will return those URLs as part of the mapping target.
+
+As part of our service, we also regularly check those defined redirect URLs (and only those!) from our systems to detect bad or broken redirects.
+
+To avoid blocking our crawler by your platform provider, we recommend allowing access through our static IP address: **63.176.239.129**
+
+
 smartQuery: Stats Transmitter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
