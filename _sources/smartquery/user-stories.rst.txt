@@ -77,5 +77,18 @@ Acceptance criteria
   - When a query is configured for a redirect, users should be directed to the corresponding landing page or URL.
 
 
+Allow Static IP Address for Redirect URL Monitoring
+---------------------------------------------------
+
+As a search manager, I want to whitelist the static IP address used by searchHub's redirect monitoring system,
+so that searchHub can regularly check our defined redirect URLs without being blocked by our platform's security settings.
+
+Acceptance Criteria:
+- The static IP address provided by searchHub (**63.176.239.129**) is added to the allowlist or firewall rules.
+- The searchHub crawler can access redirect URLs without receiving access-denied or timeout errors.
+- Access logs show successful requests from the searchHub IP.
+
+
+
 .. _bypass: ../glossary.html#bypassing-query
 .. _java integration: setup.html

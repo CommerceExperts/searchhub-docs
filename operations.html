@@ -58,6 +58,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#principles">Principles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#central-api-connection">Central API Connection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#allow-crawler-ip">Allow Crawler IP</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#smartquery-stats-transmitter">smartQuery: Stats Transmitter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#smartsuggest-volatile-disk-space">smartSuggest: volatile disk space</a></li>
 </ul>
@@ -147,6 +148,12 @@ That’s possible as the HTTP service for both modules are built from the same s
 <h3>Central API Connection<a class="headerlink" href="#central-api-connection" title="Link to this heading"></a></h3>
 <p>Both modules pull their required data from <code class="docutils literal notranslate"><span class="pre">https://query.searchhub.io</span></code> using the required <code class="docutils literal notranslate"><span class="pre">SH_API_KEY</span></code>. Per default that happens with the first access to the according resource, but asynchronously. For example if <code class="docutils literal notranslate"><span class="pre">/smartquery/v2/$name/$channel?userQuery=xy</span></code> is requested, then the service will immediately respond with the “empty default” result, but internally it will start pulling data for the tenant “$name.$channel”. As soon as the data is loaded, the very same request might respond with more meaningful data (if available for that userQuery).</p>
 <p>To avoid empty default responses at the beginning, a list of tenants can be defined (env-var <code class="docutils literal notranslate"><span class="pre">SH_INIT_TENANTS</span></code> or at the library directly during initialization). In that case, the according module will load the data for those tenants <em>synchronously</em>. For the service this means increased startup time, as the service will only be ready afterwards. But this will also improve availability, as the services can immediately respond with valid data.</p>
+</section>
+<section id="allow-crawler-ip">
+<h3>Allow Crawler IP<a class="headerlink" href="#allow-crawler-ip" title="Link to this heading"></a></h3>
+<p>It is possible with searchHub to maintain redirect URLs for certain search queries. smartQuery will return those URLs as part of the mapping target.</p>
+<p>As part of our service, we also regularly check those defined redirect URLs (and only those!) from our systems to detect bad or broken redirects.</p>
+<p>To avoid blocking our crawler by your platform provider, we recommend allowing access through our static IP address: <strong>63.176.239.129</strong></p>
 </section>
 <section id="smartquery-stats-transmitter">
 <h3>smartQuery: Stats Transmitter<a class="headerlink" href="#smartquery-stats-transmitter" title="Link to this heading"></a></h3>

@@ -58,6 +58,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#query-correction-feedback">Query Correction Feedback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#potential-correction-alternatives">Potential correction alternatives</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#searchhub-redirects">searchHub Redirects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#allow-static-ip-address-for-redirect-url-monitoring">Allow Static IP Address for Redirect URL Monitoring</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
@@ -177,6 +178,15 @@ These experiments can be viewed in the searchHub UI under “Query Testing.”</
 </ul>
 </dd>
 </dl>
+</section>
+<section id="allow-static-ip-address-for-redirect-url-monitoring">
+<h2>Allow Static IP Address for Redirect URL Monitoring<a class="headerlink" href="#allow-static-ip-address-for-redirect-url-monitoring" title="Link to this heading"></a></h2>
+<p>As a search manager, I want to whitelist the static IP address used by searchHub’s redirect monitoring system,
+so that searchHub can regularly check our defined redirect URLs without being blocked by our platform’s security settings.</p>
+<p>Acceptance Criteria:
+- The static IP address provided by searchHub (<strong>63.176.239.129</strong>) is added to the allowlist or firewall rules.
+- The searchHub crawler can access redirect URLs without receiving access-denied or timeout errors.
+- Access logs show successful requests from the searchHub IP.</p>
 </section>
 </section>
 
