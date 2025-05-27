@@ -61,7 +61,7 @@ Allow Crawler IP
 
 It is possible with searchHub to maintain redirect URLs for certain search queries. smartQuery will return those URLs as part of the mapping target.
 
-As part of our service, we also regularly check the defined redirect URLs from our systems to detect bad or broken redirects.
+As part of our service, we also regularly check those defined redirect URLs (and only those!) from our systems to detect bad or broken redirects.
 
 To avoid blocking our crawler by your platform provider, we recommend allowing access through our static IP address: **63.176.239.129**
 
