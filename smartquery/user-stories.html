@@ -142,7 +142,7 @@ These experiments can be viewed in the searchHub UI under “Query Testing.”</
 <dt>Story</dt><dd><p>As a customer, I want to see the corrected query but also have the option to search using my original input (instead-search-for).</p>
 </dd>
 <dt>Acceptance criteria</dt><dd><ul class="simple">
-<li><p>If query mapping occurs, a message should be displayed indicating the corrected query.</p></li>
+<li><p>If a query mapping occurs (and the query has changed beyond lower/upper case transformation), a message should be displayed indicating the corrected query.</p></li>
 <li><p>Additionally, there should be a link allowing the user to search for their original query.</p></li>
 <li><p>When the link is clicked, the original query should be used without any mapping.</p></li>
 </ul>
@@ -150,6 +150,7 @@ These experiments can be viewed in the searchHub UI under “Query Testing.”</
 <dt>Technical hint</dt><dd><ul class="simple">
 <li><p>You can utilize the <a class="reference external" href="../glossary.html#bypassing-query">bypass</a> feature of smartQuery by wrapping the query in quotes. This prevents mapping, and, upon submission, the quotes will be removed.</p></li>
 <li><p>If a <a class="reference external" href="setup.html">java integration</a> is done, the utility function <cite>io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder</cite> can be used to prevent query correction feedback when the original and corrected queries contain the same words in a different order.</p></li>
+<li><p>smartQuery will always respond with a lower-case query. Searching with uppercase letters will therefor be transformed, which might look like a query change that is none. Please use a caseinsensitive comparison of both queries.</p></li>
 </ul>
 </dd>
 </dl>
