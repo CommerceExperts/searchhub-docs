@@ -44,13 +44,14 @@ Story
   As a customer, I want to see the corrected query but also have the option to search using my original input (instead-search-for).
 
 Acceptance criteria
-  - If query mapping occurs, a message should be displayed indicating the corrected query.
+  - If a query mapping occurs (and the query has changed beyond lower/upper case transformation), a message should be displayed indicating the corrected query.
   - Additionally, there should be a link allowing the user to search for their original query.
   - When the link is clicked, the original query should be used without any mapping.
 
 Technical hint
   - You can utilize the `bypass`_ feature of smartQuery by wrapping the query in quotes. This prevents mapping, and, upon submission, the quotes will be removed.
   - If a `java integration`_ is done, the utility function `io.searchhub.smartquery.util.QueryAssessment.isOnlyWordReorder` can be used to prevent query correction feedback when the original and corrected queries contain the same words in a different order.
+  - smartQuery will always respond with a lower-case query. Searching with uppercase letters will therefor be transformed, which might look like a query change that is none. Please use a caseinsensitive comparison of both queries.
 
 
 Potential correction alternatives
