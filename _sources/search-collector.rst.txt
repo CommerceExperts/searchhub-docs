@@ -286,7 +286,6 @@ If a subsequent page does not contain any products for the initial query, the bu
 Add to cart (PLP)
 ----------------------------
 Some onlineshops allow the user to put products into basket directly from the PLP. Please add the ``data-track-id`` and ``data-product-id`` attributes to these basket buttons too.
-An additional element containing the amount put into the basket can be annotated with the ``data-track-id="addToBasketQuantity"`` attribute, in most cases this is a common div, select or input element.
 
 |basketPLP|
 
@@ -300,18 +299,15 @@ An additional element containing the amount put into the basket can be annotated
      - addToCartPLP
    * - data-product-id
      - {mainId}
-   * - data-track-id
-     - addToBasketQuantity
 
 .. note::
-   You can omit the `data-product-id` and `data-track-id="addToBasketQuantity"` attributes if you have a javascript object that contains the required information.
+   You can omit the `data-product-id` attribute if you have a javascript object that contains the required information.
    E.g. the `dataLayer` object. Please contact us if you want to rely on js data.
 
 **Example**
 
 .. code-block:: html
 
-    <select data-track-id="addToBasketQuantity">...</select>
     <button data-track-id="addToCartPDP" data-product-id="abc"></button>
 
 
@@ -332,18 +328,15 @@ An additional element containing the amount put into the basket can be annotated
      - addToCartPDP
    * - data-product-id
      - {mainId}
-   * - data-track-id
-     - addToBasketQuantity
 
 .. note::
-   You can omit the `data-product-id` and `data-track-id="addToBasketQuantity"` attributes if you have a javascript object that contains the required information.
+   You can omit the `data-product-id` attribute if you have a javascript object that contains the required information.
    E.g. the `dataLayer` object. Please contact us if you want to rely on js data.
 
 **Example**
 
 .. code-block:: html
 
-    <select data-track-id="addToBasketQuantity">...</select>
     <button data-track-id="addToCartPDP" data-product-id="abc"></button>
 
 
