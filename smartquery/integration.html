@@ -109,7 +109,7 @@
 <h2>API<a class="headerlink" href="#api" title="Link to this heading"></a></h2>
 <p>There is basically a single method that needs to be called with the user query and that gives you access to the according <code class="docutils literal notranslate"><span class="pre">QueryMapping</span></code>.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">HTTP Service</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">QueryMapper</span><span class="w"> </span><span class="n">qm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qmManager</span><span class="p">.</span><span class="na">getQueryMapper</span><span class="p">(</span><span class="n">tenant</span><span class="p">);</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">HTTP Service</button><button aria-controls="panel-0-0-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-2" name="0-2" role="tab" tabindex="-1">PHP Client</button><button aria-controls="panel-0-0-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-3" name="0-3" role="tab" tabindex="-1">JS Client</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">QueryMapper</span><span class="w"> </span><span class="n">qm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qmManager</span><span class="p">.</span><span class="na">getQueryMapper</span><span class="p">(</span><span class="n">tenant</span><span class="p">);</span>
 <span class="n">String</span><span class="w"> </span><span class="n">sessionId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w"> </span><span class="c1">// only required to support query-testing (see use cases)</span>
 <span class="n">QueryMapping</span><span class="w"> </span><span class="n">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qm</span><span class="p">.</span><span class="na">mapQuery</span><span class="p">(</span><span class="n">searchQuery</span><span class="p">,</span><span class="w"> </span><span class="n">sessionId</span><span class="p">);</span>
 </pre></div>
@@ -125,6 +125,31 @@
 </ul>
 </dd>
 </dl>
+</div><div aria-labelledby="tab-0-0-2" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-2" name="0-2" role="tabpanel" tabindex="0"><p>The PHP Client comes with the ability to run in several modes. But here we configure it to run connected to a local HTTP service.</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$tenant_name = &quot;example&quot;;</span>
+<span class="x">$tenant_channel = &quot;com&quot;;</span>
+<span class="x">$userQuery = &quot;jeanss&quot;;</span>
+
+<span class="x">$config = new Config($tenant_name, $tenant_channel, null, null,</span>
+<span class="x">    &quot;http://localhost:$port/smartquery/v2/{$tenant_name}/{$tenant_channel}&quot;);</span>
+<span class="x">$client = new SearchHubClient($config);</span>
+<span class="x">$queryMapping = $client-&gt;mapQuery($userQuery);</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-3" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-3" name="0-3" role="tabpanel" tabindex="0"><p>The JS Client can either connect to our SaaS Service or any on-prem searchHub service. For SaaS endpoint only the tenant name is required for initialization.
+However additional it comes with the ability to do the splitting for an A/B test that can be evaluated by searchHub. Set this value to <cite>false</cite> unless other communicated.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">BrowserClientFactory</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;searchhub-js-client&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">smartSuggestClient</span><span class="p">,</span><span class="w"> </span><span class="nx">smartQueryClient</span><span class="p">,</span><span class="w"> </span><span class="nx">abTestManager</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">BrowserClientFactory</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">tenant</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">abTestActive</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">});</span>
+
+<span class="c1">// automatically respects ab test assignment + caching</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">smartQueryClient</span><span class="p">.</span><span class="nx">getMapping</span><span class="p">(</span><span class="s2">&quot;jeanss&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>More code examples are available in the <a class="reference external" href="https://github.com/CommerceExperts/searchhub-js-client">clients repository</a>.</p>
 </div></div>
 </section>
 <section id="querymapping-response">

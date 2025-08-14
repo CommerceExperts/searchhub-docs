@@ -214,7 +214,7 @@ It needs several seconds until the data actually responds. For testing you can m
 
     .. tab:: JS Client
 
-      The JS Client comes only with the ability to connect to a SaaS Service so far. Therefor only tenant name is required for initialization.
+      The JS Client can either connect to our SaaS Service or any on-prem searchHub service. For SaaS endpoint only the tenant name is required for initialization.
       However additional it comes with the ability to do the splitting for an A/B test that can be evaluated by searchHub. Set this value to `false` unless other communicated.
 
       .. code-block:: javascript
