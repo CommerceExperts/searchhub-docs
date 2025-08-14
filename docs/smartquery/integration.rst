@@ -27,6 +27,40 @@ There is basically a single method that needs to be called with the user query a
             - userQuery (query): the text the user entered in the search box
             - sessionId (query): optional parameter that MUST contain the value of the SearchCollectorSession (see details below)
 
+    .. tab:: PHP Client
+
+      The PHP Client comes with the ability to run in several modes. But here we configure it to run connected to a local HTTP service.
+
+      .. code-block:: php
+
+        $tenant_name = "example";
+        $tenant_channel = "com";
+        $userQuery = "jeanss";
+
+        $config = new Config($tenant_name, $tenant_channel, null, null,
+            "http://localhost:$port/smartquery/v2/{$tenant_name}/{$tenant_channel}");
+        $client = new SearchHubClient($config);
+        $queryMapping = $client->mapQuery($userQuery);
+
+
+    .. tab:: JS Client
+
+      The JS Client can either connect to our SaaS Service or any on-prem searchHub service. For SaaS endpoint only the tenant name is required for initialization.
+      However additional it comes with the ability to do the splitting for an A/B test that can be evaluated by searchHub. Set this value to `false` unless other communicated.
+
+      .. code-block:: javascript
+
+        import {BrowserClientFactory} from "searchhub-js-client";
+
+        const {smartSuggestClient, smartQueryClient, abTestManager} = BrowserClientFactory({
+            tenant: "example.com",
+            abTestActive: false
+        });
+
+        // automatically respects ab test assignment + caching
+        const mapping = await smartQueryClient.getMapping("jeanss");
+
+      More code examples are available in the `clients repository <https://github.com/CommerceExperts/searchhub-js-client>`_.
 
 
 QueryMapping Response
