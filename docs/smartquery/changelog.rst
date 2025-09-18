@@ -3,6 +3,12 @@ Changelog
 
 Version 2
 ---------
+Version 2.5.0
+    - align version with API and all our other modules
+
+Version 2.4.0
+    - migrate storage for infused products to memory efficient memory mapped key-value storage (rocksDB)
+
 Version 2.3.3
     - Fix potential NPE for cluster without masterQuery (e.g. only redirect)
 
