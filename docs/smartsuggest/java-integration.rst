@@ -29,24 +29,7 @@ Migration Guide
 
 The transition from Version 1 to Version 2 represents a shift toward a pre-indexed architecture, designed to improve scalability and reduce the resource footprint of your suggest services.
 
-.. list-table:: Key Architectural Changes
-   :widths: 20 40 40
-   :header-rows: 1
-
-   * - Feature
-     - Version 1
-     - Version 2
-   * - **Initialization**
-     - Required manual assembly of internal "building blocks."
-     - Features a **pre-built initializer** that automates component assembly.
-   * - **Indexing Strategy**
-     - On-the-fly indexing via ``SuggestDataProvider`` on every node.
-     - **Pre-built indexes** created before service startup.
-   * - **Resource Impact**
-     - High CPU/Memory load and long startup times during indexing.
-     - Faster startup, lower memory footprint, and reduced scaling overhead.
-
-In Version 1, the ``SuggestDataProvider`` interface offered flexibility for arbitrary data sources but introduced redundancy; in a clustered environment, every single node had to perform the same indexing work.
+In Version 1, the ``SuggestDataProvider`` interface offered flexibility for arbitrary data sources but introduced redundancy: in a clustered environment, every single node had to perform the same indexing work.
 
 Version 2 decouples indexing from the service. Indexes must now be generated prior to service startup. This shift optimizes the "scale-up" scenario by allowing new nodes to pull a ready-to-use index rather than building one from scratch.
 
@@ -124,7 +107,7 @@ This example code should just show how the Suggester can be initialized. Dependi
 your controller endpoints.
 
 
-.. tags::
+.. tabs::
 
     .. tab:: Version 2
         .. code-block:: java
