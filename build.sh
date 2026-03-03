@@ -22,21 +22,34 @@ substModuleVersions() {
     export OCS_SUGGEST_LIB_VERSION
 
     dir="$1"
+    
+    module="searchhub-public-api"
+    TAG="$(getLatestTag "$module")"
+    API_VERSION="${TAG/v/}"
+    export API_VERSION
+
     modules=(smartquery smartsuggest)
     for module in ${modules[*]};
     do
         # variable substitution
         TAG="$(getLatestTag "$module")"
         VERSION="${TAG/v/}"
-        VAR_NAME="$(echo "$module" | tr '[:lower:]' '[:upper:]')_VERSION"
+        VAR_NAME="$(echo "$module" | tr '[:lower:]-' '[:upper:]_')_VERSION"
+        echo "declaring variable $VAR_NAME=$VERSION"
         declare -x $VAR_NAME="$VERSION"
-        find "$dir/$module"/ -type f -name '*.rst' | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst "\${$VAR_NAME} \${OCS_SUGGEST_LIB_VERSION}" > "$file"; rm "$file.orig"; done
+        find "$dir/$module"/ -type f -name '*.rst' | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst "\${$VAR_NAME} \${OCS_SUGGEST_LIB_VERSION} \${API_VERSION}" > "$file"; rm "$file.orig"; done
 
     done
 }
 
 # build
 cd docs/
+
+if ! git diff-index --quiet --cached HEAD || ! git diff-files --quiet ; then 
+    echo "WARN: there are uncommited changes. Won't reset them. Please commit first then run $0"
+    exit
+fi
+
 
 resetBuildDir() {
     # clear potential old build
@@ -58,7 +71,7 @@ file=conf.py; cp "$file" "$file.orig"; <"$file.orig" envsubst '${YEAR}' > "$file
 
 # docker login
 AWS_CMD="$(which aws || echo "$HOME/.local/bin/aws")"
-$($AWS_CMD ecr get-login --no-include-email --region eu-central-1)
+$($AWS_CMD ecr get-login-password | docker login)
 
 docker run --rm -u root -v "$(pwd)":/docs 399621189843.dkr.ecr.eu-central-1.amazonaws.com/util/sphinx-docs:5.3.1 make html
 if [ "$?" -ne 0 ]; then echo "could not generate docs"; exit 1; fi

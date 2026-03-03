@@ -10,7 +10,16 @@ Operations
 Configuration
 -------------
 
-At the Java integration you can directly set those values. For the HTTP Service all is done via System properties. Those are passed into the container using the ``JAVA_OPTS`` environment variable.
+At the Java integration you can directly set those values. For the HTTP Service all is done via System properties. Those are passed into the container using the ``JAVA_TOOL_OPTIONS`` environment variable.
+
+.. note::
+
+    To align with industry standards, the use of the JAVA_OPTS environment variable is being phased out in favor of the official JVM standard, JAVA_TOOL_OPTIONS.
+
+    At the current Version 2.5, JAVA_OPTS is officially deprecated. While the service will continue to parse JAVA_OPTS for backward compatibility, we recommend migrating your configuration to JAVA_TOOL_OPTIONS immediately.
+
+    At the upcomming Version 3.0, support for JAVA_OPTS will be completely removed.
+
 
 Update Rate
 ~~~~~~~~~~~
@@ -23,7 +32,7 @@ Sets the rate (in seconds) at which the update should run. The value must be bet
 
       .. code-block:: bash
 
-        JAVA_OPTS="-Dsmartquery.updateRateInSeconds=60"
+        JAVA_TOOL_OPTIONS="-Dsmartquery.updateRateInSeconds=60"
 
     .. tab:: Java Integration
 
@@ -43,13 +52,13 @@ Specify tenants that should be loaded immediately following initialization. The 
     .. tab:: HTTP Service
 
       There are two ways to set the preload tenants. Either set the ``SH_INIT_TENANTS`` environment variable directly
-      or if you're already using the ``JAVA_OPTS`` environment variable, you can add it as a part of it:
+      or if you're already using the ``JAVA_TOOL_OPTIONS`` environment variable, you can add it as a part of it:
 
       .. code-block:: bash
 
         SH_INIT_TENANTS="example.num1,example.num2"
         # alternative:
-        JAVA_OPTS="-Dsmartquery.preloadTenants=example.num1,example.num2"
+        JAVA_TOOL_OPTIONS="-Dsmartquery.preloadTenants=example.num1,example.num2"
 
     .. tab:: Java Integration
 
@@ -69,7 +78,7 @@ In case you want to guard against wrong data updates, you can define a minimum a
 
       .. code-block:: bash
 
-        JAVA_OPTS="-Dsmartquery.defaultMappingThreshold=100"
+        JAVA_TOOL_OPTIONS="-Dsmartquery.defaultMappingThreshold=100"
 
     .. tab:: Java Integration
 
@@ -90,7 +99,7 @@ If you notice too much traffic load sent by the internal stats-collector to ``im
 
       .. code-block:: bash
 
-        JAVA_OPTS="-Dsmartquery.statsCollectorFilter.enable=true"
+        JAVA_TOOL_OPTIONS="-Dsmartquery.statsCollectorFilter.enable=true"
 
     .. tab:: Java Integration
 

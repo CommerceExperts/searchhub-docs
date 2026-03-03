@@ -44,7 +44,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
         <dependency>
             <groupId>io.searchhub</groupId>
             <artifactId>smartquery</artifactId>
-            <version>${SMARTQUERY_VERSION}</version>
+            <version>${API_VERSION}</version>
         </dependency>
 
         <!-- ... -->
@@ -58,20 +58,20 @@ Our continuous implementation build pushes the library into our own Maven reposi
 
       .. code-block:: bash
 
-        docker pull commerceexperts/smartquery-service:${SMARTQUERY_VERSION}
+        docker pull commerceexperts/smartquery-service:${API_VERSION}
 
       The container must be initiated with your API key set to the environment variable `SH_API_KEY`.
       The container exposes port 8081 which can be mapped to any port.
 
       .. code-block:: bash
 
-        docker run -d --name=smartquery-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:${SMARTQUERY_VERSION}
+        docker run -d --name=smartquery-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:${API_VERSION}
 
       **Troubleshooting**
 
           - The container won't start, if you forget to specify the API key.
           - Should you attempt to access a non-permitted tenant/channel (due to an incorrect API key, for example), you will see an error message similar to: `update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {"message":"Invalid authentication credentials"}`
-          - Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter `-e JAVA_OPTS="-Dlog.searchhub.level=DEBUG"`
+          - Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter `-e JAVA_TOOL_OPTIONS="-Dlog.searchhub.level=DEBUG"`
 
     .. tab:: PHP Client
 
@@ -83,7 +83,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
 
         {
           "require": {
-            "commerce-experts/searchhub-php-client": "1.0.0"
+            "commerce-experts/searchhub-php-client": "1.0.3"
           }
         }
 
