@@ -103,7 +103,7 @@ html_css_files = [
     'custom.css',
 ]
 html_js_files = [
-    'chatbot.js'
+    'chatbot.js',
 ]
 
 # Add any paths that contain custom static files (such as style sheets) here,
