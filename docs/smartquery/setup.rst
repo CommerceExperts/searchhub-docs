@@ -83,7 +83,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
 
         {
           "require": {
-            "commerce-experts/searchhub-php-client": "1.0.0"
+            "commerce-experts/searchhub-php-client": "1.0.3"
           }
         }
 
