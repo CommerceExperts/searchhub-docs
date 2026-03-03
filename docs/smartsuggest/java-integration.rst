@@ -61,7 +61,7 @@ Dependencies
             <dependency>
                 <groupId>io.searchhub</groupId>
                 <artifactId>smartsuggest</artifactId>
-                <version>${SEARCHHUB_PUBLIC_API_VERSION}</version>
+                <version>${API_VERSION}</version>
             </dependency>
             <!-- ... -->
 

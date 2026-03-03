@@ -27,7 +27,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
 
       .. code-block:: bash
 
-        docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:${SEARCHHUB_PUBLIC_API_VERSION}
+        docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:${API_VERSION}
 
       The container must be initiated with your API key set to the environment variable `SH_API_KEY`.
       The container exposes port 8081 which can be mapped to any port.
@@ -43,7 +43,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
             <dependency>
                 <groupId>io.searchhub</groupId>
                 <artifactId>smartsuggest</artifactId>
-                <version>${SEARCHHUB_PUBLIC_API_VERSION}</version>
+                <version>${API_VERSION}</version>
             </dependency>
 
             <!-- ... -->

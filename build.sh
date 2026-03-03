@@ -22,7 +22,13 @@ substModuleVersions() {
     export OCS_SUGGEST_LIB_VERSION
 
     dir="$1"
-    modules=(smartquery smartsuggest searchhub-public-api)
+    
+    module="searchhub-public-api"
+    TAG="$(getLatestTag "$module")"
+    API_VERSION="${TAG/v/}"
+    export API_VERSION
+
+    modules=(smartquery smartsuggest)
     for module in ${modules[*]};
     do
         # variable substitution
@@ -31,7 +37,7 @@ substModuleVersions() {
         VAR_NAME="$(echo "$module" | tr '[:lower:]-' '[:upper:]_')_VERSION"
         echo "declaring variable $VAR_NAME=$VERSION"
         declare -x $VAR_NAME="$VERSION"
-        find "$dir/$module"/ -type f -name '*.rst' | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst "\${$VAR_NAME} \${OCS_SUGGEST_LIB_VERSION}" > "$file"; rm "$file.orig"; done
+        find "$dir/$module"/ -type f -name '*.rst' | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst "\${$VAR_NAME} \${OCS_SUGGEST_LIB_VERSION} \${API_VERSION}" > "$file"; rm "$file.orig"; done
 
     done
 }

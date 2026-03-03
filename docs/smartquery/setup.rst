@@ -44,7 +44,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
         <dependency>
             <groupId>io.searchhub</groupId>
             <artifactId>smartquery</artifactId>
-            <version>${SEARCHHUB_PUBLIC_API_VERSION}</version>
+            <version>${API_VERSION}</version>
         </dependency>
 
         <!-- ... -->
@@ -58,14 +58,14 @@ Our continuous implementation build pushes the library into our own Maven reposi
 
       .. code-block:: bash
 
-        docker pull commerceexperts/smartquery-service:${SEARCHHUB_PUBLIC_API_VERSION}
+        docker pull commerceexperts/smartquery-service:${API_VERSION}
 
       The container must be initiated with your API key set to the environment variable `SH_API_KEY`.
       The container exposes port 8081 which can be mapped to any port.
 
       .. code-block:: bash
 
-        docker run -d --name=smartquery-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:${SEARCHHUB_PUBLIC_API_VERSION}
+        docker run -d --name=smartquery-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/smartquery-service:${API_VERSION}
 
       **Troubleshooting**
 
