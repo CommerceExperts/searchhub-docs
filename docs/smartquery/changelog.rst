@@ -4,7 +4,7 @@ Changelog
 Version 2
 ---------
 Version 2.5.0
-    - align version with API and all our other modules
+    - align version with API and all our other modules, increasing compatibility
     - internal refactoring to reuse common tested codebase
     - dependency updates
 

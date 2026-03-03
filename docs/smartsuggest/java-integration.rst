@@ -27,29 +27,55 @@ This API key must be set either, as environment variable "SH_API_KEY" or, as sys
 Dependencies
 ------------
 
-The basic smartSuggest library is part of the Open-Commerce-Search stack, therefor the dependency is ``de.cxp.ocs::smartsuggest-lib``.
-In order to load the searchHub data, our ``searchhub-suggest-data-provider`` must be added to the classpath as well.
-All related components can be pulled as a maven dependency from `our repository <https://nexus.commerce-experts.com/content/repositories/searchhub-external/>`_
 
-.. code-block:: XML
+.. tabs::
 
-    <dependency>
-        <groupId>de.cxp.ocs</groupId>
-        <artifactId>smartsuggest-lib</artifactId>
-        <version>${OCS_SUGGEST_LIB_VERSION}</version>
-    </dependency>
-    <dependency>
-        <groupId>io.searchhub</groupId>
-        <artifactId>searchhub-suggest-data-provider</artifactId>
-        <version>${SMARTSUGGEST_VERSION}</version>
-    </dependency>
+    .. tab:: Version 2
 
-    <!-- ... -->
+        In contrast to Version 1 this one comes as a single dependency with everything included.
 
-    <repository>
-        <id>external-releases</id>
-        <url>https://nexus.commerce-experts.com/content/repositories/searchhub-external/</url>
-    </repository>
+        .. code-block:: XML
+
+            <dependency>
+                <groupId>io.searchhub</groupId>
+                <artifactId>smartsuggest</artifactId>
+                <version>${SMARTSUGGEST_VERSION}</version>
+            </dependency>
+            <!-- ... -->
+
+            <repository>
+                <id>external-releases</id>
+                <url>https://nexus.commerce-experts.com/content/repositories/searchhub-external/</url>
+            </repository>
+
+
+    .. tab:: Version 1
+
+        *Outdated version that will be maintained until End of February 2027*
+
+        The basic smartSuggest library is part of the Open-Commerce-Search stack, therefor the dependency is ``de.cxp.ocs::smartsuggest-lib``.
+        In order to load the searchHub data, our ``searchhub-suggest-data-provider`` must be added to the classpath as well.
+        All related components can be pulled as a maven dependency from `our repository <https://nexus.commerce-experts.com/content/repositories/searchhub-external/>`_
+
+        .. code-block:: XML
+
+            <dependency>
+                <groupId>de.cxp.ocs</groupId>
+                <artifactId>smartsuggest-lib</artifactId>
+                <version>${OCS_SUGGEST_LIB_VERSION}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.searchhub</groupId>
+                <artifactId>searchhub-suggest-data-provider</artifactId>
+                <version>1.5.0</version>
+            </dependency>
+
+            <!-- ... -->
+
+            <repository>
+                <id>external-releases</id>
+                <url>https://nexus.commerce-experts.com/content/repositories/searchhub-external/</url>
+            </repository>
 
 
 Initialization
@@ -58,46 +84,90 @@ Initialization
 This example code should just show how the Suggester can be initialized. Depending on your application architecture you should wrap it inside a Service implementation and build
 your controller endpoints.
 
-.. code-block:: java
 
-    static QuerySuggestManager qsm;
-    static {
-        try {
-            // as the 'searchhub-suggest-data-provider' is loaded via the Java SPI system
-            // you cannot configure it directly. The required settings have to be set as
-            // system properties (Setting them directly is not recommended, we just do it for
-            // demonstration purposes)
-            System.setProperty("searchhub.apikey", "123abc");
-            System.setProperty("searchhub.tenant_mappings", "example=example.com");
+.. tags::
 
-            qsm = QuerySuggestManager.builder()
-                    // required for lucene where it puts the index files
-                    .indexFolder(Files.createTempDirectory("smartsuggest"))
-                    // force synchronous indexation (optional)
-                    .preloadIndexes("example.com")
-                    // the builder also has other options
-                    .build();
-        }
-        catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
+    .. tab:: Version 2
+        .. code-block:: java
 
-    // It's recommended to bind the querySuggestManager instance to your JVM's lifecycle
-    // and close the QueryMapperManager during shutdown.
-    // Internally a ScheduledExecutorService is used, that will be stopped then.
-    @PreDestroy
-    public void onJvmShutdown() {
-        qsm.close();
-    }
+            static QuerySuggestManager qsm;
+            static {
+                try {
+                    qsm = io.searchhub.smartsuggest.SearchhubSuggestInitializer.getQuerySuggestManager(apiKey)
 
-    private List<String> suggestQueries(String userQuery, int maxSuggestions) throws IOException {
-        return qsm.getQuerySuggester("example")
-                .suggest(userQuery, maxSuggestions, Collections.emptySet())
-                .stream()
-                .map(suggestion -> suggestion.getLabel())
-                .collect(Collectors.toList());
-    }
+                            // optionally define where lucene should store the index files
+                            .indexFolder(Files.createTempDirectory("smartsuggest"))
+
+                            // optionally define which indexes/tenants should be loaded immediately
+                            // Attention: This will cause synchronous loading, which is desired to block for a readiness probe
+                            .preloadIndexes("example.com")
+
+                            // the builder also has other options; finally build the QSM:
+                            .build();
+                }
+                catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            }
+
+            // It's recommended to bind the querySuggestManager instance to your JVM's lifecycle
+            // and close the QueryMapperManager during shutdown.
+            // Internally a ScheduledExecutorService is used, that will be stopped then.
+            @PreDestroy
+            public void onJvmShutdown() {
+                qsm.close();
+            }
+
+            private List<String> suggestQueries(String userQuery, int maxSuggestions) throws IOException {
+                return qsm.getQuerySuggester("example")
+                        .suggest(userQuery, maxSuggestions, Collections.emptySet())
+                        .stream()
+                        .map(suggestion -> suggestion.getLabel())
+                        .collect(Collectors.toList());
+            }
+
+    .. tab:: Version 1
+
+        .. code-block:: java
+
+            static QuerySuggestManager qsm;
+            static {
+                try {
+                    // as the 'searchhub-suggest-data-provider' is loaded via the Java SPI system
+                    // you cannot configure it directly. The required settings have to be set as
+                    // system properties (Setting them directly is not recommended, we just do it for
+                    // demonstration purposes)
+                    System.setProperty("searchhub.apikey", "123abc");
+                    System.setProperty("searchhub.tenant_mappings", "example=example.com");
+
+                    qsm = QuerySuggestManager.builder()
+                            // required for lucene where it puts the index files
+                            .indexFolder(Files.createTempDirectory("smartsuggest"))
+                            // force synchronous indexation (optional)
+                            .preloadIndexes("example.com")
+                            // the builder also has other options
+                            .build();
+                }
+                catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            }
+
+            // It's recommended to bind the querySuggestManager instance to your JVM's lifecycle
+            // and close the QueryMapperManager during shutdown.
+            // Internally a ScheduledExecutorService is used, that will be stopped then.
+            @PreDestroy
+            public void onJvmShutdown() {
+                qsm.close();
+            }
+
+            private List<String> suggestQueries(String userQuery, int maxSuggestions) throws IOException {
+                return qsm.getQuerySuggester("example")
+                        .suggest(userQuery, maxSuggestions, Collections.emptySet())
+                        .stream()
+                        .map(suggestion -> suggestion.getLabel())
+                        .collect(Collectors.toList());
+            }
 
 
 
@@ -144,10 +214,22 @@ When building a QuerySuggestManager - the central object that build and holds th
         .withDefaultSuggestConfig(SuggestConfig.builder().alwaysDoFuzzy(false).maxSharpenedQueries(5).build())
 
         /**
+         * Add a custom IndexArchiveProvider that loads a prepared index. To create that index the class
+         * 'de.cxp.ocs.smartsuggest.SuggestDataIndexer' can be used. Both have to be connected to the same
+         * 'IndexArchiver' implementation that stores and retrieves indexes from any storage.
+         *
+         * @deprecated removed at version 2 to avoid long loading times. Instead prepare an index outside of
+         *             the service and attach it using 'withIndexProvider'
+         **/
+        .withIndexProvider(myIndexArchiveProvider)
+
+        /**
          * A custom SuggestDataProvider can either be injected using the standard java ServiceLoader mechanic
          * (declaring a implementation for de.cxp.ocs.smartsuggest.spi.SuggestDataProvider)
          * or by passing an instance directly to the builder. Do not use both mechanics, otherwise that
          * data-provider is loaded twice.
+         * @deprecated removed at version 2 to avoid long loading times. Instead prepare an index outside of
+         *             the service and attach it using 'withIndexProvider'
          **/
         .withSuggestDataProvider(mySuggestDataProvider)
 
@@ -157,6 +239,8 @@ When building a QuerySuggestManager - the central object that build and holds th
          * If there should be two different data providers of the same class, make sure to pass individual parameters
          * during instance creation. The data provider config will be passed additionally.
          * This is useful for general connection settings for example.
+         *
+         * @deprecated to be removed as unused
          **/
         .addDataProviderConfig(mySuggestDataProvider.getClass().getCanonicalName(), singletonMap("my-setting", "value"))
 

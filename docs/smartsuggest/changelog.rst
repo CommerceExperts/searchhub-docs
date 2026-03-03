@@ -8,7 +8,14 @@ Version 2.5.0
     - add scoped suggestions through searchHub data provider
     - add contextual pre-suggestions through searchHub data provider
 
-Version 2.0.0 - 2.4.0 (not published)
+.. note::
+    **Backward Compatibility**
+
+    The public REST-API is completely compatible to version 1, so a simple container update is all that's needed.
+    If the Java-integration is used, please consider the according Migration Notes.
+
+
+Version 2.0.0 - 2.4.0 (*not published*)
     - embedded and improved ocs.smartsuggest:
         - get rid of memory consuming structures
         - recovery from archive provider can use index name to recover additional data
