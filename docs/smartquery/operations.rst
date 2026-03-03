@@ -12,6 +12,15 @@ Configuration
 
 At the Java integration you can directly set those values. For the HTTP Service all is done via System properties. Those are passed into the container using the ``JAVA_TOOL_OPTIONS`` environment variable.
 
+.. note::
+
+    To align with industry standards, the use of the JAVA_OPTS environment variable is being phased out in favor of the official JVM standard, JAVA_TOOL_OPTIONS.
+
+    At the current Version 2.5, JAVA_OPTS is officially deprecated. While the service will continue to parse JAVA_OPTS for backward compatibility, we recommend migrating your configuration to JAVA_TOOL_OPTIONS immediately.
+
+    At the upcomming Version 3.0, support for JAVA_OPTS will be completely removed.
+
+
 Update Rate
 ~~~~~~~~~~~
 
