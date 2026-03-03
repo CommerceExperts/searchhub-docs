@@ -1,6 +1,32 @@
 Changelog
 =========
 
+Version 2
+---------
+Version 2.5.0
+    - add product suggestions through searchHub data provider
+    - add scoped suggestions through searchHub data provider
+    - add contextual pre-suggestions through searchHub data provider
+
+.. note::
+    **Backward Compatibility**
+
+    The REST-API is completely compatible to version 1, so a simple container update is all that's needed.
+    If the Java-integration is used, please consider the according Migration Notes.
+
+
+Version 2.0.0 - 2.4.0 (*not published*)
+    - embedded and improved ocs.smartsuggest
+    - get rid of memory consuming structures
+    - recovery from archive provider can use index name to recover additional data
+    - unify configuration handling, dropping legacy support
+    - replace searchhub-data-provider and s3-data-provider (optional) with index-archive-provider for faster startup times and reduced memory footprint
+    - add persistence-access-layer "PAL" to reduce redundant data storage
+    - prepared "magnetic labels": labels that automatically adjust to the user input
+(These internal versions were part of a major refactoring, but not published as they did not contain any additional value and were just the preparation for version 2.5.0; also to get to a version that aligns with our API and other modules)
+
+Version 1
+---------
 Version 1.4.2
     - Service migrated to undertow
 

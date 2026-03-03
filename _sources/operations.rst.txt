@@ -17,7 +17,7 @@ The container accepts all `common configuration properties <#configuration>`_ an
 
     docker run -d --name=searchhub-service \
       -e SH_API_KEY=<YourS3cr3tAPIkey> \
-      -e JAVA_OPTS="-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true" \
+      -e JAVA_TOOL_OPTIONS="-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true" \
       -p 9081:8081 commerceexperts/searchhub-integration-service:latest
 
 The container must be initiated with your API key set to the environment variable `SH_API_KEY`.
@@ -143,7 +143,7 @@ In case the property `server.metrics.jvmThreads.enable=true` is set, there will 
 Configuration
 -------------
 
-You could either overwrite the file ``/app/resources/service.properties`` inside the container with all properties adjusted, or you can overwrite single properties using the ``JAVA_OPTS`` environment variable. The properties set via ``JAVA_OPTS`` will always take precedence over the ones in the file. In this documentation all examples are shown with the ``JAVA_OPTS`` environment variable, if you combine them, make sure to define that environment variable only once for all properties.
+You could either overwrite the file ``/app/resources/service.properties`` inside the container with all properties adjusted, or you can overwrite single properties using the ``JAVA_TOOL_OPTIONS`` environment variable. The properties set via ``JAVA_TOOL_OPTIONS`` will always take precedence over the ones in the file. In this documentation all examples are shown with the ``JAVA_TOOL_OPTIONS`` environment variable, if you combine them, make sure to define that environment variable only once for all properties.
 
 Module Activation
 ~~~~~~~~~~~~~~~~~
@@ -154,7 +154,7 @@ So alternatively you can activate the modules during startup:
 
 .. code-block:: bash
 
-    JAVA_OPTS="-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true"
+    JAVA_TOOL_OPTIONS="-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true"
 
 The dedicated variants of that service come with the corresponding module activated.
 
@@ -162,18 +162,18 @@ The dedicated variants of that service come with the corresponding module activa
 Basic Authentication
 ~~~~~~~~~~~~~~~~~~~~
 
-In case you want to enable basic authentication for all the endpoints, add the following properties to the `JAVA_OPTS` environment variable.
+In case you want to enable basic authentication for all the endpoints, add the following properties to the `JAVA_TOOL_OPTIONS` environment variable.
 
 .. code-block:: bash
 
-    JAVA_OPTS="-Dserver.auth.all.enable=true -Dserver.auth.username=<username> -Dserver.auth.password=<your-password>"
+    JAVA_TOOL_OPTIONS="-Dserver.auth.all.enable=true -Dserver.auth.username=<username> -Dserver.auth.password=<your-password>"
 
 Instead of enabling authentication for all endpoints, it's also possible to only enable authentication for some endpoints only. Therefor omit the ``-Dserver.auth.all.enable=true``
 property and instead only use the desired ones of the following properties:
 
 .. code-block:: bash
 
-    JAVA_OPTS="-Dserver.auth.smartquery.enable=true -Dserver.auth.suggest.enable=true -Dserver.auth.management.enable=true"
+    JAVA_TOOL_OPTIONS="-Dserver.auth.smartquery.enable=true -Dserver.auth.suggest.enable=true -Dserver.auth.management.enable=true"
 
 
 Port and Address
@@ -183,7 +183,7 @@ In case you want to change the listening port and/or address of the internal jav
 
 .. code-block:: bash
 
-    JAVA_OPTS="-Dserver.port=<port> -Dserver.address=<0.0.0.0>"
+    JAVA_TOOL_OPTIONS="-Dserver.port=<port> -Dserver.address=<0.0.0.0>"
 
 
 Detailed JVM Metrics
@@ -194,7 +194,7 @@ and ``/metrics`` endpoint.
 
 .. code-block:: bash
 
-    JAVA_OPTS="-Dserver.metrics.jvmMemory.enable=true -Dserver.metrics.jvmThreads.enable=true"
+    JAVA_TOOL_OPTIONS="-Dserver.metrics.jvmMemory.enable=true -Dserver.metrics.jvmThreads.enable=true"
 
 
 Update Rate
@@ -204,7 +204,7 @@ Sets the rate (in seconds) at which the background update should check for new d
 
 .. code-block:: bash
 
-    JAVA_OPTS="-Dsmartquery.updateRateInSeconds=83 -Dsuggest.update-rate=719"
+    JAVA_TOOL_OPTIONS="-Dsmartquery.updateRateInSeconds=83 -Dsuggest.update-rate=719"
 
 (*The different property names have historical reason and are kept for legacy support*)
 
@@ -214,13 +214,13 @@ Preload Tenants
 You can specify the tenants that should be loaded during startup. The service will only be ready (listening on the given port) after those tenants are loaded.
 
 There are two ways to set the preload tenants. Either set the ``SH_INIT_TENANTS`` environment variable directly
-or if you're already using the ``JAVA_OPTS`` environment variable, you can add it as a part of it:
+or if you're already using the ``JAVA_TOOL_OPTIONS`` environment variable, you can add it as a part of it:
 
 .. code-block:: bash
 
     SH_INIT_TENANTS="example.num1,example.num2"
     # alternative:
-    JAVA_OPTS="-Dsmartquery.preloadTenants=example.num1,example.num2"
+    JAVA_TOOL_OPTIONS="-Dsmartquery.preloadTenants=example.num1,example.num2"
 
 
 .. _smartQuery operations: smartquery/operations.html

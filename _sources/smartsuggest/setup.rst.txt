@@ -27,7 +27,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
 
       .. code-block:: bash
 
-        docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:1.5.0
+        docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:2.5.0
 
       The container must be initiated with your API key set to the environment variable `SH_API_KEY`.
       The container exposes port 8081 which can be mapped to any port.
@@ -41,14 +41,9 @@ Our continuous implementation build pushes the library into our own Maven reposi
         .. code-block:: XML
 
             <dependency>
-                <groupId>de.cxp.ocs</groupId>
-                <artifactId>smartsuggest-lib</artifactId>
-                <version>0.25.1</version>
-            </dependency>
-            <dependency>
                 <groupId>io.searchhub</groupId>
-                <artifactId>searchhub-suggest-data-provider</artifactId>
-                <version>1.5.0</version>
+                <artifactId>smartsuggest</artifactId>
+                <version>2.5.0</version>
             </dependency>
 
             <!-- ... -->
@@ -86,18 +81,16 @@ Client Setup
             static QuerySuggestManager qsm;
             static {
                 try {
-                    // as the 'searchhub-suggest-data-provider' is loaded via the Java SPI system
-                    // you cannot configure it directly. The required settings have to be set as
-                    // system properties (Setting them directly is not recommended, we just do it for
-                    // demonstration purposes)
-                    System.setProperty("searchhub.apikey", "123abc");
-                    System.setProperty("searchhub.tenant_mappings", "example=example.com");
+                    qsm = io.searchhub.smartsuggest.SearchhubSuggestInitializer.getQuerySuggestManager(apiKey)
 
-                    qsm = QuerySuggestManager.builder()
-                            // required for lucene where it puts the index files
+                            // optionally define where lucene should store the index files
                             .indexFolder(Files.createTempDirectory("smartsuggest"))
-                            // force synchronous indexation (optional)
+
+                            // optionally define which indexes/tenants should be loaded immediately
+                            // Attention: This will cause synchronous loading, which is desired to block for a readiness probe
                             .preloadIndexes("example.com")
+
+                            // the builder also has other options; finally build the QSM:
                             .build();
                 }
                 catch (IOException e) {
@@ -106,7 +99,7 @@ Client Setup
             }
 
             private List<String> suggestQueries(String userQuery, int maxSuggestions) throws IOException {
-                return qsm.getQuerySuggester("example")
+                return qsm.getQuerySuggester("example.com")
                         .suggest(userQuery, maxSuggestions, Collections.emptySet())
                         .stream()
                         .map(suggestion -> suggestion.getLabel())
@@ -139,7 +132,7 @@ Troubleshooting
     `"IllegalArgumentException: no searchHub API key provided! Either specify ENV var 'SH_API_KEY' or system property 'searchhub.apikey'"`
   - In case you tried to access a non-permitted tenant/channel (maybe because you specified the wrong API key), you will see such a message in the logs of the service:
     `Unauthorized while fetching data for tenant 'foo.bar': [401 Unauthorized]`
-  - To get more information about the internal processes, enable debug log. Do that with the docker startup parameter :code:`-e JAVA_OPTS="-Dlog.searchhub.level=DEBUG"` or for more debug messages additionally :code:`-Dlog.root.level=DEBUG`.
+  - To get more information about the internal processes, enable debug log. Do that with the docker startup parameter :code:`-e JAVA_TOOL_OPTIONS="-Dlog.searchhub.level=DEBUG"` or for more debug messages additionally :code:`-Dlog.root.level=DEBUG`.
 
 
 .. _tenant: ../glossary.html#tenant

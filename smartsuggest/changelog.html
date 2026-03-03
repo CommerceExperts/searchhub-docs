@@ -9,7 +9,7 @@
   <title>Changelog &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3f41cb94" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=34772a7b" />
 
   
     <link rel="shortcut icon" href="../_static/favicon.jpg"/>
@@ -59,7 +59,11 @@
 <li class="toctree-l2"><a class="reference internal" href="service-integration.html">Service Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="service-operations.html">Service Operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="java-integration.html">Java Integration</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Changelog</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#version-2">Version 2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-1">Version 1</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../operations.html">Common Operations</a></li>
@@ -93,6 +97,38 @@
              
   <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
+<section id="version-2">
+<h2>Version 2<a class="headerlink" href="#version-2" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Version 2.5.0</dt><dd><ul class="simple">
+<li><p>add product suggestions through searchHub data provider</p></li>
+<li><p>add scoped suggestions through searchHub data provider</p></li>
+<li><p>add contextual pre-suggestions through searchHub data provider</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Backward Compatibility</strong></p>
+<p>The REST-API is completely compatible to version 1, so a simple container update is all that’s needed.
+If the Java-integration is used, please consider the according Migration Notes.</p>
+</div>
+<dl class="simple">
+<dt>Version 2.0.0 - 2.4.0 (<em>not published</em>)</dt><dd><ul class="simple">
+<li><p>embedded and improved ocs.smartsuggest</p></li>
+<li><p>get rid of memory consuming structures</p></li>
+<li><p>recovery from archive provider can use index name to recover additional data</p></li>
+<li><p>unify configuration handling, dropping legacy support</p></li>
+<li><p>replace searchhub-data-provider and s3-data-provider (optional) with index-archive-provider for faster startup times and reduced memory footprint</p></li>
+<li><p>add persistence-access-layer “PAL” to reduce redundant data storage</p></li>
+<li><p>prepared “magnetic labels”: labels that automatically adjust to the user input</p></li>
+</ul>
+</dd>
+</dl>
+<p>(These internal versions were part of a major refactoring, but not published as they did not contain any additional value and were just the preparation for version 2.5.0; also to get to a version that aligns with our API and other modules)</p>
+</section>
+<section id="version-1">
+<h2>Version 1<a class="headerlink" href="#version-1" title="Link to this heading"></a></h2>
 <dl class="simple">
 <dt>Version 1.4.2</dt><dd><ul class="simple">
 <li><p>Service migrated to undertow</p></li>
@@ -205,6 +241,7 @@
 </ul>
 </dd>
 </dl>
+</section>
 </section>
 
 

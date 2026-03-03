@@ -10,7 +10,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3f41cb94" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=34772a7b" />
 
   
     <link rel="shortcut icon" href="../_static/favicon.jpg"/>
@@ -111,12 +111,18 @@ Please check the <a class="reference external" href="../operations.html">common 
 </div>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
-<p>At the Java integration you can directly set those values. For the HTTP Service all is done via System properties. Those are passed into the container using the <code class="docutils literal notranslate"><span class="pre">JAVA_OPTS</span></code> environment variable.</p>
+<p>At the Java integration you can directly set those values. For the HTTP Service all is done via System properties. Those are passed into the container using the <code class="docutils literal notranslate"><span class="pre">JAVA_TOOL_OPTIONS</span></code> environment variable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To align with industry standards, the use of the JAVA_OPTS environment variable is being phased out in favor of the official JVM standard, JAVA_TOOL_OPTIONS.</p>
+<p>At the current Version 2.5, JAVA_OPTS is officially deprecated. While the service will continue to parse JAVA_OPTS for backward compatibility, we recommend migrating your configuration to JAVA_TOOL_OPTIONS immediately.</p>
+<p>At the upcomming Version 3.0, support for JAVA_OPTS will be completely removed.</p>
+</div>
 <section id="update-rate">
 <h3>Update Rate<a class="headerlink" href="#update-rate" title="Link to this heading"></a></h3>
 <p>Sets the rate (in seconds) at which the update should run. The value must be between 5 and 3600.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">HTTP Service</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.updateRateInSeconds=60&quot;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">HTTP Service</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.updateRateInSeconds=60&quot;</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">QueryMapperManagerBuilder</span><span class="w"> </span><span class="n">qmmBuilder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="p">.</span><span class="na">builder</span><span class="p">();</span>
@@ -130,10 +136,10 @@ Please check the <a class="reference external" href="../operations.html">common 
 <p>Specify tenants that should be loaded immediately following initialization. The service will only be ready (listening on the given port) after those tenants are loaded.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">HTTP Service</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><p>There are two ways to set the preload tenants. Either set the <code class="docutils literal notranslate"><span class="pre">SH_INIT_TENANTS</span></code> environment variable directly
-or if you’re already using the <code class="docutils literal notranslate"><span class="pre">JAVA_OPTS</span></code> environment variable, you can add it as a part of it:</p>
+or if you’re already using the <code class="docutils literal notranslate"><span class="pre">JAVA_TOOL_OPTIONS</span></code> environment variable, you can add it as a part of it:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SH_INIT_TENANTS</span><span class="o">=</span><span class="s2">&quot;example.num1,example.num2&quot;</span>
 <span class="c1"># alternative:</span>
-<span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.preloadTenants=example.num1,example.num2&quot;</span>
+<span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.preloadTenants=example.num1,example.num2&quot;</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">QueryMapperManagerBuilder</span><span class="w"> </span><span class="n">qmmBuilder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="p">.</span><span class="na">builder</span><span class="p">();</span>
@@ -146,7 +152,7 @@ or if you’re already using the <code class="docutils literal notranslate"><spa
 <h3>Mapping Threshold<a class="headerlink" href="#mapping-threshold" title="Link to this heading"></a></h3>
 <p>In case you want to guard against wrong data updates, you can define a minimum amount of data records. If the update fetches less data records, an update is denied. Please be careful with this setting, especially if you don’t know how much data searchHub will provide for your tenants.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">HTTP Service</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.defaultMappingThreshold=100&quot;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">HTTP Service</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.defaultMappingThreshold=100&quot;</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">QueryMapperManagerBuilder</span><span class="w"> </span><span class="n">qmmBuilder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="p">.</span><span class="na">builder</span><span class="p">();</span>
@@ -159,7 +165,7 @@ or if you’re already using the <code class="docutils literal notranslate"><spa
 <h3>Stats Collector Filter<a class="headerlink" href="#stats-collector-filter" title="Link to this heading"></a></h3>
 <p>If you notice too much traffic load sent by the internal stats-collector to <code class="docutils literal notranslate"><span class="pre">import.searchhub.io</span></code>, you can enable the stats-collector-filter</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">HTTP Service</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.statsCollectorFilter.enable=true&quot;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">HTTP Service</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.statsCollectorFilter.enable=true&quot;</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><div class="admonition warning">

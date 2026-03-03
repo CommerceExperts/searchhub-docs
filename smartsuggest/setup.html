@@ -10,7 +10,7 @@
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3f41cb94" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=34772a7b" />
 
   
     <link rel="shortcut icon" href="../_static/favicon.jpg"/>
@@ -118,7 +118,7 @@ permanent persistence. Inside the container this should work without any further
 <p>Our continuous implementation build pushes the library into our own Maven repository and builds the according docker image right afterwards.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">HTTP Service (docker)</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>The docker image is available on docker hub with the name <a class="reference external" href="https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags">commerceexperts/searchhub-smartsuggest-service</a></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="o">=</span>smartsuggest-service<span class="w"> </span>-e<span class="w"> </span><span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt;<span class="w"> </span>-P<span class="w"> </span>commerceexperts/searchhub-smartsuggest-service:1.5.0
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="o">=</span>smartsuggest-service<span class="w"> </span>-e<span class="w"> </span><span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt;<span class="w"> </span>-P<span class="w"> </span>commerceexperts/searchhub-smartsuggest-service:2.5.0
 </pre></div>
 </div>
 <p>The container must be initiated with your API key set to the environment variable <cite>SH_API_KEY</cite>.
@@ -127,14 +127,9 @@ The container exposes port 8081 which can be mapped to any port.</p>
 In order to load the searchHub data, our <code class="docutils literal notranslate"><span class="pre">searchhub-suggest-data-provider</span></code> must be added to the classpath as well.
 All related components can be pulled as a maven dependency from <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhub-external/">our repository</a></p>
 <div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
-<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>de.cxp.ocs<span class="nt">&lt;/groupId&gt;</span>
-<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>smartsuggest-lib<span class="nt">&lt;/artifactId&gt;</span>
-<span class="w">    </span><span class="nt">&lt;version&gt;</span>0.25.1<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-<span class="nt">&lt;dependency&gt;</span>
 <span class="w">    </span><span class="nt">&lt;groupId&gt;</span>io.searchhub<span class="nt">&lt;/groupId&gt;</span>
-<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>searchhub-suggest-data-provider<span class="nt">&lt;/artifactId&gt;</span>
-<span class="w">    </span><span class="nt">&lt;version&gt;</span>1.5.0<span class="nt">&lt;/version&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>smartsuggest<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>2.5.0<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 
 <span class="cm">&lt;!-- ... --&gt;</span>
@@ -162,18 +157,16 @@ $&gt;<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </sp
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">static</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="w"> </span><span class="n">qsm</span><span class="p">;</span>
 <span class="kd">static</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// as the &#39;searchhub-suggest-data-provider&#39; is loaded via the Java SPI system</span>
-<span class="w">        </span><span class="c1">// you cannot configure it directly. The required settings have to be set as</span>
-<span class="w">        </span><span class="c1">// system properties (Setting them directly is not recommended, we just do it for</span>
-<span class="w">        </span><span class="c1">// demonstration purposes)</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;searchhub.apikey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;123abc&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;searchhub.tenant_mappings&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;example=example.com&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">qsm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="na">searchhub</span><span class="p">.</span><span class="na">smartsuggest</span><span class="p">.</span><span class="na">SearchhubSuggestInitializer</span><span class="p">.</span><span class="na">getQuerySuggestManager</span><span class="p">(</span><span class="n">apiKey</span><span class="p">)</span>
 
-<span class="w">        </span><span class="n">qsm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
-<span class="w">                </span><span class="c1">// required for lucene where it puts the index files</span>
+<span class="w">                </span><span class="c1">// optionally define where lucene should store the index files</span>
 <span class="w">                </span><span class="p">.</span><span class="na">indexFolder</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">createTempDirectory</span><span class="p">(</span><span class="s">&quot;smartsuggest&quot;</span><span class="p">))</span>
-<span class="w">                </span><span class="c1">// force synchronous indexation (optional)</span>
+
+<span class="w">                </span><span class="c1">// optionally define which indexes/tenants should be loaded immediately</span>
+<span class="w">                </span><span class="c1">// Attention: This will cause synchronous loading, which is desired to block for a readiness probe</span>
 <span class="w">                </span><span class="p">.</span><span class="na">preloadIndexes</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span>
+
+<span class="w">                </span><span class="c1">// the builder also has other options; finally build the QSM:</span>
 <span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -182,7 +175,7 @@ $&gt;<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </sp
 <span class="p">}</span>
 
 <span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">suggestQueries</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">qsm</span><span class="p">.</span><span class="na">getQuerySuggester</span><span class="p">(</span><span class="s">&quot;example&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">qsm</span><span class="p">.</span><span class="na">getQuerySuggester</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span>
 <span class="w">            </span><span class="p">.</span><span class="na">suggest</span><span class="p">(</span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">,</span><span class="w"> </span><span class="n">Collections</span><span class="p">.</span><span class="na">emptySet</span><span class="p">())</span>
 <span class="w">            </span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
 <span class="w">            </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">suggestion</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">suggestion</span><span class="p">.</span><span class="na">getLabel</span><span class="p">())</span>
@@ -213,7 +206,7 @@ However additional it comes with the ability to do the splitting for an A/B test
 <cite>“IllegalArgumentException: no searchHub API key provided! Either specify ENV var ‘SH_API_KEY’ or system property ‘searchhub.apikey’”</cite></p></li>
 <li><p>In case you tried to access a non-permitted tenant/channel (maybe because you specified the wrong API key), you will see such a message in the logs of the service:
 <cite>Unauthorized while fetching data for tenant ‘foo.bar’: [401 Unauthorized]</cite></p></li>
-<li><p>To get more information about the internal processes, enable debug log. Do that with the docker startup parameter <code class="code docutils literal notranslate"><span class="pre">-e</span> <span class="pre">JAVA_OPTS=&quot;-Dlog.searchhub.level=DEBUG&quot;</span></code> or for more debug messages additionally <code class="code docutils literal notranslate"><span class="pre">-Dlog.root.level=DEBUG</span></code>.</p></li>
+<li><p>To get more information about the internal processes, enable debug log. Do that with the docker startup parameter <code class="code docutils literal notranslate"><span class="pre">-e</span> <span class="pre">JAVA_TOOL_OPTIONS=&quot;-Dlog.searchhub.level=DEBUG&quot;</span></code> or for more debug messages additionally <code class="code docutils literal notranslate"><span class="pre">-Dlog.root.level=DEBUG</span></code>.</p></li>
 </ul>
 </div></blockquote>
 </section>

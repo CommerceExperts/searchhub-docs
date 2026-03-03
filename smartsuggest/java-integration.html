@@ -9,7 +9,8 @@
   <title>Java Integration &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3f41cb94" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=34772a7b" />
 
   
     <link rel="shortcut icon" href="../_static/favicon.jpg"/>
@@ -19,6 +20,7 @@
       <script src="../_static/documentation_options.js?v=5bb3c584"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/tabs.js?v=3030b3cb"></script>
       <script src="../_static/chatbot.js?v=e6cf43a9"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -59,6 +61,10 @@
 <li class="toctree-l2"><a class="reference internal" href="service-integration.html">Service Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="service-operations.html">Service Operations</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Java Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#migration-guide">Migration Guide</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bridging-the-gap">Bridging the Gap</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#initialization">Initialization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#general-configuration">General Configuration</a></li>
@@ -117,8 +123,40 @@ The index name is the full <a class="reference external" href="../glossary.html"
 Their value should be a comma separated list of key value pairs. Example: SH_TENANT_MAPPINGS=”indexname=tenant.name,myshop=myshop.com”</p>
 <p>To load the correct data, the update process must get your searchHub API key, which you will receive during searchHub onboarding.
 This API key must be set either, as environment variable “SH_API_KEY” or, as system property “searchhub.apikey” within the Java environment.</p>
+<section id="migration-guide">
+<h2>Migration Guide<a class="headerlink" href="#migration-guide" title="Link to this heading"></a></h2>
+<p>The transition from Version 1 to Version 2 represents a shift toward a pre-indexed architecture, designed to improve scalability and reduce the resource footprint of your suggest services.</p>
+<p>In Version 1, the <code class="docutils literal notranslate"><span class="pre">SuggestDataProvider</span></code> interface offered flexibility for arbitrary data sources but introduced redundancy: in a clustered environment, every single node had to perform the same indexing work.</p>
+<p>Version 2 decouples indexing from the service. Indexes must now be generated prior to service startup. This shift optimizes the “scale-up” scenario by allowing new nodes to pull a ready-to-use index rather than building one from scratch.</p>
+<section id="bridging-the-gap">
+<h3>Bridging the Gap<a class="headerlink" href="#bridging-the-gap" title="Link to this heading"></a></h3>
+<p>To facilitate the transition, we have introduced the <code class="docutils literal notranslate"><span class="pre">de.cxp.ocs.smartsuggest.SuggestDataIndexer</span></code>. This class bridges the two versions by transforming the <code class="docutils literal notranslate"><span class="pre">SuggestData</span></code> (from your existing v1 <code class="docutils literal notranslate"><span class="pre">SuggestDataProvider</span></code>) into the <code class="docutils literal notranslate"><span class="pre">IndexArchive</span></code> required by Version 2.</p>
+<p>Implementation Requirements:</p>
+<blockquote>
+<div><p>External Execution: The indexing process must now occur outside the suggest service (e.g., via a scheduled cronjob or a CI/CD pipeline).</p>
+<p>Centralized Storage: You must provide a central location to distribute these index archives to your service nodes.</p>
+<p>Interface Implementation: To connect to your chosen storage, implement the <code class="docutils literal notranslate"><span class="pre">IndexArchive</span></code> interface and provide it to the <code class="docutils literal notranslate"><span class="pre">SuggestDataIndexer</span></code> (cronjob). The same storage then has to be made accessible through a implementation of the <code class="docutils literal notranslate"><span class="pre">IndexArchiveProvider</span></code> interface.</p>
+</div></blockquote>
+</section>
+</section>
 <section id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Version 2</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Version 1</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>In contrast to Version 1 this one comes as a single dependency with everything included.</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
+<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>io.searchhub<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>smartsuggest<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>2.5.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="cm">&lt;!-- ... --&gt;</span>
+
+<span class="nt">&lt;repository&gt;</span>
+<span class="w">    </span><span class="nt">&lt;id&gt;</span>external-releases<span class="nt">&lt;/id&gt;</span>
+<span class="w">    </span><span class="nt">&lt;url&gt;</span>https://nexus.commerce-experts.com/content/repositories/searchhub-external/<span class="nt">&lt;/url&gt;</span>
+<span class="nt">&lt;/repository&gt;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><p><em>Outdated version that will be maintained until End of February 2027</em></p>
 <p>The basic smartSuggest library is part of the Open-Commerce-Search stack, therefor the dependency is <code class="docutils literal notranslate"><span class="pre">de.cxp.ocs::smartsuggest-lib</span></code>.
 In order to load the searchHub data, our <code class="docutils literal notranslate"><span class="pre">searchhub-suggest-data-provider</span></code> must be added to the classpath as well.
 All related components can be pulled as a maven dependency from <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhub-external/">our repository</a></p>
@@ -141,12 +179,51 @@ All related components can be pulled as a maven dependency from <a class="refere
 <span class="nt">&lt;/repository&gt;</span>
 </pre></div>
 </div>
+</div></div>
 </section>
 <section id="initialization">
 <h2>Initialization<a class="headerlink" href="#initialization" title="Link to this heading"></a></h2>
 <p>This example code should just show how the Suggester can be initialized. Depending on your application architecture you should wrap it inside a Service implementation and build
 your controller endpoints.</p>
-<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">static</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="w"> </span><span class="n">qsm</span><span class="p">;</span>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">Version 2</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">Version 1</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">static</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="w"> </span><span class="n">qsm</span><span class="p">;</span>
+<span class="kd">static</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">qsm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="na">searchhub</span><span class="p">.</span><span class="na">smartsuggest</span><span class="p">.</span><span class="na">SearchhubSuggestInitializer</span><span class="p">.</span><span class="na">getQuerySuggestManager</span><span class="p">(</span><span class="n">apiKey</span><span class="p">)</span>
+
+<span class="w">                </span><span class="c1">// optionally define where lucene should store the index files</span>
+<span class="w">                </span><span class="p">.</span><span class="na">indexFolder</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">createTempDirectory</span><span class="p">(</span><span class="s">&quot;smartsuggest&quot;</span><span class="p">))</span>
+
+<span class="w">                </span><span class="c1">// optionally define which indexes/tenants should be loaded immediately</span>
+<span class="w">                </span><span class="c1">// Attention: This will cause synchronous loading, which is desired to block for a readiness probe</span>
+<span class="w">                </span><span class="p">.</span><span class="na">preloadIndexes</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span>
+
+<span class="w">                </span><span class="c1">// the builder also has other options; finally build the QSM:</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">IOException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">UncheckedIOException</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// It&#39;s recommended to bind the querySuggestManager instance to your JVM&#39;s lifecycle</span>
+<span class="c1">// and close the QueryMapperManager during shutdown.</span>
+<span class="c1">// Internally a ScheduledExecutorService is used, that will be stopped then.</span>
+<span class="nd">@PreDestroy</span>
+<span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onJvmShutdown</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">qsm</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">suggestQueries</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">qsm</span><span class="p">.</span><span class="na">getQuerySuggester</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">suggest</span><span class="p">(</span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">,</span><span class="w"> </span><span class="n">Collections</span><span class="p">.</span><span class="na">emptySet</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">suggestion</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">suggestion</span><span class="p">.</span><span class="na">getLabel</span><span class="p">())</span>
+<span class="w">            </span><span class="p">.</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">toList</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">static</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="w"> </span><span class="n">qsm</span><span class="p">;</span>
 <span class="kd">static</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">// as the &#39;searchhub-suggest-data-provider&#39; is loaded via the Java SPI system</span>
@@ -178,7 +255,7 @@ your controller endpoints.</p>
 <span class="p">}</span>
 
 <span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">suggestQueries</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">qsm</span><span class="p">.</span><span class="na">getQuerySuggester</span><span class="p">(</span><span class="s">&quot;example&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">qsm</span><span class="p">.</span><span class="na">getQuerySuggester</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span>
 <span class="w">            </span><span class="p">.</span><span class="na">suggest</span><span class="p">(</span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">,</span><span class="w"> </span><span class="n">Collections</span><span class="p">.</span><span class="na">emptySet</span><span class="p">())</span>
 <span class="w">            </span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
 <span class="w">            </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">suggestion</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">suggestion</span><span class="p">.</span><span class="na">getLabel</span><span class="p">())</span>
@@ -186,6 +263,7 @@ your controller endpoints.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+</div></div>
 <p>The javadoc of the <code class="code docutils literal notranslate"><span class="pre">QuerySuggestManager.builder()</span></code> methods tell you more about the available settings.</p>
 <p>The last parameter of the ‘suggest’ method (type ‘Set’ where at this example simply ‘Collections.emptySet()’ is passed) is there for filtering suggestions according to their tags.
 However the data from searchHub is not tagged yet, so any non-empty parameter will lead to 0 result. This feature is for later usage.</p>
@@ -224,19 +302,34 @@ However the data from searchHub is not tagged yet, so any non-empty parameter wi
 <span class="w">    </span><span class="p">.</span><span class="na">withDefaultSuggestConfig</span><span class="p">(</span><span class="n">SuggestConfig</span><span class="p">.</span><span class="na">builder</span><span class="p">().</span><span class="na">alwaysDoFuzzy</span><span class="p">(</span><span class="kc">false</span><span class="p">).</span><span class="na">maxSharpenedQueries</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="na">build</span><span class="p">())</span>
 
 <span class="w">    </span><span class="cm">/**</span>
+<span class="cm">     * Add a custom IndexArchiveProvider that loads a prepared index. To create that index the class</span>
+<span class="cm">     * &#39;de.cxp.ocs.smartsuggest.SuggestDataIndexer&#39; can be used. Both have to be connected to the same</span>
+<span class="cm">     * &#39;IndexArchiver&#39; implementation that stores and retrieves indexes from any storage.</span>
+<span class="cm">     **/</span>
+<span class="w">    </span><span class="p">.</span><span class="na">withIndexProvider</span><span class="p">(</span><span class="n">myIndexArchiveProvider</span><span class="p">)</span>
+
+<span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * A custom SuggestDataProvider can either be injected using the standard java ServiceLoader mechanic</span>
 <span class="cm">     * (declaring a implementation for de.cxp.ocs.smartsuggest.spi.SuggestDataProvider)</span>
 <span class="cm">     * or by passing an instance directly to the builder. Do not use both mechanics, otherwise that</span>
 <span class="cm">     * data-provider is loaded twice.</span>
+<span class="cm">     * @deprecated removed at version 2 to avoid long loading times. Instead prepare an index outside of</span>
+<span class="cm">     *             the service and attach it using &#39;withIndexProvider&#39;</span>
 <span class="cm">     **/</span>
 <span class="w">    </span><span class="p">.</span><span class="na">withSuggestDataProvider</span><span class="p">(</span><span class="n">mySuggestDataProvider</span><span class="p">)</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Data provider configs are class specific, so the same config will be passed to each instance that has</span>
 <span class="cm">     * data for a requested index.</span>
+<span class="cm">     * With it it&#39;s possible to dynamically add configuration for the according IndexArchiveProvider implementations.</span>
+<span class="cm">     * However since the archive-providers are passed as instances, there is no point in adding configuration again.</span>
+<span class="cm">     * Therefor this method will be removed in future releases.</span>
+<span class="cm">     *</span>
 <span class="cm">     * If there should be two different data providers of the same class, make sure to pass individual parameters</span>
 <span class="cm">     * during instance creation. The data provider config will be passed additionally.</span>
 <span class="cm">     * This is useful for general connection settings for example.</span>
+<span class="cm">     *</span>
+<span class="cm">     * @deprecated to be removed as unused</span>
 <span class="cm">     **/</span>
 <span class="w">    </span><span class="p">.</span><span class="na">addDataProviderConfig</span><span class="p">(</span><span class="n">mySuggestDataProvider</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getCanonicalName</span><span class="p">(),</span><span class="w"> </span><span class="n">singletonMap</span><span class="p">(</span><span class="s">&quot;my-setting&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">))</span>
 
