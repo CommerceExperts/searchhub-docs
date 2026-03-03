@@ -61,7 +61,7 @@ Dependencies
             <dependency>
                 <groupId>io.searchhub</groupId>
                 <artifactId>smartsuggest</artifactId>
-                <version>${SMARTSUGGEST_VERSION}</version>
+                <version>${SEARCHHUB_PUBLIC_API_VERSION}</version>
             </dependency>
             <!-- ... -->
 
@@ -89,7 +89,7 @@ Dependencies
             <dependency>
                 <groupId>io.searchhub</groupId>
                 <artifactId>searchhub-suggest-data-provider</artifactId>
-                <version>1.5.0</version>
+                <version>${SMARTSUGGEST_VERSION}</version>
             </dependency>
 
             <!-- ... -->

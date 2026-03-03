@@ -22,13 +22,14 @@ substModuleVersions() {
     export OCS_SUGGEST_LIB_VERSION
 
     dir="$1"
-    modules=(smartquery smartsuggest)
+    modules=(smartquery smartsuggest searchhub-public-api)
     for module in ${modules[*]};
     do
         # variable substitution
         TAG="$(getLatestTag "$module")"
         VERSION="${TAG/v/}"
-        VAR_NAME="$(echo "$module" | tr '[:lower:]' '[:upper:]')_VERSION"
+        VAR_NAME="$(echo "$module" | tr '[:lower:]-' '[:upper:]_')_VERSION"
+        echo "declaring variable $VAR_NAME=$VERSION"
         declare -x $VAR_NAME="$VERSION"
         find "$dir/$module"/ -type f -name '*.rst' | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst "\${$VAR_NAME} \${OCS_SUGGEST_LIB_VERSION}" > "$file"; rm "$file.orig"; done
 
