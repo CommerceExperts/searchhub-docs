@@ -38,6 +38,12 @@ substModuleVersions() {
 # build
 cd docs/
 
+if ! git diff-index --quiet --cached HEAD || ! git diff-files --quiet ; then 
+    echo "WARN: there are uncommited changes. Won't reset them. Please commit first then run $0"
+    exit
+fi
+
+
 resetBuildDir() {
     # clear potential old build
     sudo -n chown -R "$(whoami)": _build/
