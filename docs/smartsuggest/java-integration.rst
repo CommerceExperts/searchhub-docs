@@ -24,9 +24,48 @@ Their value should be a comma separated list of key value pairs. Example: SH_TEN
 To load the correct data, the update process must get your searchHub API key, which you will receive during searchHub onboarding.
 This API key must be set either, as environment variable "SH_API_KEY" or, as system property "searchhub.apikey" within the Java environment.
 
+Migration Guide
+---------------
+
+The transition from Version 1 to Version 2 represents a shift toward a pre-indexed architecture, designed to improve scalability and reduce the resource footprint of your suggest services.
+
+.. list-table:: Key Architectural Changes
+   :widths: 20 40 40
+   :header-rows: 1
+
+   * - Feature
+     - Version 1
+     - Version 2
+   * - **Initialization**
+     - Required manual assembly of internal "building blocks."
+     - Features a **pre-built initializer** that automates component assembly.
+   * - **Indexing Strategy**
+     - On-the-fly indexing via ``SuggestDataProvider`` on every node.
+     - **Pre-built indexes** created before service startup.
+   * - **Resource Impact**
+     - High CPU/Memory load and long startup times during indexing.
+     - Faster startup, lower memory footprint, and reduced scaling overhead.
+
+In Version 1, the ``SuggestDataProvider`` interface offered flexibility for arbitrary data sources but introduced redundancy; in a clustered environment, every single node had to perform the same indexing work.
+
+Version 2 decouples indexing from the service. Indexes must now be generated prior to service startup. This shift optimizes the "scale-up" scenario by allowing new nodes to pull a ready-to-use index rather than building one from scratch.
+
+Bridging the Gap
+~~~~~~~~~~~~~~~~
+
+To facilitate the transition, we have introduced the ``de.cxp.ocs.smartsuggest.SuggestDataIndexer``. This class bridges the two versions by transforming the ``SuggestData`` (from your existing v1 ``SuggestDataProvider``) into the ``IndexArchive`` required by Version 2.
+
+Implementation Requirements:
+
+    External Execution: The indexing process must now occur outside the suggest service (e.g., via a scheduled cronjob or a CI/CD pipeline).
+
+    Centralized Storage: You must provide a central location to distribute these index archives to your service nodes.
+
+    Interface Implementation: To connect to your chosen storage, implement the ``IndexArchive`` interface and provide it to the ``SuggestDataIndexer`` (cronjob). The same storage then has to be made accessible through a implementation of the ``IndexArchiveProvider`` interface.
+
+
 Dependencies
 ------------
-
 
 .. tabs::
 
