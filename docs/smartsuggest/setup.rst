@@ -139,7 +139,7 @@ Troubleshooting
     `"IllegalArgumentException: no searchHub API key provided! Either specify ENV var 'SH_API_KEY' or system property 'searchhub.apikey'"`
   - In case you tried to access a non-permitted tenant/channel (maybe because you specified the wrong API key), you will see such a message in the logs of the service:
     `Unauthorized while fetching data for tenant 'foo.bar': [401 Unauthorized]`
-  - To get more information about the internal processes, enable debug log. Do that with the docker startup parameter :code:`-e JAVA_OPTS="-Dlog.searchhub.level=DEBUG"` or for more debug messages additionally :code:`-Dlog.root.level=DEBUG`.
+  - To get more information about the internal processes, enable debug log. Do that with the docker startup parameter :code:`-e JAVA_TOOL_OPTIONS="-Dlog.searchhub.level=DEBUG"` or for more debug messages additionally :code:`-Dlog.root.level=DEBUG`.
 
 
 .. _tenant: ../glossary.html#tenant

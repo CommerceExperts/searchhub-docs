@@ -15,11 +15,11 @@ To set those configuration values, you can inject a properties file into the con
 
     docker run [...] -v "$(pwd)/suggest.properties":/app/config/suggest.properties [...]
 
-Each setting can also be set as system property or environment variable, those take precedence over what's set in the ``suggest.properties`` file. To inject those properties as system-properties, use the JAVA_OPTS environment variable and specify each property prefixed with `-D`, for example
+Each setting can also be set as system property or environment variable, those take precedence over what's set in the ``suggest.properties`` file. To inject those properties as system-properties, use the JAVA_TOOL_OPTIONS environment variable and specify each property prefixed with `-D`, for example
 
 .. code-block:: bash
 
-  docker run [...] -e JAVA_OPTS="-Dsearchhub.apikey='your-api-key' -Dsuggest.service.max-idle-minutes=90" [...]
+  docker run [...] -e JAVA_TOOL_OPTIONS="-Dsearchhub.apikey='your-api-key' -Dsuggest.service.max-idle-minutes=90" [...]
 
 For all those properties there are also according environments variables that could be set. Those are only used if there is no according "property value" found. Please stick to one way of defining properties to avoid confusion.
 

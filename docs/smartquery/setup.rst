@@ -71,7 +71,7 @@ Our continuous implementation build pushes the library into our own Maven reposi
 
           - The container won't start, if you forget to specify the API key.
           - Should you attempt to access a non-permitted tenant/channel (due to an incorrect API key, for example), you will see an error message similar to: `update failed: FeignException: status 403 reading QueryApiTarget#getModificationTime(Tenant); content: {"message":"Invalid authentication credentials"}`
-          - Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter `-e JAVA_OPTS="-Dlog.searchhub.level=DEBUG"`
+          - Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter `-e JAVA_TOOL_OPTIONS="-Dlog.searchhub.level=DEBUG"`
 
     .. tab:: PHP Client
 
