@@ -41,13 +41,8 @@ Our continuous implementation build pushes the library into our own Maven reposi
         .. code-block:: XML
 
             <dependency>
-                <groupId>de.cxp.ocs</groupId>
-                <artifactId>smartsuggest-lib</artifactId>
-                <version>${OCS_SUGGEST_LIB_VERSION}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.searchhub</groupId>
-                <artifactId>searchhub-suggest-data-provider</artifactId>
+                <artifactId>smartsuggest</artifactId>
                 <version>${SMARTSUGGEST_VERSION}</version>
             </dependency>
 
@@ -86,18 +81,16 @@ Client Setup
             static QuerySuggestManager qsm;
             static {
                 try {
-                    // as the 'searchhub-suggest-data-provider' is loaded via the Java SPI system
-                    // you cannot configure it directly. The required settings have to be set as
-                    // system properties (Setting them directly is not recommended, we just do it for
-                    // demonstration purposes)
-                    System.setProperty("searchhub.apikey", "123abc");
-                    System.setProperty("searchhub.tenant_mappings", "example=example.com");
+                    qsm = io.searchhub.smartsuggest.SearchhubSuggestInitializer.getQuerySuggestManager(apiKey)
 
-                    qsm = QuerySuggestManager.builder()
-                            // required for lucene where it puts the index files
+                            // optionally define where lucene should store the index files
                             .indexFolder(Files.createTempDirectory("smartsuggest"))
-                            // force synchronous indexation (optional)
+
+                            // optionally define which indexes/tenants should be loaded immediately
+                            // Attention: This will cause synchronous loading, which is desired to block for a readiness probe
                             .preloadIndexes("example.com")
+
+                            // the builder also has other options; finally build the QSM:
                             .build();
                 }
                 catch (IOException e) {
@@ -106,7 +99,7 @@ Client Setup
             }
 
             private List<String> suggestQueries(String userQuery, int maxSuggestions) throws IOException {
-                return qsm.getQuerySuggester("example")
+                return qsm.getQuerySuggester("example.com")
                         .suggest(userQuery, maxSuggestions, Collections.emptySet())
                         .stream()
                         .map(suggestion -> suggestion.getLabel())

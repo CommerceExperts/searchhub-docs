@@ -158,7 +158,7 @@ your controller endpoints.
             }
 
             private List<String> suggestQueries(String userQuery, int maxSuggestions) throws IOException {
-                return qsm.getQuerySuggester("example")
+                return qsm.getQuerySuggester("example.com")
                         .suggest(userQuery, maxSuggestions, Collections.emptySet())
                         .stream()
                         .map(suggestion -> suggestion.getLabel())
@@ -201,7 +201,7 @@ your controller endpoints.
             }
 
             private List<String> suggestQueries(String userQuery, int maxSuggestions) throws IOException {
-                return qsm.getQuerySuggester("example")
+                return qsm.getQuerySuggester("example.com")
                         .suggest(userQuery, maxSuggestions, Collections.emptySet())
                         .stream()
                         .map(suggestion -> suggestion.getLabel())
@@ -256,9 +256,6 @@ When building a QuerySuggestManager - the central object that build and holds th
          * Add a custom IndexArchiveProvider that loads a prepared index. To create that index the class
          * 'de.cxp.ocs.smartsuggest.SuggestDataIndexer' can be used. Both have to be connected to the same
          * 'IndexArchiver' implementation that stores and retrieves indexes from any storage.
-         *
-         * @deprecated removed at version 2 to avoid long loading times. Instead prepare an index outside of
-         *             the service and attach it using 'withIndexProvider'
          **/
         .withIndexProvider(myIndexArchiveProvider)
 
@@ -275,6 +272,10 @@ When building a QuerySuggestManager - the central object that build and holds th
         /**
          * Data provider configs are class specific, so the same config will be passed to each instance that has
          * data for a requested index.
+         * With it it's possible to dynamically add configuration for the according IndexArchiveProvider implementations.
+         * However since the archive-providers are passed as instances, there is no point in adding configuration again. 
+         * Therefor this method will be removed in future releases. 
+         *
          * If there should be two different data providers of the same class, make sure to pass individual parameters
          * during instance creation. The data provider config will be passed additionally.
          * This is useful for general connection settings for example.
