@@ -3,6 +3,14 @@ Changelog
 
 Version 2
 ---------
+Version 2.5.2
+    - add info endpoint that exposes version
+    - reintroduce configurable management-endpoint prefix
+
+Version 2.5.1
+    - update dependencies + fixing dependency version conflicts
+    - fix potential ConcurrentModificationException when loading many indexes at once
+
 Version 2.5.0
     - add product suggestions through searchHub data provider
     - add scoped suggestions through searchHub data provider

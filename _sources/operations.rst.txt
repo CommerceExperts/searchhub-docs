@@ -96,7 +96,7 @@ Another exceptional scenario is a search-engine integrated into frontend, so tha
 Operational Endpoints
 ---------------------
 
-/up:
+``/up``:
     is a simple static endpoint, that will respond with http code 200 as soon as the container is started
 
 ``/health``:
@@ -109,10 +109,12 @@ Operational Endpoints
             "suggest": {"tenant.one": "Ready", "tenant.two": "NotReady"}
         }
 
+``/info``:
+    returns version information as structured json
 
-:code:`/prometheus` and :code:`/metrics` provide access to insight metrics. The module specific metrics are described in the according module section.
-Additional the following service metrics are exposed.
+:code:`/prometheus` and :code:`/metrics` provide access to insight metrics. The module specific metrics are described in the according module section. In the next chapter all common service metrics are described.
 
+In case those operational endpoints should be protected, it is possible to configure a custom path prefix for them. To do so, specify the property ``server.mgmt-path-prefix`` with the value you want, for example "/internal". Keep in mind, that this path should start with a slash and end without slash as stated in the example.
 
 Monitoring
 ----------
@@ -184,6 +186,12 @@ In case you want to change the listening port and/or address of the internal jav
 .. code-block:: bash
 
     JAVA_TOOL_OPTIONS="-Dserver.port=<port> -Dserver.address=<0.0.0.0>"
+
+In case the "operation endpoints" (/info, /up, /health, /metrics and /prometheus) should be secured by some path-rules, you can configure a custom path-prefix:
+
+.. code-block:: bash
+
+    JAVA_TOOL_OPTIONS="-Dserver.mgmt-path-prefix=/internal"
 
 
 Detailed JVM Metrics

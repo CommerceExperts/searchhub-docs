@@ -179,7 +179,7 @@ Another exceptional scenario is a search-engine integrated into frontend, so tha
 <section id="operational-endpoints">
 <h2>Operational Endpoints<a class="headerlink" href="#operational-endpoints" title="Link to this heading"></a></h2>
 <dl>
-<dt>/up:</dt><dd><p>is a simple static endpoint, that will respond with http code 200 as soon as the container is started</p>
+<dt><code class="docutils literal notranslate"><span class="pre">/up</span></code>:</dt><dd><p>is a simple static endpoint, that will respond with http code 200 as soon as the container is started</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">/health</span></code>:</dt><dd><p>gives more details about the loaded modules and which tenants are loaded respectively. For example:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -189,9 +189,11 @@ Another exceptional scenario is a search-engine integrated into frontend, so tha
 </pre></div>
 </div>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">/info</span></code>:</dt><dd><p>returns version information as structured json</p>
+</dd>
 </dl>
-<p><code class="code docutils literal notranslate"><span class="pre">/prometheus</span></code> and <code class="code docutils literal notranslate"><span class="pre">/metrics</span></code> provide access to insight metrics. The module specific metrics are described in the according module section.
-Additional the following service metrics are exposed.</p>
+<p><code class="code docutils literal notranslate"><span class="pre">/prometheus</span></code> and <code class="code docutils literal notranslate"><span class="pre">/metrics</span></code> provide access to insight metrics. The module specific metrics are described in the according module section. In the next chapter all common service metrics are described.</p>
+<p>In case those operational endpoints should be protected, it is possible to configure a custom path prefix for them. To do so, specify the property <code class="docutils literal notranslate"><span class="pre">server.mgmt-path-prefix</span></code> with the value you want, for example “/internal”. Keep in mind, that this path should start with a slash and end without slash as stated in the example.</p>
 </section>
 <section id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Link to this heading"></a></h2>
@@ -240,6 +242,10 @@ property and instead only use the desired ones of the following properties:</p>
 <h3>Port and Address<a class="headerlink" href="#port-and-address" title="Link to this heading"></a></h3>
 <p>In case you want to change the listening port and/or address of the internal java server, these are the properties for you. Don’t confuse that with the mapped port of your container whatsoever.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dserver.port=&lt;port&gt; -Dserver.address=&lt;0.0.0.0&gt;&quot;</span>
+</pre></div>
+</div>
+<p>In case the “operation endpoints” (/info, /up, /health, /metrics and /prometheus) should be secured by some path-rules, you can configure a custom path-prefix:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dserver.mgmt-path-prefix=/internal&quot;</span>
 </pre></div>
 </div>
 </section>
