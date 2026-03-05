@@ -3,6 +3,13 @@ Changelog
 
 Version 2
 ---------
+Version 2.5.2
+    - add info endpoint that exposes version (service only)
+    - reintroduce configurable management-endpoint prefix (service only)
+
+Version 2.5.1
+    - update dependencies + fixing dependency version conflicts
+
 Version 2.5.0
     - align version with API and all our other modules, increasing compatibility
     - internal refactoring to reuse common tested codebase
