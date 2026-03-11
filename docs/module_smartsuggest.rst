@@ -26,7 +26,7 @@ For broad intent, smartSuggest recommends relevant or contextual scopes before s
 
 4. Contextual Pre-Suggestions
 -----------------------------
-Intent often starts before typing. smartSuggest delivers pre-suggestions based on the current or last recent user context (e.g., category page, campaign entry, viewed product), with safe fallbacks when context is limited or unknown.
+Intent often starts before typing. smartSuggest delivers pre-suggestions based on the current or last recent user context (e.g., category page, campaign entry, viewed product), with safe fallbacks to the in our UI configured (Default Pre-Suggest Type) when context is limited or unknown.
 
 
 We recommend following the `user stories`_ to get started with the smartSuggest integration into your system.
