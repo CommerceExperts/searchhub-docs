@@ -22,8 +22,6 @@
 .. |suggest| image:: img/suggest.png
   :alt: Suggest Tracking
 
-.. |associatedProduct| image:: img/associatedProduct.png
-  :alt: Associated Product Tracking
 
 .. |redirectSubSelector| image:: img/redirectSubSelectors.png
   :alt: Tracking Redirects
@@ -205,14 +203,11 @@ We recommend to use the mainId/parentId for products when possible.
      - product
    * - data-product-id
      - {mainId}
-   * - data-track-id
-     - priceContainer
-
 .. note::
    Add the `data-*` attributes on category and/or landing pages too. This way searchHub can track KPIs for queries that will trigger a redirect to specific landing pages with best selling products or a category pages instead of the PLP.
 
 .. note::
-   You can omit the `data-product-id` and `data-track-id="priceContainer"` attributes if you have a javascript object that contains the required information.
+   You can omit the `data-product-id` attribute if you have a javascript object that contains the required information.
    E.g. the `dataLayer` object. Please contact us if you want to rely on js data.
 
 **Example**
@@ -220,10 +215,6 @@ We recommend to use the mainId/parentId for products when possible.
 .. code-block:: html
 
     <a href="..." data-track-id="product" data-product-id="abc" />
-        ...
-        <div data-track-id="priceContainer">39,99 € per unit</div>
-        ...
-    </a>
 
 
 Zero Results Container
@@ -339,41 +330,6 @@ An additional element containing the amount put into the basket can be annotated
 
     <button data-track-id="addToCartPDP" data-product-id="abc"></button>
 
-
-Associated Product
-----------------------------
-If on product detail page some associated products (recommendations, similar products and so on) are proposed to the shop
-user, these products should be annotated almost the same way as products are annotated on the product listing page.
-The only difference is the ``associatedProduct`` value of the ``data-track-id`` attribute.
-
-|associatedProduct|
-
-.. list-table:: data-attributes
-   :widths: 50 50
-   :header-rows: 1
-
-   * - Name
-     - Value
-   * - data-track-id (required)
-     - associatedProduct
-   * - data-product-id
-     - {mainId}
-   * - data-track-id
-     - priceContainer
-
-.. note::
-   You can omit the `data-product-id` and `data-track-id="priceContainer"` attributes if you have a javascript object that contains the required information.
-   E.g. the `dataLayer` object. Please contact us if you want to rely on js data.
-
-**Example**
-
-.. code-block:: html
-
-    <a href="..." data-track-id="associatedProduct" data-product-id="abc" />
-        ...
-        <div data-track-id="priceContainer">39,99 € per unit</div>
-        ...
-    </a>
 
 Checkout
 ----------------------------
