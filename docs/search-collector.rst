@@ -44,9 +44,6 @@ To integrate the tracking, only a couple of HTML attributes have to be attached 
    Our tracking script is capable of reading javascript objects to obtain the necessary data.
    To find out more about tracking customizations, just contact us directly or look for a hint in the documentation.
 
-..
-   TODO mention the sr is the foundation
-
 
 User Story
 ##########
@@ -160,7 +157,7 @@ If search terms are proposed to the shop user while typing, each element contain
 
 Result Count
 ---------------------------------
-The writeResult count is the number of products found for the current search (**not** the number of products displayed on the current page). This is usually a somewhat higher number like hundreds or even thousands.
+The result count is the number of products found for the current search (**not** the number of products displayed on the current page). This is usually a somewhat higher number like hundreds or even thousands.
 
 |resultCount|
 
@@ -185,10 +182,10 @@ The writeResult count is the number of products found for the current search (**
 
 Products
 ----------------------------
-A product representation for the current search writeResult. The attributes here include a ``priceContainer`` in addition, the tracking script will automatically strip the non-numeric characters.
+A product representation for the current search result.
 The value for the ``data-product-id`` attribute has to be an ID that uniquely identifies the product.
 In B2B exist more edge cases. E.g. a certain SKU of the product family is used to represent the product group or family.
-In such cases, it is important that the same IDs are used on the product listing page (PDP) and on the product detail page (PLP).
+In such cases, it is important that the same IDs are used on the product listing page (PLP) and on the product detail page (PDP).
 We recommend to use the mainId/parentId for products when possible.
 
 |product|
@@ -219,7 +216,7 @@ We recommend to use the mainId/parentId for products when possible.
 
 Zero Results Container
 ---------------------------------
-The zero results container is the container that contains the text that is displayed when no products are found for the current search.
+The zero results container displays a message when no products are found for the current search.
 
 .. list-table:: data-attributes
    :widths: 50 50
@@ -299,13 +296,12 @@ Some onlineshops allow the user to put products into basket directly from the PL
 
 .. code-block:: html
 
-    <button data-track-id="addToCartPDP" data-product-id="abc"></button>
+    <button data-track-id="addToCartPLP" data-product-id="abc"></button>
 
 
 Add to cart (PDP)
 ----------------------------
 On the product detail page the ``Add to cart`` button has to be attributed with the ``data-track-id`` and ``data-product-id`` attributes.
-An additional element containing the amount put into the basket can be annotated with the ``data-track-id`` attribute, in most cases this is a common div, select or input element.
 
 |basketPDP|
 
