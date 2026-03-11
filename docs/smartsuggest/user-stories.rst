@@ -7,7 +7,7 @@ smartSuggest Implementation
 ---------------------------
 
 Story
-  As a customer, I want to see query autocompletions and product suggestions in the search bar that are optimized using CXP searchHub, so that I can quickly discover relevant searches and products.
+  As a customer, I want to see query autocompletions and product suggestions in the search bar that are optimized using CXP searchHub's smartQuery, so that I can precisely formulate my intent and quickly discover relevant searches and products.
 
 Acceptance criteria
   - **Contextual Pre-Suggestions:** When a user focuses or clicks into the search input field, pre-suggestions should be displayed.
