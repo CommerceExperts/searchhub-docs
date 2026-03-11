@@ -155,6 +155,31 @@ If search terms are proposed to the shop user while typing, each element contain
     <div data-track-id="suggestSearchTerm">Jeans Jackets</div>
     ...
 
+Product Suggestions
+----------------------------
+If products are proposed to the shop user while typing, each product element should be annotated with the ``data-track-id="suggestProduct"`` attribute.
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id (required)
+     - suggestProduct
+   * - data-product-id
+     - {mainId}
+
+**Example**
+
+.. code-block:: html
+
+    ...
+    <div data-track-id="suggestProduct" data-product-id="abc">Product Name</div>
+    <div data-track-id="suggestProduct" data-product-id="def">Another Product</div>
+    ...
+
+
 Result Count
 ---------------------------------
 The result count is the number of products found for the current search (**not** the number of products displayed on the current page). This is usually a somewhat higher number like hundreds or even thousands.
