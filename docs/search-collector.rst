@@ -22,6 +22,9 @@
 .. |suggest| image:: img/suggest.png
   :alt: Suggest Tracking
 
+.. |suggestProduct| image:: img/product_suggestions.png
+  :alt: Product Suggestions Tracking
+
 
 .. |redirectSubSelector| image:: img/redirectSubSelectors.png
   :alt: Tracking Redirects
@@ -158,6 +161,8 @@ If search terms are proposed to the shop user while typing, each element contain
 Product Suggestions
 ----------------------------
 If products are proposed to the shop user while typing, each product element should be annotated with the ``data-track-id="suggestProduct"`` attribute.
+
+|suggestProduct|
 
 .. list-table:: data-attributes
    :widths: 50 50
