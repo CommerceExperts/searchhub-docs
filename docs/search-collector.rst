@@ -161,6 +161,7 @@ If search terms are proposed to the shop user while typing, each element contain
 Product Suggestions
 ----------------------------
 If products are proposed to the shop user while typing, each product element should be annotated with the ``data-track-id="suggestProduct"`` attribute.
+If the products are returned for a specific search term, that search term should be set as the value of the ``data-track-suggest-term`` attribute on each product element.
 
 |suggestProduct|
 
@@ -174,14 +175,16 @@ If products are proposed to the shop user while typing, each product element sho
      - suggestProduct
    * - data-product-id
      - {mainId}
+   * - data-track-suggest-term
+     - {suggestSearchTerm}
 
 **Example**
 
 .. code-block:: html
 
     ...
-    <div data-track-id="suggestProduct" data-product-id="abc">Product Name</div>
-    <div data-track-id="suggestProduct" data-product-id="def">Another Product</div>
+    <div data-track-id="suggestProduct" data-product-id="abc" data-track-suggest-term="Jeans">Product Name</div>
+    <div data-track-id="suggestProduct" data-product-id="def" data-track-suggest-term="Jeans">Another Product</div>
     ...
 
 
