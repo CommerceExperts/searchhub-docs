@@ -22,8 +22,9 @@
 .. |suggest| image:: img/suggest.png
   :alt: Suggest Tracking
 
-.. |associatedProduct| image:: img/associatedProduct.png
-  :alt: Associated Product Tracking
+.. |suggestProduct| image:: img/product_suggestions.png
+  :alt: Product Suggestions Tracking
+
 
 .. |redirectSubSelector| image:: img/redirectSubSelectors.png
   :alt: Tracking Redirects
@@ -45,9 +46,6 @@ To integrate the tracking, only a couple of HTML attributes have to be attached 
 .. note::
    Our tracking script is capable of reading javascript objects to obtain the necessary data.
    To find out more about tracking customizations, just contact us directly or look for a hint in the documentation.
-
-..
-   TODO mention the sr is the foundation
 
 
 User Story
@@ -160,9 +158,39 @@ If search terms are proposed to the shop user while typing, each element contain
     <div data-track-id="suggestSearchTerm">Jeans Jackets</div>
     ...
 
+Product Suggestions
+----------------------------
+If products are proposed to the shop user while typing, each product element should be annotated with the ``data-track-id="suggestProduct"`` attribute.
+If the products are returned for a specific search term, that search term should be set as the value of the ``data-track-suggest-term`` attribute on each product element.
+
+|suggestProduct|
+
+.. list-table:: data-attributes
+   :widths: 50 50
+   :header-rows: 1
+
+   * - Name
+     - Value
+   * - data-track-id (required)
+     - suggestProduct
+   * - data-product-id
+     - {mainId}
+   * - data-track-suggest-term
+     - {suggestSearchTerm}
+
+**Example**
+
+.. code-block:: html
+
+    ...
+    <div data-track-id="suggestProduct" data-product-id="abc" data-track-suggest-term="Jeans">Product Name</div>
+    <div data-track-id="suggestProduct" data-product-id="def" data-track-suggest-term="Jeans">Another Product</div>
+    ...
+
+
 Result Count
 ---------------------------------
-The writeResult count is the number of products found for the current search (**not** the number of products displayed on the current page). This is usually a somewhat higher number like hundreds or even thousands.
+The result count is the number of products found for the current search (**not** the number of products displayed on the current page). This is usually a somewhat higher number like hundreds or even thousands.
 
 |resultCount|
 
@@ -187,10 +215,10 @@ The writeResult count is the number of products found for the current search (**
 
 Products
 ----------------------------
-A product representation for the current search writeResult. The attributes here include a ``priceContainer`` in addition, the tracking script will automatically strip the non-numeric characters.
+A product representation for the current search result.
 The value for the ``data-product-id`` attribute has to be an ID that uniquely identifies the product.
 In B2B exist more edge cases. E.g. a certain SKU of the product family is used to represent the product group or family.
-In such cases, it is important that the same IDs are used on the product listing page (PDP) and on the product detail page (PLP).
+In such cases, it is important that the same IDs are used on the product listing page (PLP) and on the product detail page (PDP).
 We recommend to use the mainId/parentId for products when possible.
 
 |product|
@@ -205,14 +233,11 @@ We recommend to use the mainId/parentId for products when possible.
      - product
    * - data-product-id
      - {mainId}
-   * - data-track-id
-     - priceContainer
-
 .. note::
    Add the `data-*` attributes on category and/or landing pages too. This way searchHub can track KPIs for queries that will trigger a redirect to specific landing pages with best selling products or a category pages instead of the PLP.
 
 .. note::
-   You can omit the `data-product-id` and `data-track-id="priceContainer"` attributes if you have a javascript object that contains the required information.
+   You can omit the `data-product-id` attribute if you have a javascript object that contains the required information.
    E.g. the `dataLayer` object. Please contact us if you want to rely on js data.
 
 **Example**
@@ -220,15 +245,11 @@ We recommend to use the mainId/parentId for products when possible.
 .. code-block:: html
 
     <a href="..." data-track-id="product" data-product-id="abc" />
-        ...
-        <div data-track-id="priceContainer">39,99 € per unit</div>
-        ...
-    </a>
 
 
 Zero Results Container
 ---------------------------------
-The zero results container is the container that contains the text that is displayed when no products are found for the current search.
+The zero results container displays a message when no products are found for the current search.
 
 .. list-table:: data-attributes
    :widths: 50 50
@@ -308,13 +329,12 @@ Some onlineshops allow the user to put products into basket directly from the PL
 
 .. code-block:: html
 
-    <button data-track-id="addToCartPDP" data-product-id="abc"></button>
+    <button data-track-id="addToCartPLP" data-product-id="abc"></button>
 
 
 Add to cart (PDP)
 ----------------------------
 On the product detail page the ``Add to cart`` button has to be attributed with the ``data-track-id`` and ``data-product-id`` attributes.
-An additional element containing the amount put into the basket can be annotated with the ``data-track-id`` attribute, in most cases this is a common div, select or input element.
 
 |basketPDP|
 
@@ -339,41 +359,6 @@ An additional element containing the amount put into the basket can be annotated
 
     <button data-track-id="addToCartPDP" data-product-id="abc"></button>
 
-
-Associated Product
-----------------------------
-If on product detail page some associated products (recommendations, similar products and so on) are proposed to the shop
-user, these products should be annotated almost the same way as products are annotated on the product listing page.
-The only difference is the ``associatedProduct`` value of the ``data-track-id`` attribute.
-
-|associatedProduct|
-
-.. list-table:: data-attributes
-   :widths: 50 50
-   :header-rows: 1
-
-   * - Name
-     - Value
-   * - data-track-id (required)
-     - associatedProduct
-   * - data-product-id
-     - {mainId}
-   * - data-track-id
-     - priceContainer
-
-.. note::
-   You can omit the `data-product-id` and `data-track-id="priceContainer"` attributes if you have a javascript object that contains the required information.
-   E.g. the `dataLayer` object. Please contact us if you want to rely on js data.
-
-**Example**
-
-.. code-block:: html
-
-    <a href="..." data-track-id="associatedProduct" data-product-id="abc" />
-        ...
-        <div data-track-id="priceContainer">39,99 € per unit</div>
-        ...
-    </a>
 
 Checkout
 ----------------------------
