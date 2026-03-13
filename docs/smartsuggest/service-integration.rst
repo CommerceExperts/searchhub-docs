@@ -8,30 +8,64 @@ Service Integration
     The `Java integration`_ is only recommended in the case you want to combine it with your existing suggest service or extend the suggest service with more custom data source. And of course it's only possible if your service is running inside a JVM environment.
 
 
-API
----
+You might wonder why you get empty results for your first test request. Please notice, that smartSuggest starts fetching the necessary data, after the first request for a tenant was received. So the first few seconds all requests will return an empty result. A few seconds later you should get suggestions (if API Key is correctly set and the used tenant is correct).
+It's possible to mittigate that startup latency by specifying the tenants using the preloadTenants parameter (SH_INIT_TENANTS), which is described in the `Operations`_  section.
 
-The suggest service comes with several endpoints, that give you a different level of detail.
-The suggestions themselves are all the same, just the structure or the meta data attached to the suggestions will differ.
 
-Keep in mind, that smartSuggest starts fetching the necessary data, after the first request for a tenant was received. So the first few seconds all requests will return an empty result. A few seconds later you should get suggestions (if API Key is correctly set and the used tenant is correct).
-It's possible to lower that startup latency by specifying the tenants using the preloadTenants parameter (SH_INIT_TENANTS), which is described below.
+Contextual Pre-Suggest Request
+------------------------------
 
-V1 Request
-^^^^^^^^^^
-
-This endpoint will deliver the suggestions grouped into blocks. Each block represents a different quality of suggestions depending on how they matched. This might be useful if you want to restrict the list to only the best matching suggestions.
+Starting from version 2.5 we provide an endpoint path that provides suggestions - or rather query recommendations - that can be shown before the user even starts typing. To increase the potential relevance of the shown queries, the current URL in the shop must be provided to the service:
 
 .. code-block:: bash
 
-  http://<host>:<port>/smartsuggest/v1/<tenant-name>/<tenant-channel>?userQuery=<user-query>[&limit=<n>]
+  http://<host>:<port>/smartsuggest/<version>/<tenant-name>/<tenant-channel>?context=<uri>[&limit=<n>]
 
 **Request Parameters**:
 
+    - version (path): one of "v1", "v2", "v3" or "v4" depending on the desired response format (v4 not meaning full, but compatible)
+    - tenant-name (path): the first part of the tenant provided by searchHub
+    - tenant-channel (path): the second part of the tenant provided by searchHub
+    - context (query): the encoded URI of the page where the contextual suggestions should be shown. For generic pages (e.g. the start page) the referrer uri can be passed.
+    - limit (query): This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.
+
+The response format depends on the picked version. See "Response versions" below.
+
+
+Suggest Request
+---------------
+
+The standard suggest requests that return queries relevant to the partial user input, use this request:
+
+.. code-block:: bash
+
+  http://<host>:<port>/smartsuggest/<version>/<tenant-name>/<tenant-channel>?userQuery=<user-query>[&limit=<n>]
+
+**Request Parameters**:
+
+    - version (path): one of "v1", "v2", "v3" or "v4" depending on the desired response format
     - tenant-name (path): the first part of the tenant provided by searchHub
     - tenant-channel (path): the second part of the tenant provided by searchHub
     - userQuery (query): the text the user entered in the search box
     - limit (query): This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.
+
+The response format depends on the picked version. See "Response versions" below.
+
+
+Response variants
+-----------------
+
+The suggest service comes with several request versions, that give you a different level of detail.
+The suggestions themselves are all the same, just the structure or the meta data attached to the suggestions will differ.
+
+The correct version path fragments are one of "v1", "v2", "v3" or "v4".
+
+
+V1 Response
+^^^^^^^^^^^
+
+This version will deliver the suggestions grouped into blocks. Each block represents a different quality of suggestions depending on how they matched. This might be useful if you want to restrict the list to only the best matching suggestions.
+
 
 **Response**:
 
@@ -53,21 +87,10 @@ It is also possible (depending on settings and user input) that several blocks a
 If there is no need for some special logic, we recommend to use API v2 or v3.
 
 
-V2 Request
-^^^^^^^^^^
+V2 Response
+^^^^^^^^^^^
 
-This endpoint is for the simplest integration, as it will just deliver an array of strings. No grouping, no meta data. Just queries as strings. This is useful if you want a simple integration without any sophisticated feature.
-
-.. code-block:: bash
-
-  http://<host>:<port>/smartsuggest/v2/<tenant-name>/<tenant-channel>?userQuery=<user-query>[&limit=<n>]
-
-**Request Parameters**:
-
-    - tenant-name (path): the first part of the tenant provided by searchHub
-    - tenant-channel (path): the second part of the tenant provided by searchHub
-    - userQuery (query): the text the user entered in the search box
-    - limit (query): This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.
+This version is for the simplest integration, as it will just deliver an array of strings. No grouping, no meta data. Just queries as strings. This is useful if you want a simple integration without any sophisticated feature.
 
 **Response**:
 
@@ -82,21 +105,10 @@ The response is a JSON array with simple strings that can be used as autocomplet
   ]
 
 
-V3 Request
-^^^^^^^^^^
+V3 Response
+^^^^^^^^^^^
 
-This endpoint delivers a list of suggestions, where each suggestion is a rich object that also has some meta data attached to it.
-
-.. code-block:: bash
-
-  http://<host>:<port>/smartsuggest/v3/<tenant-name>/<tenant-channel>?userQuery=<user-query>[&limit=<n>]
-
-**Request Parameters**:
-
-    - tenant-name (path): the first part of the tenant provided by searchHub
-    - tenant-channel (path): the second part of the tenant provided by searchHub
-    - userQuery (query): the text the user entered in the search box
-    - limit (query): This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.
+This version delivers a list of suggestions, where each suggestion is a rich object that also has some meta data attached to it.
 
 **Response**:
 
@@ -116,6 +128,14 @@ redirect
   The redirect URL, configured for the query over the searchHub-UI. **Optional** omitted if no redirect exists.
   If this value is given, it's recommended to redirect directly to that URL and avoid an unnecessary request to your search backend.
 
+Additional fields per record:
+
+recommendedProducts
+  A list/array of record objects with ``sku`` and a ``data`` map with the product-data fields ``title``, ``image``, ``brand`` and ``link``.
+scopes
+  Optional list of "scopes", which can be categories, brands or other relavant refinement to the according suggestion. For example "jeans" could come with the scopes "for women" and "for men".
+  If searchHub does not deliver that data or "scope expansion" is activated on searchHub side, this list is always null.
+
 .. code-block:: json
 
   [
@@ -126,23 +146,50 @@ redirect
         "meta.weight": 10234,
         "type": "keyword"
       },
-      "suggestion": "suggestion1"
+      "suggestion": "suggestion1",
+      "recommendedProducts": null,
+      "scopes": null
     },
     {
       "payload": {
         "meta.matchKey": "suggestion2",
         "meta.matchGroupName": "best matches",
-        "meta.weight": 10109,
+        "meta.weight": 10199,
+        "type": "keyword"
+      },
+      "suggestion": "suggestion2",
+      "recommendedProducts": null,
+      "scopes": [
+         {"id":"c4404","name":"Hardware"},
+         {"id":"c2202","name":"Accessories"}
+      ]
+    },
+    {
+      "payload": {
+        "meta.matchKey": "suggestion3",
+        "meta.matchGroupName": "best matches",
+        "meta.weight": 10033,
         "type": "keyword",
         "redirect": "https://some-redirect-url.com",
       },
-      "suggestion": "suggestion2"
+      "suggestion": "suggestion3",
+      "recommendedProducts": [
+        {
+         "sku":"p123", 
+         "data": {"title": "Product One2Three", "image": "https://...", "brand": "Numerical", "link": "https://..."}
+        },
+        {
+         "sku":"p543", 
+         "data": {"title": "Product five2Three", "image": "https://...", "brand": "Other", "link": "https://..."}
+        }
+      ],
+      "scopes": null
     }
   ]
 
 
-V4 Request
-^^^^^^^^^^
+V4 Response
+^^^^^^^^^^^
 
 .. warning::
 
@@ -180,7 +227,9 @@ The response is a JSON object consisting of a 'suggestions' array similar to v3 
             "mappingTarget.redirect": null,
             "meta.matchGroupName": "best matches"
           },
-          "suggestion": "suggestion a1"
+          "suggestion": "suggestion a1",
+          "recommendedProducts": null,
+          "scopes": null
         }
       ],
       "mappingTarget": {
@@ -201,3 +250,4 @@ The response is a JSON object consisting of a 'suggestions' array similar to v3 
 .. _Integration with sessionId: ../smartquery/integration.html#integration-with-sessionid
 .. _Javascript Client: https://github.com/CommerceExperts/searchhub-js-client/
 .. _Java integration: java-integration.html
+.. _Operations: service-operations.html

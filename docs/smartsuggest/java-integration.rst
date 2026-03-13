@@ -329,7 +329,7 @@ Here a full description of all configuration properties. The names in brackets a
 Adding Custom Data
 ------------------
 
-The Suggest Library is build as service that takes care of updates on its own. So no external process is necessary to send data to the Suggest Library. Instead a :code:`SuggestDataProvider` implementation is required, that encapsulates all the data loading. Check the :ref:`SuggestConfig` section above about how to add a custom :code:`SuggestDataProvider` to the suggest service.
+The Suggest Library is build as service that takes care of updates on its own. So no external process is necessary to send data to the Suggest Library. Instead a :code:`SuggestDataProvider` implementation is required, that encapsulates all the data loading. Check the :ref:`smartsuggest/java-integration:SuggestConfig` section above about how to add a custom :code:`SuggestDataProvider` to the suggest service.
 
 Let's assume you have a database where your required data is managed and updated every now and then. Your :code:`SuggestDataProvider` implementation needs to provide two pieces of information in advance:
 
