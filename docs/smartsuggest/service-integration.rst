@@ -39,11 +39,11 @@ The standard suggest requests that return queries relevant to the partial user i
 
 .. code-block:: bash
 
-  http://<host>:<port>/smartsuggest/v1/<tenant-name>/<tenant-channel>?userQuery=<user-query>[&limit=<n>]
+  http://<host>:<port>/smartsuggest/<version>/<tenant-name>/<tenant-channel>?userQuery=<user-query>[&limit=<n>]
 
 **Request Parameters**:
 
-    - version (path): one of "v1", "v2" or "v3" depending on the desired response format
+    - version (path): one of "v1", "v2", "v3" or "v4" depending on the desired response format
     - tenant-name (path): the first part of the tenant provided by searchHub
     - tenant-channel (path): the second part of the tenant provided by searchHub
     - userQuery (query): the text the user entered in the search box
@@ -57,6 +57,8 @@ Response variants
 
 The suggest service comes with several request versions, that give you a different level of detail.
 The suggestions themselves are all the same, just the structure or the meta data attached to the suggestions will differ.
+
+The correct version path fragments are one of "v1", "v2", "v3" or "v4".
 
 
 V1 Response
@@ -186,8 +188,8 @@ scopes
   ]
 
 
-V4 Request
-^^^^^^^^^^
+V4 Response
+^^^^^^^^^^^
 
 .. warning::
 
