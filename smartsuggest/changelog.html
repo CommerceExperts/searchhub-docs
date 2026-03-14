@@ -100,20 +100,33 @@
 <section id="version-2">
 <h2>Version 2<a class="headerlink" href="#version-2" title="Link to this heading"></a></h2>
 <dl class="simple">
+<dt>Version 2.5.4</dt><dd><ul class="simple">
+<li><p>Update dependencies</p></li>
+<li><p>Fix NoSuchElementException from drained iterator for maxExpandScopes &gt; 2</p></li>
+<li><p>Fix NPE for missing context parameter</p></li>
+<li><p>Fix version adapter errors for contextual suggestions</p></li>
+</ul>
+</dd>
+<dt>Version 2.5.3</dt><dd><ul class="simple">
+<li><p>Fix missing metrics</p></li>
+<li><p>Fix application name and version reporting</p></li>
+<li><p>Cleanup metrics for destroyed suggester even if shutdown failed</p></li>
+</ul>
+</dd>
 <dt>Version 2.5.2</dt><dd><ul class="simple">
-<li><p>add info endpoint that exposes version</p></li>
-<li><p>reintroduce configurable management-endpoint prefix</p></li>
+<li><p>Add info endpoint that exposes version</p></li>
+<li><p>Reintroduce configurable management-endpoint prefix</p></li>
 </ul>
 </dd>
 <dt>Version 2.5.1</dt><dd><ul class="simple">
-<li><p>update dependencies + fixing dependency version conflicts</p></li>
-<li><p>fix potential ConcurrentModificationException when loading many indexes at once</p></li>
+<li><p>Update dependencies + fixing dependency version conflicts</p></li>
+<li><p>Fix potential ConcurrentModificationException when loading many indexes at once</p></li>
 </ul>
 </dd>
 <dt>Version 2.5.0</dt><dd><ul class="simple">
-<li><p>add product suggestions through searchHub data provider</p></li>
-<li><p>add scoped suggestions through searchHub data provider</p></li>
-<li><p>add contextual pre-suggestions through searchHub data provider</p></li>
+<li><p>Add product suggestions through searchHub data provider</p></li>
+<li><p>Add scoped suggestions through searchHub data provider</p></li>
+<li><p>Add contextual pre-suggestions through searchHub data provider</p></li>
 </ul>
 </dd>
 </dl>
@@ -125,13 +138,13 @@ If the Java-integration is used, please consider the according Migration Notes.<
 </div>
 <dl class="simple">
 <dt>Version 2.0.0 - 2.4.0 (<em>not published</em>)</dt><dd><ul class="simple">
-<li><p>embedded and improved ocs.smartsuggest</p></li>
-<li><p>get rid of memory consuming structures</p></li>
-<li><p>recovery from archive provider can use index name to recover additional data</p></li>
-<li><p>unify configuration handling, dropping legacy support</p></li>
-<li><p>replace searchhub-data-provider and s3-data-provider (optional) with index-archive-provider for faster startup times and reduced memory footprint</p></li>
-<li><p>add persistence-access-layer “PAL” to reduce redundant data storage</p></li>
-<li><p>prepared “magnetic labels”: labels that automatically adjust to the user input</p></li>
+<li><p>Embedded and improved ocs.smartsuggest</p></li>
+<li><p>Get rid of memory consuming structures</p></li>
+<li><p>Recovery from archive provider can use index name to recover additional data</p></li>
+<li><p>Unify configuration handling, dropping legacy support</p></li>
+<li><p>Replace searchhub-data-provider and s3-data-provider (optional) with index-archive-provider for faster startup times and reduced memory footprint</p></li>
+<li><p>Add persistence-access-layer “PAL” to reduce redundant data storage</p></li>
+<li><p>Prepared “magnetic labels”: labels that automatically adjust to the user input</p></li>
 </ul>
 </dd>
 </dl>
