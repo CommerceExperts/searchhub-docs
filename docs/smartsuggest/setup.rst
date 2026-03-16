@@ -1,23 +1,21 @@
 Setup
 =====
 
-smartSuggest is a library that utilizes Apache Lucene to generally achieve good suggest results. You can use that Java library directly to build your custom suggest service,
-but it also comes packed as a HTTP service in form of a container image.
+smartSuggest is a library built on top of Apache Lucene that provides high-quality query and product suggestion capabilities. The Java library can be integrated directly into applications to build a custom suggestion service. Alternatively, it is also available as a ready-to-use HTTP service packaged as a container image.
 
 Requirements
 ------------
 
-- Be sure the application is allowed to connect to ``https://query.searchhub.io/``. This is where it fetches the searchHub suggest data.
-- The embedded Lucene library creates several indexes in a temporary directory. Make sure it is able to write to your OS temp directory. That data is volatile and does not need any
-  permanent persistence. Inside the container this should work without any further intervention.
-- Around 100MB to 500MB of Memory / Java Heapspace. Depending on the amount of data to be managed by the service it might be more.
-- For Java integration please use at least JDK 17
+- **Network Access:** The application must be able to connect to https://query.searchhub.io/, which is used to fetch the SearchHub suggestion data.
+- **Temporary directory access:** The embedded Apache Lucene library creates several indexes in the system's temporary directory. Ensure the application has permission to write to the OS temp directory. The indexed data is volatile and does not require permanent persistence. When running inside the container image, this should work without additional configuration.
+- **Memory requirements:** The service is designed to minimize memory usage. In typical setups, it requires approximately 100 MB to 500 MB of Java heap memory. The exact memory requirement may increase depending on the volume of data managed by the service.
+- **Java Version:** For Java integration, JDK 17 or newer is required.
 
 
 Installation
 ------------
 
-Our continuous implementation build pushes the library into our own Maven repository and builds the according docker image right afterwards.
+Our continuous integration pipeline publishes the library to our internal Maven repository and subsequently builds the corresponding Docker image.
 
 .. tabs::
 
@@ -128,11 +126,11 @@ Client Setup
 Troubleshooting
 ----------------
 
-  - If you forgot to specify the API key, the container will stop with the log message
+  - Missing API Key: If no API key is specified, the container will terminate with the following log message:
     `"IllegalArgumentException: no searchHub API key provided! Either specify ENV var 'SH_API_KEY' or system property 'searchhub.apikey'"`
-  - In case you tried to access a non-permitted tenant/channel (maybe because you specified the wrong API key), you will see such a message in the logs of the service:
+  - If the service attempts to access a tenant or channel that is not permitted (for example, due to an incorrect API key), the following message may appear in the logs:
     `Unauthorized while fetching data for tenant 'foo.bar': [401 Unauthorized]`
-  - To get more information about the internal processes, enable debug log. Do that with the docker startup parameter :code:`-e JAVA_TOOL_OPTIONS="-Dlog.searchhub.level=DEBUG"` or for more debug messages additionally :code:`-Dlog.root.level=DEBUG`.
+  - Enabling Debug Logging: To obtain more detailed information about internal processes, enable debug logging. When running the container, use the following Docker startup parameter: :code:`-e JAVA_TOOL_OPTIONS="-Dlog.searchhub.level=DEBUG"` For even more verbose logging, you can also enable root-level debug logging :code:`-Dlog.root.level=DEBUG`.
 
 
 .. _tenant: ../glossary.html#tenant
