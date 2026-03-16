@@ -3,18 +3,29 @@ Changelog
 
 Version 2
 ---------
+Version 2.5.4
+    - Update dependencies
+    - Fix NoSuchElementException from drained iterator for maxExpandScopes > 2
+    - Fix NPE for missing context parameter
+    - Fix version adapter errors for contextual suggestions
+
+Version 2.5.3
+    - Fix missing metrics
+    - Fix application name and version reporting
+    - Cleanup metrics for destroyed suggester even if shutdown failed
+
 Version 2.5.2
-    - add info endpoint that exposes version
-    - reintroduce configurable management-endpoint prefix
+    - Add info endpoint that exposes version
+    - Reintroduce configurable management-endpoint prefix
 
 Version 2.5.1
-    - update dependencies + fixing dependency version conflicts
-    - fix potential ConcurrentModificationException when loading many indexes at once
+    - Update dependencies + fixing dependency version conflicts
+    - Fix potential ConcurrentModificationException when loading many indexes at once
 
 Version 2.5.0
-    - add product suggestions through searchHub data provider
-    - add scoped suggestions through searchHub data provider
-    - add contextual pre-suggestions through searchHub data provider
+    - Add product suggestions through searchHub data provider
+    - Add scoped suggestions through searchHub data provider
+    - Add contextual pre-suggestions through searchHub data provider
 
 .. note::
     **Backward Compatibility**
@@ -24,16 +35,14 @@ Version 2.5.0
 
 
 Version 2.0.0 - 2.4.0 (*not published*)
-    - embedded and improved ocs.smartsuggest
-    - get rid of memory consuming structures
-    - recovery from archive provider can use index name to recover additional data
-    - unify configuration handling, dropping legacy support
-    - replace searchhub-data-provider and s3-data-provider (optional) with index-archive-provider for faster startup times and reduced memory footprint
-    - add persistence-access-layer "PAL" to reduce redundant data storage
-    - prepared "magnetic labels": labels that automatically adjust to the user input
-    
-.. note::
-    (These internal versions were part of a major refactoring, but not published as they did not contain any additional value and were just the preparation for version 2.5.0; also to get to a version that aligns with our API and other modules)
+    - Embedded and improved ocs.smartsuggest
+    - Get rid of memory consuming structures
+    - Recovery from archive provider can use index name to recover additional data
+    - Unify configuration handling, dropping legacy support
+    - Replace searchhub-data-provider and s3-data-provider (optional) with index-archive-provider for faster startup times and reduced memory footprint
+    - Add persistence-access-layer "PAL" to reduce redundant data storage
+    - Prepared "magnetic labels": labels that automatically adjust to the user input
+(These internal versions were part of a major refactoring, but not published as they did not contain any additional value and were just the preparation for version 2.5.0; also to get to a version that aligns with our API and other modules)
 
 Version 1
 ---------
