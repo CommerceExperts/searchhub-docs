@@ -3,19 +3,19 @@ Service Integration
 
 .. note::
 
-    This is the recommended way to integrate suggest, as the service can be directly consumed from your frontend!
+    This is the recommended integration approach, as the suggest service can be consumed directly from the frontend.
 
-    The `Java integration`_ is only recommended in the case you want to combine it with your existing suggest service or extend the suggest service with more custom data source. And of course it's only possible if your service is running inside a JVM environment.
+    The `Java integration`_ is primarily intended for scenarios where you want to integrate it with an existing suggestion service or extend it with additional custom data sources. This option is only available if your application runs in a JVM environment.
 
 
-You might wonder why you get empty results for your first test request. Please notice, that smartSuggest starts fetching the necessary data, after the first request for a tenant was received. So the first few seconds all requests will return an empty result. A few seconds later you should get suggestions (if API Key is correctly set and the used tenant is correct).
-It's possible to mittigate that startup latency by specifying the tenants using the preloadTenants parameter (SH_INIT_TENANTS), which is described in the `Operations`_  section.
+You may notice that the first test request returns empty results. This happens because smartSuggest only starts fetching the required data after the first request for a tenant is received. During the first few seconds, requests may therefore return empty results. Once the data has been loaded, suggestions should start appearing (assuming the API key is correctly configured and the tenant is valid).
+The initial startup latency can be reduced by preloading tenants using the preloadTenants parameter (SH_INIT_TENANTS), which is described in the `Operations`_  section.
 
 
 Contextual Pre-Suggest Request
 ------------------------------
 
-Starting from version 2.5 we provide an endpoint path that provides suggestions - or rather query recommendations - that can be shown before the user even starts typing. To increase the potential relevance of the shown queries, the current URL in the shop must be provided to the service:
+Since version 2.5, the service provides an endpoint for retrieving contextual query recommendations that can be displayed before the user starts typing. To improve the relevance of the recommended queries, the current shop URL must be passed to the service:
 
 .. code-block:: bash
 
@@ -23,11 +23,11 @@ Starting from version 2.5 we provide an endpoint path that provides suggestions 
 
 **Request Parameters**:
 
-    - version (path): one of "v1", "v2", "v3" or "v4" depending on the desired response format (v4 not meaning full, but compatible)
-    - tenant-name (path): the first part of the tenant provided by searchHub
-    - tenant-channel (path): the second part of the tenant provided by searchHub
-    - context (query): the encoded URI of the page where the contextual suggestions should be shown. For generic pages (e.g. the start page) the referrer uri can be passed.
-    - limit (query): This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.
+    - **version (path):** one of "v1", "v2", "v3" or "v4" depending on the desired response format (v4 not meaning full, but compatible)
+    - **tenant-name (path):** the first part of the tenant provided by searchHub
+    - **tenant-channel (path):** the second part of the tenant provided by searchHub
+    - **context (query):** the encoded URI of the page where the contextual suggestions should be shown. For generic pages (e.g. the start page) the referrer uri can be passed.
+    - **limit (query):** This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.
 
 The response format depends on the picked version. See "Response versions" below.
 
@@ -35,7 +35,7 @@ The response format depends on the picked version. See "Response versions" below
 Suggest Request
 ---------------
 
-The standard suggest requests that return queries relevant to the partial user input, use this request:
+Standard suggest requests, which return queries relevant to the user's partial input, use the following request:
 
 .. code-block:: bash
 
@@ -43,11 +43,11 @@ The standard suggest requests that return queries relevant to the partial user i
 
 **Request Parameters**:
 
-    - version (path): one of "v1", "v2", "v3" or "v4" depending on the desired response format
-    - tenant-name (path): the first part of the tenant provided by searchHub
-    - tenant-channel (path): the second part of the tenant provided by searchHub
-    - userQuery (query): the text the user entered in the search box
-    - limit (query): This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.
+    - **version (path):** one of "v1", "v2", "v3" or "v4" depending on the desired response format
+    - **tenant-name (path):** the first part of the tenant provided by searchHub
+    - **tenant-channel (path):** the second part of the tenant provided by searchHub
+    - **userQuery (query):** the text the user entered in the search box
+    - **limit (query):** This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.
 
 The response format depends on the picked version. See "Response versions" below.
 
@@ -55,8 +55,7 @@ The response format depends on the picked version. See "Response versions" below
 Response variants
 -----------------
 
-The suggest service comes with several request versions, that give you a different level of detail.
-The suggestions themselves are all the same, just the structure or the meta data attached to the suggestions will differ.
+The suggest service provides several request versions that return different levels of detail. The suggestions themselves remain the same; only the response structure and the metadata attached to the suggestions differ.
 
 The correct version path fragments are one of "v1", "v2", "v3" or "v4".
 
@@ -64,7 +63,8 @@ The correct version path fragments are one of "v1", "v2", "v3" or "v4".
 V1 Response
 ^^^^^^^^^^^
 
-This version will deliver the suggestions grouped into blocks. Each block represents a different quality of suggestions depending on how they matched. This might be useful if you want to restrict the list to only the best matching suggestions.
+In this version, suggestions are returned in blocks, where each block represents a different match quality based on how the suggestions were generated.
+This allows clients to filter or restrict results to the highest-quality suggestions if desired.
 
 
 **Response**:
@@ -82,15 +82,17 @@ This version will deliver the suggestions grouped into blocks. Each block repres
     }
   ]
 
-A block with the name "best matches" is the best case scenario. There are also 3 other kind of blocks, named "typo matches", "fuzzy matches with 1 edit" and "fuzzy matches with 2 edits". In case nothing is found, an empty array is returned.
-It is also possible (depending on settings and user input) that several blocks are delivered. In such a case it's up to you to decide which queries to use for the autosuggestion.
-If there is no need for some special logic, we recommend to use API v2 or v3.
+The **“best matches”** block contains the highest-quality suggestions. Additional blocks may include **“typo matches”**, **“fuzzy matches with 1 edit”**, and **“fuzzy matches with 2 edits”**.
+If no suggestions are available, the response will contain an empty array.
+Depending on the input and configuration, multiple blocks may be returned. In this case, the client must decide which suggestions to display in the autosuggest component.
+If such custom logic is not required, API v2 or v3 is recommended.
 
 
 V2 Response
 ^^^^^^^^^^^
 
-This version is for the simplest integration, as it will just deliver an array of strings. No grouping, no meta data. Just queries as strings. This is useful if you want a simple integration without any sophisticated feature.
+This version is intended for the simplest possible integration, as it returns only an array of suggestion strings.
+No grouping or metadata is included—only the suggested queries themselves. This option is useful if you want a straightforward integration without advanced features.
 
 **Response**:
 
@@ -108,33 +110,41 @@ The response is a JSON array with simple strings that can be used as autocomplet
 V3 Response
 ^^^^^^^^^^^
 
-This version delivers a list of suggestions, where each suggestion is a rich object that also has some meta data attached to it.
+This version returns suggestions as structured objects with associated metadata, rather than plain strings.
 
 **Response**:
 
-The response is a JSON array consisting of rich objects that contain an additional payload for every autosuggestion query.
-The payload might contain the following keys:
+The response is a JSON array of suggestion objects. Each object contains a payload with additional metadata related to the autosuggestion query.
+The payload may include the following keys:
 
 meta.matchKey
-  The actual text that was searched and matched. Especially for untypical queries matching one of the cluster variants, this will yield a complete list of queries.
-  The main purpose of this value is debugging.
+  The actual text that was matched during the search. For unusual queries that match one of the cluster variants, this value may reveal the full set of related queries.  
+  This field is mainly intended for **debugging purposes**.
+
 meta.matchGroupName
-  Corresponds to the group names as described for the v1 request.
+  The name of the match group, corresponding to the group names described for the **v1 request**.
+
 meta.weight
-  This will be set to the internal weight of that suggestion. That's the weight the suggestions are ordered, unless the match-type won't give an extra penalty.
+  The internal weight assigned to the suggestion. Suggestions are ordered by this weight, unless the match type introduces an additional penalty.
+
 type
-  Currently, the only supported value is *keyword*. In case you add another data source to the suggest index, this could be something like "product" or "category".
+  The type of suggestion. Currently, the only supported value is *keyword*.  
+  If additional data sources are added to the suggest index, other values such as ``product`` or ``category`` may appear.
+
 redirect
-  The redirect URL, configured for the query over the searchHub-UI. **Optional** omitted if no redirect exists.
-  If this value is given, it's recommended to redirect directly to that URL and avoid an unnecessary request to your search backend.
+  The redirect URL configured for the query in the searchHub UI. **Optional** this field is omitted if no redirect is configured.  
+  If present, it is recommended to redirect directly to this URL to avoid an unnecessary request to the search backend.
 
 Additional fields per record:
 
 recommendedProducts
-  A list/array of record objects with ``sku`` and a ``data`` map with the product-data fields ``title``, ``image``, ``brand`` and ``link``.
+  A list (array) of record objects. Each record contains a ``sku`` and a ``data`` map with product fields such as ``title``, ``image``, ``brand``, and ``link``.
+
 scopes
-  Optional list of "scopes", which can be categories, brands or other relavant refinement to the according suggestion. For example "jeans" could come with the scopes "for women" and "for men".
-  If searchHub does not deliver that data or "scope expansion" is activated on searchHub side, this list is always null.
+  An optional list of scopes that further refine the suggestion, such as categories, brands, or other relevant attributes.  
+  For example, the suggestion ``jeans`` could include scopes like ``for women`` or ``for men``.
+
+  If searchHub does not provide this information, or if **scope expansion** is enabled on the searchHub side, this field will be ``null``.
 
 .. code-block:: json
 
@@ -193,10 +203,9 @@ V4 Response
 
 .. warning::
 
-    This endpoint is only available if you are using the ``commerceexperts/searchhub-integration-service``, since it will use the smartQuery module to enrich the response.
+    This endpoint is only available when using the ``commerceexperts/searchhub-integration-service``, as it relies on the smartQuery module to enrich the response.
 
-This endpoint comes handy when you want to do a low latency frontend integration, that should fetch the smartQuery mapping while the user still types into suggest.
-Actually that's exactly what the `Javascript Client`_ does and why it depends on that exact endpoint.
+It is particularly useful for **low-latency frontend integrations**, where the smartQuery mapping should be retrieved while the user is still typing in the suggestion field. This is exactly how the `Javascript Client`_ operates, which is why it depends on this specific endpoint.
 
 .. code-block:: bash
 
@@ -204,15 +213,15 @@ Actually that's exactly what the `Javascript Client`_ does and why it depends on
 
 **Request Parameters**:
 
-    - tenant-name (path): the first part of the tenant provided by searchHub
-    - tenant-channel (path): the second part of the tenant provided by searchHub
-    - userQuery (query): the text the user entered in the search box
-    - limit (query): This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.
-    - sessionId (query): This optional parameter improves the integration of smartQuery. See the according `Integration with sessionId`_ section for details.
+    - **tenant-name (path):** the first part of the tenant provided by searchHub
+    - **tenant-channel (path):** the second part of the tenant provided by searchHub
+    - **userQuery (query):** the text the user entered in the search box
+    - **limit (query):** This parameter will limit the amount of returned suggestions. By default if omitted, the limit is set to 10.
+    - **sessionId (query):** This optional parameter improves the integration of smartQuery. See the according `Integration with sessionId`_ section for details.
 
 **Response**:
 
-The response is a JSON object consisting of a 'suggestions' array similar to v3 and a 'mappingTarget' object as described in the `smartQuery integration`_
+The response is a JSON object with two main fields: a ``suggestions`` array (similar to the v3 response format) and a ``mappingTarget`` object, as described in the `smartQuery integration`_ section.
 
 .. code-block:: json
 
