@@ -5,6 +5,13 @@ Service Operations
 
     This part covers the specifics to suggest. Please check the `common operations`_ section for more configuration options.
 
+Technical base knowledge
+------------------------
+
+The smartSuggest library itself builds on top of `Lucene`_, so it highly relies on proper hardware (optimal: local ssd). Refer to other tuning tipps like the ones named in "Lucene in Action (2nd Edition)". However since the Lucene indexes are loaded in ready state and only used in read-only mode, indexing performance can be ignored.
+
+Apart from that all redundant payload is stored in a Key-Value store based on `RocksDB`_ that relies on memory-mapped files. For optimal performance spare some additional memory outside the Java heapspace for the OS file-cache.
+
 
 Configuration
 -------------
@@ -99,3 +106,5 @@ There are several metrics that are exposed in the prometheus format through the 
 
 
 .. _common operations: ../operations.html
+.. _Lucene: https://lucene.apache.org/
+.. _RocksDB: https://rocksdb.org/
