@@ -32,9 +32,8 @@ Our continuous integration pipeline publishes the library to our internal Maven 
 
     .. tab:: Java Integration
 
-        The basic smartSuggest library is part of the Open-Commerce-Search stack, therefor the dependency is ``de.cxp.ocs::smartsuggest-lib``.
-        In order to load the searchHub data, our ``searchhub-suggest-data-provider`` must be added to the classpath as well.
-        All related components can be pulled as a maven dependency from `our repository <https://nexus.commerce-experts.com/content/repositories/searchhub-external/>`_
+        The smartSuggest library comes as a single dependency from `our repository <https://nexus.commerce-experts.com/content/repositories/searchhub-external/>`_
+        It contains several transitive dependencies that can all be loaded from the same repository, most also from public repositories like maven-central.
 
         .. code-block:: XML
 
