@@ -116,6 +116,8 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'CXPSearchHubdoc'
 
+# -- Options for ext.autosectionlabel -------------------------------------
+autosectionlabel_prefix_document = True
 
 # -- Options for LaTeX output ---------------------------------------------
 
