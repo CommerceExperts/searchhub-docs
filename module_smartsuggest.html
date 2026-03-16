@@ -92,9 +92,33 @@
              
   <section id="module-smartsuggest">
 <h1>Module: smartSuggest<a class="headerlink" href="#module-smartsuggest" title="Link to this heading"></a></h1>
-<p>smartSuggest uses the enriched and clustered searchHub data to build a sophisticated suggest functionality.
-As a base technology Apache Lucene is used to provide fast and weighted query suggestions. The implementation is part of the “<a class="reference external" href="https://github.com/CommerceExperts/open-commerce-search">Open Commerce Search Stack</a>”</p>
-<p>The module automatically connects to the searchHub API in order to get the required data and to send back statistics and performance information about the module and its usage.</p>
+<p>smartSuggest leverages enriched and clustered data from searchHub to deliver a sophisticated, state-of-the-art suggestion system for eCommerce and retail applications.</p>
+<p>Under the hood, smartSuggest is built on the widely adopted and battle-tested Apache Lucene open-source library. The engine is heavily optimized for the specific requirements of modern eCommerce search, enabling scalable, fast, and highly relevant suggestions tailored to domain-specific use cases.</p>
+<p>The module automatically connects to the searchHub API to retrieve the necessary data, pre-built indices, and send back important statistical logs related to module performance and usage.</p>
+<p>smartSuggest supports several suggestion types, depending on the specific use case.</p>
+<ol class="arabic">
+<li><dl>
+<dt>Intent-Aware Query Suggestions</dt><dd><p>smartSuggest transforms traditional search suggestions into true intent predictions.</p>
+<p>Using the same clustering technology as smartQuery, smartSuggest identifies the most likely user buying intents, enriches them with contextual information, and guides users through the product catalog. This significantly reduces the number of low-performing or ambiguous searches.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Intent-Aware Product Suggestions</dt><dd><p>Traditional keyword based product suggestions ignore evolving intent and fail on ambiguous queries. smartSuggest combines intent similarity with behavioral signals, continuously improving product suggestion relevance.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Scoped Suggestions</dt><dd><p>For broad intent, smartSuggest recommends relevant or contextual scopes before search execution, preventing unfocused result pages and bounces.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Contextual Pre-Suggestions</dt><dd><p>Intent often starts before typing. smartSuggest delivers pre-suggestions based on the current or last recent user context (e.g., category page, campaign entry, viewed product), with safe fallbacks to configured defaults managed in our UI  (Default Pre-Suggest Type) when context is limited or unknown.</p>
+</dd>
+</dl>
+</li>
+</ol>
 <p>We recommend following the <a class="reference external" href="smartsuggest/user-stories.html">user stories</a> to get started with the smartSuggest integration into your system.</p>
 <div class="toctree-wrapper compound">
 </div>

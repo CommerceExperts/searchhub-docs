@@ -58,6 +58,7 @@
 <li class="toctree-l2"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="service-integration.html">Service Integration</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Service Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#technical-base-knowledge">Technical base knowledge</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#api-key">API KEY</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#deprecated-settings">Deprecated Settings</a></li>
@@ -105,6 +106,11 @@
 <p class="admonition-title">Note</p>
 <p>This part covers the specifics to suggest. Please check the <a class="reference external" href="../operations.html">common operations</a> section for more configuration options.</p>
 </div>
+<section id="technical-base-knowledge">
+<h2>Technical base knowledge<a class="headerlink" href="#technical-base-knowledge" title="Link to this heading"></a></h2>
+<p>The smartSuggest library itself builds on top of <a class="reference external" href="https://lucene.apache.org/">Lucene</a>, so it highly relies on proper hardware (optimal: local ssd). Refer to other tuning tipps like the ones named in “Lucene in Action (2nd Edition)”. However since the Lucene indexes are loaded in ready state and only used in read-only mode, indexing performance can be ignored.</p>
+<p>Apart from that all redundant payload is stored in a Key-Value store based on <a class="reference external" href="https://rocksdb.org/">RocksDB</a> that relies on memory-mapped files. For optimal performance spare some additional memory outside the Java heapspace for the OS file-cache.</p>
+</section>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
 <p>To set those configuration values, you can inject a properties file into the container, bind it into the container at path <code class="docutils literal notranslate"><span class="pre">/app/config/suggest.properties</span></code>.</p>

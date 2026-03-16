@@ -101,21 +101,19 @@
              
   <section id="setup">
 <h1>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h1>
-<p>smartSuggest is a library that utilizes Apache Lucene to generally achieve good suggest results. You can use that Java library directly to build your custom suggest service,
-but it also comes packed as a HTTP service in form of a container image.</p>
+<p>smartSuggest is a library built on top of Apache Lucene that provides high-quality query and product suggestion capabilities. The Java library can be integrated directly into applications to build a custom suggestion service. Alternatively, it is also available as a ready-to-use HTTP service packaged as a container image.</p>
 <section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>Be sure the application is allowed to connect to <code class="docutils literal notranslate"><span class="pre">https://query.searchhub.io/</span></code>. This is where it fetches the searchHub suggest data.</p></li>
-<li><p>The embedded Lucene library creates several indexes in a temporary directory. Make sure it is able to write to your OS temp directory. That data is volatile and does not need any
-permanent persistence. Inside the container this should work without any further intervention.</p></li>
-<li><p>Around 100MB to 500MB of Memory / Java Heapspace. Depending on the amount of data to be managed by the service it might be more.</p></li>
-<li><p>For Java integration please use at least JDK 17</p></li>
+<li><p><strong>Network Access:</strong> The application must be able to connect to <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a>, which is used to fetch the SearchHub suggestion data.</p></li>
+<li><p><strong>Temporary directory access:</strong> The embedded Apache Lucene library creates several indexes in the system’s temporary directory. Ensure the application has permission to write to the OS temp directory. The indexed data is volatile and does not require permanent persistence. When running inside the container image, this should work without additional configuration.</p></li>
+<li><p><strong>Memory requirements:</strong> The service is designed to minimize memory usage. In typical setups, it requires approximately 100 MB to 500 MB of Java heap memory. The exact memory requirement may increase depending on the volume of data managed by the service.</p></li>
+<li><p><strong>Java Version:</strong> For Java integration, JDK 17 or newer is required.</p></li>
 </ul>
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
-<p>Our continuous implementation build pushes the library into our own Maven repository and builds the according docker image right afterwards.</p>
+<p>Our continuous integration pipeline publishes the library to our internal Maven repository and subsequently builds the corresponding Docker image.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">HTTP Service (docker)</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">Java Integration</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>The docker image is available on docker hub with the name <a class="reference external" href="https://hub.docker.com/r/commerceexperts/searchhub-smartsuggest-service/tags">commerceexperts/searchhub-smartsuggest-service</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="o">=</span>smartsuggest-service<span class="w"> </span>-e<span class="w"> </span><span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt;<span class="w"> </span>-P<span class="w"> </span>commerceexperts/searchhub-smartsuggest-service:2.5.4
@@ -123,9 +121,8 @@ permanent persistence. Inside the container this should work without any further
 </div>
 <p>The container must be initiated with your API key set to the environment variable <cite>SH_API_KEY</cite>.
 The container exposes port 8081 which can be mapped to any port.</p>
-</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><p>The basic smartSuggest library is part of the Open-Commerce-Search stack, therefor the dependency is <code class="docutils literal notranslate"><span class="pre">de.cxp.ocs::smartsuggest-lib</span></code>.
-In order to load the searchHub data, our <code class="docutils literal notranslate"><span class="pre">searchhub-suggest-data-provider</span></code> must be added to the classpath as well.
-All related components can be pulled as a maven dependency from <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhub-external/">our repository</a></p>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><p>The smartSuggest library comes as a single dependency from <a class="reference external" href="https://nexus.commerce-experts.com/content/repositories/searchhub-external/">our repository</a>
+It contains several transitive dependencies that can all be loaded from the same repository, most also from public repositories like maven-central.</p>
 <div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
 <span class="w">    </span><span class="nt">&lt;groupId&gt;</span>io.searchhub<span class="nt">&lt;/groupId&gt;</span>
 <span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>smartsuggest<span class="nt">&lt;/artifactId&gt;</span>
@@ -202,11 +199,11 @@ However additional it comes with the ability to do the splitting for an A/B test
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
 <blockquote>
 <div><ul class="simple">
-<li><p>If you forgot to specify the API key, the container will stop with the log message
+<li><p>Missing API Key: If no API key is specified, the container will terminate with the following log message:
 <cite>“IllegalArgumentException: no searchHub API key provided! Either specify ENV var ‘SH_API_KEY’ or system property ‘searchhub.apikey’”</cite></p></li>
-<li><p>In case you tried to access a non-permitted tenant/channel (maybe because you specified the wrong API key), you will see such a message in the logs of the service:
+<li><p>If the service attempts to access a tenant or channel that is not permitted (for example, due to an incorrect API key), the following message may appear in the logs:
 <cite>Unauthorized while fetching data for tenant ‘foo.bar’: [401 Unauthorized]</cite></p></li>
-<li><p>To get more information about the internal processes, enable debug log. Do that with the docker startup parameter <code class="code docutils literal notranslate"><span class="pre">-e</span> <span class="pre">JAVA_TOOL_OPTIONS=&quot;-Dlog.searchhub.level=DEBUG&quot;</span></code> or for more debug messages additionally <code class="code docutils literal notranslate"><span class="pre">-Dlog.root.level=DEBUG</span></code>.</p></li>
+<li><p>Enabling Debug Logging: To obtain more detailed information about internal processes, enable debug logging. When running the container, use the following Docker startup parameter: <code class="code docutils literal notranslate"><span class="pre">-e</span> <span class="pre">JAVA_TOOL_OPTIONS=&quot;-Dlog.searchhub.level=DEBUG&quot;</span></code> For even more verbose logging, you can also enable root-level debug logging <code class="code docutils literal notranslate"><span class="pre">-Dlog.root.level=DEBUG</span></code>.</p></li>
 </ul>
 </div></blockquote>
 </section>
