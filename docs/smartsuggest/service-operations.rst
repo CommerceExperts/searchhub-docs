@@ -3,62 +3,66 @@ Service Operations
 
 .. note::
 
-    This part covers the specifics to suggest. Please check the `common operations`_ section for more configuration options.
+    This section focuses on suggest-specific settings. Additional configuration options are described in the `common operations`_ section.
 
 Technical base knowledge
 ------------------------
 
-The smartSuggest library itself builds on top of `Lucene`_, so it highly relies on proper hardware (optimal: local ssd). Refer to other tuning tipps like the ones named in "Lucene in Action (2nd Edition)". However since the Lucene indexes are loaded in ready state and only used in read-only mode, indexing performance can be ignored.
+The smartSuggest library is built on top of `Lucene`_, and therefore benefits from appropriate hardware (ideally: local ssd). For general performance tuning, refer to established best practices such as those described in "Lucene in Action (2nd Edition)". Since the Lucene indexes are prebuilt and used in read-only mode, indexing performance is not a concern.
 
-Apart from that all redundant payload is stored in a Key-Value store based on `RocksDB`_ that relies on memory-mapped files. For optimal performance spare some additional memory outside the Java heapspace for the OS file-cache.
+In addition, all supplementary payload data is stored in a key-value store based on `RocksDB`_ which utilizes memory-mapped files. For optimal performance, ensure that sufficient memory is available outside the Java heap space to support the OS file cache.
 
 
 Configuration
 -------------
 
-To set those configuration values, you can inject a properties file into the container, bind it into the container at path ``/app/config/suggest.properties``.
+Configuration can be provided via a properties file mounted at ``/app/config/suggest.properties`` inside the container.
 
 .. code-block:: bash
 
     docker run [...] -v "$(pwd)/suggest.properties":/app/config/suggest.properties [...]
 
-Each setting can also be set as system property or environment variable, those take precedence over what's set in the ``suggest.properties`` file. To inject those properties as system-properties, use the JAVA_TOOL_OPTIONS environment variable and specify each property prefixed with `-D`, for example
+Settings can also be provided via system properties or environment variables, which override values defined in ``suggest.properties``. To define system properties, use the ``JAVA_TOOL_OPTIONS`` environment variable and prefix each property with ``-D``. For example:
 
 .. code-block:: bash
 
   docker run [...] -e JAVA_TOOL_OPTIONS="-Dsearchhub.apikey='your-api-key' -Dsuggest.service.max-idle-minutes=90" [...]
 
-For all those properties there are also according environments variables that could be set. Those are only used if there is no according "property value" found. Please stick to one way of defining properties to avoid confusion.
+Each configuration property has a corresponding environment variable. Environment variables are only applied if no corresponding system property is defined.
+
+To prevent ambiguity, it is recommended to use only one method for defining configuration values.
 
 suggest.service.max-idle-minutes
     | (*SUGGEST_SERVICE_MAX_IDLE_MINUTES*)
-    | If a suggest index is not requested for that time, it will be unloaded. A new request to that index will return an empty list, but restart the loading of that index.
-    | A value of '0' or smaller will disable the unloading mechanic completely and never free up used space by created suggest indexes.
-    | Defaults to 30
+    | If a suggest index is not accessed for the specified duration, it will be unloaded.  
+  A subsequent request will return an empty result and trigger reloading of the index.
+    | Setting this value to ``0`` or a negative number disables automatic unloading entirely.
+    | Default value is ``30``
 
 suggest.update-rate
     | (*SUGGEST_UPDATE_RATE*)
-    | Defines in seconds, how often the suggest library checks for new data for every loaded index.
-    | Defaults to 60
+    | Defines, in seconds, how frequently the service checks for updated data for each loaded index.
+    | Default value is ``60``
 
 suggest.preload-indexes
     | (*SUGGEST_PRELOAD_INDEXES*, *SH_INIT_TENANTS*)
-    | Comma-separated list of indexes (=searchHub tenants) that should be initialized at the start of the service.
+    | A comma-separated list of indexes (searchHub tenants) to preload during service startup.
 
 suggest.concurrent-indexation
     | (*SUGGEST_CONCURRENT_INDEXATION*)
-    | boolean value, 'true' per default. Can be set to 'false' so that the indexation of the received data will be done sequentially.
-    | This means it will take longer until the service is ready for usage and will spare computational power that might be used for others.
+    | Boolean value (default: ``true``). If set to ``false``, indexation is performed sequentially instead of concurrently.
+    | This reduces CPU usage but increases the time required until the service is fully ready.
 
 searchhub.apikey
     | (*SH_API_KEY*)
-    | Required API Key to load suggestions from searchHub. That's the only setting that should rather be set as a environment variable.
+    | The API key required to load suggestions from searchHub.  
+  This setting should preferably be provided via an **environment variable**.
 
 API KEY
 ^^^^^^^
 
-The API Key is required to start the service. You will get the searchHub API Key from your contact person.
-In a environment that can manage secrets, it is recommended to inject the API Key via Environment variable .
+An API key is required to start the service and must be obtained from your searchHub contact.
+In environments with secret management capabilities, the API key should be injected via an environment variable.
 
 .. code-block:: bash
 
@@ -79,26 +83,25 @@ suggest.server.address
 Monitoring
 ----------
 
-There are several metrics that are exposed in the prometheus format through the :code:`/prometheus` endpoint of the service.
+The service exposes several metrics in **Prometheus format** via the :code:`/prometheus` endpoint.
 
 .. glossary::
 
     smartsuggest.update.success.count.total
         Total number of successful data updates per tenant.
-        This metric is tagged with the corresponding `tenant_name` and `tenant_channel`.
+        This metric is labeled with `tenant_name` and `tenant_channel`.
 
     smartsuggest.update.fail.count
-        Number of successive failed update attempts for a certain tenant. If an update succeeds, this value will be reset to "0".
-        If this value reaches "5", the respective update process will be stopped and only restarted, if suggestions for the related tenant are requested again.
-        This metric is tagged with the corresponding `tenant_name` and `tenant_channel`.
+        Number of consecutive failed update attempts for a tenant. The counter is reset to ``0`` after a successful update.
+        If this value reaches ``5``, the update process is stopped and will only resume once suggestions for the corresponding tenant are requested again. This metric is labeled with ``tenant_name`` and ``tenant_channel``.
 
     smartsuggest.suggestions.size
         Current number of raw suggestion records per tenant.
-        This metric is tagged with the corresponding `tenant_name` and `tenant_channel`.
+        This metric is labeled with `tenant_name` and `tenant_channel`.
 
     smartsuggest.suggestions.age.seconds
-        That is the amount of time passed, since the last successful update took place.
-        This metric is tagged with the corresponding `tenant_name` and `tenant_channel`.
+        Time in seconds since the last successful update. 
+        This metric is labeled with `tenant_name` and `tenant_channel`.
 
 
 
