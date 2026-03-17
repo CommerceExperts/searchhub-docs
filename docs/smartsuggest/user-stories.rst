@@ -14,7 +14,7 @@ Acceptance criteria
   - If a known context URL is provided, the pre-suggestions should be strongly related to that context (e.g., category page, campaign page, or product page). If no known context is available, the displayed pre-suggestions should fall back to those configured by the Default Pre-Suggest Type.
 
   - **Query Suggestions:** While the user types into the search field, query suggestions should be retrieved for each typed input from the searchHub `smartSuggest module`_.
-  - When a user selects one of the suggested queries, a request should be sent directly to `smartQuery`_ which maps the selected suggestion to the best performing target)
+  - When a user selects one of the suggested queries, a search request should be submitted using, where `smartQuery`_ mapping is applied on the selected suggestion. smartQuery mapping might result in a different than the displayed query or in a redirect to a pre-defined URL
 
   - **Product Suggestions:** While the user types into the search field or hovers over query suggestions, relevant product suggestions should be displayed. These product suggestions should be semantically related to the current query or suggestion. When a user clicks on a product suggestion, the user should be redirected directly to the corresponding Product Detail Page (PDP)
 
