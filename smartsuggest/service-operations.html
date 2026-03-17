@@ -104,59 +104,70 @@
 <h1>Service Operations<a class="headerlink" href="#service-operations" title="Link to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This part covers the specifics to suggest. Please check the <a class="reference external" href="../operations.html">common operations</a> section for more configuration options.</p>
+<p>This section focuses on suggest-specific settings. Additional configuration options are described in the <a class="reference external" href="../operations.html">common operations</a> section.</p>
 </div>
 <section id="technical-base-knowledge">
 <h2>Technical base knowledge<a class="headerlink" href="#technical-base-knowledge" title="Link to this heading"></a></h2>
-<p>The smartSuggest library itself builds on top of <a class="reference external" href="https://lucene.apache.org/">Lucene</a>, so it highly relies on proper hardware (optimal: local ssd). Refer to other tuning tipps like the ones named in “Lucene in Action (2nd Edition)”. However since the Lucene indexes are loaded in ready state and only used in read-only mode, indexing performance can be ignored.</p>
-<p>Apart from that all redundant payload is stored in a Key-Value store based on <a class="reference external" href="https://rocksdb.org/">RocksDB</a> that relies on memory-mapped files. For optimal performance spare some additional memory outside the Java heapspace for the OS file-cache.</p>
+<p>The smartSuggest library is built on top of <a class="reference external" href="https://lucene.apache.org/">Lucene</a>, and therefore benefits from appropriate hardware (ideally: local ssd). For general performance tuning, refer to established best practices such as those described in “Lucene in Action (2nd Edition)”. Since the Lucene indexes are prebuilt and used in read-only mode, indexing performance is not a concern.</p>
+<p>In addition, all supplementary payload data is stored in a key-value store based on <a class="reference external" href="https://rocksdb.org/">RocksDB</a> which utilizes memory-mapped files. For optimal performance, ensure that sufficient memory is available outside the Java heap space to support the OS file cache.</p>
 </section>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
-<p>To set those configuration values, you can inject a properties file into the container, bind it into the container at path <code class="docutils literal notranslate"><span class="pre">/app/config/suggest.properties</span></code>.</p>
+<p>Configuration can be provided via a properties file mounted at <code class="docutils literal notranslate"><span class="pre">/app/config/suggest.properties</span></code> inside the container.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="o">[</span>...<span class="o">]</span><span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/suggest.properties&quot;</span>:/app/config/suggest.properties<span class="w"> </span><span class="o">[</span>...<span class="o">]</span>
 </pre></div>
 </div>
-<p>Each setting can also be set as system property or environment variable, those take precedence over what’s set in the <code class="docutils literal notranslate"><span class="pre">suggest.properties</span></code> file. To inject those properties as system-properties, use the JAVA_TOOL_OPTIONS environment variable and specify each property prefixed with <cite>-D</cite>, for example</p>
+<p>Settings can also be provided via system properties or environment variables, which override values defined in <code class="docutils literal notranslate"><span class="pre">suggest.properties</span></code>. To define system properties, use the <code class="docutils literal notranslate"><span class="pre">JAVA_TOOL_OPTIONS</span></code> environment variable and prefix each property with <code class="docutils literal notranslate"><span class="pre">-D</span></code>. For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="o">[</span>...<span class="o">]</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dsearchhub.apikey=&#39;your-api-key&#39; -Dsuggest.service.max-idle-minutes=90&quot;</span><span class="w"> </span><span class="o">[</span>...<span class="o">]</span>
 </pre></div>
 </div>
-<p>For all those properties there are also according environments variables that could be set. Those are only used if there is no according “property value” found. Please stick to one way of defining properties to avoid confusion.</p>
+<p>Each configuration property has a corresponding environment variable. Environment variables are only applied if no corresponding system property is defined.</p>
+<p>To prevent ambiguity, it is recommended to use only one method for defining configuration values.</p>
 <dl>
-<dt>suggest.service.max-idle-minutes</dt><dd><div class="line-block">
+<dt>suggest.service.max-idle-minutes</dt><dd><blockquote>
+<div><div class="line-block">
 <div class="line">(<em>SUGGEST_SERVICE_MAX_IDLE_MINUTES</em>)</div>
-<div class="line">If a suggest index is not requested for that time, it will be unloaded. A new request to that index will return an empty list, but restart the loading of that index.</div>
-<div class="line">A value of ‘0’ or smaller will disable the unloading mechanic completely and never free up used space by created suggest indexes.</div>
-<div class="line">Defaults to 30</div>
+<div class="line">If a suggest index is not accessed for the specified duration, it will be unloaded.</div>
 </div>
+</div></blockquote>
+<dl>
+<dt>A subsequent request will return an empty result and trigger reloading of the index.</dt><dd><div class="line-block">
+<div class="line">Setting this value to <code class="docutils literal notranslate"><span class="pre">0</span></code> or a negative number disables automatic unloading entirely.</div>
+<div class="line">Default value is <code class="docutils literal notranslate"><span class="pre">30</span></code></div>
+</div>
+</dd>
+</dl>
 </dd>
 <dt>suggest.update-rate</dt><dd><div class="line-block">
 <div class="line">(<em>SUGGEST_UPDATE_RATE</em>)</div>
-<div class="line">Defines in seconds, how often the suggest library checks for new data for every loaded index.</div>
-<div class="line">Defaults to 60</div>
+<div class="line">Defines, in seconds, how frequently the service checks for updated data for each loaded index.</div>
+<div class="line">Default value is <code class="docutils literal notranslate"><span class="pre">60</span></code></div>
 </div>
 </dd>
 <dt>suggest.preload-indexes</dt><dd><div class="line-block">
 <div class="line">(<em>SUGGEST_PRELOAD_INDEXES</em>, <em>SH_INIT_TENANTS</em>)</div>
-<div class="line">Comma-separated list of indexes (=searchHub tenants) that should be initialized at the start of the service.</div>
+<div class="line">A comma-separated list of indexes (searchHub tenants) to preload during service startup.</div>
 </div>
 </dd>
 <dt>suggest.concurrent-indexation</dt><dd><div class="line-block">
 <div class="line">(<em>SUGGEST_CONCURRENT_INDEXATION</em>)</div>
-<div class="line">boolean value, ‘true’ per default. Can be set to ‘false’ so that the indexation of the received data will be done sequentially.</div>
-<div class="line">This means it will take longer until the service is ready for usage and will spare computational power that might be used for others.</div>
+<div class="line">Boolean value (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>). If set to <code class="docutils literal notranslate"><span class="pre">false</span></code>, indexation is performed sequentially instead of concurrently.</div>
+<div class="line">This reduces CPU usage but increases the time required until the service is fully ready.</div>
 </div>
 </dd>
-<dt>searchhub.apikey</dt><dd><div class="line-block">
+<dt>searchhub.apikey</dt><dd><blockquote>
+<div><div class="line-block">
 <div class="line">(<em>SH_API_KEY</em>)</div>
-<div class="line">Required API Key to load suggestions from searchHub. That’s the only setting that should rather be set as a environment variable.</div>
+<div class="line">The API key required to load suggestions from searchHub.</div>
 </div>
+</div></blockquote>
+<p>This setting should preferably be provided via an <strong>environment variable</strong>.</p>
 </dd>
 </dl>
 <section id="api-key">
 <h3>API KEY<a class="headerlink" href="#api-key" title="Link to this heading"></a></h3>
-<p>The API Key is required to start the service. You will get the searchHub API Key from your contact person.
-In a environment that can manage secrets, it is recommended to inject the API Key via Environment variable .</p>
+<p>An API key is required to start the service and must be obtained from your searchHub contact.
+In environments with secret management capabilities, the API key should be injected via an environment variable.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SH_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-secret-api-key&quot;</span>
 </pre></div>
 </div>
@@ -177,20 +188,19 @@ In a environment that can manage secrets, it is recommended to inject the API Ke
 </section>
 <section id="monitoring">
 <h2>Monitoring<a class="headerlink" href="#monitoring" title="Link to this heading"></a></h2>
-<p>There are several metrics that are exposed in the prometheus format through the <code class="code docutils literal notranslate"><span class="pre">/prometheus</span></code> endpoint of the service.</p>
+<p>The service exposes several metrics in <strong>Prometheus format</strong> via the <code class="code docutils literal notranslate"><span class="pre">/prometheus</span></code> endpoint.</p>
 <dl class="simple glossary">
 <dt id="term-smartsuggest.update.success.count.total">smartsuggest.update.success.count.total<a class="headerlink" href="#term-smartsuggest.update.success.count.total" title="Link to this term"></a></dt><dd><p>Total number of successful data updates per tenant.
-This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+This metric is labeled with <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
 </dd>
-<dt id="term-smartsuggest.update.fail.count">smartsuggest.update.fail.count<a class="headerlink" href="#term-smartsuggest.update.fail.count" title="Link to this term"></a></dt><dd><p>Number of successive failed update attempts for a certain tenant. If an update succeeds, this value will be reset to “0”.
-If this value reaches “5”, the respective update process will be stopped and only restarted, if suggestions for the related tenant are requested again.
-This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+<dt id="term-smartsuggest.update.fail.count">smartsuggest.update.fail.count<a class="headerlink" href="#term-smartsuggest.update.fail.count" title="Link to this term"></a></dt><dd><p>Number of consecutive failed update attempts for a tenant. The counter is reset to <code class="docutils literal notranslate"><span class="pre">0</span></code> after a successful update.
+If this value reaches <code class="docutils literal notranslate"><span class="pre">5</span></code>, the update process is stopped and will only resume once suggestions for the corresponding tenant are requested again. This metric is labeled with <code class="docutils literal notranslate"><span class="pre">tenant_name</span></code> and <code class="docutils literal notranslate"><span class="pre">tenant_channel</span></code>.</p>
 </dd>
 <dt id="term-smartsuggest.suggestions.size">smartsuggest.suggestions.size<a class="headerlink" href="#term-smartsuggest.suggestions.size" title="Link to this term"></a></dt><dd><p>Current number of raw suggestion records per tenant.
-This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+This metric is labeled with <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
 </dd>
-<dt id="term-smartsuggest.suggestions.age.seconds">smartsuggest.suggestions.age.seconds<a class="headerlink" href="#term-smartsuggest.suggestions.age.seconds" title="Link to this term"></a></dt><dd><p>That is the amount of time passed, since the last successful update took place.
-This metric is tagged with the corresponding <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
+<dt id="term-smartsuggest.suggestions.age.seconds">smartsuggest.suggestions.age.seconds<a class="headerlink" href="#term-smartsuggest.suggestions.age.seconds" title="Link to this term"></a></dt><dd><p>Time in seconds since the last successful update.
+This metric is labeled with <cite>tenant_name</cite> and <cite>tenant_channel</cite>.</p>
 </dd>
 </dl>
 </section>
