@@ -3,6 +3,9 @@ Changelog
 
 Version 2
 ---------
+Version 2.5.5
+    - For query-testing skip splitting completely on test-ratio 0
+
 Version 2.5.4
     - Update dependencies
     - Reduce GC-load by reusing empty mapping obj
