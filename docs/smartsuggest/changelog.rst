@@ -3,6 +3,9 @@ Changelog
 
 Version 2
 ---------
+Version 2.5.5
+    - Fix grouping logic for different data sources
+
 Version 2.5.4
     - Update dependencies
     - Fix NoSuchElementException from drained iterator for maxExpandScopes > 2
