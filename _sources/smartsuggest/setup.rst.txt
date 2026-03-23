@@ -25,7 +25,7 @@ Our continuous integration pipeline publishes the library to our internal Maven 
 
       .. code-block:: bash
 
-        docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:2.5.4
+        docker run -d --name=smartsuggest-service -e SH_API_KEY=<YourS3cr3tAPIkey> -P commerceexperts/searchhub-smartsuggest-service:2.5.5
 
       The container must be initiated with your API key set to the environment variable `SH_API_KEY`.
       The container exposes port 8081 which can be mapped to any port.
@@ -40,7 +40,7 @@ Our continuous integration pipeline publishes the library to our internal Maven 
             <dependency>
                 <groupId>io.searchhub</groupId>
                 <artifactId>smartsuggest</artifactId>
-                <version>2.5.4</version>
+                <version>2.5.5</version>
             </dependency>
 
             <!-- ... -->
