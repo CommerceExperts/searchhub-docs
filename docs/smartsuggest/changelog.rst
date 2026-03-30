@@ -3,6 +3,13 @@ Changelog
 
 Version 2
 ---------
+Version 2.6.0
+    - Lib: Shade some partial used utility dependencies into library to reduce transitive dependencies
+    - Implement and utilize multi-get for fetching suggest-products from payload-index
+    - Replace Bloomfilter with faster XOR-filter for payload lookups
+    - Fix potential NPE during cleanupMeters
+    - Fix Class-Not-Found for missing AWS SDK when checking on s3-data-provider
+
 Version 2.5.5
     - Fix grouping logic for different data sources
 
