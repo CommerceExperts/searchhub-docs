@@ -3,6 +3,12 @@ Changelog
 
 Version 2
 ---------
+Version 2.6.0
+    - Replace Bloomfilter with Cuckoo filter for less useless fuzzy lookups
+    - Service: utilize Cuckoo filter for filtering already reported stats
+    - Lib: Shade some partial used utility dependencies into library to reduce transitive dependencies
+    - Fix missing meters of fuzzy-mapping-stats
+
 Version 2.5.5
     - For query-testing skip splitting completely on test-ratio 0
 

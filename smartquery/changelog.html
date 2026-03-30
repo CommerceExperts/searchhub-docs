@@ -100,6 +100,13 @@
 <section id="version-2">
 <h2>Version 2<a class="headerlink" href="#version-2" title="Link to this heading"></a></h2>
 <dl class="simple">
+<dt>Version 2.6.0</dt><dd><ul class="simple">
+<li><p>Replace Bloomfilter with Cuckoo filter for less useless fuzzy lookups</p></li>
+<li><p>Service: utilize Cuckoo filter for filtering already reported stats</p></li>
+<li><p>Lib: Shade some partial used utility dependencies into library to reduce transitive dependencies</p></li>
+<li><p>Fix missing meters of fuzzy-mapping-stats</p></li>
+</ul>
+</dd>
 <dt>Version 2.5.5</dt><dd><ul class="simple">
 <li><p>For query-testing skip splitting completely on test-ratio 0</p></li>
 </ul>

@@ -100,6 +100,14 @@
 <section id="version-2">
 <h2>Version 2<a class="headerlink" href="#version-2" title="Link to this heading"></a></h2>
 <dl class="simple">
+<dt>Version 2.6.0</dt><dd><ul class="simple">
+<li><p>Lib: Shade some partial used utility dependencies into library to reduce transitive dependencies</p></li>
+<li><p>Implement and utilize multi-get for fetching suggest-products from payload-index</p></li>
+<li><p>Replace Bloomfilter with faster XOR-filter for payload lookups</p></li>
+<li><p>Fix potential NPE during cleanupMeters</p></li>
+<li><p>Fix Class-Not-Found for missing AWS SDK when checking on s3-data-provider</p></li>
+</ul>
+</dd>
 <dt>Version 2.5.5</dt><dd><ul class="simple">
 <li><p>Fix grouping logic for different data sources</p></li>
 </ul>
