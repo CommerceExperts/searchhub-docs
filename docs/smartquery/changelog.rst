@@ -3,6 +3,10 @@ Changelog
 
 Version 2
 ---------
+Version 2.6.1
+    - Update Jackson dependency
+    - Fix shading failures that lead to missing fuzzy-mapping
+
 Version 2.6.0
     - Replace Bloomfilter with Cuckoo filter for less useless fuzzy lookups
     - Service: utilize Cuckoo filter for filtering already reported stats

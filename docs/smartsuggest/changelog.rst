@@ -3,6 +3,10 @@ Changelog
 
 Version 2
 ---------
+Version 2.6.1
+    - Update Jackson dependency
+    - Fix shading failures that lead to inactive cache
+
 Version 2.6.0
     - Lib: Shade some partial used utility dependencies into library to reduce transitive dependencies
     - Implement and utilize multi-get for fetching suggest-products from payload-index
