@@ -3,6 +3,10 @@ Changelog
 
 Version 2
 ---------
+Version 2.6.2
+    - Update vulnerable dependencies: undertow, logback, feign/okhttp
+    - Fix slim service image contains unused dependencies
+
 Version 2.6.1
     - Update Jackson dependency
     - Fix shading failures that lead to missing fuzzy-mapping
