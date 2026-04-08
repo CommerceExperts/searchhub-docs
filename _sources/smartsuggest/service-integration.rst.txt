@@ -19,7 +19,7 @@ Since version 2.5, the service provides an endpoint for retrieving contextual qu
 
 .. code-block:: bash
 
-  http://<host>:<port>/smartsuggest/<version>/<tenant-name>/<tenant-channel>?context=<uri>[&limit=<n>]
+  http://<host>:<port>/contextual/<version>/<tenant-name>/<tenant-channel>?context=<uri>[&limit=<n>]
 
 **Request Parameters**:
 
