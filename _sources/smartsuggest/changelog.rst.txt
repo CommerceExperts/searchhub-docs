@@ -3,6 +3,12 @@ Changelog
 
 Version 2
 ---------
+Version 2.6.3
+    - Fix wrong warning regarding empty preload-tenant
+    - Fix de-serialization for adjusted UrlClassifierConfig as part of suggest-config
+    - Fix potential NPE if context-key lookup does bypass filter
+    - improved dependency management
+
 Version 2.6.2
     - Update vulnerable dependencies: undertow, logback, feign/okhttp
     - Fix slim service image contains unused dependencies

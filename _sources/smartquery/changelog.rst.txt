@@ -3,6 +3,10 @@ Changelog
 
 Version 2
 ---------
+Version 2.6.3
+    - Fix wrong warning regarding empty preload-tenant
+    - improved dependency management
+
 Version 2.6.2
     - Update vulnerable dependencies: undertow, logback, feign/okhttp
     - Fix slim service image contains unused dependencies
