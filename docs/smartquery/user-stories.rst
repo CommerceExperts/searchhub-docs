@@ -15,6 +15,10 @@ Acceptance criteria
   - internal systems can access https://query.searchhub.io/ to perform the search phrase check
   - internal systems can access https://import.searchhub.io/ to send and receive data updates
 
+Technical hint
+  - It is possible that search managers create redirects to filtered search result pages of that same query, for example "running shoes" are redirected to ``..?q=running+shoes&cat=Sports/Running``.
+    To avoid endless redirect loops, those redirects should generally be flagged as "redirected" and not used again by smartQuery. The returned masterQuery can still be used to map to the best query.
+
 
 smartQuery Query Testing Support
 --------------------------------
