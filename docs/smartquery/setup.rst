@@ -5,6 +5,24 @@ smartQuery module is delivered as a Java Library. If you’re running on Java, i
 
 The HTTP/REST headless service is available for all other platforms or when external proprietary code is restricted. Delivered as public Docker image, it can be deployed on-premise or hosted by searchHub as a service. For optimal performance, we recommend running the service on-premise to minimize latency. The simple JSON API can be easily integrated using a generated OpenAPI client, a custom-built HTTP client, or one of our in-house clients.
 
+Integration Plugins
+-------------------
+
+For some plattforms searchHub SaaS can be connected through a plugin to minimize integration effort. Evaluate if this is a suitable solution for your system and don't hesitate to consult us for advice.
+
+.. tabs::
+
+   .. tab:: Shopware 6 Plugin
+
+    Plugin provided and maintained by nuonic
+    URL: https://github.com/nuonic-digital/sw-plugins.nuonic.searchhub
+
+   .. tab: Spryker Plugin (POC)
+
+    This plugin is a bit older already, but still usable for older spryker versions or a nice proof-of-concept for newer integration.
+    URL: https://github.com/CommerceExperts/spryker-searchhub
+
+
 Requirements
 ------------
 
