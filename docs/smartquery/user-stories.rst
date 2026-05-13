@@ -20,7 +20,7 @@ Technical hint
     The problem is that without a "safety switch," the system might receive a redirect-URL from smartQuery and try to redirect the user all over again, creating an infinite loop.
     To prevent this, all redirects should generally be flagged as "redirected" and handled again by smartQuery.
     Example:
-        - Set the Redirect Flag: When a search query is mapped to a redirect, that URL must explicitly flagged: For example by appending ``&redirected=true`` or ``&sh=0`` to the request URL.
+        - Set the Redirect Flag: When a search query is mapped to a redirect, that URL must explicitly be flagged: For example by appending ``&redirected=true`` or ``&sh=0`` to the request URL.
         - System Behavior: At your smartQuery integration this flag must be used to skip the usage of smartQuery.
 
 
@@ -92,7 +92,7 @@ Technical hint
     The problem is that without a "safety switch," the system might receive a redirect-URL from smartQuery and try to redirect the user all over again, creating an infinite loop.
     To prevent this, all redirects should generally be flagged as "redirected" and handled again by smartQuery.
     Example:
-        - Set the Redirect Flag: When a search query is mapped to a redirect, that URL must explicitly flagged: For example by appending ``&redirected=true`` or ``&sh=0`` to the request URL.
+        - Set the Redirect Flag: When a search query is mapped to a redirect, that URL must explicitly be flagged: For example by appending ``&redirected=true`` or ``&sh=0`` to the request URL.
         - System Behavior: At your smartQuery integration this flag must be used to skip the usage of smartQuery.
 
 
