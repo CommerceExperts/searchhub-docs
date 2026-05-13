@@ -18,11 +18,10 @@ Acceptance criteria
 Technical hint
   - It is possible that search managers create redirects to filtered search result pages of that same query, for example "running shoes" are redirected to ``..?q=running+shoes&cat=Sports/Running``.
     The problem is that without a "safety switch," the system might receive a redirect-URL from smartQuery and try to redirect the user all over again, creating an infinite loop.
-    To prevent this, all redirects should generally be flagged as "redirected" and not used again by smartQuery. The returned masterQuery can still be used to map to the best query.
+    To prevent this, all redirects should generally be flagged as "redirected" and handled again by smartQuery.
     Example:
-        - Set the Redirect Flag: When a search query is mapped to a redirect, that URL must explicitly flagged: For example by appending ``&redirected=true`` to the request URL.
-        - System Behavior: At your smartQuery integration this flag must be used to skip a potentially returned redirect.
-        - Using masterQuery: Even with the flag set, the masterQuery returned by smartQuery should still be used as the query that is sent to your search engine.
+        - Set the Redirect Flag: When a search query is mapped to a redirect, that URL must explicitly flagged: For example by appending ``&redirected=true`` or ``&sh=0`` to the request URL.
+        - System Behavior: At your smartQuery integration this flag must be used to skip the usage of smartQuery.
 
 
 smartQuery Query Testing Support
@@ -91,11 +90,10 @@ Acceptance criteria
 Technical hint
   - It is possible that search managers create redirects to filtered search result pages of that same query, for example "running shoes" are redirected to ``..?q=running+shoes&cat=Sports/Running``.
     The problem is that without a "safety switch," the system might receive a redirect-URL from smartQuery and try to redirect the user all over again, creating an infinite loop.
-    To prevent this, all redirects should generally be flagged as "redirected" and not used again by smartQuery. The returned masterQuery can still be used to map to the best query.
+    To prevent this, all redirects should generally be flagged as "redirected" and handled again by smartQuery.
     Example:
-        - Set the Redirect Flag: A search query that is mapped to a redirect, must explicitly flagged. For example by appending ``&redirected=true`` to the request URL.
-        - System Behavior: At your smartQuery integration this flag must be used to skip using a potentially returned redirect.
-        - Using masterQuery: Even with the flag set, the masterQuery returned by smartQuery should still be used as the query that is sent to your search engine.
+        - Set the Redirect Flag: When a search query is mapped to a redirect, that URL must explicitly flagged: For example by appending ``&redirected=true`` or ``&sh=0`` to the request URL.
+        - System Behavior: At your smartQuery integration this flag must be used to skip the usage of smartQuery.
 
 
 Allow Static IP Address for Redirect URL Monitoring
