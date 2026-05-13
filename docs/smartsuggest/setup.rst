@@ -6,7 +6,7 @@ smartSuggest is a library built on top of Apache Lucene that provides high-quali
 Integration Plugins
 -------------------
 
-For some plattforms searchHub SaaS can be connected through a plugin to minimize integration effort. Evaluate if this is a suitable solution for your system and don't hesitate to consult us for advice.
+The major PHP-based platforms (Spryker, Shopware) can be connected to searchHub through a plugin to minimize integration effort. Evaluate if this is a suitable solution for your system and don't hesitate to consult us for advice.
 
 .. tabs::
 
@@ -15,9 +15,9 @@ For some plattforms searchHub SaaS can be connected through a plugin to minimize
     Plugin provided and maintained by nuonic
     URL: https://github.com/nuonic-digital/sw-plugins.nuonic.searchhub
 
-   .. tab: Spryker Plugin (POC)
+   .. tab: Spryker Plugin
 
-    This plugin is a bit older already, but still usable for older spryker versions or a nice proof-of-concept for newer integration.
+    Plugin provided and maintained by searchhub. Even if it does not fit to your Spryker version, it still can be considered as a proof-of-concept for custom integration.
     URL: https://github.com/CommerceExperts/spryker-searchhub
 
 
