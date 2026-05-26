@@ -103,7 +103,7 @@
 <p>To aid Product Owners in developing according to agile principles, we have expressed our recommended best practices as user stories. You are welcome to copy and paste this into your backlog.</p>
 <section id="smartquery-integration">
 <h2>smartQuery Integration<a class="headerlink" href="#smartquery-integration" title="Link to this heading"></a></h2>
-<dl class="simple">
+<dl>
 <dt>Story</dt><dd><p>As a customer, I want to see search results that are optimized using CXP searchHub (<a class="reference external" href="https://docs.searchhub.io/">https://docs.searchhub.io/</a>) and which are frequently updated using recent KPI data.</p>
 </dd>
 <dt>Acceptance criteria</dt><dd><ul class="simple">
@@ -111,6 +111,20 @@
 <li><p>Redirects provided by smartQuery are used to send the user to the according landing page.</p></li>
 <li><p>internal systems can access <a class="reference external" href="https://query.searchhub.io/">https://query.searchhub.io/</a> to perform the search phrase check</p></li>
 <li><p>internal systems can access <a class="reference external" href="https://import.searchhub.io/">https://import.searchhub.io/</a> to send and receive data updates</p></li>
+</ul>
+</dd>
+<dt>Technical hint</dt><dd><ul>
+<li><p>It is possible that search managers create redirects to filtered search result pages of that same query, for example “running shoes” are redirected to <code class="docutils literal notranslate"><span class="pre">..?q=running+shoes&amp;cat=Sports/Running</span></code>.
+The problem is that without a “safety switch,” the system might receive a redirect-URL from smartQuery and try to redirect the user all over again, creating an infinite loop.
+To prevent this, all redirects should generally be flagged as “redirected” and handled again by smartQuery.
+Example:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Set the Redirect Flag: When a search query is mapped to a redirect, that URL must explicitly be flagged: For example by appending <code class="docutils literal notranslate"><span class="pre">&amp;redirected=true</span></code> or <code class="docutils literal notranslate"><span class="pre">&amp;sh=0</span></code> to the request URL.</p></li>
+<li><p>System Behavior: At your smartQuery integration this flag must be used to skip the usage of smartQuery.</p></li>
+</ul>
+</div></blockquote>
+</li>
 </ul>
 </dd>
 </dl>
@@ -172,11 +186,26 @@ These experiments can be viewed in the searchHub UI under “Query Testing.”</
 </section>
 <section id="searchhub-redirects">
 <h2>searchHub Redirects<a class="headerlink" href="#searchhub-redirects" title="Link to this heading"></a></h2>
-<dl class="simple">
+<p><em>This story is actually included in the standard smartQuery integration. However it can be used to split the integration into separate steps.</em></p>
+<dl>
 <dt>Story</dt><dd><p>As a search manager, I want users to be redirected to specific landing pages for certain queries based on the configurations set within searchHub.</p>
 </dd>
 <dt>Acceptance criteria</dt><dd><ul class="simple">
 <li><p>When a query is configured for a redirect, users should be directed to the corresponding landing page or URL.</p></li>
+</ul>
+</dd>
+<dt>Technical hint</dt><dd><ul>
+<li><p>It is possible that search managers create redirects to filtered search result pages of that same query, for example “running shoes” are redirected to <code class="docutils literal notranslate"><span class="pre">..?q=running+shoes&amp;cat=Sports/Running</span></code>.
+The problem is that without a “safety switch,” the system might receive a redirect-URL from smartQuery and try to redirect the user all over again, creating an infinite loop.
+To prevent this, all redirects should generally be flagged as “redirected” and handled again by smartQuery.
+Example:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Set the Redirect Flag: When a search query is mapped to a redirect, that URL must explicitly be flagged: For example by appending <code class="docutils literal notranslate"><span class="pre">&amp;redirected=true</span></code> or <code class="docutils literal notranslate"><span class="pre">&amp;sh=0</span></code> to the request URL.</p></li>
+<li><p>System Behavior: At your smartQuery integration this flag must be used to skip the usage of smartQuery.</p></li>
+</ul>
+</div></blockquote>
+</li>
 </ul>
 </dd>
 </dl>
