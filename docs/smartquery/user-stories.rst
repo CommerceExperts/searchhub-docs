@@ -15,6 +15,14 @@ Acceptance criteria
   - internal systems can access https://query.searchhub.io/ to perform the search phrase check
   - internal systems can access https://import.searchhub.io/ to send and receive data updates
 
+Technical hint
+  - It is possible that search managers create redirects to filtered search result pages of that same query, for example "running shoes" are redirected to ``..?q=running+shoes&cat=Sports/Running``.
+    The problem is that without a "safety switch," the system might receive a redirect-URL from smartQuery and try to redirect the user all over again, creating an infinite loop.
+    To prevent this, all redirects should generally be flagged as "redirected" and handled again by smartQuery.
+    Example:
+        - Set the Redirect Flag: When a search query is mapped to a redirect, that URL must explicitly be flagged: For example by appending ``&redirected=true`` or ``&sh=0`` to the request URL.
+        - System Behavior: At your smartQuery integration this flag must be used to skip the usage of smartQuery.
+
 
 smartQuery Query Testing Support
 --------------------------------
@@ -71,11 +79,21 @@ Technical Guidance
 searchHub Redirects
 -------------------
 
+*This story is actually included in the standard smartQuery integration. However it can be used to split the integration into separate steps.*
+
 Story
   As a search manager, I want users to be redirected to specific landing pages for certain queries based on the configurations set within searchHub.
 
 Acceptance criteria
   - When a query is configured for a redirect, users should be directed to the corresponding landing page or URL.
+
+Technical hint
+  - It is possible that search managers create redirects to filtered search result pages of that same query, for example "running shoes" are redirected to ``..?q=running+shoes&cat=Sports/Running``.
+    The problem is that without a "safety switch," the system might receive a redirect-URL from smartQuery and try to redirect the user all over again, creating an infinite loop.
+    To prevent this, all redirects should generally be flagged as "redirected" and handled again by smartQuery.
+    Example:
+        - Set the Redirect Flag: When a search query is mapped to a redirect, that URL must explicitly be flagged: For example by appending ``&redirected=true`` or ``&sh=0`` to the request URL.
+        - System Behavior: At your smartQuery integration this flag must be used to skip the usage of smartQuery.
 
 
 Allow Static IP Address for Redirect URL Monitoring
