@@ -3,6 +3,24 @@ Setup
 
 smartSuggest is a library built on top of Apache Lucene that provides high-quality query and product suggestion capabilities. The Java library can be integrated directly into applications to build a custom suggestion service. Alternatively, it is also available as a ready-to-use HTTP service packaged as a container image.
 
+Integration Plugins
+-------------------
+
+The major PHP-based platforms (Spryker, Shopware) can be connected to searchHub through a plugin to minimize integration effort. Evaluate if this is a suitable solution for your system and don't hesitate to consult us for advice.
+
+.. tabs::
+
+   .. tab:: Shopware 6 Plugin
+
+    Plugin provided and maintained by nuonic
+    URL: https://github.com/nuonic-digital/sw-plugins.nuonic.searchhub
+
+   .. tab: Spryker Plugin
+
+    Plugin provided and maintained by searchhub. Even if it does not fit to your Spryker version, it still can be considered as a proof-of-concept for custom integration.
+    URL: https://github.com/CommerceExperts/spryker-searchhub
+
+
 Requirements
 ------------
 

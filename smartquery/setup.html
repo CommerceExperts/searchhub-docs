@@ -57,6 +57,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../module_smartquery.html">Module: smartQuery</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="user-stories.html">User Stories</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#integration-plugins">Integration Plugins</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#client-setup">Client Setup</a></li>
@@ -101,6 +102,14 @@
 <h1>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h1>
 <p>smartQuery module is delivered as a Java Library. If you’re running on Java, it is recommended to integrate it directly into your search infrastructure.</p>
 <p>The HTTP/REST headless service is available for all other platforms or when external proprietary code is restricted. Delivered as public Docker image, it can be deployed on-premise or hosted by searchHub as a service. For optimal performance, we recommend running the service on-premise to minimize latency. The simple JSON API can be easily integrated using a generated OpenAPI client, a custom-built HTTP client, or one of our in-house clients.</p>
+<section id="integration-plugins">
+<h2>Integration Plugins<a class="headerlink" href="#integration-plugins" title="Link to this heading"></a></h2>
+<p>The major PHP-based platforms (Spryker, Shopware) can be connected to searchHub through a plugin to minimize integration effort. Evaluate if this is a suitable solution for your system and don’t hesitate to consult us for advice.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Shopware 6 Plugin</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><p>Plugin provided and maintained by nuonic
+URL: <a class="reference external" href="https://github.com/nuonic-digital/sw-plugins.nuonic.searchhub">https://github.com/nuonic-digital/sw-plugins.nuonic.searchhub</a></p>
+</div></div>
+</section>
 <section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
 <ul class="simple">
@@ -110,12 +119,12 @@
 </ul>
 <p>Depending on the chosen integration type, these are additional requirements:</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">HTTP Service</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><ul class="simple">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">HTTP Service</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><ul class="simple">
 <li><p>The runtime environment must be able to verify Let’s Encrypt certificates</p></li>
 <li><p>Java version &gt;= 17</p></li>
 <li><p>Memory: at least 100MB additional Java Heap space + more space depending on the amount of data to manage</p></li>
 </ul>
-</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><ul class="simple">
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><ul class="simple">
 <li><p>Container runtime environment (docker, kubernetes, etc.)</p></li>
 <li><p>Memory: at least 200MB + more space depending on the amount of data to manage</p></li>
 </ul>
@@ -125,7 +134,7 @@
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
 <p>Our continuous implementation build pushes the library into our own Maven repository and builds the according docker image right afterwards.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">HTTP Service (docker)</button><button aria-controls="panel-1-1-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-2" name="1-2" role="tab" tabindex="-1">PHP Client</button><button aria-controls="panel-1-1-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-3" name="1-3" role="tab" tabindex="-1">JS Client</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><p>Add smartQuery as dependency to your project.</p>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">HTTP Service (docker)</button><button aria-controls="panel-2-2-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-2" name="2-2" role="tab" tabindex="-1">PHP Client</button><button aria-controls="panel-2-2-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-3" name="2-3" role="tab" tabindex="-1">JS Client</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><p>Add smartQuery as dependency to your project.</p>
 <div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
 <span class="w">    </span><span class="nt">&lt;groupId&gt;</span>io.searchhub<span class="nt">&lt;/groupId&gt;</span>
 <span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>smartquery<span class="nt">&lt;/artifactId&gt;</span>
@@ -140,7 +149,7 @@
 <span class="nt">&lt;/repository&gt;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>commerceexperts/smartquery-service:2.6.3
+</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>commerceexperts/smartquery-service:2.6.3
 </pre></div>
 </div>
 <p>The container must be initiated with your API key set to the environment variable <cite>SH_API_KEY</cite>.
@@ -156,7 +165,7 @@ The container exposes port 8081 which can be mapped to any port.</p>
 <li><p>Enable debug logging, in order to obtain more information concerning internal activities. Activate this using the following docker startup parameter <cite>-e JAVA_TOOL_OPTIONS=”-Dlog.searchhub.level=DEBUG”</cite></p></li>
 </ul>
 </div></blockquote>
-</div><div aria-labelledby="tab-1-1-2" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-2" name="1-2" role="tabpanel" tabindex="0"><p>See the ‘HTTP Service’ tab about how to start the docker container.
+</div><div aria-labelledby="tab-2-2-2" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-2" name="2-2" role="tabpanel" tabindex="0"><p>See the ‘HTTP Service’ tab about how to start the docker container.
 Then to use the HTTP Service in a PHP environment you can use our public <a class="reference external" href="https://github.com/CommerceExperts/searchhub-php-client">PHP Client</a> from <code class="docutils literal notranslate"><span class="pre">https://github.com/CommerceExperts/searchhub-php-client</span></code>.
 You will find several code samples through the documentation using that PHP Client.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -166,7 +175,7 @@ You will find several code samples through the documentation using that PHP Clie
 <span class="p">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-1-1-3" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-3" name="1-3" role="tabpanel" tabindex="0"><p>In case you request a search-vendor API directly from the frontend of your shop or from a Node JS backend, feel free to use our <a class="reference external" href="https://github.com/CommerceExperts/searchhub-js-client">searchHub JS Client</a> from
+</div><div aria-labelledby="tab-2-2-3" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-3" name="2-3" role="tabpanel" tabindex="0"><p>In case you request a search-vendor API directly from the frontend of your shop or from a Node JS backend, feel free to use our <a class="reference external" href="https://github.com/CommerceExperts/searchhub-js-client">searchHub JS Client</a> from
 <code class="docutils literal notranslate"><span class="pre">https://github.com/CommerceExperts/searchhub-js-client</span></code>.</p>
 <p>For example install it via <code class="code docutils literal notranslate"><span class="pre">npm</span> <span class="pre">i</span> <span class="pre">-S</span> <span class="pre">searchhub-js-client</span></code></p>
 </div></div>
@@ -189,7 +198,7 @@ or other instructions can be processed.</p>
 <p>Keep in mind that after initializing smartQuery, there is an asynchronous process running in the background that fetches the first data.
 It needs several seconds until the data actually responds. For testing you can make this process blocking, but for production it should stay exactly like that.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-2-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-2-2-0" name="2-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-2-2-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-1" name="2-1" role="tab" tabindex="-1">HTTP Service (curl)</button><button aria-controls="panel-2-2-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-2" name="2-2" role="tab" tabindex="-1">PHP Client</button><button aria-controls="panel-2-2-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-2-2-3" name="2-3" role="tab" tabindex="-1">JS Client</button></div><div aria-labelledby="tab-2-2-0" class="sphinx-tabs-panel" id="panel-2-2-0" name="2-0" role="tabpanel" tabindex="0"><p>The key class at the Java integration is the <code class="code docutils literal notranslate"><span class="pre">QueryMapperManager</span></code>. It is responsible for initializing and managing the QueryMappers for one or more Tenants.
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-3-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-3-3-0" name="3-0" role="tab" tabindex="0">Java Integration</button><button aria-controls="panel-3-3-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-1" name="3-1" role="tab" tabindex="-1">HTTP Service (curl)</button><button aria-controls="panel-3-3-2" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-2" name="3-2" role="tab" tabindex="-1">PHP Client</button><button aria-controls="panel-3-3-3" aria-selected="false" class="sphinx-tabs-tab" id="tab-3-3-3" name="3-3" role="tab" tabindex="-1">JS Client</button></div><div aria-labelledby="tab-3-3-0" class="sphinx-tabs-panel" id="panel-3-3-0" name="3-0" role="tabpanel" tabindex="0"><p>The key class at the Java integration is the <code class="code docutils literal notranslate"><span class="pre">QueryMapperManager</span></code>. It is responsible for initializing and managing the QueryMappers for one or more Tenants.
 It needs to be instantiated with the provided API key.
 It’s <em>important</em> to use a single <cite>QueryMapperManager</cite> object since it will internally spawn and manage several threads to update the <cite>QueryMapper</cite> instances asynchronously,
 and retain a reference to it.</p>
@@ -243,7 +252,7 @@ and retain a reference to it.</p>
 If the environment variable <cite>SH_API_KEY</cite> is available, the API Key is set to it. Same for <cite>SH_INIT_TENANTS</cite> that adds tenants to the list of preloaded tenants.
 In that case you can simple use <code class="code docutils literal notranslate"><span class="pre">QueryMapperManager.builder().build()</span></code></p>
 </div>
-</div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><p>If you have the service started, use the known tenant data and a sample user query to fetch a query mapping.</p>
+</div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><p>If you have the service started, use the known tenant data and a sample user query to fetch a query mapping.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$&gt;<span class="w"> </span><span class="nv">port</span><span class="o">=</span><span class="m">10240</span>
 $&gt;<span class="w"> </span><span class="nv">tenant_name</span><span class="o">=</span><span class="s2">&quot;example&quot;</span>
 $&gt;<span class="w"> </span><span class="nv">tenant_channel</span><span class="o">=</span><span class="s2">&quot;com&quot;</span>
@@ -260,7 +269,7 @@ $&gt;<span class="w"> </span>curl<span class="w"> </span><span class="s2">&quot;
 <span class="w"> </span>&gt;<span class="w">  </span><span class="o">}</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-2-2-2" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-2" name="2-2" role="tabpanel" tabindex="0"><p>The PHP Client comes with the ability to run in several modes. But here we configure it to run connected to a local HTTP service.</p>
+</div><div aria-labelledby="tab-3-3-2" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-2" name="3-2" role="tabpanel" tabindex="0"><p>The PHP Client comes with the ability to run in several modes. But here we configure it to run connected to a local HTTP service.</p>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$tenant_name = &quot;example&quot;;</span>
 <span class="x">$tenant_channel = &quot;com&quot;;</span>
 <span class="x">$userQuery = &quot;jeanss&quot;;</span>
@@ -271,7 +280,7 @@ $&gt;<span class="w"> </span>curl<span class="w"> </span><span class="s2">&quot;
 <span class="x">$queryMapping = $client-&gt;mapQuery($userQuery);</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-2-2-3" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-3" name="2-3" role="tabpanel" tabindex="0"><p>The JS Client can either connect to our SaaS Service or any on-prem searchHub service. For SaaS endpoint only the tenant name is required for initialization.
+</div><div aria-labelledby="tab-3-3-3" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-3" name="3-3" role="tabpanel" tabindex="0"><p>The JS Client can either connect to our SaaS Service or any on-prem searchHub service. For SaaS endpoint only the tenant name is required for initialization.
 However additional it comes with the ability to do the splitting for an A/B test that can be evaluated by searchHub. Set this value to <cite>false</cite> unless other communicated.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">BrowserClientFactory</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;searchhub-js-client&quot;</span><span class="p">;</span>
 
