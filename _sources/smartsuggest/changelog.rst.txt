@@ -3,11 +3,17 @@ Changelog
 
 Version 2
 ---------
+Version 2.7.0
+    - Replace parent-pom with managed dependencies
+    - Add support for additional suggest types (sku, content); Suggest-Settings define the share-ratio for each type
+    - Introduce different suggest-engines that can be different per type
+    - Fetch Suggest-Settings directly from api.searchhub.io
+
 Version 2.6.3
     - Fix wrong warning regarding empty preload-tenant
     - Fix de-serialization for adjusted UrlClassifierConfig as part of suggest-config
     - Fix potential NPE if context-key lookup does bypass filter
-    - improved dependency management
+    - Improve dependency management
 
 Version 2.6.2
     - Update vulnerable dependencies: undertow, logback, feign/okhttp

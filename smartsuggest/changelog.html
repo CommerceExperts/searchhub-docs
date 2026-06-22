@@ -100,11 +100,18 @@
 <section id="version-2">
 <h2>Version 2<a class="headerlink" href="#version-2" title="Link to this heading"></a></h2>
 <dl class="simple">
+<dt>Version 2.7.0</dt><dd><ul class="simple">
+<li><p>Replace parent-pom with managed dependencies</p></li>
+<li><p>Add support for additional suggest types (sku, content); Suggest-Settings define the share-ratio for each type</p></li>
+<li><p>Introduce different suggest-engines that can be different per type</p></li>
+<li><p>Fetch Suggest-Settings directly from api.searchhub.io</p></li>
+</ul>
+</dd>
 <dt>Version 2.6.3</dt><dd><ul class="simple">
 <li><p>Fix wrong warning regarding empty preload-tenant</p></li>
 <li><p>Fix de-serialization for adjusted UrlClassifierConfig as part of suggest-config</p></li>
 <li><p>Fix potential NPE if context-key lookup does bypass filter</p></li>
-<li><p>improved dependency management</p></li>
+<li><p>Improve dependency management</p></li>
 </ul>
 </dd>
 <dt>Version 2.6.2</dt><dd><ul class="simple">
