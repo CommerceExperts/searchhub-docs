@@ -3,6 +3,10 @@ Changelog
 
 Version 2
 ---------
+Version 2.7.0
+    - Result-Modifications can switch from in-memory lookup to Payload-Access lookup
+    - Replace parent-pom with managed dependencies
+
 Version 2.6.3
     - Fix wrong warning regarding empty preload-tenant
     - improved dependency management
