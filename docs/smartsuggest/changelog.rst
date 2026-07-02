@@ -3,6 +3,12 @@ Changelog
 
 Version 2
 ---------
+Version 2.7.1
+    - Migrate image base to java 25
+    - Improve robustness of suggest-config reader
+    - Update vulnerable dependencies: undertow, micrometer, logback, jackson
+    - Minor updates of other dependencies: slf4j, feign
+
 Version 2.7.0
     - Replace parent-pom with managed dependencies
     - Add support for additional suggest types (sku, content); Suggest-Settings define the share-ratio for each type

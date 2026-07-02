@@ -3,6 +3,11 @@ Changelog
 
 Version 2
 ---------
+Version 2.7.1
+    - Migrate image base to java 25
+    - Update vulnerable dependencies: undertow, micrometer, logback, jackson
+    - Minor updates of other dependencies: slf4j, feign
+
 Version 2.7.0
     - Result-Modifications can switch from in-memory lookup to Payload-Access lookup
     - Replace parent-pom with managed dependencies
