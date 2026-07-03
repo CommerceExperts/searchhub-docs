@@ -3,6 +3,9 @@ Changelog
 
 Version 2
 ---------
+Version 2.7.2
+    - Fix release version reference in pom.xml
+
 Version 2.7.1
     - Migrate image base to java 25
     - Update vulnerable dependencies: undertow, micrometer, logback, jackson
