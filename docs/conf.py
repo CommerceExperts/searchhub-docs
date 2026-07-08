@@ -104,6 +104,7 @@ html_css_files = [
 ]
 html_js_files = [
     'chatbot.js',
+    'ai_search.js'
 ]
 
 # Add any paths that contain custom static files (such as style sheets) here,
