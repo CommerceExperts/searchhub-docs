@@ -10,3 +10,16 @@
 span.pre {
   color: #2B2D42;
 }
+
+/* Unterdrückt das gelbe Sphinx-Such-Highlighting auf Artikelseiten */
+span.highlighted {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: inherit !important;
+    font-weight: inherit !important;
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
