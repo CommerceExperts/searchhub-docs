@@ -103,7 +103,6 @@ html_css_files = [
     'custom.css',
 ]
 html_js_files = [
-    'chatbot.js',
     'ai_search.js'
 ]
 
