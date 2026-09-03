@@ -21,5 +21,9 @@ Acceptance criteria
   - internal systems can access https://query.searchhub.io/ to fetch the necessary data
   - internal systems can access https://import.searchhub.io/ to send usage information that are used to monitor and optimize the results
 
+Notes
+  - **Product Suggestions** are disabled by default to save resources. In case those features are desired, please let us know.
+
+
 .. _smartQuery: https://docs.searchhub.io/module_smartquery.html
 .. _smartSuggest module: https://docs.searchhub.io/module_smartsuggest.html
