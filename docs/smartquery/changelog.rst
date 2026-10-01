@@ -3,6 +3,9 @@ Changelog
 
 Version 2
 ---------
+Version 2.8.0
+    - Update jackson, feign and micrometer to fix known vulnerabilites
+
 Version 2.7.2
     - Fix release version reference in pom.xml
 
