@@ -3,6 +3,14 @@ Changelog
 
 Version 2
 ---------
+Version 2.8.0
+    - Add recovery routine for indexes, that have no data during startup
+    - Improve fuzzy matching for German umlauts
+    - Improve match-key detection for long suggestions
+    - Several performance improvements
+    - Move behavior-improved suggestions (sharepened queries) to end of suggested list
+    - Update jackson, feign and micrometer to fix known vulnerabilites
+
 Version 2.7.2
     - Fix release version reference in pom.xml
 
