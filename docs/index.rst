@@ -11,7 +11,9 @@ If you're new to searchHub or at the beginning of integrating it, we recommend t
    integration-guide
    ingestion
    search-collector
-   module_*
+   module_smartquery
+   module_smartsuggest
+   module_ltr_data
    operations
    glossary
 

@@ -1,5 +1,5 @@
-LTR Data API
-============
+Module: LTR Data API
+====================
 
 Introduction
 ------------
