@@ -60,7 +60,9 @@ resetBuildDir() {
     # the very same repository, just a different branch is checkoud in this subdirectory
     git clone --depth 1 --single-branch --branch="$TARGET_BRANCH" -v git@github.com:CommerceExperts/searchhub-docs.git _build/html
 }
-resetBuildDir
+if ((NO_BUILD_DIR_RESET)); then echo "skipping build dir reset due to NO_BUILD_DIR_RESET=1"
+else resetBuildDir
+fi
 
 # - replace placeholders, like version numbers etc:
 substModuleVersions .
