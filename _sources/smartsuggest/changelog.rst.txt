@@ -8,7 +8,7 @@ Version 2.8.0
     - Improve fuzzy matching for German umlauts
     - Improve match-key detection for long suggestions
     - Several performance improvements
-    - Move behavior-improved suggestions (sharepened queries) to end of suggested list
+    - Move behavior-improved suggestions (sharpened queries) to end of suggested list
     - Update jackson, feign and micrometer to fix known vulnerabilites
 
 Version 2.7.2
