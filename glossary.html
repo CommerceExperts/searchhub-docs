@@ -53,6 +53,7 @@
 <li class="toctree-l1"><a class="reference internal" href="search-collector.html">Search Collector</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: smartQuery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: smartSuggest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_ltr_data.html">Module: LTR Data API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Common Operations</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Glossary</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#tenant">Tenant</a></li>
@@ -120,6 +121,7 @@ The naming is part of the setup and in doubt is normally discussed in one of the
 <p>In the event the user query is able to be mapped, a different search query will return. The replacement of a user-query with a potentially other query is what we call a query mapping.</p>
 <p>If the user query itself is already known as the best query, we map it back to that identical query. This is tracked as a successful mapping nevertheless.</p>
 <p>If the user query can’t be mapped then itself should be sent to the search engine. The integration methods and endpoints return rich objects that contain all the required information.</p>
+<p>A query mapping result can also include redirect URLs, result modifications, related queries, potential corrections and eventually more. All of them are named “mapping target”</p>
 </section>
 <section id="bypassing-query">
 <h2>Bypassing Query<a class="headerlink" href="#bypassing-query" title="Link to this heading"></a></h2>

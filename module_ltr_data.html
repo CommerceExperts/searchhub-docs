@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module: LTR Data API &mdash; CXP SearchHub 0.63.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=2a5a4839" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.jpg"/>
+    <link rel="canonical" href="https://commerceexperts.github.io/searchhub-docs/module_ltr_data.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5bb3c584"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/ai_search.js?v=2af256f6"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Common Operations" href="operations.html" />
+    <link rel="prev" title="Changelog" href="smartsuggest/changelog.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2B2D42" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/logo-searchhub.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="integration-guide.html">Integration Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ingestion.html">Ingestion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="search-collector.html">Search Collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_smartquery.html">Module: smartQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: smartSuggest</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Module: LTR Data API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overall-product-attractiveness-scores">Overall Product Attractiveness Scores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#search-specific-product-attractiveness-scores">Search-Specific Product Attractiveness Scores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#product-trend-scores">Product Trend Scores</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operations.html">Common Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2B2D42" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CXP SearchHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Module: LTR Data API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/module_ltr_data.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-ltr-data-api">
+<h1>Module: LTR Data API<a class="headerlink" href="#module-ltr-data-api" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>The LTR Data API provides data sets usable for advanced use-cases of search ranking optimization, such as learning-to-rank or other machine-learning approaches. Currently it offers 3 different types of data, all usable for the assessment and evaluation of products in different e-commerce contexts:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#overall-attractiveness-scores"><span class="std std-ref">Overall Product Attractiveness Scores</span></a></p></li>
+<li><p><a class="reference internal" href="#search-attractiveness-scores"><span class="std std-ref">Search-Specific Product Attractiveness Scores</span></a></p></li>
+<li><p><a class="reference internal" href="#overall-trend-scores"><span class="std std-ref">Product Trend Scores</span></a></p></li>
+</ul>
+<p>In each data set, products are represented by their ID only, as exposed in the shop frontend to the search-tracking library “search collector”.
+The scores of each data set is retrieved from data of the same date range and considers product impressions, as well as follow-up interest through clicks and optionally carts. All scores are evaluated using standard statistical tools to ensure high confidence in the provided values.
+The final score values are provided in two different formats: one for multiplication in the range of 0 to 2, and the other for addition in the range of -1 to 1.</p>
+</section>
+<section id="overall-product-attractiveness-scores">
+<span id="overall-attractiveness-scores"></span><h2>Overall Product Attractiveness Scores<a class="headerlink" href="#overall-product-attractiveness-scores" title="Link to this heading"></a></h2>
+<p>This dataset consists of item attractiveness scores for all products, aggregated over all tracked events in search contexts.
+The attractiveness score is a weighted combination of two scores: the engagement score and the selling score. The dataset contains scores for all products seen within the defined date range; this means there are also products considered non-attractive, which receive low or negative scores.</p>
+<p><strong>Included Values per Product</strong>:</p>
+<ul class="simple">
+<li><p>EventCounts that were used as a basis for the score:</p>
+<ul>
+<li><p>impressions: An impression is counted when the item is viewed at least once during a session.</p></li>
+<li><p>clicks: A click is counted once per session and search-result, when the detail page of item is viewed</p></li>
+<li><p>carts: A cart is counted once per session and referring search-result, when an item is placed into cart</p></li>
+</ul>
+</li>
+<li><p>engagementScore: Intermediate score representing the level of engagement associated with the item.</p></li>
+<li><p>sellingScore: Intermediate score representing the item’s likelihood of being sold.</p></li>
+<li><p>finalAttractiveness: score in the range 0 to 2, intended for use as a multiplicative ranking factor:</p>
+<ul>
+<li><p>Values greater than 1 indicate an attractive item and may be used to boost it.</p></li>
+<li><p>A value of exactly 1 is neutral and leaves the original score unchanged.</p></li>
+<li><p>Values below 1 indicate an underperforming item and may be used to penalize it.</p></li>
+</ul>
+</li>
+<li><p>adjustedScore: Additive representation of the final attractiveness score, normalized to the range -1 to 1.</p></li>
+</ul>
+</section>
+<section id="search-specific-product-attractiveness-scores">
+<span id="search-attractiveness-scores"></span><h2>Search-Specific Product Attractiveness Scores<a class="headerlink" href="#search-specific-product-attractiveness-scores" title="Link to this heading"></a></h2>
+<p>This dataset consists of item attractiveness scores for products in the context of specific search results. Search results are represented as unified queries as seen in the according date range.
+The attractiveness score is a weighted combination of two scores: the engagement score and the selling score, both evaluated in the context of queries. Therefore, a single product can be evaluated several times if seen in different search results.
+The dataset contains scores for all products that reach a certain threshold during the defined date range; this means there are also products considered non-attractive, which receive low or negative scores in the corresponding context.</p>
+<p><strong>Included Values per Product and Query</strong>:</p>
+<p><em>Same as for the</em> <a class="reference internal" href="#overall-attractiveness-scores"><span class="std std-ref">Overall Product Attractiveness Scores</span></a></p>
+</section>
+<section id="product-trend-scores">
+<span id="overall-trend-scores"></span><h2>Product Trend Scores<a class="headerlink" href="#product-trend-scores" title="Link to this heading"></a></h2>
+<p>This dataset consists of item trend scores for all products, aggregated over all search contexts. That score represent whether a product is gaining or losing popularity by comparing its recent performance to a previous time period.
+The trend score is the result of several weighted features which are included in the dataset. The weights are continuously tuned by standard machine learning approaches to achieve highly confident values.
+Scores are only exposed for products where an upward or downward trend could be detected. Low or negative scores are exposed for products that show decreasing interest.</p>
+<p><strong>Included Values per Product</strong></p>
+<ul class="simple">
+<li><p>velocityScore: Intermediate score representing the rate of change between the previous observation period and the current observation period.</p></li>
+<li><p>qualityScore: Intermediate score representing the consistency of the item’s performance throughout the observation period.</p></li>
+<li><p>volatilityScore: Intermediate score representing the volatility of the item’s performance, typically based on its standard deviation.</p></li>
+<li><p>riskScore: Intermediate score representing the level of uncertainty associated with the item’s trend assessment.</p></li>
+<li><p>upsideScore: Intermediate score used to smooth the item’s attractiveness score based on the number of impressions it received.</p></li>
+<li><p>accelerationScore: Intermediate score representing the acceleration of the item’s trend, calculated as the rate of change of the velocity score.</p></li>
+<li><p>impressionVelocityScore: Intermediate score representing the rate of change in the item’s impressions.</p></li>
+<li><p>impressionAccelerationScore: Intermediate score representing the acceleration of the item’s impressions, calculated as the rate of change of the impression velocity score.</p></li>
+<li><p>shareVelocityScore: Intermediate score representing the item’s velocity relative to the overall velocity of the shop.</p></li>
+<li><p>finalAttractiveness: score in the range 0 to 2, intended for use as a multiplicative ranking factor:</p>
+<ul>
+<li><p>Values greater than 1 indicate an attractive item and may be used to boost it.</p></li>
+<li><p>A value of exactly 1 is neutral and leaves the original score unchanged.</p></li>
+<li><p>Values below 1 indicate an underperforming item and may be used to penalize it.</p></li>
+</ul>
+</li>
+<li><p>adjustedScore: Additive representation of the final attractiveness score, normalized to the range -1 to 1.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="smartsuggest/changelog.html" class="btn btn-neutral float-left" title="Changelog" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="operations.html" class="btn btn-neutral float-right" title="Common Operations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright , CXP Commerce Experts GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

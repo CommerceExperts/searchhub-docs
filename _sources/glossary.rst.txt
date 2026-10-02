@@ -26,6 +26,7 @@ When talking about a "query", we distinguish between the following types of quer
   - The search phrase, which smartQuery maps to, is called "search query" because that's the actual text that the search engine has to process.
   - Finally, we have the "technical query". This is the structured query that is sent to the search engine, e.g. a SQL Query or a Elasticsearch query.
 
+
 Query Mapping
 -------------
 
@@ -36,6 +37,9 @@ In the event the user query is able to be mapped, a different search query will 
 If the user query itself is already known as the best query, we map it back to that identical query. This is tracked as a successful mapping nevertheless.
 
 If the user query can't be mapped then itself should be sent to the search engine. The integration methods and endpoints return rich objects that contain all the required information.
+
+A query mapping result can also include redirect URLs, result modifications, related queries, potential corrections and eventually more. All of them are named "mapping target"
+
 
 Bypassing Query
 ---------------
