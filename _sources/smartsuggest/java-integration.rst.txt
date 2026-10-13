@@ -84,7 +84,7 @@ Dependencies
             <dependency>
                 <groupId>de.cxp.ocs</groupId>
                 <artifactId>smartsuggest-lib</artifactId>
-                <version>0.25.1</version>
+                <version>0.25.2</version>
             </dependency>
             <dependency>
                 <groupId>io.searchhub</groupId>
