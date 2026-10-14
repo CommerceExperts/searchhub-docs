@@ -3,6 +3,9 @@ Changelog
 
 Version 2
 ---------
+Version 2.8.1
+    - Fix version reference error for dependency management
+
 Version 2.8.0
     - Add recovery routine for indexes, that have no data during startup
     - Improve fuzzy matching for German umlauts
