@@ -3,6 +3,9 @@ Changelog
 
 Version 2
 ---------
+Version 2.8.2
+    - Update dependencies fixing several known vulnerabilites
+
 Version 2.8.1
     - Fix version reference error for dependency management
 
