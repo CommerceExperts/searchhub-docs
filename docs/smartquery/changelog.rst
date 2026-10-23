@@ -3,6 +3,10 @@ Changelog
 
 Version 2
 ---------
+Version 2.8.3
+    - Fix data validation for binary files (indexes), potentially leading to missing data
+    - Update vulnerable dependencies
+
 Version 2.8.2
     - Update dependencies fixing several known vulnerabilites
 
