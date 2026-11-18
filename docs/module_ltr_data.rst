@@ -94,6 +94,10 @@ Scores are only exposed for products where an upward or downward trend could be 
 Integration
 -----------
 
+For data fetching pick your favorite http client and fetch the data according to this :download:`openapi spec <./ltrdata/specs/openapi.yaml>`.
+
+Here an overview:
+
 .. openapi:: ./ltrdata/specs/openapi.yaml
 
 Any more question? Feel free to contact us.
