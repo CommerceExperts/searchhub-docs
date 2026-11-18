@@ -70,14 +70,10 @@ YEAR="$(date +%Y)"
 file=conf.py; cp "$file" "$file.orig"; <"$file.orig" envsubst '${YEAR}' > "$file"; rm "$file.orig"
 
 # docker login
-IMAGE="399621189843.dkr.ecr.eu-central-1.amazonaws.com/util/sphinx-docs:5.3.2"
-IMAGE_FOUND="$(docker images 2>/dev/null | grep -c "$IMAGE")"
-if [ "$IMAGE_FOUND" -eq 0 ]; then
-    AWS_CMD="$(which aws || echo "$HOME/.local/bin/aws")"
-    $($AWS_CMD ecr get-login-password | docker login --password-stdin --username AWS 399621189843.dkr.ecr.eu-central-1.amazonaws.com)
-fi
+AWS_CMD="$(which aws || echo "$HOME/.local/bin/aws")"
+$($AWS_CMD ecr get-login-password | docker login)
 
-docker run --rm -u root -v "$(pwd)":/docs "$IMAGE" make html
+docker run --rm -u root -v "$(pwd)":/docs 399621189843.dkr.ecr.eu-central-1.amazonaws.com/util/sphinx-docs:5.3.2 make html
 if [ "$?" -ne 0 ]; then echo "could not generate docs"; exit 1; fi
 sudo -n chown -R "$(whoami)": _build/
 
