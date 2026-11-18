@@ -15,10 +15,13 @@ The scores of each data set is retrieved from data of the same date range and co
 The final score values are provided in two different formats: one for multiplication in the range of 0 to 2, and the other for addition in the range of -1 to 1.
 
 
+Description
+-----------
+
 .. _overall-attractiveness-scores:
 
 Overall Product Attractiveness Scores
--------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This dataset consists of item attractiveness scores for all products, aggregated over all tracked events in search contexts.
 The attractiveness score is a weighted combination of two scores: the engagement score and the selling score. The dataset contains scores for all products seen within the defined date range; this means there are also products considered non-attractive, which receive low or negative scores.
@@ -46,7 +49,7 @@ The attractiveness score is a weighted combination of two scores: the engagement
 .. _search-attractiveness-scores:
 
 Search-Specific Product Attractiveness Scores
----------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This dataset consists of item attractiveness scores for products in the context of specific search results. Search results are represented as unified queries as seen in the according date range.
 The attractiveness score is a weighted combination of two scores: the engagement score and the selling score, both evaluated in the context of queries. Therefore, a single product can be evaluated several times if seen in different search results.
@@ -61,7 +64,7 @@ The dataset contains scores for all products that reach a certain threshold duri
 .. _overall-trend-scores:
 
 Product Trend Scores
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 This dataset consists of item trend scores for all products, aggregated over all search contexts. That score represent whether a product is gaining or losing popularity by comparing its recent performance to a previous time period.
 The trend score is the result of several weighted features which are included in the dataset. The weights are continuously tuned by standard machine learning approaches to achieve highly confident values.
@@ -88,4 +91,7 @@ Scores are only exposed for products where an upward or downward trend could be 
 - adjustedScore: Additive representation of the final attractiveness score, normalized to the range -1 to 1.
 
 
+Integration
+-----------
 
+.. openapi:: ltrdata/specs/openapi.yml
