@@ -61,7 +61,7 @@ Dependencies
             <dependency>
                 <groupId>io.searchhub</groupId>
                 <artifactId>smartsuggest</artifactId>
-                <version>${API_VERSION}</version>
+                <version>2.8.3</version>
             </dependency>
             <!-- ... -->
 
@@ -84,12 +84,12 @@ Dependencies
             <dependency>
                 <groupId>de.cxp.ocs</groupId>
                 <artifactId>smartsuggest-lib</artifactId>
-                <version>${OCS_SUGGEST_LIB_VERSION}</version>
+                <version>0.25.2</version>
             </dependency>
             <dependency>
                 <groupId>io.searchhub</groupId>
                 <artifactId>searchhub-suggest-data-provider</artifactId>
-                <version>${SMARTSUGGEST_VERSION}</version>
+                <version>1.5.0</version>
             </dependency>
 
             <!-- ... -->
