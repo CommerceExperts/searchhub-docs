@@ -60,3 +60,17 @@ Your changes will be visible at the URL [http://docs-preview.searchhub.io.s3-web
   - Monitoring (general metrics)
 
 - Glossary
+
+
+# Update sphinx Docker Image:
+
+If you change something at the docker image, you have to rebuild it and push it manually:
+
+```
+cd sphinx
+IMAGE="399621189843.dkr.ecr.eu-central-1.amazonaws.com/util/sphinx-docs:$NEW_VERSION"
+docker buildx build -t $IMAGE .
+docker push $IMAGE
+```
+
+Don't forget to update the version tag inside the `build.sh`
