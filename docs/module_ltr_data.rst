@@ -94,6 +94,6 @@ Scores are only exposed for products where an upward or downward trend could be 
 Integration
 -----------
 
-.. openapi:: ltrdata/specs/openapi.yml
+.. openapi:: ./ltrdata/specs/openapi.yml
 
 Any more question? Feel free to contact us.
