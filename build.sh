@@ -16,30 +16,28 @@ publish() {
     git commit -m "Update docs with build $BUILD_ID" && git push -u origin "$TARGET_BRANCH" || echo "no changes"
 }
 
+# define variables hat can also be replaced
 substModuleVersions() {
-    # define variables hat can also be replaced
+    dir="$1"
+
+    # legacy versions
     OCS_SUGGEST_LIB_VERSION="$(curl -s "https://nexus.commerce-experts.com/content/repositories/searchhub-external/de/cxp/ocs/smartsuggest-lib/maven-metadata.xml" | xmllint --xpath 'string(/metadata/versioning/release)' -)"
     export OCS_SUGGEST_LIB_VERSION
 
-    dir="$1"
+    SMARTSUGGEST_VERSION="1.5.0"
+    export SMARTSUGGEST_VERSION
     
+    # actual version
     module="searchhub-public-api"
     TAG="$(getLatestTag "$module")"
     API_VERSION="${TAG/v/}"
     export API_VERSION
 
-    modules=(smartquery smartsuggest)
-    for module in ${modules[*]};
-    do
-        # variable substitution
-        TAG="$(getLatestTag "$module")"
-        VERSION="${TAG/v/}"
-        VAR_NAME="$(echo "$module" | tr '[:lower:]-' '[:upper:]_')_VERSION"
-        echo "declaring variable $VAR_NAME=$VERSION"
-        declare -x $VAR_NAME="$VERSION"
-        find "$dir/$module"/ -type f -name '*.rst' | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst "\${$VAR_NAME} \${OCS_SUGGEST_LIB_VERSION} \${API_VERSION}" > "$file"; rm "$file.orig"; done
-
-    done
+    # alias for API_VERSION
+    SEARCHHUB_VERSION="$API_VERSION"
+    export SEARCHHUB_VERSION
+    
+    grep -lRF "_VERSION" "$dir" | while read file; do cp "$file" "$file.orig"; <"$file.orig" envsubst "\${SEARCHHUB_VERSION} \${API_VERSION} \${OCS_SUGGEST_LIB_VERSION} \${SMARTSUGGEST_VERSION}" > "$file"; rm "$file.orig"; done
 }
 
 # build
@@ -75,7 +73,7 @@ file=conf.py; cp "$file" "$file.orig"; <"$file.orig" envsubst '${YEAR}' > "$file
 AWS_CMD="$(which aws || echo "$HOME/.local/bin/aws")"
 $($AWS_CMD ecr get-login-password | docker login)
 
-docker run --rm -u root -v "$(pwd)":/docs 399621189843.dkr.ecr.eu-central-1.amazonaws.com/util/sphinx-docs:5.3.1 make html
+docker run --rm -u root -v "$(pwd)":/docs 399621189843.dkr.ecr.eu-central-1.amazonaws.com/util/sphinx-docs:5.3.2 make html
 if [ "$?" -ne 0 ]; then echo "could not generate docs"; exit 1; fi
 sudo -n chown -R "$(whoami)": _build/
 
