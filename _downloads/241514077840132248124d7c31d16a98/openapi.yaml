@@ -1,0 +1,301 @@
+openapi: 3.0.3
+info:
+  title: SearchHub LTR Data API
+  version: 2.8.0
+  description: API providing data sets usable for advanced use-cases of search ranking optimization, such as learning-to-rank or other machine-learning approaches.
+
+servers:
+  - url: https://api.searchhub.io
+    description: searchHub API Service
+
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: trends
+    description: trend scores on product level
+  - name: attractiveness
+    description: attractiveness scores on product level
+  - name: attractiveness by query
+    description: attractiveness scores on product level related to the relevant search queries
+
+paths:
+  /ltr-data/items/trends/data:
+    get:
+      tags:
+        - trends
+      summary: fetch current item-trend-scores
+      operationId: getItemTrendsData
+      parameters:
+        - $ref: '#/components/parameters/TenantParam'
+      responses:
+        '200':
+          description: Successful response with trend scores DTO
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemTrendScoresDTO'
+        '400':
+          description: Required request parameter 'tenant' missing
+        '401':
+          description: Missing or invalid API key to access tenant
+        '403':
+          description: Not allowed to access tenant data
+
+  /ltr-data/items/trends/modificationTime:
+    get:
+      tags:
+        - trends
+      summary: timestamp the data was updated
+      description: returns unix timestamp in millis (Long) from when that data set was updated
+      operationId: getItemTrendsModificationTime
+      parameters:
+        - $ref: '#/components/parameters/TenantParam'
+      responses:
+        '200':
+          description: timestamp in millis
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+                example: 1700000000000
+        '400':
+          description: Required request parameter 'tenant' missing
+        '401':
+          description: Missing or invalid API key to access tenant
+        '403':
+          description: Not allowed to access tenant data
+
+  /ltr-data/items/attractiveness/data:
+    get:
+      tags:
+        - attractiveness
+      summary: fetch current item-attractiveness-scores
+      operationId: getItemAttractivenessData
+      parameters:
+        - $ref: '#/components/parameters/TenantParam'
+      responses:
+        '200':
+          description: Successful response with attractiveness-scores DTO
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemAttractivenessScoresDTO'
+        '400':
+          description: Required request parameter 'tenant' missing
+        '401':
+          description: Missing or invalid API key to access tenant
+        '403':
+          description: Not allowed to access tenant data
+
+  /ltr-data/items/attractiveness/modificationTime:
+    get:
+      tags:
+        - attractiveness
+      summary: timestamp the data was updated
+      description: returns unix timestamp in millis (Long) from when that data set was updated
+      operationId: getItemAttractivenessModificationTime
+      parameters:
+        - $ref: '#/components/parameters/TenantParam'
+      responses:
+        '200':
+          description: timestamp in millis
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+                example: 1700000000000
+        '400':
+          description: Required request parameter 'tenant' missing
+        '401':
+          description: Missing or invalid API key to access tenant
+        '403':
+          description: Not allowed to access tenant data
+
+  /ltr-data/items/attractiveness-by-query/data:
+    get:
+      tags:
+        - attractiveness by query
+      summary: fetch current query related attractiveness-scores
+      operationId: getItemAttractivenessByQueryData
+      parameters:
+        - $ref: '#/components/parameters/TenantParam'
+      responses:
+        '200':
+          description: Successful response with query related attractiveness-scores DTO
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemByQueryAttractivenessScoresDTO'
+        '400':
+          description: Required request parameter 'tenant' missing
+        '401':
+          description: Missing or invalid API key to access tenant
+        '403':
+          description: Not allowed to access tenant data
+
+  /ltr-data/items/attractiveness-by-query/modificationTime:
+    get:
+      tags:
+        - attractiveness by query
+      summary: timestamp the data was updated
+      description: returns unix timestamp in millis (Long) from when that data set was updated
+      operationId: getItemAttractivenessByQueryModificationTime
+      parameters:
+        - $ref: '#/components/parameters/TenantParam'
+      responses:
+        '200':
+          description: timestamp in millis
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+                example: 1700000000000
+        '400':
+          description: Required request parameter 'tenant' missing
+        '401':
+          description: Missing or invalid API key to access tenant
+        '403':
+          description: Not allowed to access tenant data
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description:
+        "API-Key for authentication (`apikey: $APIKEY`)"
+
+  parameters:
+    TenantParam:
+      name: tenant
+      in: query
+      required: true
+      description: Required parameter with format `<name>.<channel>` (for example `myshop.de`).
+      schema:
+        type: string
+        pattern: '^[^.]+\.[^.]+$'
+      example: myshop.de
+
+  schemas:
+    ItemTrendScoresDTO:
+      type: object
+      properties:
+        modTime:
+          type: integer
+          format: int64
+          description: Timestamp in millis
+        productScores:
+          type: object
+          description: Association of product SKUs (key) with the according trend scores.
+          additionalProperties:
+            $ref: '#/components/schemas/TrendScore'
+
+    TrendScore:
+      type: object
+      properties:
+        velocityScore:
+          type: number
+          format: double
+        qualityScore:
+          type: number
+          format: double
+        volatilityScore:
+          type: number
+          format: double
+        riskScore:
+          type: number
+          format: double
+        upsideScore:
+          type: number
+          format: double
+        accelerationScore:
+          type: number
+          format: double
+        impressionVelocityScore:
+          type: number
+          format: double
+        impressionAccelerationScore:
+          type: number
+          format: double
+        shareVelocityScore:
+          type: number
+          format: double
+        finalScore:
+          type: number
+          format: double
+        adjustedScore:
+          type: number
+          format: double
+
+    ItemAttractivenessScoresDTO:
+      type: object
+      properties:
+        modTime:
+          type: integer
+          format: int64
+          description: Timestamp in millis
+        productScores:
+          type: object
+          description: Association of product SKUs (key) to the according attractiveness scores
+          additionalProperties:
+            $ref: '#/components/schemas/AttractivenessScore'
+
+    AttractivenessScore:
+      type: object
+      properties:
+        counts:
+          $ref: '#/components/schemas/EventCounts'
+        engagementScore:
+          type: number
+          format: double
+        sellingScore:
+          type: number
+          format: double
+        finalScore:
+          type: number
+          format: double
+        adjustedScore:
+          type: number
+          format: double
+
+    EventCounts:
+      type: object
+      properties:
+        impressions:
+          type: integer
+          format: int32
+        clicks:
+          type: integer
+          format: int32
+        carts:
+          type: integer
+          format: int32
+
+    ItemByQueryAttractivenessScoresDTO:
+      type: object
+      properties:
+        modTime:
+          type: integer
+          format: int64
+          description: Timestamp in millis
+        queryItemScores:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemByQueryAttractiveness'
+
+    ItemByQueryAttractiveness:
+      type: object
+      properties:
+        query:
+          type: string
+          description: normalized intent query
+        productAttractiveness:
+          type: object
+          description: Association of product SKUs (key) to the according attractiveness scores for that query
+          additionalProperties:
+            $ref: '#/components/schemas/AttractivenessScore'

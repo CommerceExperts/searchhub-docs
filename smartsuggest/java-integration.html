@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Java Integration &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2a5a4839" />
 
@@ -193,11 +193,11 @@ your controller endpoints.</p>
 <span class="w">        </span><span class="n">qsm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="na">searchhub</span><span class="p">.</span><span class="na">smartsuggest</span><span class="p">.</span><span class="na">SearchhubSuggestInitializer</span><span class="p">.</span><span class="na">getQuerySuggestManager</span><span class="p">(</span><span class="n">apiKey</span><span class="p">)</span>
 
 <span class="w">                </span><span class="c1">// optionally define where lucene should store the index files</span>
-<span class="w">                </span><span class="p">.</span><span class="na">indexFolder</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">createTempDirectory</span><span class="p">(</span><span class="s">&quot;smartsuggest&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="p">.</span><span class="na">indexFolder</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">createTempDirectory</span><span class="p">(</span><span class="s">"smartsuggest"</span><span class="p">))</span>
 
 <span class="w">                </span><span class="c1">// optionally define which indexes/tenants should be loaded immediately</span>
 <span class="w">                </span><span class="c1">// Attention: This will cause synchronous loading, which is desired to block for a readiness probe</span>
-<span class="w">                </span><span class="p">.</span><span class="na">preloadIndexes</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">preloadIndexes</span><span class="p">(</span><span class="s">"example.com"</span><span class="p">)</span>
 
 <span class="w">                </span><span class="c1">// the builder also has other options; finally build the QSM:</span>
 <span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
@@ -207,7 +207,7 @@ your controller endpoints.</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="c1">// It&#39;s recommended to bind the querySuggestManager instance to your JVM&#39;s lifecycle</span>
+<span class="c1">// It's recommended to bind the querySuggestManager instance to your JVM's lifecycle</span>
 <span class="c1">// and close the QueryMapperManager during shutdown.</span>
 <span class="c1">// Internally a ScheduledExecutorService is used, that will be stopped then.</span>
 <span class="nd">@PreDestroy</span>
@@ -216,7 +216,7 @@ your controller endpoints.</p>
 <span class="p">}</span>
 
 <span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">suggestQueries</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">qsm</span><span class="p">.</span><span class="na">getQuerySuggester</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">qsm</span><span class="p">.</span><span class="na">getQuerySuggester</span><span class="p">(</span><span class="s">"example.com"</span><span class="p">)</span>
 <span class="w">            </span><span class="p">.</span><span class="na">suggest</span><span class="p">(</span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">,</span><span class="w"> </span><span class="n">Collections</span><span class="p">.</span><span class="na">emptySet</span><span class="p">())</span>
 <span class="w">            </span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
 <span class="w">            </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">suggestion</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">suggestion</span><span class="p">.</span><span class="na">getLabel</span><span class="p">())</span>
@@ -227,18 +227,18 @@ your controller endpoints.</p>
 </div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="kd">static</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="w"> </span><span class="n">qsm</span><span class="p">;</span>
 <span class="kd">static</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// as the &#39;searchhub-suggest-data-provider&#39; is loaded via the Java SPI system</span>
+<span class="w">        </span><span class="c1">// as the 'searchhub-suggest-data-provider' is loaded via the Java SPI system</span>
 <span class="w">        </span><span class="c1">// you cannot configure it directly. The required settings have to be set as</span>
 <span class="w">        </span><span class="c1">// system properties (Setting them directly is not recommended, we just do it for</span>
 <span class="w">        </span><span class="c1">// demonstration purposes)</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;searchhub.apikey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;123abc&quot;</span><span class="p">);</span>
-<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">&quot;searchhub.tenant_mappings&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;example=example.com&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">"searchhub.apikey"</span><span class="p">,</span><span class="w"> </span><span class="s">"123abc"</span><span class="p">);</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">setProperty</span><span class="p">(</span><span class="s">"searchhub.tenant_mappings"</span><span class="p">,</span><span class="w"> </span><span class="s">"example=example.com"</span><span class="p">);</span>
 
 <span class="w">        </span><span class="n">qsm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QuerySuggestManager</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
 <span class="w">                </span><span class="c1">// required for lucene where it puts the index files</span>
-<span class="w">                </span><span class="p">.</span><span class="na">indexFolder</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">createTempDirectory</span><span class="p">(</span><span class="s">&quot;smartsuggest&quot;</span><span class="p">))</span>
+<span class="w">                </span><span class="p">.</span><span class="na">indexFolder</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">createTempDirectory</span><span class="p">(</span><span class="s">"smartsuggest"</span><span class="p">))</span>
 <span class="w">                </span><span class="c1">// force synchronous indexation (optional)</span>
-<span class="w">                </span><span class="p">.</span><span class="na">preloadIndexes</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">preloadIndexes</span><span class="p">(</span><span class="s">"example.com"</span><span class="p">)</span>
 <span class="w">                </span><span class="c1">// the builder also has other options</span>
 <span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
 <span class="w">    </span><span class="p">}</span>
@@ -247,7 +247,7 @@ your controller endpoints.</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="c1">// It&#39;s recommended to bind the querySuggestManager instance to your JVM&#39;s lifecycle</span>
+<span class="c1">// It's recommended to bind the querySuggestManager instance to your JVM's lifecycle</span>
 <span class="c1">// and close the QueryMapperManager during shutdown.</span>
 <span class="c1">// Internally a ScheduledExecutorService is used, that will be stopped then.</span>
 <span class="nd">@PreDestroy</span>
@@ -256,7 +256,7 @@ your controller endpoints.</p>
 <span class="p">}</span>
 
 <span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">suggestQueries</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">qsm</span><span class="p">.</span><span class="na">getQuerySuggester</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">qsm</span><span class="p">.</span><span class="na">getQuerySuggester</span><span class="p">(</span><span class="s">"example.com"</span><span class="p">)</span>
 <span class="w">            </span><span class="p">.</span><span class="na">suggest</span><span class="p">(</span><span class="n">userQuery</span><span class="p">,</span><span class="w"> </span><span class="n">maxSuggestions</span><span class="p">,</span><span class="w"> </span><span class="n">Collections</span><span class="p">.</span><span class="na">emptySet</span><span class="p">())</span>
 <span class="w">            </span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
 <span class="w">            </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">suggestion</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">suggestion</span><span class="p">.</span><span class="na">getLabel</span><span class="p">())</span>
@@ -279,12 +279,12 @@ However the data from searchHub is not tagged yet, so any non-empty parameter wi
 <span class="cm">     * to use the same directory all the time, so that existing files are reused and overwritten.</span>
 <span class="cm">     * If this index folder is not specified, a random temporary folder is picked.</span>
 <span class="cm">     */</span>
-<span class="w">    </span><span class="p">.</span><span class="na">indexFolder</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">createDirectory</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;/tmp/suggest-index-dir&quot;</span><span class="p">)))</span>
+<span class="w">    </span><span class="p">.</span><span class="na">indexFolder</span><span class="p">(</span><span class="n">Files</span><span class="p">.</span><span class="na">createDirectory</span><span class="p">(</span><span class="n">Path</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">"/tmp/suggest-index-dir"</span><span class="p">)))</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * To load indexes directly after initialization, specify them here</span>
 <span class="cm">     */</span>
-<span class="w">    </span><span class="p">.</span><span class="na">preloadIndexes</span><span class="p">(</span><span class="s">&quot;my.tenant_1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;my.tenant_2&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">preloadIndexes</span><span class="p">(</span><span class="s">"my.tenant_1"</span><span class="p">,</span><span class="w"> </span><span class="s">"my.tenant_2"</span><span class="p">)</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Overwrite the default of 60 seconds update rate. Min = 5 / Max = 3600</span>
@@ -304,8 +304,8 @@ However the data from searchHub is not tagged yet, so any non-empty parameter wi
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Add a custom IndexArchiveProvider that loads a prepared index. To create that index the class</span>
-<span class="cm">     * &#39;de.cxp.ocs.smartsuggest.SuggestDataIndexer&#39; can be used. Both have to be connected to the same</span>
-<span class="cm">     * &#39;IndexArchiver&#39; implementation that stores and retrieves indexes from any storage.</span>
+<span class="cm">     * 'de.cxp.ocs.smartsuggest.SuggestDataIndexer' can be used. Both have to be connected to the same</span>
+<span class="cm">     * 'IndexArchiver' implementation that stores and retrieves indexes from any storage.</span>
 <span class="cm">     **/</span>
 <span class="w">    </span><span class="p">.</span><span class="na">withIndexProvider</span><span class="p">(</span><span class="n">myIndexArchiveProvider</span><span class="p">)</span>
 
@@ -315,14 +315,14 @@ However the data from searchHub is not tagged yet, so any non-empty parameter wi
 <span class="cm">     * or by passing an instance directly to the builder. Do not use both mechanics, otherwise that</span>
 <span class="cm">     * data-provider is loaded twice.</span>
 <span class="cm">     * @deprecated removed at version 2 to avoid long loading times. Instead prepare an index outside of</span>
-<span class="cm">     *             the service and attach it using &#39;withIndexProvider&#39;</span>
+<span class="cm">     *             the service and attach it using 'withIndexProvider'</span>
 <span class="cm">     **/</span>
 <span class="w">    </span><span class="p">.</span><span class="na">withSuggestDataProvider</span><span class="p">(</span><span class="n">mySuggestDataProvider</span><span class="p">)</span>
 
 <span class="w">    </span><span class="cm">/**</span>
 <span class="cm">     * Data provider configs are class specific, so the same config will be passed to each instance that has</span>
 <span class="cm">     * data for a requested index.</span>
-<span class="cm">     * With it it&#39;s possible to dynamically add configuration for the according IndexArchiveProvider implementations.</span>
+<span class="cm">     * With it it's possible to dynamically add configuration for the according IndexArchiveProvider implementations.</span>
 <span class="cm">     * However since the archive-providers are passed as instances, there is no point in adding configuration again.</span>
 <span class="cm">     * Therefor this method will be removed in future releases.</span>
 <span class="cm">     *</span>
@@ -332,7 +332,7 @@ However the data from searchHub is not tagged yet, so any non-empty parameter wi
 <span class="cm">     *</span>
 <span class="cm">     * @deprecated to be removed as unused</span>
 <span class="cm">     **/</span>
-<span class="w">    </span><span class="p">.</span><span class="na">addDataProviderConfig</span><span class="p">(</span><span class="n">mySuggestDataProvider</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getCanonicalName</span><span class="p">(),</span><span class="w"> </span><span class="n">singletonMap</span><span class="p">(</span><span class="s">&quot;my-setting&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="p">.</span><span class="na">addDataProviderConfig</span><span class="p">(</span><span class="n">mySuggestDataProvider</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getCanonicalName</span><span class="p">(),</span><span class="w"> </span><span class="n">singletonMap</span><span class="p">(</span><span class="s">"my-setting"</span><span class="p">,</span><span class="w"> </span><span class="s">"value"</span><span class="p">))</span>
 
 <span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>
@@ -404,7 +404,7 @@ This is usable to increase the likeliness to get the desired group counts.</p></
 <div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="n">SuggestData</span><span class="w"> </span><span class="n">suggestDTO</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SuggestData</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
 
 <span class="w">        </span><span class="c1">// the type will be attached to every suggestion coming from this data provider</span>
-<span class="w">        </span><span class="p">.</span><span class="na">type</span><span class="p">(</span><span class="s">&quot;product&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">type</span><span class="p">(</span><span class="s">"product"</span><span class="p">)</span>
 
 <span class="w">        </span><span class="c1">// the locale is used for several normalisation during index time are done</span>
 <span class="w">        </span><span class="p">.</span><span class="na">locale</span><span class="p">(</span><span class="n">Locale</span><span class="p">.</span><span class="na">GERMAN</span><span class="p">)</span>
@@ -415,8 +415,8 @@ This is usable to increase the likeliness to get the desired group counts.</p></
 <span class="w">        </span><span class="c1">// The same timestamp has to be set here, as returned by `getLastDataModTime(String indexName)`</span>
 <span class="w">        </span><span class="p">.</span><span class="na">modificationTime</span><span class="p">(</span><span class="n">getModificationTime</span><span class="p">())</span>
 
-<span class="w">        </span><span class="c1">// If available, it&#39;s also possible to add stop-words that will be ignored during indexing.</span>
-<span class="w">        </span><span class="p">.</span><span class="na">wordsToIgnore</span><span class="p">(</span><span class="n">Set</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;this&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;that&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="c1">// If available, it's also possible to add stop-words that will be ignored during indexing.</span>
+<span class="w">        </span><span class="p">.</span><span class="na">wordsToIgnore</span><span class="p">(</span><span class="n">Set</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">"this"</span><span class="p">,</span><span class="w"> </span><span class="s">"that"</span><span class="p">))</span>
 
 <span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
 </pre></div>

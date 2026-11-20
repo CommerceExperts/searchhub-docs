@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Service Integration &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2a5a4839" />
 
   
@@ -159,11 +159,11 @@ This allows clients to filter or restrict results to the highest-quality suggest
 <p><strong>Response</strong>:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;best matches&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;suggestions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="s2">&quot;suggestion 1&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;suggestion 2&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;etc.&quot;</span>
+<span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"best matches"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"suggestions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">"suggestion 1"</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">"suggestion 2"</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">"etc."</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">]</span>
@@ -181,9 +181,9 @@ No grouping or metadata is included—only the suggested queries themselves. Thi
 <p><strong>Response</strong>:</p>
 <p>The response is a JSON array with simple strings that can be used as autocompletion result.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
-<span class="w">  </span><span class="s2">&quot;suggestion 1&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="s2">&quot;suggestion 2&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="s2">&quot;etc.&quot;</span>
+<span class="w">  </span><span class="s2">"suggestion 1"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"suggestion 2"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"etc."</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -220,50 +220,50 @@ For example, the suggestion <code class="docutils literal notranslate"><span cla
 </dl>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;meta.matchKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion1&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;meta.matchGroupName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;best matches&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;meta.weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10234</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;keyword&quot;</span>
+<span class="w">    </span><span class="nt">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"meta.matchKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suggestion1"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"meta.matchGroupName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"best matches"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"meta.weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">10234</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"keyword"</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;suggestion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;recommendedProducts&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;scopes&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">    </span><span class="nt">"suggestion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suggestion1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"recommendedProducts"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"scopes"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;meta.matchKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion2&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;meta.matchGroupName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;best matches&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;meta.weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10199</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;keyword&quot;</span>
+<span class="w">    </span><span class="nt">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"meta.matchKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suggestion2"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"meta.matchGroupName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"best matches"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"meta.weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">10199</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"keyword"</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;suggestion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion2&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;recommendedProducts&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;scopes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">       </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;c4404&quot;</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Hardware&quot;</span><span class="p">},</span>
-<span class="w">       </span><span class="p">{</span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;c2202&quot;</span><span class="p">,</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;Accessories&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="nt">"suggestion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suggestion2"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"recommendedProducts"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"scopes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">       </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"c4404"</span><span class="p">,</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Hardware"</span><span class="p">},</span>
+<span class="w">       </span><span class="p">{</span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"c2202"</span><span class="p">,</span><span class="nt">"name"</span><span class="p">:</span><span class="s2">"Accessories"</span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;meta.matchKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion3&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;meta.matchGroupName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;best matches&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;meta.weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10033</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;keyword&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;redirect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://some-redirect-url.com&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"meta.matchKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suggestion3"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"meta.matchGroupName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"best matches"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"meta.weight"</span><span class="p">:</span><span class="w"> </span><span class="mi">10033</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"keyword"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"redirect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://some-redirect-url.com"</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;suggestion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion3&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;recommendedProducts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">"suggestion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suggestion3"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"recommendedProducts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">       </span><span class="nt">&quot;sku&quot;</span><span class="p">:</span><span class="s2">&quot;p123&quot;</span><span class="p">,</span>
-<span class="w">       </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Product One2Three&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;brand&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Numerical&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;link&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span><span class="p">}</span>
+<span class="w">       </span><span class="nt">"sku"</span><span class="p">:</span><span class="s2">"p123"</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product One2Three"</span><span class="p">,</span><span class="w"> </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w"> </span><span class="nt">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Numerical"</span><span class="p">,</span><span class="w"> </span><span class="nt">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">}</span>
 <span class="w">      </span><span class="p">},</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">       </span><span class="nt">&quot;sku&quot;</span><span class="p">:</span><span class="s2">&quot;p543&quot;</span><span class="p">,</span>
-<span class="w">       </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Product five2Three&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;brand&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Other&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;link&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://...&quot;</span><span class="p">}</span>
+<span class="w">       </span><span class="nt">"sku"</span><span class="p">:</span><span class="s2">"p543"</span><span class="p">,</span>
+<span class="w">       </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product five2Three"</span><span class="p">,</span><span class="w"> </span><span class="nt">"image"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">,</span><span class="w"> </span><span class="nt">"brand"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Other"</span><span class="p">,</span><span class="w"> </span><span class="nt">"link"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://..."</span><span class="p">}</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;scopes&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">    </span><span class="nt">"scopes"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">]</span>
 </pre></div>
@@ -292,30 +292,30 @@ For example, the suggestion <code class="docutils literal notranslate"><span cla
 <p><strong>Response</strong>:</p>
 <p>The response is a JSON object with two main fields: a <code class="docutils literal notranslate"><span class="pre">suggestions</span></code> array (similar to the v3 response format) and a <code class="docutils literal notranslate"><span class="pre">mappingTarget</span></code> object, as described in the <a class="reference external" href="../smartquery/integration.html">smartQuery integration</a> section.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;suggestions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"suggestions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;meta.matchKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion a1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;mappingTarget.searchQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;master query a1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;keyword&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;meta.weight&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;37220&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;mappingTarget.redirect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;meta.matchGroupName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;best matches&quot;</span>
+<span class="w">      </span><span class="nt">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"meta.matchKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suggestion a1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"mappingTarget.searchQuery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"master query a1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"keyword"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"meta.weight"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37220"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"mappingTarget.redirect"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"meta.matchGroupName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"best matches"</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;suggestion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;suggestion a1&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;recommendedProducts&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;scopes&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">      </span><span class="nt">"suggestion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"suggestion a1"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"recommendedProducts"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"scopes"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;mappingTarget&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;userQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;masterQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;master query a1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;redirect&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;potentialCorrections&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;relatedQueries&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;resultModifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;successful&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;searchQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;master query a1&quot;</span>
+<span class="w">  </span><span class="nt">"mappingTarget"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"userQuery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"masterQuery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"master query a1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"redirect"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"potentialCorrections"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"relatedQueries"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"resultModifications"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"successful"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"searchQuery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"master query a1"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>

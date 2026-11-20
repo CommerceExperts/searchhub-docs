@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Service Operations &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2a5a4839" />
 
   
@@ -115,11 +115,11 @@
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
 <p>Configuration can be provided via a properties file mounted at <code class="docutils literal notranslate"><span class="pre">/app/config/suggest.properties</span></code> inside the container.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="o">[</span>...<span class="o">]</span><span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/suggest.properties&quot;</span>:/app/config/suggest.properties<span class="w"> </span><span class="o">[</span>...<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="o">[</span>...<span class="o">]</span><span class="w"> </span>-v<span class="w"> </span><span class="s2">"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">/suggest.properties"</span>:/app/config/suggest.properties<span class="w"> </span><span class="o">[</span>...<span class="o">]</span>
 </pre></div>
 </div>
 <p>Settings can also be provided via system properties or environment variables, which override values defined in <code class="docutils literal notranslate"><span class="pre">suggest.properties</span></code>. To define system properties, use the <code class="docutils literal notranslate"><span class="pre">JAVA_TOOL_OPTIONS</span></code> environment variable and prefix each property with <code class="docutils literal notranslate"><span class="pre">-D</span></code>. For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="o">[</span>...<span class="o">]</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dsearchhub.apikey=&#39;your-api-key&#39; -Dsuggest.service.max-idle-minutes=90&quot;</span><span class="w"> </span><span class="o">[</span>...<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span><span class="o">[</span>...<span class="o">]</span><span class="w"> </span>-e<span class="w"> </span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">"-Dsearchhub.apikey='your-api-key' -Dsuggest.service.max-idle-minutes=90"</span><span class="w"> </span><span class="o">[</span>...<span class="o">]</span>
 </pre></div>
 </div>
 <p>Each configuration property has a corresponding environment variable. Environment variables are only applied if no corresponding system property is defined.</p>
@@ -169,7 +169,7 @@
 <h3>API KEY<a class="headerlink" href="#api-key" title="Link to this heading"></a></h3>
 <p>An API key is required to start the service and must be obtained from your searchHub contact.
 In environments with secret management capabilities, the API key should be injected via an environment variable.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SH_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-secret-api-key&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SH_API_KEY</span><span class="o">=</span><span class="s2">"your-secret-api-key"</span>
 </pre></div>
 </div>
 </section>

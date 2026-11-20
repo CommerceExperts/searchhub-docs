@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Module: LTR Data API &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=2a5a4839" />
 
   
@@ -56,9 +56,13 @@
 <li class="toctree-l1"><a class="reference internal" href="module_smartsuggest.html">Module: smartSuggest</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Module: LTR Data API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#overall-product-attractiveness-scores">Overall Product Attractiveness Scores</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#search-specific-product-attractiveness-scores">Search-Specific Product Attractiveness Scores</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#product-trend-scores">Product Trend Scores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#description">Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overall-product-attractiveness-scores">Overall Product Attractiveness Scores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#search-specific-product-attractiveness-scores">Search-Specific Product Attractiveness Scores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#product-trend-scores">Product Trend Scores</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#integration">Integration</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="operations.html">Common Operations</a></li>
@@ -103,9 +107,11 @@
 The scores of each data set is retrieved from data of the same date range and considers product impressions, as well as follow-up interest through clicks and optionally carts. All scores are evaluated using standard statistical tools to ensure high confidence in the provided values.
 The final score values are provided in two different formats: one for multiplication in the range of 0 to 2, and the other for addition in the range of -1 to 1.</p>
 </section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading"></a></h2>
 <section id="overall-product-attractiveness-scores">
-<span id="overall-attractiveness-scores"></span><h2>Overall Product Attractiveness Scores<a class="headerlink" href="#overall-product-attractiveness-scores" title="Link to this heading"></a></h2>
-<p>This dataset consists of item attractiveness scores for all products, aggregated over all tracked events in search contexts.
+<span id="overall-attractiveness-scores"></span><h3>Overall Product Attractiveness Scores<a class="headerlink" href="#overall-product-attractiveness-scores" title="Link to this heading"></a></h3>
+<p>This dataset (reachable at the endpoint <code class="code docutils literal notranslate"><span class="pre">/ltr-data/items/attractiveness/data</span></code>) consists of item attractiveness scores for all products, aggregated over all tracked events in search contexts.
 The attractiveness score is a weighted combination of two scores: the engagement score and the selling score. The dataset contains scores for all products seen within the defined date range; this means there are also products considered non-attractive, which receive low or negative scores.</p>
 <p><strong>Included Values per Product</strong>:</p>
 <ul class="simple">
@@ -129,16 +135,16 @@ The attractiveness score is a weighted combination of two scores: the engagement
 </ul>
 </section>
 <section id="search-specific-product-attractiveness-scores">
-<span id="search-attractiveness-scores"></span><h2>Search-Specific Product Attractiveness Scores<a class="headerlink" href="#search-specific-product-attractiveness-scores" title="Link to this heading"></a></h2>
-<p>This dataset consists of item attractiveness scores for products in the context of specific search results. Search results are represented as unified queries as seen in the according date range.
+<span id="search-attractiveness-scores"></span><h3>Search-Specific Product Attractiveness Scores<a class="headerlink" href="#search-specific-product-attractiveness-scores" title="Link to this heading"></a></h3>
+<p>This dataset (reachable at the endpoint <code class="code docutils literal notranslate"><span class="pre">/ltr-data/items/attractiveness-by-query/data</span></code>) consists of item attractiveness scores for products in the context of specific search results. Search results are represented as unified queries as seen in the according date range.
 The attractiveness score is a weighted combination of two scores: the engagement score and the selling score, both evaluated in the context of queries. Therefore, a single product can be evaluated several times if seen in different search results.
 The dataset contains scores for all products that reach a certain threshold during the defined date range; this means there are also products considered non-attractive, which receive low or negative scores in the corresponding context.</p>
 <p><strong>Included Values per Product and Query</strong>:</p>
 <p><em>Same as for the</em> <a class="reference internal" href="#overall-attractiveness-scores"><span class="std std-ref">Overall Product Attractiveness Scores</span></a></p>
 </section>
 <section id="product-trend-scores">
-<span id="overall-trend-scores"></span><h2>Product Trend Scores<a class="headerlink" href="#product-trend-scores" title="Link to this heading"></a></h2>
-<p>This dataset consists of item trend scores for all products, aggregated over all search contexts. That score represent whether a product is gaining or losing popularity by comparing its recent performance to a previous time period.
+<span id="overall-trend-scores"></span><h3>Product Trend Scores<a class="headerlink" href="#product-trend-scores" title="Link to this heading"></a></h3>
+<p>This dataset (reachable at the endpoint <code class="code docutils literal notranslate"><span class="pre">/ltr-data/items/trends/data</span></code>) consists of item trend scores for all products, aggregated over all search contexts. That score represent whether a product is gaining or losing popularity by comparing its recent performance to a previous time period.
 The trend score is the result of several weighted features which are included in the dataset. The weights are continuously tuned by standard machine learning approaches to achieve highly confident values.
 Scores are only exposed for products where an upward or downward trend could be detected. Low or negative scores are exposed for products that show decreasing interest.</p>
 <p><strong>Included Values per Product</strong></p>
@@ -161,6 +167,148 @@ Scores are only exposed for products where an upward or downward trend could be 
 </li>
 <li><p>adjustedScore: Additive representation of the final attractiveness score, normalized to the range -1 to 1.</p></li>
 </ul>
+</section>
+</section>
+<section id="integration">
+<h2>Integration<a class="headerlink" href="#integration" title="Link to this heading"></a></h2>
+<p>For data fetching pick your favorite http client and fetch the data according to this <a class="reference download internal" download="" href="_downloads/241514077840132248124d7c31d16a98/openapi.yaml"><code class="xref download docutils literal notranslate"><span class="pre">openapi</span> <span class="pre">spec</span></code></a>.</p>
+<p>Here an overview:</p>
+<dl class="http get">
+<dt class="sig sig-object http" id="get--ltr-data-items-trends-data">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/ltr-data/items/trends/data</span></span><a class="headerlink" href="#get--ltr-data-items-trends-data" title="Link to this definition"></a></dt>
+<dd><p><strong>fetch current item-trend-scores</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tenant</strong> (<em>string</em>) – Required parameter with format <cite>&lt;name&gt;.&lt;channel&gt;</cite> (for example <cite>myshop.de</cite>).
+(Required)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a></span> – Successful response with trend scores DTO</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/400">400 Bad Request</a></span> – Required request parameter ‘tenant’ missing</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/401">401 Unauthorized</a></span> – Missing or invalid API key to access tenant</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/403">403 Forbidden</a></span> – Not allowed to access tenant data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--ltr-data-items-trends-modificationTime">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/ltr-data/items/trends/modificationTime</span></span><a class="headerlink" href="#get--ltr-data-items-trends-modificationTime" title="Link to this definition"></a></dt>
+<dd><p><strong>timestamp the data was updated</strong></p>
+<p>returns unix timestamp in millis (Long) from when that data set was updated</p>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tenant</strong> (<em>string</em>) – Required parameter with format <cite>&lt;name&gt;.&lt;channel&gt;</cite> (for example <cite>myshop.de</cite>).
+(Required)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a></span> – timestamp in millis</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/400">400 Bad Request</a></span> – Required request parameter ‘tenant’ missing</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/401">401 Unauthorized</a></span> – Missing or invalid API key to access tenant</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/403">403 Forbidden</a></span> – Not allowed to access tenant data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--ltr-data-items-attractiveness-data">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/ltr-data/items/attractiveness/data</span></span><a class="headerlink" href="#get--ltr-data-items-attractiveness-data" title="Link to this definition"></a></dt>
+<dd><p><strong>fetch current item-attractiveness-scores</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tenant</strong> (<em>string</em>) – Required parameter with format <cite>&lt;name&gt;.&lt;channel&gt;</cite> (for example <cite>myshop.de</cite>).
+(Required)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a></span> – Successful response with attractiveness-scores DTO</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/400">400 Bad Request</a></span> – Required request parameter ‘tenant’ missing</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/401">401 Unauthorized</a></span> – Missing or invalid API key to access tenant</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/403">403 Forbidden</a></span> – Not allowed to access tenant data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--ltr-data-items-attractiveness-modificationTime">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/ltr-data/items/attractiveness/modificationTime</span></span><a class="headerlink" href="#get--ltr-data-items-attractiveness-modificationTime" title="Link to this definition"></a></dt>
+<dd><p><strong>timestamp the data was updated</strong></p>
+<p>returns unix timestamp in millis (Long) from when that data set was updated</p>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tenant</strong> (<em>string</em>) – Required parameter with format <cite>&lt;name&gt;.&lt;channel&gt;</cite> (for example <cite>myshop.de</cite>).
+(Required)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a></span> – timestamp in millis</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/400">400 Bad Request</a></span> – Required request parameter ‘tenant’ missing</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/401">401 Unauthorized</a></span> – Missing or invalid API key to access tenant</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/403">403 Forbidden</a></span> – Not allowed to access tenant data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--ltr-data-items-attractiveness-by-query-data">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/ltr-data/items/attractiveness-by-query/data</span></span><a class="headerlink" href="#get--ltr-data-items-attractiveness-by-query-data" title="Link to this definition"></a></dt>
+<dd><p><strong>fetch current query related attractiveness-scores</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tenant</strong> (<em>string</em>) – Required parameter with format <cite>&lt;name&gt;.&lt;channel&gt;</cite> (for example <cite>myshop.de</cite>).
+(Required)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a></span> – Successful response with query related attractiveness-scores DTO</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/400">400 Bad Request</a></span> – Required request parameter ‘tenant’ missing</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/401">401 Unauthorized</a></span> – Missing or invalid API key to access tenant</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/403">403 Forbidden</a></span> – Not allowed to access tenant data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="http get">
+<dt class="sig sig-object http" id="get--ltr-data-items-attractiveness-by-query-modificationTime">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/ltr-data/items/attractiveness-by-query/modificationTime</span></span><a class="headerlink" href="#get--ltr-data-items-attractiveness-by-query-modificationTime" title="Link to this definition"></a></dt>
+<dd><p><strong>timestamp the data was updated</strong></p>
+<p>returns unix timestamp in millis (Long) from when that data set was updated</p>
+<dl class="field-list simple">
+<dt class="field-odd">Query Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tenant</strong> (<em>string</em>) – Required parameter with format <cite>&lt;name&gt;.&lt;channel&gt;</cite> (for example <cite>myshop.de</cite>).
+(Required)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Status Codes<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/200">200 OK</a></span> – timestamp in millis</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/400">400 Bad Request</a></span> – Required request parameter ‘tenant’ missing</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/401">401 Unauthorized</a></span> – Missing or invalid API key to access tenant</p></li>
+<li><p><span><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/403">403 Forbidden</a></span> – Not allowed to access tenant data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Any more question? Feel free to contact us.</p>
 </section>
 </section>
 

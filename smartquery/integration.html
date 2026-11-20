@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Integration Details &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2a5a4839" />
 
@@ -128,27 +128,27 @@
 </dd>
 </dl>
 </div><div aria-labelledby="tab-0-0-2" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-2" name="0-2" role="tabpanel" tabindex="0"><p>The PHP Client comes with the ability to run in several modes. But here we configure it to run connected to a local HTTP service.</p>
-<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$tenant_name = &quot;example&quot;;</span>
-<span class="x">$tenant_channel = &quot;com&quot;;</span>
-<span class="x">$userQuery = &quot;jeanss&quot;;</span>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$tenant_name = "example";</span>
+<span class="x">$tenant_channel = "com";</span>
+<span class="x">$userQuery = "jeanss";</span>
 
 <span class="x">$config = new Config($tenant_name, $tenant_channel, null, null,</span>
-<span class="x">    &quot;http://localhost:$port/smartquery/v2/{$tenant_name}/{$tenant_channel}&quot;);</span>
+<span class="x">    "http://localhost:$port/smartquery/v2/{$tenant_name}/{$tenant_channel}");</span>
 <span class="x">$client = new SearchHubClient($config);</span>
 <span class="x">$queryMapping = $client-&gt;mapQuery($userQuery);</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-0-0-3" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-3" name="0-3" role="tabpanel" tabindex="0"><p>The JS Client can either connect to our SaaS Service or any on-prem searchHub service. For SaaS endpoint only the tenant name is required for initialization.
 However additional it comes with the ability to do the splitting for an A/B test that can be evaluated by searchHub. Set this value to <cite>false</cite> unless other communicated.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">BrowserClientFactory</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;searchhub-js-client&quot;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">BrowserClientFactory</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"searchhub-js-client"</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">smartSuggestClient</span><span class="p">,</span><span class="w"> </span><span class="nx">smartQueryClient</span><span class="p">,</span><span class="w"> </span><span class="nx">abTestManager</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">BrowserClientFactory</span><span class="p">({</span>
-<span class="w">    </span><span class="nx">tenant</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">tenant</span><span class="o">:</span><span class="w"> </span><span class="s2">"example.com"</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">abTestActive</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="p">});</span>
 
 <span class="c1">// automatically respects ab test assignment + caching</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">smartQueryClient</span><span class="p">.</span><span class="nx">getMapping</span><span class="p">(</span><span class="s2">&quot;jeanss&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">smartQueryClient</span><span class="p">.</span><span class="nx">getMapping</span><span class="p">(</span><span class="s2">"jeanss"</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>More code examples are available in the <a class="reference external" href="https://github.com/CommerceExperts/searchhub-js-client">clients repository</a>.</p>
@@ -180,23 +180,23 @@ and should be shown to the user as possible alternative queries.</p></li>
 <p>This is how a full response would look like if all properties are set, however in most cases the values will only partially be available and others are null:</p>
 <blockquote>
 <div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;userQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;batroom&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;masterQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;redirect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://some.shop.com/category/bathrooms&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;successful&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;searchQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;potentialCorrections&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="s2">&quot;bathroom&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bedroom&quot;</span>
+<span class="w">    </span><span class="nt">"userQuery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"batroom"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"masterQuery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bathroom"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"redirect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://some.shop.com/category/bathrooms"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"successful"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"searchQuery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bathroom"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"potentialCorrections"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">"bathroom"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bedroom"</span>
 <span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;relatedQueries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sharpened&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom furniture&quot;</span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sharpened&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom supplies&quot;</span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alternative&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bath&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="nt">"relatedQueries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"relation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sharpened"</span><span class="p">,</span><span class="w"> </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bathroom furniture"</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"relation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sharpened"</span><span class="p">,</span><span class="w"> </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bathroom supplies"</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"relation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alternative"</span><span class="p">,</span><span class="w"> </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bath"</span><span class="p">}</span>
 <span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;resultModifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;modificationType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pin&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;100012&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100049&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100139&quot;</span><span class="p">]},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;modificationType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Add&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;100472&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100202&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100387&quot;</span><span class="p">]},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;modificationType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Penalize&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;100355&quot;</span><span class="p">]}</span>
+<span class="w">    </span><span class="nt">"resultModifications"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"modificationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pin"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"100012"</span><span class="p">,</span><span class="w"> </span><span class="s2">"100049"</span><span class="p">,</span><span class="w"> </span><span class="s2">"100139"</span><span class="p">]},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"modificationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Add"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"100472"</span><span class="p">,</span><span class="w"> </span><span class="s2">"100202"</span><span class="p">,</span><span class="w"> </span><span class="s2">"100387"</span><span class="p">]},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"modificationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Penalize"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"100355"</span><span class="p">]}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
@@ -215,9 +215,9 @@ To achieve that, please let us know about your URL structures, we then adjust th
 It’s a string array of one or more elements in case no certain mapping is available.</p>
 <blockquote>
 <div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;userQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;batroom&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;potentialCorrections&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="s2">&quot;bathroom&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bedroom&quot;</span>
+<span class="w">    </span><span class="nt">"userQuery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"batroom"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"potentialCorrections"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">"bathroom"</span><span class="p">,</span><span class="w"> </span><span class="s2">"bedroom"</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
@@ -237,11 +237,11 @@ For example, the query “women’s black trousers” might be relaxed to “wom
 The “relation” property can be useful for filtering related queries or determining how to present them.</p>
 <blockquote>
 <div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;userQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;relatedQueries&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sharpened&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom furniture&quot;</span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sharpened&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bathroom supplies&quot;</span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;relation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alternative&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bath&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="nt">"userQuery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bathroom"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"relatedQueries"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"relation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sharpened"</span><span class="p">,</span><span class="w"> </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bathroom furniture"</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"relation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sharpened"</span><span class="p">,</span><span class="w"> </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bathroom supplies"</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"relation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alternative"</span><span class="p">,</span><span class="w"> </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bath"</span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
@@ -263,11 +263,11 @@ The “relation” property can be useful for filtering related queries or deter
 <p><strong>Example</strong></p>
 <blockquote>
 <div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;userQuery&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jeans&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;resultModifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;modificationType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pin&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;100012&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100049&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100139&quot;</span><span class="p">]},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;modificationType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Add&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;100472&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100202&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;100387&quot;</span><span class="p">]},</span>
-<span class="w">        </span><span class="p">{</span><span class="nt">&quot;modificationType&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Penalize&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;100355&quot;</span><span class="p">]}</span>
+<span class="w">    </span><span class="nt">"userQuery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jeans"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"resultModifications"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"modificationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pin"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"100012"</span><span class="p">,</span><span class="w"> </span><span class="s2">"100049"</span><span class="p">,</span><span class="w"> </span><span class="s2">"100139"</span><span class="p">]},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"modificationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Add"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"100472"</span><span class="p">,</span><span class="w"> </span><span class="s2">"100202"</span><span class="p">,</span><span class="w"> </span><span class="s2">"100387"</span><span class="p">]},</span>
+<span class="w">        </span><span class="p">{</span><span class="nt">"modificationType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Penalize"</span><span class="p">,</span><span class="w"> </span><span class="nt">"ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"100355"</span><span class="p">]}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
@@ -296,17 +296,17 @@ In the following example queries we show how it could be done with common open s
 </div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><p>The should clause allows you to search for documents that match either your query or a list of document IDs.
 The terms query filters documents by the specified list of document IDs. In case your document IDs don’t match the product IDs, use the according field.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;bool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;should&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"bool"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"should"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;match&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;your_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search term&quot;</span>
+<span class="w">          </span><span class="nt">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"your_field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"search term"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;terms&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id3&quot;</span><span class="p">]</span>
+<span class="w">          </span><span class="nt">"terms"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"id1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"id2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"id3"</span><span class="p">]</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">]</span>
@@ -329,13 +329,13 @@ In this case, id1, id2, and id3 will receive a boost and appear higher in the re
 </div>
 </div><div aria-labelledby="tab-2-2-1" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-1" name="2-1" role="tabpanel" tabindex="0"><p>If you want the documents found by _id to be prioritized over those that match the query, you can use a <cite>pinned query &lt;https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-pinned-query.html&gt;</cite>:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;pinned&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id3&quot;</span><span class="w"> </span><span class="p">],</span>
-<span class="w">      </span><span class="nt">&quot;organic&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;match&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;your_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search term&quot;</span>
+<span class="w">  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"pinned"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"id1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"id2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"id3"</span><span class="w"> </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"organic"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"your_field"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"search term"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">}</span>
@@ -347,19 +347,19 @@ In this case, id1, id2, and id3 will receive a boost and appear higher in the re
 </div><div aria-labelledby="tab-2-2-2" class="sphinx-tabs-panel" hidden="true" id="panel-2-2-2" name="2-2" role="tabpanel" tabindex="0"><p>As of now, Opensearch does not support pinned query. You can achieve similar results by boosting the according products with a high boosting value for example by using
 a query-string query.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;bool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;should&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"bool"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"should"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;match&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;your_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search term&quot;</span>
+<span class="w">          </span><span class="nt">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"your_field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"search term"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;query_string&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;id1^10000 id2^9999 id3^9998&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;default_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;_id&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;default_operator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OR&quot;</span>
+<span class="w">          </span><span class="nt">"query_string"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id1^10000 id2^9999 id3^9998"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"default_field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"_id"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"default_operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OR"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">]</span>
@@ -382,19 +382,19 @@ a query-string query.</p>
 </div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><p>If you want to exclude the documents matched by _id from the final search results, you can achieve this by using a combination of must_not clause within your query.
 This ensures that documents found by _id are removed from the final set of results, while still running your main query.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;bool&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;must&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"bool"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"must"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;match&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;your_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search term&quot;</span>
+<span class="w">          </span><span class="nt">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"your_field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"search term"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">],</span>
-<span class="w">      </span><span class="nt">&quot;must_not&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="nt">"must_not"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;terms&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id3&quot;</span><span class="p">]</span>
+<span class="w">          </span><span class="nt">"terms"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"id1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"id2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"id3"</span><span class="p">]</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">]</span>
@@ -410,24 +410,24 @@ This ensures that documents found by _id are removed from the final set of resul
 <p>Products with the specified IDs should get a score penalty to went down in the result order.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-4-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-4-4-0" name="4-0" role="tab" tabindex="0">Solr</button><button aria-controls="panel-4-4-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-4-4-1" name="4-1" role="tab" tabindex="-1">Elasticsearch / OpenSearch</button></div><div aria-labelledby="tab-4-4-0" class="sphinx-tabs-panel" id="panel-4-4-0" name="4-0" role="tabpanel" tabindex="0"><p>To achieve a penalty of specific document IDs in Solr, the boost query can be used with a negated query. Basically all other documents get boosted but the ones listed.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">defType</span><span class="o">=</span>edismax<span class="p">&amp;</span><span class="nv">q</span><span class="o">=</span>search<span class="w"> </span>term<span class="p">&amp;</span><span class="nv">fl</span><span class="o">=</span>id,score<span class="p">&amp;</span><span class="nv">boost</span><span class="o">={</span>!func<span class="o">}</span><span class="k">if</span><span class="o">(</span>not<span class="o">(</span>query<span class="o">({</span>!lucene<span class="w"> </span><span class="nv">v</span><span class="o">=</span><span class="s1">&#39;id:(id1 OR id2 OR id3)&#39;</span><span class="o">}))</span>,10,1<span class="o">)</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">defType</span><span class="o">=</span>edismax<span class="p">&amp;</span><span class="nv">q</span><span class="o">=</span>search<span class="w"> </span>term<span class="p">&amp;</span><span class="nv">fl</span><span class="o">=</span>id,score<span class="p">&amp;</span><span class="nv">boost</span><span class="o">={</span>!func<span class="o">}</span><span class="k">if</span><span class="o">(</span>not<span class="o">(</span>query<span class="o">({</span>!lucene<span class="w"> </span><span class="nv">v</span><span class="o">=</span><span class="s1">'id:(id1 OR id2 OR id3)'</span><span class="o">}))</span>,10,1<span class="o">)</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-4-4-1" class="sphinx-tabs-panel" hidden="true" id="panel-4-4-1" name="4-1" role="tabpanel" tabindex="0"><p>You can use the boosting query (<a class="reference external" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-boosting-query.html">ES docs</a> / <a class="reference external" href="https://cwillum.github.io/query-dsl/compound/boosting/">OS docs</a>) to wrap your standard query into the “positive” clause while adding a terms query with the penalized products into the “negative” clause.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;boosting&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;positive&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;match&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;your_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search term&quot;</span>
+<span class="w">  </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"boosting"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"positive"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"match"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"your_field"</span><span class="p">:</span><span class="w"> </span><span class="s2">"search term"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;negative&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;terms&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;id1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;id3&quot;</span><span class="p">]</span>
+<span class="w">      </span><span class="nt">"negative"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"terms"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"id1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"id2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"id3"</span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;negative_boost&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span>
+<span class="w">      </span><span class="nt">"negative_boost"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>

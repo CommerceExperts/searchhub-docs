@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Common Operations &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=2a5a4839" />
 
   
@@ -119,7 +119,7 @@ That’s possible as the HTTP service for both modules are built from the same s
 <p>The container accepts all <a class="reference external" href="#configuration">common configuration properties</a> and also the module specific properties.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="o">=</span>searchhub-service<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">SH_API_KEY</span><span class="o">=</span>&lt;YourS3cr3tAPIkey&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-e<span class="w"> </span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">"-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-p<span class="w"> </span><span class="m">9081</span>:8081<span class="w"> </span>commerceexperts/searchhub-integration-service:latest
 </pre></div>
 </div>
@@ -184,8 +184,8 @@ Another exceptional scenario is a search-engine integrated into frontend, so tha
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">/health</span></code>:</dt><dd><p>gives more details about the loaded modules and which tenants are loaded respectively. For example:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;smartquery&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;tenant.one&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ready&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;tenant.two&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Noop&quot;</span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;suggest&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;tenant.one&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ready&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;tenant.two&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NotReady&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="nt">"smartquery"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"tenant.one"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ready"</span><span class="p">,</span><span class="w"> </span><span class="nt">"tenant.two"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Noop"</span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"suggest"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"tenant.one"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ready"</span><span class="p">,</span><span class="w"> </span><span class="nt">"tenant.two"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NotReady"</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -222,7 +222,7 @@ Another exceptional scenario is a search-engine integrated into frontend, so tha
 <p>In case you are using the combined service image <code class="docutils literal notranslate"><span class="pre">commerceexperts/searchhub-integration-service</span></code>, both modules are only activated the first time the according endpoint is used.
 This may lead to unwanted behaviour, as the service then needs some time before the data is actually available. Until then only default response objects are delivered.
 So alternatively you can activate the modules during startup:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">"-Dsmartquery.initOnStartup=true -Dsuggest.initOnStartup=true"</span>
 </pre></div>
 </div>
 <p>The dedicated variants of that service come with the corresponding module activated.</p>
@@ -230,23 +230,23 @@ So alternatively you can activate the modules during startup:</p>
 <section id="basic-authentication">
 <h3>Basic Authentication<a class="headerlink" href="#basic-authentication" title="Link to this heading"></a></h3>
 <p>In case you want to enable basic authentication for all the endpoints, add the following properties to the <cite>JAVA_TOOL_OPTIONS</cite> environment variable.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dserver.auth.all.enable=true -Dserver.auth.username=&lt;username&gt; -Dserver.auth.password=&lt;your-password&gt;&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">"-Dserver.auth.all.enable=true -Dserver.auth.username=&lt;username&gt; -Dserver.auth.password=&lt;your-password&gt;"</span>
 </pre></div>
 </div>
 <p>Instead of enabling authentication for all endpoints, it’s also possible to only enable authentication for some endpoints only. Therefor omit the <code class="docutils literal notranslate"><span class="pre">-Dserver.auth.all.enable=true</span></code>
 property and instead only use the desired ones of the following properties:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dserver.auth.smartquery.enable=true -Dserver.auth.suggest.enable=true -Dserver.auth.management.enable=true&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">"-Dserver.auth.smartquery.enable=true -Dserver.auth.suggest.enable=true -Dserver.auth.management.enable=true"</span>
 </pre></div>
 </div>
 </section>
 <section id="port-and-address">
 <h3>Port and Address<a class="headerlink" href="#port-and-address" title="Link to this heading"></a></h3>
 <p>In case you want to change the listening port and/or address of the internal java server, these are the properties for you. Don’t confuse that with the mapped port of your container whatsoever.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dserver.port=&lt;port&gt; -Dserver.address=&lt;0.0.0.0&gt;&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">"-Dserver.port=&lt;port&gt; -Dserver.address=&lt;0.0.0.0&gt;"</span>
 </pre></div>
 </div>
 <p>In case the “operation endpoints” (/info, /up, /health, /metrics and /prometheus) should be secured by some path-rules, you can configure a custom path-prefix:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dserver.mgmt-path-prefix=/internal&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">"-Dserver.mgmt-path-prefix=/internal"</span>
 </pre></div>
 </div>
 </section>
@@ -254,14 +254,14 @@ property and instead only use the desired ones of the following properties:</p>
 <h3>Detailed JVM Metrics<a class="headerlink" href="#detailed-jvm-metrics" title="Link to this heading"></a></h3>
 <p>If you are interested in detailed JVM metrics (memory and thread stats), you can enable the instrumentation of those. They are then also available via the <code class="docutils literal notranslate"><span class="pre">/prometheus</span></code>
 and <code class="docutils literal notranslate"><span class="pre">/metrics</span></code> endpoint.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dserver.metrics.jvmMemory.enable=true -Dserver.metrics.jvmThreads.enable=true&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">"-Dserver.metrics.jvmMemory.enable=true -Dserver.metrics.jvmThreads.enable=true"</span>
 </pre></div>
 </div>
 </section>
 <section id="update-rate">
 <h3>Update Rate<a class="headerlink" href="#update-rate" title="Link to this heading"></a></h3>
 <p>Sets the rate (in seconds) at which the background update should check for new data. The value must be between 5 and 3600. Defaults to 60. The update rates of smartQuery and smartSuggest are set separately. If you notice problems with your memory or CPU resource, because both modules start their updates at the same time, you might want to set different prime numbers as update rates.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.updateRateInSeconds=83 -Dsuggest.update-rate=719&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">"-Dsmartquery.updateRateInSeconds=83 -Dsuggest.update-rate=719"</span>
 </pre></div>
 </div>
 <p>(<em>The different property names have historical reason and are kept for legacy support</em>)</p>
@@ -271,9 +271,9 @@ and <code class="docutils literal notranslate"><span class="pre">/metrics</span>
 <p>You can specify the tenants that should be loaded during startup. The service will only be ready (listening on the given port) after those tenants are loaded.</p>
 <p>There are two ways to set the preload tenants. Either set the <code class="docutils literal notranslate"><span class="pre">SH_INIT_TENANTS</span></code> environment variable directly
 or if you’re already using the <code class="docutils literal notranslate"><span class="pre">JAVA_TOOL_OPTIONS</span></code> environment variable, you can add it as a part of it:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SH_INIT_TENANTS</span><span class="o">=</span><span class="s2">&quot;example.num1,example.num2&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SH_INIT_TENANTS</span><span class="o">=</span><span class="s2">"example.num1,example.num2"</span>
 <span class="c1"># alternative:</span>
-<span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">&quot;-Dsmartquery.preloadTenants=example.num1,example.num2&quot;</span>
+<span class="nv">JAVA_TOOL_OPTIONS</span><span class="o">=</span><span class="s2">"-Dsmartquery.preloadTenants=example.num1,example.num2"</span>
 </pre></div>
 </div>
 </section>

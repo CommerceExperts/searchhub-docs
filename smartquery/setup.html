@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Setup &mdash; CXP SearchHub 0.63.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2a5a4839" />
 
@@ -170,8 +170,8 @@ The container exposes port 8081 which can be mapped to any port.</p>
 Then to use the HTTP Service in a PHP environment you can use our public <a class="reference external" href="https://github.com/CommerceExperts/searchhub-php-client">PHP Client</a> from <code class="docutils literal notranslate"><span class="pre">https://github.com/CommerceExperts/searchhub-php-client</span></code>.
 You will find several code samples through the documentation using that PHP Client.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;require&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;commerce-experts/searchhub-php-client&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.3&quot;</span>
+<span class="w">  </span><span class="nt">"require"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"commerce-experts/searchhub-php-client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.0.3"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -207,9 +207,9 @@ and retain a reference to it.</p>
 <span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="w"> </span><span class="n">qmManager</span><span class="p">;</span>
 <span class="kd">static</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">qmManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">QueryMapperManager</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
-<span class="w">                                  </span><span class="p">.</span><span class="na">apiToken</span><span class="p">(</span><span class="s">&quot;YourS3cr3tAPIkey&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="c1">// preload will make the &#39;build&#39; call to block until the data is loaded</span>
-<span class="w">                                  </span><span class="p">.</span><span class="na">preloadTenants</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span>
+<span class="w">                                  </span><span class="p">.</span><span class="na">apiToken</span><span class="p">(</span><span class="s">"YourS3cr3tAPIkey"</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// preload will make the 'build' call to block until the data is loaded</span>
+<span class="w">                                  </span><span class="p">.</span><span class="na">preloadTenants</span><span class="p">(</span><span class="s">"example.com"</span><span class="p">)</span>
 <span class="w">                                  </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
 <span class="w">    </span><span class="c1">// The Javadoc of the QueryMapperManager::builder methods</span>
 <span class="w">    </span><span class="c1">// tell you more about the available settings.</span>
@@ -218,17 +218,17 @@ and retain a reference to it.</p>
 <span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">searchProcess</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">resp</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="c1">// init search process...</span>
-<span class="w">    </span><span class="n">Tenant</span><span class="w"> </span><span class="n">tenant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Tenant</span><span class="p">(</span><span class="s">&quot;example&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;com&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">Tenant</span><span class="w"> </span><span class="n">tenant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Tenant</span><span class="p">(</span><span class="s">"example"</span><span class="p">,</span><span class="w"> </span><span class="s">"com"</span><span class="p">);</span>
 <span class="w">    </span><span class="n">QueryMapper</span><span class="w"> </span><span class="n">qm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qmManager</span><span class="p">.</span><span class="na">getQueryMapper</span><span class="p">(</span><span class="n">tenant</span><span class="p">);</span>
 
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">searchQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&quot;q&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">searchQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">"q"</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// in case the session-id of the searchHub collector is given, it should be used here.</span>
-<span class="w">    </span><span class="c1">// If not, stick with &#39;null&#39; because a different session leads to unwanted results!</span>
-<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">shCookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getCookieValue</span><span class="p">(</span><span class="s">&quot;SearchCollectorSession&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// If not, stick with 'null' because a different session leads to unwanted results!</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">shCookie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getCookieValue</span><span class="p">(</span><span class="s">"SearchCollectorSession"</span><span class="p">);</span>
 <span class="w">    </span><span class="n">QueryMapping</span><span class="w"> </span><span class="n">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qm</span><span class="p">.</span><span class="na">mapQuery</span><span class="p">(</span><span class="n">searchQuery</span><span class="p">,</span><span class="w"> </span><span class="n">shCookie</span><span class="p">);</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mapping</span><span class="p">.</span><span class="na">hasRedirect</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&quot;Location&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="p">.</span><span class="na">getRedirect</span><span class="p">());</span>
+<span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">"Location"</span><span class="p">,</span><span class="w"> </span><span class="n">mapping</span><span class="p">.</span><span class="na">getRedirect</span><span class="p">());</span>
 <span class="w">        </span><span class="n">resp</span><span class="p">.</span><span class="na">setStatus</span><span class="p">(</span><span class="mi">302</span><span class="p">);</span>
 <span class="w">        </span><span class="k">return</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
@@ -238,7 +238,7 @@ and retain a reference to it.</p>
 <span class="w">    </span><span class="c1">// continue with search process...</span>
 <span class="p">}</span>
 
-<span class="c1">// Optionally bind the qmManager instance to your JVM&#39;s lifecycle</span>
+<span class="c1">// Optionally bind the qmManager instance to your JVM's lifecycle</span>
 <span class="c1">// and close the QueryMapperManager during shutdown.</span>
 <span class="c1">// Internally a ScheduledExecutorService is used, that will be stopped then.</span>
 <span class="nd">@PreDestroy</span>
@@ -255,43 +255,43 @@ In that case you can simple use <code class="code docutils literal notranslate">
 </div>
 </div><div aria-labelledby="tab-3-3-1" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-1" name="3-1" role="tabpanel" tabindex="0"><p>If you have the service started, use the known tenant data and a sample user query to fetch a query mapping.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$&gt;<span class="w"> </span><span class="nv">port</span><span class="o">=</span><span class="m">10240</span>
-$&gt;<span class="w"> </span><span class="nv">tenant_name</span><span class="o">=</span><span class="s2">&quot;example&quot;</span>
-$&gt;<span class="w"> </span><span class="nv">tenant_channel</span><span class="o">=</span><span class="s2">&quot;com&quot;</span>
-$&gt;<span class="w"> </span>curl<span class="w"> </span><span class="s2">&quot;http://localhost:</span><span class="nv">$port</span><span class="s2">/smartquery/v2/</span><span class="nv">$tenant_name</span><span class="s2">/</span><span class="nv">$tenant_channel</span><span class="s2">?userQuery=</span><span class="nv">$userQuery</span><span class="s2">&quot;</span><span class="w"> </span>-o<span class="w"> </span>-<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
+$&gt;<span class="w"> </span><span class="nv">tenant_name</span><span class="o">=</span><span class="s2">"example"</span>
+$&gt;<span class="w"> </span><span class="nv">tenant_channel</span><span class="o">=</span><span class="s2">"com"</span>
+$&gt;<span class="w"> </span>curl<span class="w"> </span><span class="s2">"http://localhost:</span><span class="nv">$port</span><span class="s2">/smartquery/v2/</span><span class="nv">$tenant_name</span><span class="s2">/</span><span class="nv">$tenant_channel</span><span class="s2">?userQuery=</span><span class="nv">$userQuery</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span>-<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.
 <span class="w"> </span>&gt;<span class="w">  </span><span class="o">{</span>
-<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;userQuery&quot;</span>:<span class="w"> </span><span class="s2">&quot;jeanss&quot;</span>,
-<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;masterQuery&quot;</span>:<span class="w"> </span><span class="s2">&quot;jeans&quot;</span>,
-<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;redirect&quot;</span>:<span class="w"> </span>null,
-<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;potentialCorrections&quot;</span>:<span class="w"> </span>null,
-<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;relatedQueries&quot;</span>:<span class="w"> </span>null,
-<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;resultModifications&quot;</span>:<span class="w"> </span>null,
-<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;successful&quot;</span>:<span class="w"> </span>true,
-<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">&quot;searchQuery&quot;</span>:<span class="w"> </span><span class="s2">&quot;jeans&quot;</span>
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">"userQuery"</span>:<span class="w"> </span><span class="s2">"jeanss"</span>,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">"masterQuery"</span>:<span class="w"> </span><span class="s2">"jeans"</span>,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">"redirect"</span>:<span class="w"> </span>null,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">"potentialCorrections"</span>:<span class="w"> </span>null,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">"relatedQueries"</span>:<span class="w"> </span>null,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">"resultModifications"</span>:<span class="w"> </span>null,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">"successful"</span>:<span class="w"> </span>true,
+<span class="w"> </span>&gt;<span class="w">     </span><span class="s2">"searchQuery"</span>:<span class="w"> </span><span class="s2">"jeans"</span>
 <span class="w"> </span>&gt;<span class="w">  </span><span class="o">}</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-3-3-2" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-2" name="3-2" role="tabpanel" tabindex="0"><p>The PHP Client comes with the ability to run in several modes. But here we configure it to run connected to a local HTTP service.</p>
-<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$tenant_name = &quot;example&quot;;</span>
-<span class="x">$tenant_channel = &quot;com&quot;;</span>
-<span class="x">$userQuery = &quot;jeanss&quot;;</span>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="x">$tenant_name = "example";</span>
+<span class="x">$tenant_channel = "com";</span>
+<span class="x">$userQuery = "jeanss";</span>
 
 <span class="x">$config = new Config($tenant_name, $tenant_channel, null, null,</span>
-<span class="x">    &quot;http://localhost:$port/smartquery/v2/{$tenant_name}/{$tenant_channel}&quot;);</span>
+<span class="x">    "http://localhost:$port/smartquery/v2/{$tenant_name}/{$tenant_channel}");</span>
 <span class="x">$client = new SearchHubClient($config);</span>
 <span class="x">$queryMapping = $client-&gt;mapQuery($userQuery);</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-3-3-3" class="sphinx-tabs-panel" hidden="true" id="panel-3-3-3" name="3-3" role="tabpanel" tabindex="0"><p>The JS Client can either connect to our SaaS Service or any on-prem searchHub service. For SaaS endpoint only the tenant name is required for initialization.
 However additional it comes with the ability to do the splitting for an A/B test that can be evaluated by searchHub. Set this value to <cite>false</cite> unless other communicated.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">BrowserClientFactory</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;searchhub-js-client&quot;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">BrowserClientFactory</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"searchhub-js-client"</span><span class="p">;</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">smartSuggestClient</span><span class="p">,</span><span class="w"> </span><span class="nx">smartQueryClient</span><span class="p">,</span><span class="w"> </span><span class="nx">abTestManager</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">BrowserClientFactory</span><span class="p">({</span>
-<span class="w">    </span><span class="nx">tenant</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">tenant</span><span class="o">:</span><span class="w"> </span><span class="s2">"example.com"</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">abTestActive</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="p">});</span>
 
 <span class="c1">// automatically respects ab test assignment + caching</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">smartQueryClient</span><span class="p">.</span><span class="nx">getMapping</span><span class="p">(</span><span class="s2">&quot;jeanss&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">smartQueryClient</span><span class="p">.</span><span class="nx">getMapping</span><span class="p">(</span><span class="s2">"jeanss"</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>More code examples are available in the <a class="reference external" href="https://github.com/CommerceExperts/searchhub-js-client">clients repository</a>.</p>
